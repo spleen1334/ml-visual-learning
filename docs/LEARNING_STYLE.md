@@ -1,6 +1,6 @@
 # Learning-page style
 
-User-approved direction, updated during Chapter 02 review.
+User-approved direction, updated during Chapter 04 review.
 
 - Desktop is the primary target. Keep the teal/cream palette.
 - Put important definitions and principles in prominent visual panels. Use a short label, a large readable statement (roughly 24–30px on desktop), selective bold/underline and an illustration or diagram that explains the concept.
@@ -12,3 +12,8 @@ User-approved direction, updated during Chapter 02 review.
 - No quizzes, answer scoring, completion gates or About sections. End each lesson with an emphasized summary.
 - Display subchapters as 2.1, 2.2, etc., without a leading zero. Existing URL identifiers may stay stable.
 - Before presenting a chapter, inspect its desktop output, source assumptions and actual interactions. Passing a build does not establish readability.
+
+- Default section order: a short, prominent definition, then a graph, image or small worked example. Supporting text follows the visual; avoid walls of text.
+- Use small, concept-specific examples before a separate full case study. Do not reuse the large case-study table throughout the lessons.
+- Keep the PDF’s clear, simple wording when it already explains the concept well. Do not rephrase merely for novelty; correct material inaccuracies when needed.
+- Distinguish counts of records within a category from counts of distinct labels. Explain the question each calculation answers.

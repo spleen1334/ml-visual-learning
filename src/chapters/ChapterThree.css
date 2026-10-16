@@ -6,7 +6,6 @@
 .chapter-three h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.16; }
 .chapter-three__intro > p:not(.chapter-three__eyebrow) { max-width: 770px; margin: 17px 0 0; color: #52615b; font-size: 17px; line-height: 1.75; }
 .chapter-three__intro > p strong { color: #174e47; }
-.chapter-three .chapter-three__synthetic-tag { display: inline-block; margin-top: 12px !important; padding: 6px 10px; border-radius: 4px; color: #6d5523 !important; background: #f4ebd2; font-size: 12px !important; font-weight: 650; }
 .chapter-three__definition, .chapter-three__map, .chapter-three__explorer, .chapter-three__grain, .chapter-three__summary { margin-top: 18px; padding: clamp(23px, 3vw, 34px); border: 1px solid #d9ddd5; border-radius: 14px; background: rgba(255,254,250,.88); box-shadow: 0 7px 22px rgba(38,55,47,.035); }
 .chapter-three__definition { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(240px, .8fr); align-items: center; gap: 28px; background: #e8f1ec; }
 .chapter-three__definition h2 { max-width: 650px; font-size: clamp(27px, 3.3vw, 39px); }

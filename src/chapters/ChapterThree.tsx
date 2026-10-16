@@ -32,7 +32,7 @@ function InventoryTable({ stage }: { stage: StageId }) {
   const columns: readonly string[] = active.columns
   return <div className="chapter-three__table-wrap">
     <table className="chapter-three__table">
-      <caption>Six synthetic product records · one row is one product observation</caption>
+      <caption>Six product records · one row is one product observation</caption>
       <thead><tr>
         <th className={columns.includes('sku') ? 'is-active' : ''} scope="col">SKU</th>
         <th className={columns.includes('product') ? 'is-active' : ''} scope="col">Product</th>
@@ -92,7 +92,7 @@ function RelationshipVisual() {
     <figcaption><strong>Two-variable view: price and weekly units</strong><span>Paired records with both values</span></figcaption>
     <svg className="chapter-three__scatter" viewBox="0 0 360 220" role="img" aria-labelledby={`${titleId} ${descriptionId}`}>
       <title id={titleId}>Price and weekly units for five products</title>
-      <desc id={descriptionId}>Five dots plot the same products shown in the table. Horizontal axis is unit price in dollars and vertical axis is units sold per week. Tomato soup is not plotted because its price is empty. This small synthetic example does not show cause.</desc>
+      <desc id={descriptionId}>Five dots plot the same products shown in the table. Horizontal axis is unit price in dollars and vertical axis is units sold per week. Tomato soup is not plotted because its price is empty. This small example does not show cause.</desc>
       {[0, 10, 20].map(tick => <g key={tick}><path className="chapter-three__grid" d={`M44 ${y(tick)} H308`} /><text x="36" y={y(tick) + 4} textAnchor="end">{tick}</text></g>)}
       <path className="chapter-three__axis" d="M44 24 V160 H308" />
       {rows.map(row => <g key={row.sku}><circle cx={x(row.price)} cy={y(row.units)} r="6" /><text className="chapter-three__dot-label" x={x(row.price) + 8} y={y(row.units) - 7}>{row.sku}</text></g>)}
@@ -111,7 +111,7 @@ export default function ChapterThree() {
       <p className="chapter-three__eyebrow">Chapter 03 · Part 1</p>
       <h1 id="chapter-three-title">Meet the inventory</h1>
       <p><strong>Before a model can learn, an analyst needs to understand the data.</strong> Imagine joining the Maven Market analyst team. In this part, we will check that records are usable, describe individual columns, and explore how columns relate.</p>
-      <p className="chapter-three__synthetic-tag">Practice example · all six product records below are synthetic.</p>
+
     </header>
 
     <section className="chapter-three__definition" aria-labelledby="chapter-three-definition">
@@ -138,7 +138,7 @@ export default function ChapterThree() {
     <section className="chapter-three__explorer" aria-labelledby="chapter-three-explorer-title">
       <div className="chapter-three__section-heading"><p className="chapter-three__eyebrow">Look at the same rows in three ways</p><h2 id="chapter-three-explorer-title">One small retail inventory</h2><p>The highlighted columns and visual follow the selected step. The underlying six records stay fixed.</p></div>
       <div className="chapter-three__explorer-body">
-        <div className="chapter-three__table-panel"><div className="chapter-three__panel-heading"><div><span className="chapter-three__panel-kicker">Synthetic sample</span><h3>Product inventory</h3></div><span className="chapter-three__record-count">6 records</span></div><InventoryTable stage={stage} /></div>
+        <div className="chapter-three__table-panel"><div className="chapter-three__panel-heading"><div><h3>Product inventory</h3></div><span className="chapter-three__record-count">6 records</span></div><InventoryTable stage={stage} /></div>
         <div className="chapter-three__inspector" aria-live="polite"><div className="chapter-three__panel-heading"><div><span className="chapter-three__panel-kicker">{active.label}</span><h3>{active.variable}</h3></div></div>
           {stage === 'qa' ? <QAVisual /> : stage === 'one' ? <UnivariateVisual /> : <RelationshipVisual />}
         </div>

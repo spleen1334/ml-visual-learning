@@ -4,14 +4,23 @@ A personal, interactive learning companion for the first five chapters of the vi
 
 ## Current milestone
 
-Chapter 01 is complete and reviewed. Chapter 02 — The ML Landscape is available for review in four subchapters:
+Chapters 01–03 are implemented and committed. Chapter 02 — The ML Landscape has four subchapters:
 
 1. [What is machine learning?](http://127.0.0.1:4173/#chapter-02/what-is-ml) — switch business questions and inspect the form of the answer.
 2. [When does ML help?](http://127.0.0.1:4173/#chapter-02/when-to-use-ml) — compare an average and a fitted trend with a held-out sales observation.
 3. [The data workflow](http://127.0.0.1:4173/#chapter-02/the-workflow) — follow one synthetic table through QA, individual variables, relationships and a possible estimate.
 4. [A map of the methods](http://127.0.0.1:4173/#chapter-02/the-landscape) — explore supervised and unsupervised families with illustrated examples.
 
-[Chapter 03 — Meet the inventory](http://127.0.0.1:4173/#chapter-03) is available for review as one short orientation page. Chapters 04–05 remain roadmap items. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
+[Chapter 03 — Meet the inventory](http://127.0.0.1:4173/#chapter-03) is a short orientation page. Chapter 04 is ready for review in six lessons:
+
+1. [Meaning and variable types](http://127.0.0.1:4173/#chapter-04/variable-types) — inspect fields, date parsing and numeric-looking identifiers.
+2. [Empty values](http://127.0.0.1:4173/#chapter-04/missing-values) — use five ages to see how a zero-coded unknown changes an average.
+3. [Range & count calculations](http://127.0.0.1:4173/#chapter-04/ranges-counts) — use small, separate tables to inspect MIN/MAX, counts within categories, and distinct labels.
+4. [What could we observe?](http://127.0.0.1:4173/#chapter-04/observation-limits) — change follow-up time on synthetic customer timelines.
+5. [Long and wide tables](http://127.0.0.1:4173/#chapter-04/table-structure) — pivot six measurements and follow the same observation.
+6. [Maven Market case study](http://127.0.0.1:4173/#chapter-04/inventory-case) — combine reversible, documented corrections on all 100 workbook records.
+
+Chapter 05 remains in the roadmap. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
 
 ## Run locally
 
@@ -54,8 +63,8 @@ npm run preview     # serve dist at http://127.0.0.1:4173
 
 Chapter 03: switch QA, One variable and Relationships to compare the same six product records. Five known prices span $3–$12; distribution counts are 2, 2, 1 and the paired view shows five products.
 
-All current numerical examples are explicitly synthetic. The five-day Chapter 01 sales data and Chapter 02 sales/store records are original teaching examples rather than workbook extracts. Course transcripts, PDF slides, videos and workbooks are not bundled or deployed.
+Chapters 01–03 and the Chapter 04 foundations use explicitly synthetic teaching data. The Chapter 04 case study uses the 100-row course workbook inventory, extracted read-only; see [docs/QA_DATA.md](docs/QA_DATA.md) for exact ranges, data hash and preparation rules. The five-day Chapter 01 sales data and Chapter 02 sales/store records are original teaching examples rather than workbook extracts. Course transcripts, PDF slides, videos and whole workbooks are not bundled or deployed. The inventory fixture is the scoped course-data extract used by the QA lessons.
 
 ## Next milestone
 
-Review Chapter 03 before building Chapter 04. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.
+Review Chapter 04 before building Chapter 05. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.

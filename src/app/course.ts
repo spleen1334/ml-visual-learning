@@ -1,6 +1,10 @@
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
 import ChapterThree from '../chapters/ChapterThree'
+import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
+import { QACaseStudy } from '../chapters/QAWorkbench'
+import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
+import QACensoring from '../chapters/QACensoring'
 import { IntroToML, WhenToUseML, MLProcess, MLLandscape } from '../chapters/ChapterTwo'
 
 export type Subchapter = {
@@ -27,7 +31,14 @@ export const chapters: readonly Chapter[] = [
     { id: 'the-landscape', title: 'A map of the methods', content: MLLandscape },
   ] },
   { id: 'chapter-03', number: '03', title: 'QA & Data Profiling', subtitle: 'Meet your first dataset', content: ChapterThree },
-  { id: 'chapter-04', number: '04', title: 'Preliminary Data QA', subtitle: 'Find and understand the issues' },
+  { id: 'chapter-04', number: '04', title: 'Preliminary Data QA', subtitle: 'Inspect, explain & repair', subchapters: [
+    { id: 'variable-types', title: 'Variable types', content: QAVariableTypes },
+    { id: 'missing-values', title: 'Empty values', content: QAMissingValues },
+    { id: 'ranges-counts', title: 'Range & count calculations', content: QARangesCounts },
+    { id: 'observation-limits', title: 'Left- and right-censored data', content: QACensoring },
+    { id: 'table-structure', title: 'Table structures', content: QATableStructure },
+    { id: 'inventory-case', title: 'Maven Market case study', content: QACaseStudy },
+  ] },
   { id: 'chapter-05', number: '05', title: 'Univariate Profiling', subtitle: 'Discover the shape of data' },
 ]
 
