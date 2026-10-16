@@ -364,3 +364,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .lesson-strip a { flex: 0 0 auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--teal-dark); background: var(--white); font-size: 12px; text-decoration: none; }
   .lesson-strip a[aria-current="page"] { border-color: var(--teal); background: var(--teal-soft); font-weight: 700; }
 }
+
+/* Planned chapters expand for a sidebar-only preview of the course outline. */
+.planned-chapter summary { cursor: pointer; list-style: none; position: relative; padding-right: 24px; }
+.planned-chapter summary::-webkit-details-marker { display: none; }
+.planned-chapter summary:hover { background: rgba(255,255,255,.06); color: #e9f1eb; }
+.planned-chapter summary:focus-visible { outline: 2px solid #e7c76e; outline-offset: -2px; }
+.toc-chevron { position: absolute; right: 8px; top: 16px; transition: transform .15s; }
+.planned-chapter[open] .toc-chevron { transform: rotate(180deg); }
+.planned-section { display: block; padding: 7px 5px; color: #c4d6cc; font-size: 12px; line-height: 1.5; }
+.planned-section > span { color: #e7c76e; margin-right: 4px; }

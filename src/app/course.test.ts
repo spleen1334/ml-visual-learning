@@ -5,7 +5,7 @@ const Detail = () => null
 const course: Chapter[] = [
   { id: 'chapter-01', number: '01', title: 'Intro', subtitle: '', content: Overview },
   { id: 'chapter-02', number: '02', title: 'Large chapter', subtitle: '', subchapters: [{ id: 'missing-values', title: 'Missing values', content: Detail }] },
-  { id: 'chapter-03', number: '03', title: 'Planned', subtitle: '' },
+  { id: 'chapter-03', number: '03', title: 'Planned', subtitle: '', subchapters: [{ id: 'planned-section', title: 'Planned section' }] },
 ]
 describe('optional subchapters', () => {
   it('keeps simple chapters as one page', () => expect(resolveLesson('#chapter-01', course).Content).toBe(Overview))
