@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
+import ChapterThree from '../chapters/ChapterThree'
 import { IntroToML, WhenToUseML, MLProcess, MLLandscape } from '../chapters/ChapterTwo'
 
 export type Subchapter = {
@@ -25,7 +26,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'the-workflow', title: 'The data workflow', content: MLProcess },
     { id: 'the-landscape', title: 'A map of the methods', content: MLLandscape },
   ] },
-  { id: 'chapter-03', number: '03', title: 'QA & Data Profiling', subtitle: 'Meet your first dataset' },
+  { id: 'chapter-03', number: '03', title: 'QA & Data Profiling', subtitle: 'Meet your first dataset', content: ChapterThree },
   { id: 'chapter-04', number: '04', title: 'Preliminary Data QA', subtitle: 'Find and understand the issues' },
   { id: 'chapter-05', number: '05', title: 'Univariate Profiling', subtitle: 'Discover the shape of data' },
 ]

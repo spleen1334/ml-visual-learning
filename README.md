@@ -11,7 +11,7 @@ Chapter 01 is complete and reviewed. Chapter 02 — The ML Landscape is availabl
 3. [The data workflow](http://127.0.0.1:4173/#chapter-02/the-workflow) — follow one synthetic table through QA, individual variables, relationships and a possible estimate.
 4. [A map of the methods](http://127.0.0.1:4173/#chapter-02/the-landscape) — explore supervised and unsupervised families with illustrated examples.
 
-Chapters 03–05 remain roadmap items. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
+[Chapter 03 — Meet the inventory](http://127.0.0.1:4173/#chapter-03) is available for review as one short orientation page. Chapters 04–05 remain roadmap items. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
 
 ## Run locally
 
@@ -52,8 +52,10 @@ npm run preview     # serve dist at http://127.0.0.1:4173
 - [docs/LEARNING_STYLE.md](docs/LEARNING_STYLE.md): definition panels, diagrams and reading hierarchy to apply throughout the course.
 - [todo.md](todo.md): deferred end-of-project ideas, including the grouped table of contents.
 
+Chapter 03: switch QA, One variable and Relationships to compare the same six product records. Five known prices span $3–$12; distribution counts are 2, 2, 1 and the paired view shows five products.
+
 All current numerical examples are explicitly synthetic. The five-day Chapter 01 sales data and Chapter 02 sales/store records are original teaching examples rather than workbook extracts. Course transcripts, PDF slides, videos and workbooks are not bundled or deployed.
 
 ## Next milestone
 
-Review Chapter 02 before Chapter 03. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.
+Review Chapter 03 before building Chapter 04. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.

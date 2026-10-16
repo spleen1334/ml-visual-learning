@@ -46,3 +46,9 @@ Before implementing a chapter, match its subtitles and spreadsheet sheets to PDF
 ## Chapter 02 emphasis revision
 
 User review requested a more prominent ML definition and stronger emphasis on data preparation. The introduction now presents the p8 definition as a major visual block. The workflow page gives p11's iceberg concept and “garbage in, garbage out” message their own major section. The approximate 80% figure is attributed as the course's rough estimate, with no claim that it is a universal measured split. Preparation includes data QA and profiling rather than only cleaning; good inputs are essential but do not by themselves guarantee a useful model.
+
+## Chapter 03 — QA & Data Profiling: reviewed
+
+Read the single Part 1 orientation VTT in `03. PART 1 QA & Data Profiling/`. Extracted PDF pages 18–19 and rendered/visually inspected page 18. The subtitle introduces QA, univariate profiling and multivariate profiling as the foundation before modeling. Page 18 shows preparing → understanding → modeling, with QA leading into individual variables and relationships. Page 19 starts the detailed QA topics reserved for Chapter 04.
+
+Adaptation: one short orientation lesson, with a small explicitly synthetic retail inventory and selectable analytical views. Introduce the meaning of one row, variables, record count and units before asking about patterns. Unknown values remain unknown; a suspicious value is a prompt to investigate. Full cleaning controls and the workbook case study belong in Chapter 04. Multivariate profiling is a contextual preview beyond the initial five-folder scope.
