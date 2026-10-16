@@ -20,7 +20,7 @@ Chapters 01–03 are implemented and committed. Chapter 02 — The ML Landscape 
 5. [Long and wide tables](http://127.0.0.1:4173/#chapter-04/table-structure) — pivot six measurements and follow the same observation.
 6. [Maven Market case study](http://127.0.0.1:4173/#chapter-04/inventory-case) — combine reversible, documented corrections on all 100 workbook records.
 
-Chapter 05 remains in the roadmap. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
+[Chapter 05 — Univariate Profiling](http://127.0.0.1:4173/#chapter-05) is implemented in the course's 19-lesson sequence. Explore categories and discretization, histogram bins and kernel densities, dice sampling, athlete/reference heights, and visual calculations for center, percentiles, spread and skewness. Chapters 06–10 remain sidebar outlines. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
 
 ## Run locally
 
@@ -67,4 +67,4 @@ Chapters 01–03 and the Chapter 04 foundations use explicitly synthetic teachin
 
 ## Next milestone
 
-Review Chapter 04 before building Chapter 05. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.
+Review Chapter 05 before starting Chapter 06. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.

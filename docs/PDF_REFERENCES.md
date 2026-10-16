@@ -67,3 +67,39 @@ Read all ten local VTT files. Extracted PDF pages 19–34; rendered and visually
 | Maven Market case | 31–32 | Read-only workbook extract, original metrics and reversible documented corrections. The supplied soup correction requires reading its evidence before application. Record each active change and retained missingness. |
 
 Terminology verification: [NIST on censoring](https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm) describes observation ending before an event; [NIST on censored versus truncated data](https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/mle.htm) distinguishes recorded but incomplete observations from excluded observations. These clarify the course's broad use of “left censored.” Neither ranges alone nor a missingness pattern proves a cause or guarantees that deletion/imputation is unbiased.
+
+
+## Chapter 05 — Univariate Profiling
+
+Source: PDF pages **35–59**, and all 19 numbered VTT lessons in `05. Univariate Profiling/` (quiz excluded). The 19 sidebar identifiers and video sequence are retained. PDF pages 42–43 (age histogram/KDE) and 48–49 (heights assignment/statistics overview) were rendered and visually inspected during implementation.
+
+- Pages 35–41: one variable at a time; categorical dimensions; price discretization at 100 and 500; nominal versus ordinal; frequency/proportions tables; numerical measures. The categorical distribution starts with 14 Camping / 6 Biking (70% / 30%).
+- Pages 42–45: histogram bins, kernel density smoothing, bin sensitivity, and casino dice case. The age illustration contains 21 ages. Two six-sided dice have sums **2–12**, correcting the source's 1–12 wording. Sampling variation does not establish cheating. Outliers require investigation rather than automatic removal.
+- Pages 46–48: normal curve and athlete/reference-height comparison. A bell-shaped visual is descriptive evidence, not a proof of normality. Reference-sample representativeness is not established by this course workbook.
+- Pages 49–58: mode, mean, median, percentile, variance, standard deviation and skewness. Exact modes are distinguished from modal histogram bins; percentile calculation conventions are explicit; sample variance divides by n−1 and population variance by n. Standard deviation restores original units. The 68/95/99.7 rule applies to normal distributions. Skewness describes asymmetry and cannot by itself test normality.
+- Page 59: match tools to variable type; QA comes first; inspect graphs and statistics together; a single metric is insufficient.
+
+Clear source definitions are retained where accurate. Definitions are visually prominent, calculations stay visible, and small examples isolate each concept. No quizzes or assessment logic are included.
+
+### Chapter 05 height fixture verification
+
+`src/chapters/uvHeightData.json` contains only numerical heights, not athlete names. Every extracted value was independently compared to the read-only workbook XML:
+
+| Series | Workbook range | Count | Mean (cm) | Minimum / maximum (cm) |
+|---|---|---:|---:|---:|
+| Reference sample | Normal Distribution!C4:C5003 | 5,000 | 161.82028495269967 | 137.82835864574662 / 186.40954809981702 |
+| Athlete sample | Normal Distribution!F4:F4970 | 4,967 | 170.02758204147372 | 133 / 203 |
+
+Workbook: `Learning Files/3. Maven_ML_Demos_COMPLETE.xlsx`; SHA-256 `2a8cd660b21ef3e4b7190a4a4378f01eb9ce9dc5124535fb6f60c5d3049c7ffc`. Stored decimal precision is retained. The fixture is descriptive course material; the source does not establish reference-sample representativeness or prove the athlete mixture is normally distributed.
+
+Histogram intervals use **[start, end)**, with the last endpoint included, instead of the source slide's integer-age 0–10 / 11–20 convention. For the 21 ages at width 10, this yields **2, 4, 7, 4, 4**, totaling 21. This changes which side contains the age 40; it does not change any observation. The brackets are shown alongside every bin count. Kernel estimates are normalized densities; on a count axis they are scaled by sample size and the applicable bin width.
+
+Chapter 05 review refinements: conceptual SVG illustrations now accompany categorical, ordinal/nominal and numerical variable examples. Mean uses seven values (starting mean 14; seventh value 80 gives 163/7 ≈ 23.3); median uses six values (middle 9 and 12, median 10.5). Normal-distribution motivation adds an illustrative 500 g bag-weight model with SD 10 g: approximately 95% within 480–520 g under that model. Height-series visibility is independent, while comparison axes remain shared.
+
+The 5.7 KDE explanation now separates intuition from histogram bins: put a smooth kernel at each observation and average the contributions to estimate density. The small construction diagram is a four-age illustration, separate from the 21-age histogram example. Bandwidth controls the smoothness of that estimate; it does not change observations or bin counts, and using Gaussian kernels does not assume the combined distribution is normal.
+
+The 5.8 casino scenario explicitly distinguishes observed sample counts, theoretical fair-dice expected counts, and the optional KDE estimate. The simulation generates fair dice to illustrate sampling variability; differences in a single histogram do not establish loading. The smoothed curve uses Gaussian KDE with bandwidth 0.8 sum units, scaled by the number of rolls and a one-unit category width for comparison on a count axis. Sums remain discrete integers 2–12; the smooth curve between integers is a visual estimate, not a new possible outcome or an exact probability mass.
+
+Normal-distribution review: the bag-weight example now compares the same 530 g observation under two normal models, both centered at 500 g. SD 10 g gives a standardized distance of +3; SD 30 g gives +1. This explains how spread contextualizes distance and why an unusual observation can prompt investigation without being automatically incorrect.
+
+Further spread teaching: the abstract center-4 slider example was replaced after user review with two delivery services, A [29,30,31] and B [10,30,50] minutes. Both have mean 30; sample variances are 1 and 400 minutes², and sample SDs are 1 and 20 minutes. The shared fixed axis emphasizes consistency rather than unexplained numbers. These tiny samples illustrate spread, not normality or validated tail probabilities. Section 5.19 now summarizes the chapter’s tools with questions, use cases, limitations, and lesson links.

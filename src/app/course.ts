@@ -1,3 +1,4 @@
+import { UVBestPractices } from '../chapters/UnivariateCheatSheet'
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
 import ChapterThree from '../chapters/ChapterThree'
@@ -6,6 +7,10 @@ import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
 import QACensoring from '../chapters/QACensoring'
 import { IntroToML, WhenToUseML, MLProcess, MLLandscape } from '../chapters/ChapterTwo'
+
+import { UVIntroduction, UVCategoricalVariables, UVDiscretization, UVNominalOrdinal, UVCategoricalDistributions, UVNumericalVariables } from '../chapters/UnivariateCategories'
+import { UVHistograms, UVHistogramCase, UVNormalDistribution, UVNormalCase } from '../chapters/UnivariateDistributions'
+import { UVProfiling, UVMode, UVMean, UVMedian, UVPercentile, UVVariance, UVStandardDeviation, UVSkewness } from '../chapters/UnivariateMetrics'
 
 export type Subchapter = {
   id: string
@@ -39,27 +44,28 @@ export const chapters: readonly Chapter[] = [
     { id: 'table-structure', title: 'Table structures', content: QATableStructure },
     { id: 'inventory-case', title: 'Maven Market case study', content: QACaseStudy },
   ] },
-  { id: 'chapter-05', number: '05', title: "Univariate Profiling", subtitle: 'Planned', subchapters: [
-    { id: "introduction", title: "Introduction" },
-    { id: "categorical-variables", title: "Categorical Variables" },
-    { id: "discretization", title: "Discretization" },
-    { id: "nominal-vs-ordinal", title: "Nominal vs. Ordinal" },
-    { id: "categorical-distributions", title: "Categorical Distributions" },
-    { id: "numerical-variables", title: "Numerical Variables" },
-    { id: "histograms-kernel-densities", title: "Histograms & Kernel Densities" },
-    { id: "case-study-histograms", title: "CASE STUDY Histograms" },
-    { id: "normal-distribution", title: "Normal Distribution" },
-    { id: "case-study-normal-distribution", title: "CASE STUDY Normal Distribution" },
-    { id: "univariate-data-profiling", title: "Univariate Data Profiling" },
-    { id: "mode", title: "Mode" },
-    { id: "mean", title: "Mean" },
-    { id: "median", title: "Median" },
-    { id: "percentile", title: "Percentile" },
-    { id: "variance", title: "Variance" },
-    { id: "standard-deviation", title: "Standard Deviation" },
-    { id: "skewness", title: "Skewness" },
-    { id: "best-practices-univariate-profiling", title: "BEST PRACTICES Univariate Profiling" },
+  { id: 'chapter-05', number: '05', title: "Univariate Profiling", subtitle: 'One variable, many perspectives', subchapters: [
+    { id: "introduction", title: "Introduction", content: UVIntroduction },
+    { id: "categorical-variables", title: "Categorical Variables", content: UVCategoricalVariables },
+    { id: "discretization", title: "Discretization", content: UVDiscretization },
+    { id: "nominal-vs-ordinal", title: "Nominal vs. Ordinal", content: UVNominalOrdinal },
+    { id: "categorical-distributions", title: "Categorical Distributions", content: UVCategoricalDistributions },
+    { id: "numerical-variables", title: "Numerical Variables", content: UVNumericalVariables },
+    { id: "histograms-kernel-densities", title: "Histograms & Kernel Densities", content: UVHistograms },
+    { id: "case-study-histograms", title: "CASE STUDY Histograms", content: UVHistogramCase },
+    { id: "normal-distribution", title: "Normal Distribution", content: UVNormalDistribution },
+    { id: "case-study-normal-distribution", title: "CASE STUDY Normal Distribution", content: UVNormalCase },
+    { id: "univariate-data-profiling", title: "Univariate Data Profiling", content: UVProfiling },
+    { id: "mode", title: "Mode", content: UVMode },
+    { id: "mean", title: "Mean", content: UVMean },
+    { id: "median", title: "Median", content: UVMedian },
+    { id: "percentile", title: "Percentile", content: UVPercentile },
+    { id: "variance", title: "Variance", content: UVVariance },
+    { id: "standard-deviation", title: "Standard Deviation", content: UVStandardDeviation },
+    { id: "skewness", title: "Skewness", content: UVSkewness },
+    { id: "best-practices-univariate-profiling", title: "BEST PRACTICES Univariate Profiling", content: UVBestPractices },
   ] },
+
   { id: 'chapter-06', number: '06', title: "Multivariate Profiling", subtitle: 'Planned', subchapters: [
     { id: "introduction", title: "Introduction" },
     { id: "categorical-categorical", title: "Categorical-Categorical" },

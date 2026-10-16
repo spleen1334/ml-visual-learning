@@ -7,20 +7,24 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–4 have implemented content. Chapters 5–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
+- Chapters 1–5 have implemented content. Chapters 6–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach
 
 Use this default order in each section:
 
-1. A short, prominent definition or central idea.
+1. A short, prominent general definition or central idea. Keep it independent of the worked example; simplifying an example must not replace or remove the definition.
 2. A meaningful graph, diagram, image, or small worked example.
 3. Brief supporting explanations and a visually emphasized summary.
 
 - Inspect the relevant PDF pages, subtitles, and workbook material before implementing a chapter. Start with `../Learning Files/3. Visual Guide to Machine Learning.pdf` and the matching numbered course folder. Existing source notes are in `docs/PDF_REFERENCES.md` and `docs/QA_DATA.md`.
 - Preserve clear, simple source wording. Do not rewrite it merely for novelty. Correct material errors and document important departures from the source.
+- Chapter-end reference sections should include a concrete project workflow: the order of checks, how findings guide tool choice, and what to do next. Do not imply every tool must be used. Where useful, make the workflow a clickable sequence with all steps visible and a selected task, tools, and expected output; keep progression ungated.
 - Teach one concept at a time with a small dataset. Keep the full inventory dataset in its separate case study rather than repeating it in every lesson.
+- Introduce case studies with the concrete assignment: who or what is measured, which groups are compared, and what difference the learner is investigating. Use those specific group names in controls and chart legends.
+- Explain **why a method is useful** with a concrete scenario before introducing its formula or controls; a definition alone is not enough.
+- For beginner statistics, label observations with a concrete scenario and units. Prefer clear scenario comparisons over abstract sliders when they make the purpose easier to understand; explain what the resulting number means in practice.
 - Explain what an interactive control changes, why it matters, and what the learner should notice. Use explicit prompts or callouts where helpful; never turn these into quizzes.
 - Keep worked calculations visible. Prefer annotated formulas, arrows, source-cell highlights, and clear links between input values and calculation terms over hidden “show calculation” panels.
 - No quizzes, scoring, answer selectors, completion gates, or “About this chapter” sections. End with a concise, emphasized summary.

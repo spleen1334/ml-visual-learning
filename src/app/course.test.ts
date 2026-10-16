@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { chapterHref, publishedLessons, resolveLesson, type Chapter } from './course'
+import { chapters, chapterHref, publishedLessons, resolveLesson, type Chapter } from './course'
 const Overview = () => null
 const Detail = () => null
 const course: Chapter[] = [
@@ -26,5 +26,17 @@ describe('lesson sequence', () => {
   it('includes an optional chapter overview before its subchapters', () => {
     const withOverview = [{ ...course[1], content: Overview }]
     expect(publishedLessons(withOverview).map(item => item.href)).toEqual(['#chapter-02', '#chapter-02/missing-values'])
+  })
+})
+
+
+describe('chapter five publication', () => {
+  it('publishes all 19 source lessons and keeps later outlines out of pagination', () => {
+    const lessons = publishedLessons()
+    expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
+    expect(lessons.some(item => Number(item.chapter.number) > 5)).toBe(false)
+    expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
+    expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
+    expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
   })
 })

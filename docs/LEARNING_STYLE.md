@@ -17,3 +17,10 @@ User-approved direction, updated during Chapter 04 review.
 - Use small, concept-specific examples before a separate full case study. Do not reuse the large case-study table throughout the lessons.
 - Keep the PDF’s clear, simple wording when it already explains the concept well. Do not rephrase merely for novelty; correct material inaccuracies when needed.
 - Distinguish counts of records within a category from counts of distinct labels. Explain the question each calculation answers.
+
+
+Explain why a method is useful with a concrete scenario before its formula or controls. For example, a normal model turns the mean and standard deviation into expected ranges and a benchmark for unusual observations. Use simple, topic-specific illustrations for variable concepts rather than relying on label cards alone.
+
+- For variance and standard deviation, start with concrete observations and units, then compare consistency at the same mean. Avoid abstract numbered sliders; explain the practical meaning of the metric before its arithmetic.
+
+- A chapter-end workflow can be a clickable sequence: keep all steps visible and show the selected step’s task, relevant tools, and expected output. Do not gate progression or turn it into a quiz.
