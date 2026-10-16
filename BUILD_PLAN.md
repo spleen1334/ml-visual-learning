@@ -1,3 +1,5 @@
+> Design update: use interactive experiments, explicit explanatory callouts and a summary at the bottom of every chapter. Do not build quizzes, prediction answer selectors, scoring, exit checks or completion gates. Source provenance belongs in documentation, not an “About this chapter” UI section. This supersedes assessment suggestions below.
+
 # ML Visual Interactive — build plan
 
 Date: 2026-10-16. Original plan below; implementation has started. Chapter 01 is available for user review. See [README.md](README.md) for startup and [previews/CHAPTER_01_REVIEW.md](previews/CHAPTER_01_REVIEW.md) for verification. Chapters 02–05 remain planned.
@@ -63,7 +65,7 @@ Use small editable examples for learning a calculation, then the workbook data f
 - A sample interaction: move one value in a five-value dataset and see its mean change. This previews how the companion teaches; it is not another full statistics lesson.
 - Explain the learning goal: understand what a method does, when it helps, and how to interpret the output. Coding is optional and outside this release.
 
-**Exit check:** the learner knows where to start and can reset an experiment.
+**Chapter summary:** the learner knows where to start and can reset an experiment.
 
 ### Chapter 02 — Intro to the ML Landscape
 
@@ -71,7 +73,7 @@ Use small editable examples for learning a calculation, then the workbook data f
 - **Prepare before predicting:** arrange QA, univariate profiling, multivariate profiling and modeling into a workflow. Clicking a stage reveals its question and typical output. Show that inspection and repair can repeat.
 - **Does this need ML?** Compare a simple count or average with a many-feature prediction task. More complexity alone should not be taught as proof that ML is appropriate; consider the objective, useful data and a simple baseline.
 
-**Exit check:** choose a sensible first analysis for a new question and explain why.
+**Chapter summary:** choose a sensible first analysis for a new question and explain why.
 
 ### Chapter 03 — Part 1 orientation
 
@@ -79,7 +81,7 @@ Use small editable examples for learning a calculation, then the workbook data f
 - Explain a row, a variable, a record count and a unit of measurement through a small table.
 - Give the next two chapters a shared purpose: make the inventory interpretable, then describe its variables.
 
-**Exit check:** identify what one row represents. Keep this chapter brief.
+**Chapter summary:** identify what one row represents. Keep this chapter brief.
 
 ### Chapter 04 — Preliminary Data QA
 
@@ -101,7 +103,7 @@ Show “Before / Current” metrics and an explicit list of changes. With all do
 
 Use a separate, clearly synthetic exercise for leading-zero identifiers if needed: the workbook's SKU-formatting lesson does not demonstrate actual lost leading digits. Do not invent corruption in the workbook.
 
-**Exit check:** a short QA summary identifying what changed, why it changed, and what remains unknown.
+**Chapter summary:** a short QA summary identifying what changed, why it changed, and what remains unknown.
 
 ### Chapter 05 — Univariate Profiling
 
@@ -118,7 +120,7 @@ Within the final lab, use a short progression: mode → mean → median → perc
 
 Add a small theoretical normal-distribution panel with mean and standard-deviation controls and 1/2/3-standard-deviation shading. Keep it visually distinct from an empirical dataset. A normal reference curve and real observations answer different questions.
 
-**Exit check:** profile one variable using a distribution plus at least two appropriate statistics, and state one limitation. Add a transition to chapter 06 about relationships without implementing multivariate analysis yet.
+**Chapter summary:** profile one variable using a distribution plus at least two appropriate statistics, and state one limitation. Add a transition to chapter 06 about relationships without implementing multivariate analysis yet.
 
 ## 3. Mathematical and teaching decisions
 
@@ -192,7 +194,7 @@ ml-visual-interactive/
 
 Interfaces:
 
-- `Lesson`: stable ID, chapter, title, goal, explanation, lab ID/configuration, prediction prompt, check and source references. Avoid building a generic CMS or lesson scripting language.
+- `Lesson`: stable ID, chapter, title, goal, explanation, lab ID/configuration, learning callout, summary and source references. Avoid building a generic CMS or lesson scripting language.
 - `Dataset`: version, fields, units, immutable raw rows, missing-value representation and source metadata. Keep a raw cell's representation where the representation itself is the lesson.
 - `ExperimentState`: seed, selected dataset, controls and explicit transformation choices. Derive charts and metrics from this state; do not keep separate mutable copies of the same calculation.
 - `ProfileResult`: number of rows, valid/missing counts, statistics, bins and data warnings. A chart and its accessible table consume the same result.
@@ -224,7 +226,7 @@ If these activities meet the learning goals with little adaptation, use CODAP ac
 | 3. Finish chapter 04 | Variable types, date representation, censoring/truncation distinctions, reshape exercise and final case-study check | All chapter concepts have a source link, interaction or explicit short explanation |
 | 4. Build chapter 05 | Categories, dice, heights and center/spread labs with checks | Mathematical fixtures pass; labels and actual computation agree |
 | 5. Connect chapters 01–03 | Brief orientation, landscape cards and part-one introduction; chapter navigation/progress | Continuous learning journey through all five chapters |
-| 6. Review and package | Browser checks, responsive/keyboard review, source audit, README and production build | Every exit check works, no misleading empty pages, reproducible local startup |
+| 6. Review and package | Browser checks, responsive/keyboard review, source audit, README and production build | Every chapter summary is present, no misleading empty pages, reproducible local startup |
 
 Start implementation with the QA vertical slice because it tests the hardest shared needs: authentic data, purposeful interaction, feedback, provenance and reversible state. Design the later distribution lab before overgeneralizing the shared components.
 
@@ -237,7 +239,7 @@ Numerical and transformation checks are central to this app: a visually polished
 - **Source fixtures:** 100 inventory rows; eight missing-price codes; 15 text dates; four category mismatches; 5,000 and 4,967 heights; the verified baseline/corrected metrics above. Check extraction determinism and original workbook hashes.
 - **Math fixtures:** empty/singleton/constant data; odd/even medians; tied modes; percentiles at 0/50/100 and repeated values; sample versus population variance; bin-edge membership; density area approximately one; exact fair-dice probabilities.
 - **State invariants:** transformations are reversible and idempotent; reset restores original data; every record belongs to exactly one applicable bin; category totals reconcile; changing display options does not change data or random samples.
-- **Browser flows:** navigate to a direct lesson URL, complete a check, reload progress, repair and undo a QA issue, roll a seeded sample, change histogram controls, and use a lab entirely by keyboard. Test a narrow viewport and reduced motion.
+- **Browser flows:** navigate to a direct lesson URL, read the chapter summary, repair and undo a QA issue, roll a seeded sample, change histogram controls, and use a lab entirely by keyboard. Test a narrow viewport and reduced motion.
 - **Teaching review:** every interaction answers its stated question; hints explain the reason; examples distinguish fact from assumption; counts, units, population labels and missingness remain visible.
 - **Completion checks:** typecheck, focused unit tests, production build and a short production-preview browser pass. Use Vitest for computation/state fixtures and Playwright for key browser flows. [Vitest guide](https://vitest.dev/guide/), [Playwright guide](https://playwright.dev/docs/intro).
 

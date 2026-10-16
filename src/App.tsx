@@ -1,24 +1,15 @@
-import { useState } from 'react'
-import ChapterOne from './chapters/ChapterOne'
-import { readCompletion, saveCompletion } from './app/progress'
+import { useSyncExternalStore } from 'react'
+import { chapters, chapterHref, resolveLesson } from './app/course'
 
-const chapters = [
-  ['01', 'Getting Started', 'An invitation to explore'],
-  ['02', 'The ML Landscape', 'Questions, patterns & predictions'],
-  ['03', 'QA & Data Profiling', 'Meet your first dataset'],
-  ['04', 'Preliminary Data QA', 'Find and understand the issues'],
-  ['05', 'Univariate Profiling', 'Discover the shape of data'],
-]
+function subscribeToHashChange(notify: () => void) {
+  window.addEventListener('hashchange', notify)
+  return () => window.removeEventListener('hashchange', notify)
+}
 
 export default function App() {
-  const [complete, setComplete] = useState(readCompletion)
-  const [storageUnavailable, setStorageUnavailable] = useState(false)
-
-  function finishChapter() {
-    setComplete(true)
-    setStorageUnavailable(!saveCompletion())
-  }
-
+  const hash = useSyncExternalStore(subscribeToHashChange, () => window.location.hash, () => '#chapter-01')
+  const { chapter: currentChapter, section, Content } = resolveLesson(hash)
+  const nextChapter = chapters[chapters.indexOf(currentChapter) + 1]
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">Skip to lesson</a>
@@ -29,30 +20,29 @@ export default function App() {
         </a>
         <div className="sidebar-intro"><span className="eyebrow">The visual guide</span><p>A little curiosity.<br />A lot of discovery.</p></div>
         <nav className="chapter-nav" aria-label="Chapters">
-          {chapters.map(([number, title, subtitle], i) => i === 0 ? (
-            <a key={number} href="#chapter-01" className="chapter-link chapter-current" aria-current="page">
-              <span className="chapter-number">{complete ? '✓' : number}</span>
-              <span><span className="chapter-name">{title}</span><span className="chapter-meta">{complete ? 'Completed · revisit anytime' : subtitle}</span></span>
-            </a>
-          ) : (
-            <div key={number} className="chapter-link chapter-future">
-              <span className="chapter-number">{number}</span>
-              <span><span className="chapter-name">{title}</span><span className="chapter-meta">In the roadmap</span></span>
+          {chapters.map(chapter => {
+            const available = Boolean(chapter.content || chapter.subchapters?.length)
+            const current = currentChapter.id === chapter.id
+            const label = <><span className="chapter-number">{chapter.number}</span><span><span className="chapter-name">{chapter.title}</span><span className="chapter-meta">{available ? chapter.subtitle : 'In the roadmap'}</span></span></>
+            return <div key={chapter.id} className="chapter-group">
+              {available ? <a href={chapterHref(chapter)} className={`chapter-link ${current ? 'chapter-current' : ''}`} aria-current={current && !section ? 'page' : undefined}>{label}</a>
+                : <div className="chapter-link chapter-future">{label}</div>}
+              {chapter.subchapters?.length ? <ol className="subchapter-nav" aria-label={`${chapter.title} subchapters`}>
+                {chapter.subchapters.map((item, index) => <li key={item.id}><a href={chapterHref(chapter, item)} aria-current={current && section?.id === item.id ? 'page' : undefined}><span>{chapter.number}.{index + 1}</span> {item.title}</a></li>)}
+              </ol> : null}
             </div>
-          ))}
+          })}
         </nav>
         <div className="sidebar-footer">
-          <div className="progress-label"><span>Your journey</span><span>{complete ? '1' : '0'} / 5</span></div>
-          <div className="progress-track" role="progressbar" aria-label="Chapters completed" aria-valuemin={0} aria-valuemax={5} aria-valuenow={complete ? 1 : 0}><div className="progress-fill" style={{ width: complete ? '20%' : '0%' }} /></div>
+          <div className="progress-label"><span>Explore at your own pace</span></div>
           <p>Learn by changing things.<br />Keep asking “what if?”</p>
         </div>
       </aside>
       <div className="main-panel">
-        <header className="topbar"><span className="breadcrumb">THE FOUNDATIONS <span aria-hidden="true">/</span> CHAPTER 01</span><span className="local-badge"><span aria-hidden="true">●</span> Your personal learning lab</span></header>
+        <header className="topbar"><span className="breadcrumb">THE FOUNDATIONS <span aria-hidden="true">/</span> CHAPTER {currentChapter.number}{section && <> / {section.title}</>}</span><span className="local-badge"><span aria-hidden="true">●</span> Your personal learning lab</span></header>
         <main id="main" className="page-content" tabIndex={-1}>
-          <ChapterOne onComplete={finishChapter} />
-          {complete && <div className="completion-banner" role="status"><strong>Chapter 01 complete.</strong><span>You have explored, changed a value, and reset your experiment. Chapter 02 is the next build milestone.</span>{storageUnavailable && <p>Browser storage is unavailable. Your completion is kept for this visit only.</p>}</div>}
-          <footer className="chapter-footer"><span>01 / 05 <span aria-hidden="true">—</span> Getting Started</span><span>Next: The ML Landscape <span className="roadmap-tag">Coming next</span></span></footer>
+          <Content key={`${currentChapter.id}/${section?.id ?? ""}`} />
+          <footer className="chapter-footer"><span>{currentChapter.number} / 05 <span aria-hidden="true">—</span> {currentChapter.title}</span>{nextChapter && <span>Next: {nextChapter.title} <span className="roadmap-tag">Coming next</span></span>}</footer>
         </main>
       </div>
     </div>

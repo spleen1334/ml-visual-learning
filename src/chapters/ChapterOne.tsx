@@ -1,10 +1,6 @@
 import { useId, useState, useSyncExternalStore } from 'react';
 import { mean } from '../math/mean';
 
-type ChapterOneProps = {
-  onComplete: () => void;
-};
-
 const INITIAL_VALUES = [4, 6, 8, 10] as const;
 const INITIAL_FIFTH_VALUE = 12;
 const MIN_VALUE = 0;
@@ -34,6 +30,76 @@ const WORKFLOW_STEPS = [
 ] as const;
 
 type WorkflowId = (typeof WORKFLOW_STEPS)[number]['id'];
+
+function WorkflowDiagram({ selectedStep }: { selectedStep: WorkflowId | '' }) {
+  return (
+    <figure className="course-flow">
+      <figcaption><strong>From raw data to a useful model</strong><span>Illustrative views of the work at each stage</span></figcaption>
+      <ol className="course-flow__stages">
+        {WORKFLOW_STEPS.map((step, index) => (
+          <li key={step.id} className={selectedStep === step.id ? 'course-flow__stage is-selected' : 'course-flow__stage'}>
+            <span className="course-flow__label">0{index + 1} · {['Check', 'Describe', 'Connect', 'Predict'][index]}</span>
+            <svg viewBox="0 0 160 110" role="img" aria-label={[
+              'Prepare: a table with a missing value and an unusual value highlighted for inspection.',
+              'Individual variables: histogram bars show how values are distributed.',
+              'Relationships: a scatter plot shows two variables tending to increase together.',
+              'Model: a fitted line summarizes a trend, with a new prediction highlighted.',
+            ][index]}>
+              {index === 0 ? <>
+                {[0, 1, 2, 3].map(row => [0, 1, 2].map(col => <rect key={`${row}-${col}`} x={15 + col * 44} y={15 + row * 21} width="39" height="16" rx="3" className={row === 1 && col === 1 ? 'flow-cell-missing' : row === 3 && col === 2 ? 'flow-cell-suspect' : 'flow-cell'} />))}
+                <text x="78" y="48" textAnchor="middle">?</text><text x="122" y="90" textAnchor="middle">!</text>
+              </> : <>
+                <path d="M18 12 V92 H148" className="flow-axis" />
+                {index === 1 ? [20, 39, 66, 49, 28, 12].map((height, j) => <rect key={j} x={27 + j * 19} y={91 - height} width="14" height={height} rx="2" className="flow-bar" />) : <>
+                  {[[32, 77], [48, 72], [59, 52], [77, 61], [90, 42], [109, 38], [127, 22]].map(([x, y], j) => <circle key={j} cx={x} cy={y} r="4" className="flow-point" />)}
+                  {index === 3 && <><path d="M25 85 L143 16" className="flow-fit" /><circle cx="139" cy="18" r="6" className="flow-prediction" /></>}
+                </>}
+              </>}
+            </svg>
+            <strong>{step.label}</strong>
+            <span className="course-flow__question">{['Can I trust these values?', 'What is typical? What varies?', 'Which values move together?', 'What can this pattern tell us?'][index]}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="course-flow__loop"><span aria-hidden="true">↶</span> <strong>Revisit any earlier step.</strong> A surprising pattern can send you back to inspect the data.</p>
+    </figure>
+  );
+}
+
+function CalculationFlow({ values, average }: { values: number[]; average: number }) {
+  const arrowId = useId();
+  const total = values.reduce((sum, value) => sum + value, 0);
+  return (
+    <section className="calculation-flow" aria-labelledby={`${arrowId}-heading`}>
+      <p className="chapter-one__eyebrow">Follow the numbers</p>
+      <h3 id={`${arrowId}-heading`}>Five rows → one average</h3>
+      <p>Each table row contributes <strong>one value to the total</strong>. Then share that total equally across <strong>all five rows</strong>.</p>
+      <svg viewBox="0 0 560 350" role="img" aria-label={`Day values ${values.join(', ')} add to ${total}. Divide that total by the five table rows to get ${formatNumber(average)} units per day.`}>
+        <defs><marker id={arrowId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#126b63" /></marker></defs>
+        <text x="45" y="22" className="calc-caption">VALUES FROM THE TABLE</text>
+        {values.map((value, index) => {
+          const x = 56 + index * 108;
+          return <g key={index}>
+            <rect x={x - 43} y="38" width="86" height="64" rx="8" className={index === 4 ? 'calc-source calc-source--editable' : 'calc-source'} />
+            <text x={x} y="60" textAnchor="middle" className="calc-day">Day {index + 1}</text>
+            <text x={x} y="86" textAnchor="middle" className="calc-value">{value}</text>
+            <path d={`M${x} 108 V151`} className="calc-arrow" markerEnd={`url(#${arrowId})`} />
+            <text x={x} y="184" textAnchor="middle" className="calc-value">{value}</text>
+            {index < 4 && <text x={x + 54} y="184" textAnchor="middle" className="calc-plus">+</text>}
+          </g>;
+        })}
+        <path d="M18 199 H542" className="calc-fraction" />
+        <text x="280" y="231" textAnchor="middle" className="calc-value">5 rows</text>
+        <path d="M18 112 V128 H30 M542 112 V128 H530" className="calc-bracket" />
+        <text x="280" y="250" textAnchor="middle" className="calc-note">Count every row once → divide by 5</text>
+        <rect x="80" y="261" width="400" height="68" rx="10" className="calc-result" />
+        <text x="280" y="288" textAnchor="middle" className="calc-day">TOTAL ÷ NUMBER OF ROWS</text>
+        <text x="280" y="315" textAnchor="middle" className="calc-value">{total} ÷ 5 = {formatNumber(average)} units per day</text>
+      </svg>
+      <p className="calculation-flow__takeaway"><strong>The denominator stays at 5.</strong> Moving Day 5 changes a value, <em>not the number of rows</em>.</p>
+    </section>
+  );
+}
 
 function formatNumber(value: number): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(1);
@@ -112,43 +178,30 @@ function DotPlot({ values, average }: { values: readonly number[]; average: numb
   );
 }
 
-export default function ChapterOne({ onComplete }: ChapterOneProps) {
+export default function ChapterOne() {
   const [fifthValue, setFifthValue] = useState(INITIAL_FIFTH_VALUE);
   const [fifthValueDraft, setFifthValueDraft] = useState(String(INITIAL_FIFTH_VALUE));
-  const [hasRaisedValue, setHasRaisedValue] = useState(false);
-  const [hasResetAfterChange, setHasResetAfterChange] = useState(false);
   const [selectedStep, setSelectedStep] = useState<WorkflowId | ''>('');
-  const [firstStepAnswer, setFirstStepAnswer] = useState('');
-  const [prediction, setPrediction] = useState('');
-  const [selectedObservation, setSelectedObservation] = useState('');
-  const [checkResult, setCheckResult] = useState<'correct' | 'incomplete' | ''>('');
   const numberInputId = useId();
   const sliderId = useId();
-  const calculationId = useId();
 
   const values = [...INITIAL_VALUES, fifthValue];
   const initialMean = mean([...INITIAL_VALUES, INITIAL_FIFTH_VALUE]);
   const currentMean = mean(values);
   const delta = currentMean - initialMean;
   const selectedWorkflow = WORKFLOW_STEPS.find((step) => step.id === selectedStep);
-  const canComplete = hasRaisedValue && hasResetAfterChange;
 
   function updateFifthValue(nextValue: number) {
     const boundedValue = Math.min(MAX_VALUE, Math.max(MIN_VALUE, Math.round(nextValue)));
     setFifthValue(boundedValue);
     setFifthValueDraft(String(boundedValue));
-    if (boundedValue > INITIAL_FIFTH_VALUE) {
-      setHasRaisedValue(true);
-      setHasResetAfterChange(false);
-    }
-    setCheckResult('');
+
   }
 
   function resetExperiment() {
     setFifthValue(INITIAL_FIFTH_VALUE);
     setFifthValueDraft(String(INITIAL_FIFTH_VALUE));
-    if (hasRaisedValue) setHasResetAfterChange(true);
-    setCheckResult('');
+
   }
 
   function commitFifthValueDraft() {
@@ -161,21 +214,6 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
     updateFifthValue(parsedValue);
   }
 
-  function submitCheck() {
-    if (!canComplete) {
-      setCheckResult('incomplete');
-      return;
-    }
-
-    if (firstStepAnswer === 'prepare' && selectedObservation === 'follows') {
-      setCheckResult('correct');
-      onComplete();
-      return;
-    }
-
-    setCheckResult('incomplete');
-  }
-
   return (
     <article className="chapter-one" aria-labelledby="chapter-one-title">
       <header className="chapter-one__intro">
@@ -185,11 +223,10 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
           A visual learning companion for exploring machine learning and data science. Work through
           one small question at a time and see how each result is built.
         </p>
-        <p>
-          The original course explains methods through guided examples and interactive models. This
-          companion gives you space to inspect the ideas and build intuition before using other
-          tools. No coding or statistics background is needed to begin.
-        </p>
+        <div className="chapter-one__intro-notes">
+          <p><strong>See it. Change it. Understand it.</strong> Guided examples give you space to build intuition before reaching for algorithms.</p>
+          <p className="chapter-one__welcome"><em>Start with curiosity.</em> No coding or statistics background is needed.</p>
+        </div>
       </header>
 
       <section className="chapter-one__section" aria-labelledby="chapter-one-roadmap-title">
@@ -198,6 +235,7 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
           <h2 id="chapter-one-roadmap-title">Four steps, with room to revisit</h2>
           <p>Choose a step to see the kind of question it helps answer.</p>
         </div>
+        <WorkflowDiagram selectedStep={selectedStep} />
         <ol className="chapter-one__workflow" aria-label="Machine learning learning workflow">
           {WORKFLOW_STEPS.map((step, index) => (
             <li key={step.id} className="chapter-one__workflow-item">
@@ -224,24 +262,16 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
           <p className="chapter-one__eyebrow">Try a small change</p>
           <h2 id="chapter-one-experiment-title">What happens to the average when one day is higher?</h2>
           <p>
-            These are unit sales across five days. The first four days stay at 4, 6, 8, and 10 units.
-            Change Day 5, then watch where the average moves.
+            These are unit sales across <strong>five days</strong>. The first four days stay at 4, 6, 8, and 10 units.
+            <strong>Change Day 5</strong>, then watch where the average moves.
           </p>
         </div>
 
-        <fieldset className="chapter-one__prediction">
-          <legend>Before you move the control: if Day 5 rises, what do you predict?</legend>
-          <label><input type="radio" name="prediction" value="less" checked={prediction === 'less'} onChange={() => setPrediction('less')} /> The average rises by less than Day 5 does</label>
-          <label><input type="radio" name="prediction" value="same" checked={prediction === 'same'} onChange={() => setPrediction('same')} /> The average stays where it is</label>
-          <label><input type="radio" name="prediction" value="equal" checked={prediction === 'equal'} onChange={() => setPrediction('equal')} /> The average rises by the same amount</label>
-          {prediction && (
-            <p className="chapter-one__prediction-feedback" role="status">
-              {prediction === 'less'
-                ? 'Good prediction. One of five values changes, so the average moves by one fifth of that change. Try it and see.'
-                : 'Try changing Day 5 and watch the average line. The other four days still count in the total, so the result may surprise you.'}
-            </p>
-          )}
-        </fieldset>
+        <aside className="chapter-one__callout" aria-labelledby="notice-title">
+          <h3 id="notice-title">Watch how one value moves the average</h3>
+          <p>When Day 5 rises, the average rises by <strong>one fifth of that change</strong>, because the total is shared across five days.</p>
+          <p>Try changing Day 5 from 12 to 22: the day gains <strong>10 units</strong>, while the average gains <strong>2 units</strong>, moving from 8 to 10.</p>
+        </aside>
 
         <div className="chapter-one__controls">
           <label htmlFor={sliderId}>Day 5 units sold</label>
@@ -299,61 +329,19 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
           </table>
         </div>
 
-        <details className="chapter-one__calculation">
-          <summary aria-controls={calculationId}>Show the calculation</summary>
-          <div id={calculationId}>
-            <p>Add the five daily values and divide by the five days.</p>
-            <p className="chapter-one__equation">
-              ({values.join(' + ')}) ÷ 5 = {formatNumber(currentMean)} units per day
-            </p>
-            <p>
-              Day 5 changes the total by {fifthValue - INITIAL_FIFTH_VALUE} units. Spread across five
-              days, that changes the average by {formatNumber(delta)} units.
-            </p>
-          </div>
-        </details>
+        <CalculationFlow values={values} average={currentMean} />
       </section>
 
-      <section className="chapter-one__check" aria-labelledby="chapter-one-check-title">
-        <p className="chapter-one__eyebrow">Quick check</p>
-        <h2 id="chapter-one-check-title">Can you choose a useful starting point?</h2>
-        <p>Use what you noticed in the experiment, then choose the best answer for each question.</p>
-
-        <fieldset className="chapter-one__check-question">
-          <legend>When you first receive a dataset, where should you start?</legend>
-          <label><input type="radio" name="first-step" value="prepare" checked={firstStepAnswer === 'prepare'} onChange={() => { setFirstStepAnswer('prepare'); setCheckResult(''); }} /> Check and prepare the data</label>
-          <label><input type="radio" name="first-step" value="model" checked={firstStepAnswer === 'model'} onChange={() => { setFirstStepAnswer('model'); setCheckResult(''); }} /> Fit a model before looking at the data</label>
-        </fieldset>
-
-        <fieldset className="chapter-one__check-question">
-          <legend>What did the average do when Day 5 rose above 12?</legend>
-          <label><input type="radio" name="observation" value="follows" checked={selectedObservation === 'follows'} onChange={() => { setSelectedObservation('follows'); setCheckResult(''); }} /> It rose too, by less than the change in that one day</label>
-          <label><input type="radio" name="observation" value="same" checked={selectedObservation === 'same'} onChange={() => { setSelectedObservation('same'); setCheckResult(''); }} /> It stayed the same because four days did not change</label>
-          <label><input type="radio" name="observation" value="equal" checked={selectedObservation === 'equal'} onChange={() => { setSelectedObservation('equal'); setCheckResult(''); }} /> It rose by the full amount Day 5 changed</label>
-        </fieldset>
-
-        <button className="chapter-one__check-button" type="button" onClick={submitCheck}>
-          Check my answers
-        </button>
-        <p className="chapter-one__check-feedback" role="status" aria-live="polite">
-          {checkResult === 'correct'
-            ? 'That’s it. Start by preparing the data, and notice that one changed value moves the average by one fifth of its change. You observed the effect and reset the experiment; you can keep exploring any time.'
-            : checkResult === 'incomplete'
-              ? !canComplete
-                ? 'First, raise Day 5 above 12 so you can observe the average move, then use Reset. After that, choose both answers. You can keep exploring after the reset.'
-                : 'Take another look at the course map and the average change, then try those two choices again.'
-              : ''}
-        </p>
+      <section className="chapter-one__summary" aria-labelledby="chapter-one-summary-title">
+        <p className="chapter-one__eyebrow">Chapter summary</p>
+        <h2 id="chapter-one-summary-title">What to take with you</h2>
+        <ul>
+          <li><strong>Prepare before you model.</strong><span>Check your rows, values and labels before drawing conclusions.</span></li>
+          <li><strong>Look closely, then connect.</strong><span>Explore individual variables, then relationships. <em>Revisit earlier steps</em> whenever something needs attention.</span></li>
+          <li><strong>One value affects the whole average.</strong><span>The mean is <em>total ÷ number of values</em>. Across five days, a <strong>10-unit</strong> change in one day moves the mean by <strong>2 units</strong>.</span></li>
+          <li><strong>Learn by changing things.</strong><span>Move a value, watch the chart and open the calculation. Connect the idea to <em>what you can see</em>.</span></li>
+        </ul>
       </section>
-
-      <details className="chapter-one__source">
-        <summary>About this chapter</summary>
-        <p>
-          This introduction adapts the course overview and expectations from “01. Getting Started/1.
-          Course Structure &amp; Outline.vtt” and “01. Getting Started/4. Setting Expectations.vtt”.
-          The lesson wording here is original; no transcript is reproduced.
-        </p>
-      </details>
     </article>
   );
 }
