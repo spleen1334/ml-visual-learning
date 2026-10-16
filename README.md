@@ -1,12 +1,17 @@
 # ML Visual Interactive
 
-A personal, interactive learning companion for the first five chapters of the visual ML course. The app and this Git repository live entirely in this folder. Original videos, subtitles and workbooks remain outside the app and are read-only sources.
+A personal, interactive learning companion for the first five chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
 
 ## Current milestone
 
-**Chapter 01 — Getting Started** is available for review. It introduces the learning workflow and lets you change one day's sales to see how the average responds. Chapters 02–05 are marked as a roadmap, not available lessons.
+Chapter 01 is complete and reviewed. Chapter 02 — The ML Landscape is available for review in four subchapters:
 
-The custom static app follows the user's implementation choice after the alternatives review. It needs a controlled lesson sequence, interactive experiments, explicit learning callouts and chapter summaries; CODAP remains a useful companion rather than an embedded dependency.
+1. [What is machine learning?](http://127.0.0.1:4173/#chapter-02/what-is-ml) — switch business questions and inspect the form of the answer.
+2. [When does ML help?](http://127.0.0.1:4173/#chapter-02/when-to-use-ml) — compare an average and a fitted trend with a held-out sales observation.
+3. [The data workflow](http://127.0.0.1:4173/#chapter-02/the-workflow) — follow one synthetic table through QA, individual variables, relationships and a possible estimate.
+4. [A map of the methods](http://127.0.0.1:4173/#chapter-02/the-landscape) — explore supervised and unsupervised families with illustrated examples.
+
+Chapters 03–05 remain roadmap items. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
 
 ## Run locally
 
@@ -17,42 +22,38 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173/#chapter-01**. All dependencies, npm cache and build output stay in this folder. No account or backend is required, and the app makes no third-party runtime requests. Experiment values reset on reload. There are no quizzes, scores or completion gates.
+Open **http://127.0.0.1:5173/#chapter-01**. Dependencies, npm cache and build output stay in this folder. No account or backend is required; the app makes no third-party runtime requests. Experiment values reset on reload or lesson navigation.
 
 ```sh
-npm run check       # focused tests, strict typecheck, production build
-npm run preview     # serve the production build on http://127.0.0.1:4173
+npm run check       # focused tests, strict TypeScript, production build
+npm run preview     # serve dist at http://127.0.0.1:4173
 ```
 
-## Review Chapter 01
+## Review the interactions
 
-1. Click each course-map step and read its explanation.
-2. Predict what will happen when Day 5 rises.
-3. Set Day 5 to **22**. The mean should move from **8 to 10** units; the change is **+2**.
-4. Open **Show the calculation** to inspect the arithmetic.
-5. Use **Reset to 12 units**. The starting mean should return to **8**.
-6. Read the learning callout and chapter summary. There should be no quiz, answer submission, completion gate or “About this chapter” section.
-7. Try the slider with arrow keys, the number field, and a phone-sized window. Later chapters should look unavailable and should not open empty pages.
+- Chapter 01: set Day 5 to 22. The mean moves from 8 to 10; the visible calculation shows 50 ÷ 5. Reset restores 12 and a mean of 8.
+- Chapter 02.1: switch business questions; the explanation and chart change together.
+- Chapter 02.2: change February from 58 to 46. The forecasts remain 46.2 and 56.4 because February was excluded from fitting; their absolute errors change to 0.2 and 10.4. Reset restores 58. Clearing and replacing the number commits on blur.
+- Chapter 02.3: switch workflow stages. The sales distribution contains all six months (bin counts 3, 2, 1); paired comparisons use five months because November promotion spend is missing.
+- Chapter 02.4: explore each family and its illustration. Read the branch map and summary.
+- Navigate with Previous/Next, the sidebar or phone subchapter strip. Direct links, reload and browser Back/Forward should retain the selected lesson. No future chapter opens an empty page.
 
-## Structure
+## Structure and references
 
-- `src/App.tsx`: course shell and current chapter.
-- `src/chapters/ChapterOne.tsx`: first interactive lesson.
-- `src/math/`: calculations and numerical tests.
-- `src/app/`: local progress persistence.
-- `src/styles.css`: shared visual styles and responsive layout.
-- `previews/`: chapter screenshots and review evidence.
-- [BUILD_PLAN.md](BUILD_PLAN.md): full chapter plan and mathematical conventions.
-- [ALTERNATIVES.md](ALTERNATIVES.md): existing tools and reuse options.
+- `src/App.tsx`: shared shell, lesson navigation and focus handling.
+- `src/app/course.ts`: chapter/subchapter manifest and route resolution.
+- `src/chapters/`: lesson components, chapter-specific styles and synthetic data.
+- `src/math/`: shared calculations and numerical tests.
+- `src/styles.css`: shared styles; `previews/`: screenshots and review evidence.
+- [BUILD_PLAN.md](BUILD_PLAN.md): original plan and mathematical conventions.
+- [ALTERNATIVES.md](ALTERNATIVES.md): tools and reuse options.
+- [docs/PDF_REFERENCES.md](docs/PDF_REFERENCES.md): chapter-specific subtitle/PDF references and adaptation decisions.
+- [docs/SUBCHAPTERS.md](docs/SUBCHAPTERS.md): adding one-page or nested chapters.
+- [docs/LEARNING_STYLE.md](docs/LEARNING_STYLE.md): definition panels, diagrams and reading hierarchy to apply throughout the course.
+- [todo.md](todo.md): deferred end-of-project ideas, including the grouped table of contents.
 
-Chapter 01 uses a clearly illustrative five-day sales dataset `[4, 6, 8, 10, 12]`. It is an original teaching example, not an extract of the workbook. Source context is the course outline and expectations subtitles, identified inside the lesson. Course transcripts, videos and workbooks are not bundled or publicly deployed.
+All current numerical examples are explicitly synthetic. The five-day Chapter 01 sales data and Chapter 02 sales/store records are original teaching examples rather than workbook extracts. Course transcripts, PDF slides, videos and workbooks are not bundled or deployed.
 
 ## Next milestone
 
-Review Chapter 01 first, then implement Chapter 02: ML question types, workflow, and when a simpler analysis is sufficient. Each chapter gets a usable preview and verification before moving on.
-
-## Extending the course
-
-Chapters can optionally contain subchapters with their own direct links and navigation. Getting Started stays a single page. See [the subchapter guide](docs/SUBCHAPTERS.md) and [PDF reference review](docs/PDF_REFERENCES.md). Review subtitles, workbook examples and relevant PDF pages before developing each subsequent chapter.
-
-Chapter 01 review revision: original teal/cream theme, illustrated workflow, emphasized summaries and always-visible calculation diagram; no quizzes or completion tracking. Validation: 11 tests, TypeScript and production build pass.
+Review Chapter 02 before Chapter 03. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.

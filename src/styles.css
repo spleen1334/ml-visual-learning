@@ -352,3 +352,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .subchapter-nav a span { color: #e7c76e; margin-right: 4px; }
 .subchapter-nav a:hover, .subchapter-nav a[aria-current="page"] { color: white; background: rgba(255,255,255,.1); }
 @media (max-width: 850px) { .chapter-group { flex: 0 0 auto; } .subchapter-nav { max-width: 230px; } }
+
+/* Keep a long chapter list inside the sidebar; compact lesson links appear on phones. */
+@media (min-width: 851px) { .chapter-nav { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; } .sidebar-footer { flex-shrink: 0; } }
+.lesson-strip { display: none; }
+.lesson-pagination { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px; max-width: 100%; }
+.lesson-pagination a { max-width: 100%; padding: 10px 16px; line-height: 1.5; text-align: center; }
+@media (max-width: 850px) {
+  .subchapter-nav { display: none; }
+  .lesson-strip { display: flex; gap: 8px; overflow-x: auto; margin: 18px 0 0; padding: 3px 3px 10px; scrollbar-width: thin; }
+  .lesson-strip a { flex: 0 0 auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--teal-dark); background: var(--white); font-size: 12px; text-decoration: none; }
+  .lesson-strip a[aria-current="page"] { border-color: var(--teal); background: var(--teal-soft); font-weight: 700; }
+}

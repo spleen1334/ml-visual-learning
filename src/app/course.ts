@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
+import { IntroToML, WhenToUseML, MLProcess, MLLandscape } from '../chapters/ChapterTwo'
 
 export type Subchapter = {
   id: string
@@ -18,7 +19,12 @@ export type Chapter = {
 
 export const chapters: readonly Chapter[] = [
   { id: 'chapter-01', number: '01', title: 'Getting Started', subtitle: 'An invitation to explore', content: ChapterOne },
-  { id: 'chapter-02', number: '02', title: 'The ML Landscape', subtitle: 'Questions, patterns & predictions' },
+  { id: 'chapter-02', number: '02', title: 'The ML Landscape', subtitle: 'Questions, patterns & predictions', subchapters: [
+    { id: 'what-is-ml', title: 'What is machine learning?', content: IntroToML },
+    { id: 'when-to-use-ml', title: 'When does ML help?', content: WhenToUseML },
+    { id: 'the-workflow', title: 'The data workflow', content: MLProcess },
+    { id: 'the-landscape', title: 'A map of the methods', content: MLLandscape },
+  ] },
   { id: 'chapter-03', number: '03', title: 'QA & Data Profiling', subtitle: 'Meet your first dataset' },
   { id: 'chapter-04', number: '04', title: 'Preliminary Data QA', subtitle: 'Find and understand the issues' },
   { id: 'chapter-05', number: '05', title: 'Univariate Profiling', subtitle: 'Discover the shape of data' },
@@ -36,4 +42,11 @@ export function resolveLesson(hash: string, course: readonly Chapter[] = chapter
   const section = chapter.subchapters?.find(item => item.id === sectionId)
     ?? (!chapter.content ? chapter.subchapters?.[0] : undefined)
   return { chapter, section, Content: section?.content ?? chapter.content! }
+}
+
+export function publishedLessons(course: readonly Chapter[] = chapters) {
+  return course.flatMap(chapter => [
+    ...(chapter.content ? [{ href: chapterHref(chapter), title: chapter.title, chapter, section: undefined as Subchapter | undefined }] : []),
+    ...(chapter.subchapters?.map(section => ({ href: chapterHref(chapter, section), title: section.title, chapter, section })) ?? []),
+  ])
 }

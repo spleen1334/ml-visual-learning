@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { chapterHref, resolveLesson, type Chapter } from './course'
+import { chapterHref, publishedLessons, resolveLesson, type Chapter } from './course'
 const Overview = () => null
 const Detail = () => null
 const course: Chapter[] = [
@@ -17,4 +17,14 @@ describe('optional subchapters', () => {
   })
   it('falls back for an unknown subchapter', () => expect(resolveLesson('#chapter-02/unknown', course).Content).toBe(Detail))
   it('creates stable nested links', () => expect(chapterHref(course[1], course[1].subchapters![0])).toBe('#chapter-02/missing-values'))
+})
+
+describe('lesson sequence', () => {
+  it('includes only published pages in chapter and section order', () => {
+    expect(publishedLessons(course).map(item => item.href)).toEqual(['#chapter-01', '#chapter-02/missing-values'])
+  })
+  it('includes an optional chapter overview before its subchapters', () => {
+    const withOverview = [{ ...course[1], content: Overview }]
+    expect(publishedLessons(withOverview).map(item => item.href)).toEqual(['#chapter-02', '#chapter-02/missing-values'])
+  })
 })

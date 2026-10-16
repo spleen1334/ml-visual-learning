@@ -24,3 +24,7 @@ The sidebar generates numbered nested links automatically. Links such as `#chapt
 Keep IDs stable, unique within their parent, and URL-safe (lowercase words and hyphens). Subchapter IDs can repeat across different chapters. No routing dependency, backend or CMS is needed.
 
 Before publishing a nested chapter, verify its direct links, Back/Forward, selected navigation state, keyboard access and phone layout. Each subchapter should have its own heading, explanation, visual experiment and concise summary. Numerical fixtures and routing behavior belong in focused tests.
+
+The shell adds Previous/Next links across published pages, updates the document title, focuses the lesson region and returns to the top when the active lesson changes. On narrow screens the current chapter's subchapter links appear above the lesson as a horizontal strip; desktop keeps the nested sidebar links. The deferred end-of-project table of contents is separate from this basic lesson navigation (see `todo.md`).
+
+Desktop is the primary supported design target (user preference, 2026-10-16). Keep basic narrow-screen behavior but do not spend chapter implementation time on phone-specific polish or exhaustive phone QA.
