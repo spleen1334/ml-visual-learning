@@ -103,3 +103,10 @@ The 5.8 casino scenario explicitly distinguishes observed sample counts, theoret
 Normal-distribution review: the bag-weight example now compares the same 530 g observation under two normal models, both centered at 500 g. SD 10 g gives a standardized distance of +3; SD 30 g gives +1. This explains how spread contextualizes distance and why an unusual observation can prompt investigation without being automatically incorrect.
 
 Further spread teaching: the abstract center-4 slider example was replaced after user review with two delivery services, A [29,30,31] and B [10,30,50] minutes. Both have mean 30; sample variances are 1 and 400 minutes², and sample SDs are 1 and 20 minutes. The shared fixed axis emphasizes consistency rather than unexplained numbers. These tiny samples illustrate spread, not normality or validated tail probabilities. Section 5.19 now summarizes the chapter’s tools with questions, use cases, limitations, and lesson links.
+
+
+## Chapter 06 — Multivariate Profiling
+
+PDF pages 61–79 and the 15 non-quiz subtitle lessons were reviewed by the implementation agents, including rendered diagrams. See [categorical source notes](CHAPTER_06_CATEGORIES_SOURCES.md), [grouped-distribution notes](CHAPTER_06_DISTRIBUTIONS_SOURCES.md), and [numerical source notes](CHAPTER_06_NUMERICAL_SOURCES.md) for definitions, exact workbook ranges, and teaching corrections.
+
+The primary review independently compared all 6,000 extracted marketing values and all 168 accident frequency cells against the workbook XML; every value matched. Counts are not exposure-adjusted accident risk, Pearson r measures linear association, and neither profiling nor ML alone establishes causation. Box plots use interpolated quartiles and observed whisker endpoints within 1.5×IQR fences; flagged values are not automatically errors.

@@ -31,12 +31,24 @@ describe('lesson sequence', () => {
 
 
 describe('chapter five publication', () => {
-  it('publishes all 19 source lessons and keeps later outlines out of pagination', () => {
+  it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 5)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 6)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
+  })
+})
+
+
+describe('chapter six publication', () => {
+  it('publishes all 15 source lessons and resolves direct links', () => {
+    const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-06')
+    expect(lessons).toHaveLength(15)
+    expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
+    for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
+    expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 6)).toBe(false)
   })
 })

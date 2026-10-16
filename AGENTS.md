@@ -7,7 +7,7 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–5 have implemented content. Chapters 6–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
+- Chapters 1–6 have implemented content. Chapters 7–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach
@@ -61,6 +61,7 @@ Use this default order in each section:
 - Use `src/app/course.ts` as the course manifest; lesson components live in `src/chapters/`. Keep routing, published-lesson sequencing, and placeholder outlines consistent.
 - Prefer focused changes that preserve working layouts and controls. Avoid unrelated cleanup or abstractions.
 - Delegate routine implementation to faster, cheaper agents, preferably `gpt-6-luna` with high reasoning. Give each agent bounded chapter/component tasks and avoid overlapping edits. Use parallel agents for independent work when useful.
+- Delegate PDF, subtitle, and workbook reading to faster, cheaper agents too. Have them save concise chapter source notes (page ranges, key definitions, data ranges, and corrections) so the primary agent can review those notes without repeating the full source read.
 - The primary agent orchestrates the work, integrates changes, checks source fidelity, and verifies the result.
 - For complex implementation, difficult debugging, or architecture decisions, use `gpt-6.1-sol` with **high** reasoning. Reserve this escalation for work that benefits from it rather than making it the default for routine tasks.
 - When specifying an agent model or reasoning override, use `fork_turns: "none"` and supply the relevant project context and instructions explicitly. These model choices are user-authorized preferences; use the closest available option if a named model is unavailable and disclose a material substitution.
@@ -77,3 +78,5 @@ The user explicitly requests that this file evolve with the project.
 - Revise obsolete guidance rather than accumulating conflicting rules. Keep related guidance in `docs/LEARNING_STYLE.md` consistent when applicable.
 - Keep temporary task lists, debugging notes, and detailed progress logs out of this file. Use `todo.md`, the build plan, or focused reference documents instead.
 - Treat current user instructions as higher priority than this file. If a new request changes an established convention, apply it and update the convention here.
+
+- Heat-map lessons should explicitly show why color makes dense counts easier to scan. Include marginal totals in the color treatment using clearly explained separate scales, and label percentage views with `%` and an explicit denominator.

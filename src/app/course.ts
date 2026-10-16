@@ -1,3 +1,6 @@
+import { MVIntroduction, MVCategoricalCategorical, MVHeatMapCase } from '../chapters/MultivariateCategories'
+import { MVCategoricalNumerical, MVKernelDensities, MVViolinPlots, MVBoxPlots, MVLimitations } from '../chapters/MultivariateDistributions'
+import { MVNumericalNumerical, MVCorrelation, MVCorrelationCausation, MVThirdDimension, MVCorrelationCase, MVBestPractices, MVLookingAhead } from '../chapters/MultivariateNumerical'
 import { UVBestPractices } from '../chapters/UnivariateCheatSheet'
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
@@ -66,22 +69,22 @@ export const chapters: readonly Chapter[] = [
     { id: "best-practices-univariate-profiling", title: "BEST PRACTICES Univariate Profiling", content: UVBestPractices },
   ] },
 
-  { id: 'chapter-06', number: '06', title: "Multivariate Profiling", subtitle: 'Planned', subchapters: [
-    { id: "introduction", title: "Introduction" },
-    { id: "categorical-categorical", title: "Categorical-Categorical" },
-    { id: "case-study-heat-maps", title: "CASE STUDY Heat Maps" },
-    { id: "categorical-numerical", title: "Categorical-Numerical" },
-    { id: "multivariate-kernel-densities", title: "Multivariate Kernel Densities" },
-    { id: "violin-plots", title: "Violin Plots" },
-    { id: "box-plots", title: "Box Plots" },
-    { id: "limitations-of-categorical-distributions", title: "Limitations of Categorical Distributions" },
-    { id: "numerical-numerical", title: "Numerical-Numerical" },
-    { id: "correlation", title: "Correlation" },
-    { id: "correlation-vs-causation", title: "Correlation vs. Causation" },
-    { id: "visualizing-third-dimension", title: "Visualizing Third Dimension" },
-    { id: "case-study-correlation", title: "CASE STUDY Correlation" },
-    { id: "best-practices-multivariate-profiling", title: "BEST PRACTICES Multivariate Profiling" },
-    { id: "looking-ahead-to-part-2", title: "Looking Ahead to Part 2" },
+  { id: 'chapter-06', number: '06', title: "Multivariate Profiling", subtitle: 'Explore relationships between variables', subchapters: [
+    { id: "introduction", title: "Introduction", content: MVIntroduction },
+    { id: "categorical-categorical", title: "Categorical-Categorical", content: MVCategoricalCategorical },
+    { id: "case-study-heat-maps", title: "CASE STUDY Heat Maps", content: MVHeatMapCase },
+    { id: "categorical-numerical", title: "Categorical-Numerical", content: MVCategoricalNumerical },
+    { id: "multivariate-kernel-densities", title: "Multivariate Kernel Densities", content: MVKernelDensities },
+    { id: "violin-plots", title: "Violin Plots", content: MVViolinPlots },
+    { id: "box-plots", title: "Box Plots", content: MVBoxPlots },
+    { id: "limitations-of-categorical-distributions", title: "Limitations of Categorical Distributions", content: MVLimitations },
+    { id: "numerical-numerical", title: "Numerical-Numerical", content: MVNumericalNumerical },
+    { id: "correlation", title: "Correlation", content: MVCorrelation },
+    { id: "correlation-vs-causation", title: "Correlation vs. Causation", content: MVCorrelationCausation },
+    { id: "visualizing-third-dimension", title: "Visualizing Third Dimension", content: MVThirdDimension },
+    { id: "case-study-correlation", title: "CASE STUDY Correlation", content: MVCorrelationCase },
+    { id: "best-practices-multivariate-profiling", title: "BEST PRACTICES Multivariate Profiling", content: MVBestPractices },
+    { id: "looking-ahead-to-part-2", title: "Looking Ahead to Part 2", content: MVLookingAhead },
   ] },
   { id: 'chapter-07', number: '07', title: "PART 2 Classification Modeling", subtitle: 'Planned', subchapters: [
     { id: "part-2-classification-modeling", title: "Part 2 Classification Modeling" },

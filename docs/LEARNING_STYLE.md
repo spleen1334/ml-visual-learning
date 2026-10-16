@@ -24,3 +24,7 @@ Explain why a method is useful with a concrete scenario before its formula or co
 - For variance and standard deviation, start with concrete observations and units, then compare consistency at the same mean. Avoid abstract numbered sliders; explain the practical meaning of the metric before its arithmetic.
 
 - A chapter-end workflow can be a clickable sequence: keep all steps visible and show the selected step’s task, relevant tools, and expected output. Do not gate progression or turn it into a quiz.
+
+- Let faster, cheaper implementation agents inspect PDF diagrams, subtitles, and workbook data, then save concise source notes for review. The primary agent reviews those notes, teaching clarity, calculations, and the finished browser experience.
+
+- Heat-map lessons should explicitly show why color makes dense counts easier to scan. Include marginal totals in the color treatment using clearly explained separate scales, and label percentage views with `%` and an explicit denominator.
