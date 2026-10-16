@@ -18,4 +18,9 @@ describe('mean', () => {
   it('rejects an empty collection because it has no defined average', () => {
     expect(() => mean([])).toThrow(RangeError);
   });
+
+  it('rejects non-finite values instead of returning an unusable result', () => {
+    expect(() => mean([1, Number.NaN])).toThrow(RangeError);
+    expect(() => mean([1, Number.POSITIVE_INFINITY])).toThrow(RangeError);
+  });
 });

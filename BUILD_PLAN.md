@@ -1,6 +1,6 @@
 # ML Visual Interactive — build plan
 
-Date: 2026-10-16. Status: proposal; no application has been implemented.
+Date: 2026-10-16. Original plan below; implementation has started. Chapter 01 is available for user review. See [README.md](README.md) for startup and [previews/CHAPTER_01_REVIEW.md](previews/CHAPTER_01_REVIEW.md) for verification. Chapters 02–05 remain planned.
 
 Build a small browser learning companion that follows the local course chapter order and lets the learner change data, predict what will happen, and explain the resulting charts. Start with chapters 01–05. Chapters 01–03 should be short orientation activities; most implementation effort belongs to Preliminary Data QA and Univariate Profiling.
 

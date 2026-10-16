@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useId, useState, useSyncExternalStore } from 'react';
 import { mean } from '../math/mean';
 
 type ChapterOneProps = {
@@ -39,13 +39,21 @@ function formatNumber(value: number): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(1);
 }
 
+function subscribeToChartWidth(notify: () => void) {
+  const query = window.matchMedia('(max-width: 620px)');
+  query.addEventListener('change', notify);
+  return () => query.removeEventListener('change', notify);
+}
+
 function DotPlot({ values, average }: { values: readonly number[]; average: number }) {
+  const compact = useSyncExternalStore(subscribeToChartWidth, () => window.matchMedia('(max-width: 620px)').matches, () => false);
   const titleId = useId();
   const descriptionId = useId();
-  const width = 620;
-  const height = 214;
-  const left = 72;
-  const right = 30;
+  const width = compact ? 340 : 620;
+  const height = compact ? 270 : 214;
+  const left = compact ? 52 : 72;
+  const right = compact ? 24 : 30;
+  const bottom = compact ? 218 : 168;
   const chartWidth = width - left - right;
   const x = (value: number) => left + (value / MAX_VALUE) * chartWidth;
   const ticks = [0, 10, 20, 30, 40];
@@ -60,13 +68,13 @@ function DotPlot({ values, average }: { values: readonly number[]; average: numb
       <title id={titleId}>Five daily unit-sale values and their mean</title>
       <desc id={descriptionId}>
         A horizontal dot plot on a scale from zero to forty units. The first four values are 4, 6, 8,
-        and 10. The fifth value is {values[4]}. The vertical teal line marks the mean, {formatNumber(average)} units.
+        and 10. The fifth value is {values[4]}. A dashed vertical line marks the mean, {formatNumber(average)} units.
       </desc>
 
       {ticks.map((tick) => (
         <g key={tick} className="chapter-one__plot-tick">
-          <line x1={x(tick)} x2={x(tick)} y1="26" y2="168" />
-          <text x={x(tick)} y="190" textAnchor="middle">
+          <line x1={x(tick)} x2={x(tick)} y1="26" y2={bottom} />
+          <text x={x(tick)} y={bottom + 22} textAnchor="middle">
             {tick}
           </text>
         </g>
@@ -77,14 +85,14 @@ function DotPlot({ values, average }: { values: readonly number[]; average: numb
         x1={x(average)}
         x2={x(average)}
         y1="22"
-        y2="168"
+        y2={bottom}
       />
       <text className="chapter-one__mean-label" x={x(average)} y="16" textAnchor="middle">
         Mean {formatNumber(average)}
       </text>
 
       {values.map((value, index) => {
-        const cy = 49 + index * 27;
+        const cy = compact ? 50 + index * 37 : 49 + index * 27;
         return (
           <g key={`day-${index + 1}`} className={index === 4 ? 'chapter-one__dot chapter-one__dot--editable' : 'chapter-one__dot'}>
             <text x="8" y={cy + 4}>
@@ -97,7 +105,7 @@ function DotPlot({ values, average }: { values: readonly number[]; average: numb
           </g>
         );
       })}
-      <text className="chapter-one__axis-label" x={left + chartWidth / 2} y="210" textAnchor="middle">
+      <text className="chapter-one__axis-label" x={left + chartWidth / 2} y={height - 4} textAnchor="middle">
         Units sold in one day
       </text>
     </svg>
@@ -106,9 +114,11 @@ function DotPlot({ values, average }: { values: readonly number[]; average: numb
 
 export default function ChapterOne({ onComplete }: ChapterOneProps) {
   const [fifthValue, setFifthValue] = useState(INITIAL_FIFTH_VALUE);
-  const [hasChangedValue, setHasChangedValue] = useState(false);
-  const [hasReset, setHasReset] = useState(false);
+  const [fifthValueDraft, setFifthValueDraft] = useState(String(INITIAL_FIFTH_VALUE));
+  const [hasRaisedValue, setHasRaisedValue] = useState(false);
+  const [hasResetAfterChange, setHasResetAfterChange] = useState(false);
   const [selectedStep, setSelectedStep] = useState<WorkflowId | ''>('');
+  const [firstStepAnswer, setFirstStepAnswer] = useState('');
   const [prediction, setPrediction] = useState('');
   const [selectedObservation, setSelectedObservation] = useState('');
   const [checkResult, setCheckResult] = useState<'correct' | 'incomplete' | ''>('');
@@ -121,19 +131,34 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
   const currentMean = mean(values);
   const delta = currentMean - initialMean;
   const selectedWorkflow = WORKFLOW_STEPS.find((step) => step.id === selectedStep);
-  const canComplete = hasChangedValue && hasReset && fifthValue === INITIAL_FIFTH_VALUE;
+  const canComplete = hasRaisedValue && hasResetAfterChange;
 
   function updateFifthValue(nextValue: number) {
     const boundedValue = Math.min(MAX_VALUE, Math.max(MIN_VALUE, Math.round(nextValue)));
     setFifthValue(boundedValue);
-    setHasChangedValue((changed) => changed || boundedValue > INITIAL_FIFTH_VALUE);
+    setFifthValueDraft(String(boundedValue));
+    if (boundedValue > INITIAL_FIFTH_VALUE) {
+      setHasRaisedValue(true);
+      setHasResetAfterChange(false);
+    }
     setCheckResult('');
   }
 
   function resetExperiment() {
     setFifthValue(INITIAL_FIFTH_VALUE);
-    setHasReset(true);
+    setFifthValueDraft(String(INITIAL_FIFTH_VALUE));
+    if (hasRaisedValue) setHasResetAfterChange(true);
     setCheckResult('');
+  }
+
+  function commitFifthValueDraft() {
+    const parsedValue = Number(fifthValueDraft);
+    if (fifthValueDraft.trim() === '' || !Number.isFinite(parsedValue)) {
+      setFifthValueDraft(String(fifthValue));
+      return;
+    }
+
+    updateFifthValue(parsedValue);
   }
 
   function submitCheck() {
@@ -142,7 +167,7 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
       return;
     }
 
-    if (selectedStep === 'prepare' && selectedObservation === 'follows') {
+    if (firstStepAnswer === 'prepare' && selectedObservation === 'follows') {
       setCheckResult('correct');
       onComplete();
       return;
@@ -157,13 +182,13 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
         <p className="chapter-one__eyebrow">Chapter 01 · Getting started</p>
         <h1 id="chapter-one-title">Learn the idea before the algorithm</h1>
         <p className="chapter-one__subtitle">
-          A visual, beginner-friendly introduction to machine learning and data science. We’ll make
-          familiar ideas easier to inspect, one small question at a time.
+          A visual learning companion for exploring machine learning and data science. Work through
+          one small question at a time and see how each result is built.
         </p>
         <p>
-          This course uses guided examples and interactive models to show what methods do and why
-          they work. You do not need to code or arrive with a statistics background. The aim is to
-          build intuition you can carry into later tools and projects.
+          The original course explains methods through guided examples and interactive models. This
+          companion gives you space to inspect the ideas and build intuition before using other
+          tools. No coding or statistics background is needed to begin.
         </p>
       </header>
 
@@ -239,10 +264,11 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
                 min={MIN_VALUE}
                 max={MAX_VALUE}
                 step="1"
-                value={fifthValue}
+                value={fifthValueDraft}
                 onChange={(event) => {
-                  if (event.currentTarget.value !== '') updateFifthValue(Number(event.currentTarget.value));
+                  setFifthValueDraft(event.currentTarget.value);
                 }}
+                onBlur={commitFifthValueDraft}
               />
             </div>
           </div>
@@ -251,7 +277,7 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
           </button>
         </div>
 
-        <div className="chapter-one__visual" aria-label="Daily sales dot plot and values">
+        <div className="chapter-one__visual" role="group" aria-label="Daily sales dot plot and values">
           <DotPlot values={values} average={currentMean} />
           <div className="chapter-one__mean-result" aria-live="polite">
             <p><span>Current average</span><strong>{formatNumber(currentMean)} units</strong></p>
@@ -295,8 +321,8 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
 
         <fieldset className="chapter-one__check-question">
           <legend>When you first receive a dataset, where should you start?</legend>
-          <label><input type="radio" name="first-step" value="prepare" checked={selectedStep === 'prepare'} onChange={() => { setSelectedStep('prepare'); setCheckResult(''); }} /> Check and prepare the data</label>
-          <label><input type="radio" name="first-step" value="model" checked={selectedStep === 'model'} onChange={() => { setSelectedStep('model'); setCheckResult(''); }} /> Fit a model before looking at the data</label>
+          <label><input type="radio" name="first-step" value="prepare" checked={firstStepAnswer === 'prepare'} onChange={() => { setFirstStepAnswer('prepare'); setCheckResult(''); }} /> Check and prepare the data</label>
+          <label><input type="radio" name="first-step" value="model" checked={firstStepAnswer === 'model'} onChange={() => { setFirstStepAnswer('model'); setCheckResult(''); }} /> Fit a model before looking at the data</label>
         </fieldset>
 
         <fieldset className="chapter-one__check-question">
@@ -311,10 +337,10 @@ export default function ChapterOne({ onComplete }: ChapterOneProps) {
         </button>
         <p className="chapter-one__check-feedback" role="status" aria-live="polite">
           {checkResult === 'correct'
-            ? 'That’s it. Start by preparing the data, and notice that one changed value moves the average by one fifth of its change. Your experiment is reset and ready to continue.'
+            ? 'That’s it. Start by preparing the data, and notice that one changed value moves the average by one fifth of its change. You observed the effect and reset the experiment; you can keep exploring any time.'
             : checkResult === 'incomplete'
               ? !canComplete
-                ? 'First, raise Day 5 above 12 so you can observe the average move, then use Reset to return to the starting data. After that, choose both answers.'
+                ? 'First, raise Day 5 above 12 so you can observe the average move, then use Reset. After that, choose both answers. You can keep exploring after the reset.'
                 : 'Take another look at the course map and the average change, then try those two choices again.'
               : ''}
         </p>

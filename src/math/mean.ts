@@ -4,5 +4,9 @@ export function mean(values: readonly number[]): number {
     throw new RangeError('mean requires at least one value');
   }
 
+  if (values.some((value) => !Number.isFinite(value))) {
+    throw new RangeError('mean requires finite numbers');
+  }
+
   return values.reduce((total, value) => total + value, 0) / values.length;
 }
