@@ -7,7 +7,7 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–6 have implemented content. Chapters 7–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
+- Chapters 1–7 have implemented content. Chapters 8–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach

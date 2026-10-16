@@ -5,6 +5,7 @@ import { UVBestPractices } from '../chapters/UnivariateCheatSheet'
 import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
 import ChapterThree from '../chapters/ChapterThree'
+import ChapterSeven from '../chapters/ChapterSeven'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -86,8 +87,8 @@ export const chapters: readonly Chapter[] = [
     { id: "best-practices-multivariate-profiling", title: "BEST PRACTICES Multivariate Profiling", content: MVBestPractices },
     { id: "looking-ahead-to-part-2", title: "Looking Ahead to Part 2", content: MVLookingAhead },
   ] },
-  { id: 'chapter-07', number: '07', title: "PART 2 Classification Modeling", subtitle: 'Planned', subchapters: [
-    { id: "part-2-classification-modeling", title: "Part 2 Classification Modeling" },
+  { id: 'chapter-07', number: '07', title: "PART 2 Classification Modeling", subtitle: 'From data foundations to category predictions', subchapters: [
+    { id: "part-2-classification-modeling", title: "Part 2 Classification Modeling", content: ChapterSeven },
   ] },
   { id: 'chapter-08', number: '08', title: "Intro to Classification", subtitle: 'Planned', subchapters: [
     { id: "supervised-vs-unsupervised-learning", title: "Supervised vs. Unsupervised Learning" },
