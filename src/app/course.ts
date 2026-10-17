@@ -19,6 +19,7 @@ import { RMLeastSquares, RMLinearRelationships } from '../chapters/RegressionFou
 import { RMUnivariate, RMUnivariateCase } from '../chapters/RegressionConeZone'
 import { RMMultiple } from '../chapters/RegressionMultiple'
 import { RMNonLinear, RMNonLinearCase } from '../chapters/RegressionNonlinear'
+import { RDIntro, RDSampleOutput, RDRSquared, RDErrorMetrics, RDHomoskedasticity, RDNullHypothesis, RDFSignificance, RDTValues, RDMulticollinearity, RDVIF, RDRecap } from '../chapters/RegressionDiagnostics'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -173,6 +174,19 @@ export const chapters: readonly Chapter[] = [
     { id: 'multiple-linear-regression', title: 'Multiple Linear Regression', content: RMMultiple },
     { id: 'non-linear-regression', title: 'Non-Linear Regression', content: RMNonLinear },
     { id: 'case-study-non-linear-regression', title: 'CASE STUDY Non-Linear Regression', content: RMNonLinearCase },
+  ] },
+  { id: 'chapter-14', number: '14', title: 'Model Diagnostics', subtitle: 'Check fit, errors & feature stability', subchapters: [
+    { id: 'intro-to-model-diagnostics', title: 'Intro to Model Diagnostics', content: RDIntro },
+    { id: 'sample-model-output', title: 'Sample Model Output', content: RDSampleOutput },
+    { id: 'r-squared', title: 'R-Squared', content: RDRSquared },
+    { id: 'mean-error-metrics', title: 'Mean Error Metrics (MSE, MAE, MAPE)', content: RDErrorMetrics },
+    { id: 'homoskedasticity', title: 'Homoskedasticity', content: RDHomoskedasticity },
+    { id: 'null-hypothesis', title: 'Null Hypothesis', content: RDNullHypothesis },
+    { id: 'f-significance', title: 'F-Significance', content: RDFSignificance },
+    { id: 't-values-p-values', title: 'T-Values & P-Values', content: RDTValues },
+    { id: 'multicollinearity', title: 'Multicollinearity', content: RDMulticollinearity },
+    { id: 'variance-inflation-factor', title: 'Variance Inflation Factor', content: RDVIF },
+    { id: 'recap-sample-model-output', title: 'RECAP Sample Model Output', content: RDRecap },
   ] },
 ]
 
