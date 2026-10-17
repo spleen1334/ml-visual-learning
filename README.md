@@ -1,10 +1,10 @@
 # ML Visual Interactive
 
-A personal, interactive learning companion for the first ten chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
+A personal, interactive learning companion for the first eleven chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
 
 ## Current milestone
 
-Chapters 01–10 are implemented. Chapter 02 — The ML Landscape has four subchapters:
+Chapters 01–11 are implemented. Chapter 02 — The ML Landscape has four subchapters:
 
 1. [What is machine learning?](http://127.0.0.1:4173/#chapter-02/what-is-ml) — switch business questions and inspect the form of the answer.
 2. [When does ML help?](http://127.0.0.1:4173/#chapter-02/when-to-use-ml) — compare an average and a fitted trend with a held-out sales observation.
@@ -20,7 +20,7 @@ Chapters 01–10 are implemented. Chapter 02 — The ML Landscape has four subch
 5. [Long and wide tables](http://127.0.0.1:4173/#chapter-04/table-structure) — pivot six measurements and follow the same observation.
 6. [Maven Market case study](http://127.0.0.1:4173/#chapter-04/inventory-case) — combine reversible, documented corrections on all 100 workbook records.
 
-[Chapter 05 — Univariate Profiling](http://127.0.0.1:4173/#chapter-05) is implemented in the course's 19-lesson sequence. Explore categories and discretization, histogram bins and kernel densities, dice sampling, athlete/reference heights, and visual calculations for center, percentiles, spread and skewness. [Chapter 06 — Multivariate Profiling](http://127.0.0.1:4173/#chapter-06) adds 15 lessons: joint category tables and an accident heat map, grouped densities, violin and box plots, scatter plots, correlation, and a marketing case study. [Chapter 07 — Part 2 Classification Modeling](http://127.0.0.1:4173/#chapter-07/part-2-classification-modeling) introduces prediction of categories and the upcoming learning path. [Chapter 08 — Intro to Classification](http://127.0.0.1:4173/#chapter-08) adds eight lessons on labels, prediction tasks, features, splitting and overfitting. Chapter 09 adds 25 lessons on classification models, with neighbor voting, Bayes calculations, tree splits, logistic probabilities and text features. [Chapter 10 — Model Selection & Tuning](http://127.0.0.1:4173/#chapter-10) adds ten lessons on hyperparameters, imbalance, confusion matrices, metrics, context-led model selection, and drift. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
+[Chapter 05 — Univariate Profiling](http://127.0.0.1:4173/#chapter-05) is implemented in the course's 19-lesson sequence. Explore categories and discretization, histogram bins and kernel densities, dice sampling, athlete/reference heights, and visual calculations for center, percentiles, spread and skewness. [Chapter 06 — Multivariate Profiling](http://127.0.0.1:4173/#chapter-06) adds 15 lessons: joint category tables and an accident heat map, grouped densities, violin and box plots, scatter plots, correlation, and a marketing case study. [Chapter 07 — Part 2 Classification Modeling](http://127.0.0.1:4173/#chapter-07/part-2-classification-modeling) introduces prediction of categories and the upcoming learning path. [Chapter 08 — Intro to Classification](http://127.0.0.1:4173/#chapter-08) adds eight lessons on labels, prediction tasks, features, splitting and overfitting. Chapter 09 adds 25 lessons on classification models, with neighbor voting, Bayes calculations, tree splits, logistic probabilities and text features. [Chapter 10 — Model Selection & Tuning](http://127.0.0.1:4173/#chapter-10) adds ten lessons on hyperparameters, imbalance, confusion matrices, metrics, context-led model selection, and drift. [Chapter 11 — Part 3 Regression & Forecasting](http://127.0.0.1:4173/#chapter-11/part-3-regression-forecasting) introduces numeric estimates, time-ordered forecasts, and the four chapters ahead. No quizzes, scores or completion gates. Each lesson has visible explanations and a summary. CODAP remains a useful companion rather than a runtime dependency.
 
 ## Run locally
 
@@ -67,4 +67,4 @@ Chapters 01–03 and the Chapter 04 foundations use explicitly synthetic teachin
 
 ## Next milestone
 
-Review Chapter 10 before starting Chapter 11. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.
+Review Chapter 11 before starting Chapter 12. Each chapter gets a usable preview and verification before moving on. Preserve the original teal/cream palette, clear emphasis, diagrams, visible calculations and concise summaries.

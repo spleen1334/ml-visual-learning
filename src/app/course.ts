@@ -12,6 +12,7 @@ import type { ComponentType } from 'react'
 import ChapterOne from '../chapters/ChapterOne'
 import ChapterThree from '../chapters/ChapterThree'
 import ChapterSeven from '../chapters/ChapterSeven'
+import ChapterEleven from '../chapters/ChapterEleven'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -146,6 +147,9 @@ export const chapters: readonly Chapter[] = [
     { id: "model-selection", title: "Model Selection", content: MSModelSelection },
     { id: "model-drift", title: "Model Drift", content: MSModelDrift },
     { id: "looking-ahead-to-part-3", title: "Looking ahead to Part 3", content: MSLookingAhead },
+  ] },
+  { id: 'chapter-11', number: '11', title: "PART 3 Regression & Forecasting", subtitle: 'From categories to numeric estimates', subchapters: [
+    { id: 'part-3-regression-forecasting', title: 'Part 3 Regression & Forecasting', content: ChapterEleven },
   ] },
 ]
 

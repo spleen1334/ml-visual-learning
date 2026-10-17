@@ -34,7 +34,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 10)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 11)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
@@ -49,7 +49,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 10)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 11)).toBe(false)
   })
 })
 
@@ -58,7 +58,7 @@ describe('chapter seven publication', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-07').map(item => item.href)).toEqual(['#chapter-07/part-2-classification-modeling'])
     expect(resolveLesson('#chapter-07/part-2-classification-modeling').section?.id).toBe('part-2-classification-modeling')
-    expect(lessons.at(-1)?.href).toBe('#chapter-10/looking-ahead-to-part-3')
+    expect(lessons.at(-1)?.href).toBe('#chapter-11/part-3-regression-forecasting')
     expect(lessons.some(item => item.chapter.id === 'chapter-10')).toBe(true)
   })
 })
@@ -71,7 +71,7 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('overfitting')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 10)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 11)).toBe(false)
   })
 })
 
@@ -94,5 +94,14 @@ describe('chapter ten publication', () => {
   expect(resolveLesson('#chapter-10').section?.id).toBe('intro-to-selection-tuning')
   expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-3')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
+ })
+})
+
+describe('chapter eleven publication', () => {
+ it('publishes the Part 3 orientation after model selection', () => {
+  const lessons = publishedLessons()
+  expect(lessons.filter(item => item.chapter.id === 'chapter-11').map(item => item.href)).toEqual(['#chapter-11/part-3-regression-forecasting'])
+  expect(resolveLesson('#chapter-11/part-3-regression-forecasting').section?.id).toBe('part-3-regression-forecasting')
+  expect(lessons.at(-1)?.href).toBe('#chapter-11/part-3-regression-forecasting')
  })
 })
