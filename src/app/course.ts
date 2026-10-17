@@ -1,3 +1,5 @@
+import { CLSupervisedUnsupervised, CLClassificationRegression, CLKeyConceptsRecap, CLClassification101 } from '../chapters/ClassificationBasics'
+import { CLWorkflow, CLFeatureEngineering, CLDataSplitting, CLOverfitting } from '../chapters/ClassificationWorkflow'
 import { MVIntroduction, MVCategoricalCategorical, MVHeatMapCase } from '../chapters/MultivariateCategories'
 import { MVCategoricalNumerical, MVKernelDensities, MVViolinPlots, MVBoxPlots, MVLimitations } from '../chapters/MultivariateDistributions'
 import { MVNumericalNumerical, MVCorrelation, MVCorrelationCausation, MVThirdDimension, MVCorrelationCase, MVBestPractices, MVLookingAhead } from '../chapters/MultivariateNumerical'
@@ -90,15 +92,15 @@ export const chapters: readonly Chapter[] = [
   { id: 'chapter-07', number: '07', title: "PART 2 Classification Modeling", subtitle: 'From data foundations to category predictions', subchapters: [
     { id: "part-2-classification-modeling", title: "Part 2 Classification Modeling", content: ChapterSeven },
   ] },
-  { id: 'chapter-08', number: '08', title: "Intro to Classification", subtitle: 'Planned', subchapters: [
-    { id: "supervised-vs-unsupervised-learning", title: "Supervised vs. Unsupervised Learning" },
-    { id: "classification-vs-regression", title: "Classification vs. Regression" },
-    { id: "recap-key-concepts", title: "RECAP Key Concepts" },
-    { id: "classification-101", title: "Classification 101" },
-    { id: "classification-workflow", title: "Classification Workflow" },
-    { id: "feature-engineering", title: "Feature Engineering" },
-    { id: "data-splitting", title: "Data Splitting" },
-    { id: "overfitting", title: "Overfitting" },
+  { id: 'chapter-08', number: '08', title: "Intro to Classification", subtitle: 'Labels, features & learning from unseen data', subchapters: [
+    { id: "supervised-vs-unsupervised-learning", title: "Supervised vs. Unsupervised Learning", content: CLSupervisedUnsupervised },
+    { id: "classification-vs-regression", title: "Classification vs. Regression", content: CLClassificationRegression },
+    { id: "recap-key-concepts", title: "RECAP Key Concepts", content: CLKeyConceptsRecap },
+    { id: "classification-101", title: "Classification 101", content: CLClassification101 },
+    { id: "classification-workflow", title: "Classification Workflow", content: CLWorkflow },
+    { id: "feature-engineering", title: "Feature Engineering", content: CLFeatureEngineering },
+    { id: "data-splitting", title: "Data Splitting", content: CLDataSplitting },
+    { id: "overfitting", title: "Overfitting", content: CLOverfitting },
   ] },
   { id: 'chapter-09', number: '09', title: "Classification Models", subtitle: 'Planned', subchapters: [
     { id: "common-classification-models", title: "Common Classification Models" },

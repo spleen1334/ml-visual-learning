@@ -7,7 +7,7 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–7 have implemented content. Chapters 8–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
+- Chapters 1–8 have implemented content. Chapters 9–10 currently have sidebar outlines only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach
@@ -24,6 +24,7 @@ Use this default order in each section:
 - Teach one concept at a time with a small dataset. Keep the full inventory dataset in its separate case study rather than repeating it in every lesson.
 - Introduce case studies with the concrete assignment: who or what is measured, which groups are compared, and what difference the learner is investigating. Use those specific group names in controls and chart legends.
 - Explain **why a method is useful** with a concrete scenario before introducing its formula or controls; a definition alone is not enough.
+- Introduce unfamiliar ML terms and notation in a prominent, always-visible key-terms area with a small labeled example. Explain features, target, observed labels, classes, and predictions; distinguish X/y data roles from horizontal/vertical chart axes.
 - For beginner statistics, label observations with a concrete scenario and units. Prefer clear scenario comparisons over abstract sliders when they make the purpose easier to understand; explain what the resulting number means in practice.
 - Explain what an interactive control changes, why it matters, and what the learner should notice. Use explicit prompts or callouts where helpful; never turn these into quizzes.
 - Keep worked calculations visible. Prefer annotated formulas, arrows, source-cell highlights, and clear links between input values and calculation terms over hidden “show calculation” panels.
