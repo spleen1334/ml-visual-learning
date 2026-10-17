@@ -13,6 +13,7 @@ import ChapterOne from '../chapters/ChapterOne'
 import ChapterThree from '../chapters/ChapterThree'
 import ChapterSeven from '../chapters/ChapterSeven'
 import ChapterEleven from '../chapters/ChapterEleven'
+import { RIFeatureEngineering, RIPredictionRootCause, RIRecapKeyConcepts, RIRegression101, RISupervisedUnsupervised } from '../chapters/RegressionIntro'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -150,6 +151,13 @@ export const chapters: readonly Chapter[] = [
   ] },
   { id: 'chapter-11', number: '11', title: "PART 3 Regression & Forecasting", subtitle: 'From categories to numeric estimates', subchapters: [
     { id: 'part-3-regression-forecasting', title: 'Part 3 Regression & Forecasting', content: ChapterEleven },
+  ] },
+  { id: 'chapter-12', number: '12', title: 'Intro to Regression', subtitle: 'Features, targets & numerical predictions', subchapters: [
+    { id: 'supervised-vs-unsupervised-learning', title: 'Supervised vs. Unsupervised Learning', content: RISupervisedUnsupervised },
+    { id: 'recap-key-concepts', title: 'RECAP Key Concepts', content: RIRecapKeyConcepts },
+    { id: 'regression-101', title: 'Regression 101', content: RIRegression101 },
+    { id: 'feature-engineering-for-regression', title: 'Feature Engineering for Regression', content: RIFeatureEngineering },
+    { id: 'prediction-vs-root-cause-analysis', title: 'Prediction vs. Root-Cause Analysis', content: RIPredictionRootCause },
   ] },
 ]
 

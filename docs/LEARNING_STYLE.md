@@ -11,7 +11,7 @@ User-approved direction, updated during Chapter 04 review.
 - Treat data preparation, QA and profiling as a central foundation, not a passing stage label. Use the source's iceberg analogy and clearly attribute its rough 80%+ estimate.
 - No quizzes, answer scoring, completion gates or About sections. End each lesson with an emphasized summary.
 - Display subchapters as 2.1, 2.2, etc., without a leading zero. Existing URL identifiers may stay stable.
-- Before presenting a chapter, inspect its desktop output, source assumptions and actual interactions. Passing a build does not establish readability.
+- Before presenting a chapter, review the implementation process (source notes, lesson order/routing, assumptions, calculations, interactions, and validation evidence) and the finished chapter as a learner (wording, visuals, examples, terminology, cognitive load, interaction guidance, readability, and desktop experience). Prioritize findings, fix must-fix items, and report any verification limit. Passing a build does not establish readability.
 
 - Default section order: a short, prominent definition, then a graph, image or small worked example. Supporting text follows the visual; avoid walls of text.
 - Use small, concept-specific examples before a separate full case study. Do not reuse the large case-study table throughout the lessons.
