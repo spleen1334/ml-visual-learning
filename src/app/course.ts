@@ -14,6 +14,11 @@ import ChapterThree from '../chapters/ChapterThree'
 import ChapterSeven from '../chapters/ChapterSeven'
 import ChapterEleven from '../chapters/ChapterEleven'
 import { RIFeatureEngineering, RIPredictionRootCause, RIRecapKeyConcepts, RIRegression101, RISupervisedUnsupervised } from '../chapters/RegressionIntro'
+import { RMIntro } from '../chapters/RegressionModeling'
+import { RMLeastSquares, RMLinearRelationships } from '../chapters/RegressionFoundations'
+import { RMUnivariate, RMUnivariateCase } from '../chapters/RegressionConeZone'
+import { RMMultiple } from '../chapters/RegressionMultiple'
+import { RMNonLinear, RMNonLinearCase } from '../chapters/RegressionNonlinear'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -158,6 +163,16 @@ export const chapters: readonly Chapter[] = [
     { id: 'regression-101', title: 'Regression 101', content: RIRegression101 },
     { id: 'feature-engineering-for-regression', title: 'Feature Engineering for Regression', content: RIFeatureEngineering },
     { id: 'prediction-vs-root-cause-analysis', title: 'Prediction vs. Root-Cause Analysis', content: RIPredictionRootCause },
+  ] },
+  { id: 'chapter-13', number: '13', title: 'Regression Modeling 101', subtitle: 'Fit lines, residuals & transformed relationships', subchapters: [
+    { id: 'intro-to-regression-modeling', title: 'Intro to Regression Modeling', content: RMIntro },
+    { id: 'linear-relationships', title: 'Linear Relationships', content: RMLinearRelationships },
+    { id: 'least-squared-error', title: 'Least Squared Error', content: RMLeastSquares },
+    { id: 'univariate-linear-regression', title: 'Univariate Linear Regression', content: RMUnivariate },
+    { id: 'case-study-univariate-linear-regression', title: 'CASE STUDY Univariate Linear Regression', content: RMUnivariateCase },
+    { id: 'multiple-linear-regression', title: 'Multiple Linear Regression', content: RMMultiple },
+    { id: 'non-linear-regression', title: 'Non-Linear Regression', content: RMNonLinear },
+    { id: 'case-study-non-linear-regression', title: 'CASE STUDY Non-Linear Regression', content: RMNonLinearCase },
   ] },
 ]
 

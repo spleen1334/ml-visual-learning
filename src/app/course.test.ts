@@ -34,7 +34,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 12)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 13)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
@@ -49,7 +49,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 12)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 13)).toBe(false)
   })
 })
 
@@ -71,7 +71,7 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('overfitting')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 12)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 13)).toBe(false)
   })
 })
 
@@ -112,6 +112,16 @@ describe('chapter twelve publication', () => {
   expect(lessons).toHaveLength(5)
   expect(resolveLesson('#chapter-12').section?.id).toBe('supervised-vs-unsupervised-learning')
   expect(lessons.at(-1)?.section?.id).toBe('prediction-vs-root-cause-analysis')
+  for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
+ })
+})
+
+describe('chapter thirteen publication', () => {
+ it('publishes the eight non-quiz source lessons in order with stable direct links', () => {
+  const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-13')
+  expect(lessons).toHaveLength(8)
+  expect(resolveLesson('#chapter-13').section?.id).toBe('intro-to-regression-modeling')
+  expect(lessons.at(-1)?.section?.id).toBe('case-study-non-linear-regression')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
 })
