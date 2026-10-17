@@ -1,0 +1,8 @@
+.me-worked-score,.me-data-roles{display:grid;gap:7px;margin-top:16px;padding:15px 17px;border-left:4px solid #1e7668;border-radius:6px;background:#edf5ef;color:#506259;font-size:14px;line-height:1.55}
+.me-worked-score strong,.me-data-roles strong{color:#285b4d}
+.me-data-roles{border-left-color:#b7832b;background:#fff7e8}.me-data-roles b{color:#5c4a22}
+.me-multi th.is-focus-row,.me-multi td.is-focus-row{background:#e7f3ee}
+.me-multi th.is-focus-column,.me-multi td.is-focus-column{box-shadow:inset 0 0 0 2px #cb9133}
+.me-multi .is-diagonal.is-focus-row.is-focus-column{color:#125e52;background:#dcefe6;box-shadow:inset 0 0 0 3px #1a7567}
+.me-multi small{display:block;color:#8a6221;font-size:10px;font-weight:800;text-transform:uppercase}
+.me-drift-chart .me-threshold{stroke:#ba7d32;stroke-dasharray:3 3}

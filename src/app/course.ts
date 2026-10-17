@@ -21,6 +21,8 @@ import { IntroToML, WhenToUseML, MLProcess, MLLandscape } from '../chapters/Chap
 import { UVIntroduction, UVCategoricalVariables, UVDiscretization, UVNominalOrdinal, UVCategoricalDistributions, UVNumericalVariables } from '../chapters/UnivariateCategories'
 import { UVHistograms, UVHistogramCase, UVNormalDistribution, UVNormalCase } from '../chapters/UnivariateDistributions'
 import { UVProfiling, UVMode, UVMean, UVMedian, UVPercentile, UVVariance, UVStandardDeviation, UVSkewness } from '../chapters/UnivariateMetrics'
+import { MSIntroSelectionTuning, MSHyperparameters, MSImbalancedClasses } from '../chapters/ModelSelectionBasics'
+import { MSConfusionMatrix, MSAccuracyPrecisionRecall, MSMulticlassConfusionMatrix, MSMulticlassScoring, MSModelSelection, MSModelDrift, MSLookingAhead } from '../chapters/ModelEvaluation'
 
 export type Subchapter = {
   id: string
@@ -133,17 +135,17 @@ export const chapters: readonly Chapter[] = [
     { id: "bag-of-words-analysis", title: "Bag of Words Analysis", content: CLBagOfWords },
     { id: "case-study-sentiment-analysis", title: "CASE STUDY Sentiment Analysis", content: CLSentimentCaseStudy },
   ] },
-  { id: 'chapter-10', number: '10', title: "Model Selection & Tuning", subtitle: 'Planned', subchapters: [
-    { id: "intro-to-selection-tuning", title: "Intro to Selection & Tuning" },
-    { id: "hyperparameters", title: "Hyperparameters" },
-    { id: "imbalanced-classes", title: "Imbalanced Classes" },
-    { id: "confusion-matrix", title: "Confusion Matrix" },
-    { id: "accuracy-precision-recall", title: "Accuracy, Precision & Recall" },
-    { id: "multi-class-confusion-matrix", title: "Multi-class Confusion Matrix" },
-    { id: "multi-class-scoring", title: "Multi-class Scoring" },
-    { id: "model-selection", title: "Model Selection" },
-    { id: "model-drift", title: "Model Drift" },
-    { id: "looking-ahead-to-part-3", title: "Looking ahead to Part 3" },
+  { id: 'chapter-10', number: '10', title: "Model Selection & Tuning", subtitle: 'Tune, evaluate & monitor classifiers', subchapters: [
+    { id: "intro-to-selection-tuning", title: "Intro to Selection & Tuning", content: MSIntroSelectionTuning },
+    { id: "hyperparameters", title: "Hyperparameters", content: MSHyperparameters },
+    { id: "imbalanced-classes", title: "Imbalanced Classes", content: MSImbalancedClasses },
+    { id: "confusion-matrix", title: "Confusion Matrix", content: MSConfusionMatrix },
+    { id: "accuracy-precision-recall", title: "Accuracy, Precision & Recall", content: MSAccuracyPrecisionRecall },
+    { id: "multi-class-confusion-matrix", title: "Multi-class Confusion Matrix", content: MSMulticlassConfusionMatrix },
+    { id: "multi-class-scoring", title: "Multi-class Scoring", content: MSMulticlassScoring },
+    { id: "model-selection", title: "Model Selection", content: MSModelSelection },
+    { id: "model-drift", title: "Model Drift", content: MSModelDrift },
+    { id: "looking-ahead-to-part-3", title: "Looking ahead to Part 3", content: MSLookingAhead },
   ] },
 ]
 
