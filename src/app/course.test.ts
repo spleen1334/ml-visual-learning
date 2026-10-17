@@ -34,7 +34,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 8)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 9)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
@@ -49,7 +49,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 8)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 9)).toBe(false)
   })
 })
 
@@ -58,8 +58,8 @@ describe('chapter seven publication', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-07').map(item => item.href)).toEqual(['#chapter-07/part-2-classification-modeling'])
     expect(resolveLesson('#chapter-07/part-2-classification-modeling').section?.id).toBe('part-2-classification-modeling')
-    expect(lessons.at(-1)?.href).toBe('#chapter-08/overfitting')
-    expect(lessons.some(item => ['chapter-09', 'chapter-10'].includes(item.chapter.id))).toBe(false)
+    expect(lessons.at(-1)?.href).toBe('#chapter-09/case-study-sentiment-analysis')
+    expect(lessons.some(item => ['chapter-10'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -71,6 +71,18 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('overfitting')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 8)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 9)).toBe(false)
   })
+})
+
+
+describe('chapter nine publication', () => {
+ it('publishes the 25 source lessons with stable direct links and leaves chapter ten outlined', () => {
+  const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-09')
+  expect(lessons).toHaveLength(25)
+  expect(resolveLesson('#chapter-09').section?.id).toBe('common-classification-models')
+  for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
+  expect(lessons.at(-1)?.section?.id).toBe('case-study-sentiment-analysis')
+  expect(chapters.find(c => c.id === 'chapter-10')?.subchapters?.every(s => !s.content)).toBe(true)
+ })
 })

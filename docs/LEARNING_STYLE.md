@@ -30,3 +30,7 @@ Explain why a method is useful with a concrete scenario before its formula or co
 - Heat-map lessons should explicitly show why color makes dense counts easier to scan. Include marginal totals in the color treatment using clearly explained separate scales, and label percentage views with `%` and an explicit denominator.
 
 - Explain new ML vocabulary in an always-visible key-terms area tied to a small example. Separate feature inputs (X), observed target labels (y), and predictions (ŷ). Explain that model notation does not prescribe chart axes: both axes may show features while color shows the target class.
+
+- Trace representative input records through intermediate calculations to the result; introduce unfamiliar notation before aggregate scores.
+- Distinguish manually supplied rules/weights, supplied fitted models, and live training. Show labeled inputs → fitting → model parameters → separate prediction inputs when explaining training; a live optimizer is optional.
+- Verify mathematical meaning as well as layout: distance charts need faithful metric scales and readable coordinates; changing counts/scores should identify the contributing records.
