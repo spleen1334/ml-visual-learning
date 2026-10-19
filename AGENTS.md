@@ -42,6 +42,7 @@ Use this default order in each section:
 - Favor explanatory SVG/HTML diagrams and charts over decorative pictures. A visual should clarify the idea, not simply fill space. Decision trees and process diagrams need visible directional connectors between related nodes; grouped boxes alone do not show a path.
 - Support optional subchapters. Display their numbering as `2.1`, `4.2`, etc., without leading zeros. Include that number in canonical lesson URLs, for example `#chapter-09/9.4-case-study-knn`. Keep manifest IDs stable and support old unnumbered URLs as aliases.
 - Keep sidebar navigation focused on the course outline. Do not restore “The visual guide / A little curiosity…” introductory copy or “Explore at your own pace…” footer copy.
+- Keep the top bar compact, with chapter/lesson context aligned right, a small chapter icon, and emphasized numbers. Omit “The foundations” and “Your personal learning lab” labels.
 - Future chapters may expand to reveal their outline, but must not appear as published lessons or enter lesson pagination before they have content.
 
 ## Tables, corrections, and feedback

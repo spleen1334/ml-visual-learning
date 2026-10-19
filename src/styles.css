@@ -99,18 +99,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .main-panel { min-height: 100vh; margin-left: var(--sidebar-width); }
 .topbar {
   display: flex;
-  min-height: 70px;
+  min-height: 44px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 20px;
   padding: 0 clamp(28px, 5vw, 68px);
   border-bottom: 1px solid rgba(30, 52, 45, .09);
   background: rgba(255,254,250,.62);
 }
-.breadcrumb { color: var(--muted); font-size: 12px; }
-.breadcrumb strong { color: var(--ink); font-weight: 650; }
-.local-badge { display: inline-flex; align-items: center; gap: 7px; color: #596b63; font-size: 12px; }
-.local-badge > span { color: #78a88b; font-size: 9px; }
+.breadcrumb { display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-width: 0; color: var(--muted); font-size: 12px; }
+.header-chapter { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.header-chapter svg { color: var(--teal-dark); }
+.header-number { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; padding: 2px 6px; border-radius: 5px; color: var(--teal-dark); background: #e4eee8; font-size: 12px; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.header-lesson-number { color: #725a24; background: #f5ebce; flex-shrink: 0; }
+.header-divider { color: #a5b4ad; }
+.header-lesson-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .skip-link { position: fixed; top: 8px; left: 8px; z-index: 20; transform: translateY(-160%); padding: 10px 14px; border-radius: 6px; color: #fffefa; background: var(--teal-dark); font-size: 13px; text-decoration: none; }
 .skip-link:focus { transform: translateY(0); }
 .page-content { width: min(100%, 1300px); margin: 0 auto; padding: 0 clamp(28px, 5vw, 68px) 60px; }
@@ -246,7 +249,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .chapter-name { font-size: 12px; }
   .chapter-meta { display: none; }
   .sidebar-footer { display: none; }
-  .topbar { min-height: 55px; padding: 0 25px; }
+  .topbar { min-height: 44px; padding: 0 25px; }
   .main-panel { margin-left: 0; }
   .page-content { padding: 0 25px 46px; }
   .chapter-one { padding-top: 42px; }
@@ -255,9 +258,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 @media (max-width: 620px) {
   .sidebar { padding-right: 14px; padding-left: 14px; }
   .topbar { padding: 0 17px; }
-  .breadcrumb { max-width: 72%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .local-badge { font-size: 0; }
-  .local-badge::before { width: 8px; height: 8px; }
+  .breadcrumb { gap: 7px; }
   .page-content { padding-right: 16px; padding-left: 16px; }
   .chapter-one { padding-top: 34px; }
   .chapter-one__intro { padding-bottom: 27px; }

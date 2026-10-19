@@ -56,7 +56,17 @@ export default function App() {
         </nav>
       </aside>
       <div className="main-panel">
-        <header className="topbar"><span className="breadcrumb">THE FOUNDATIONS <span aria-hidden="true">/</span> CHAPTER {currentChapter.number}{section && <> <span aria-hidden="true">/</span> {Number(currentChapter.number)}.{sectionNumber} {section.title}</>}</span><span className="local-badge"><span aria-hidden="true">●</span> Your personal learning lab</span></header>
+        <header className="topbar">
+          <nav className="breadcrumb" aria-label="Current lesson">
+            <span className="header-chapter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Z" /><path d="M12 6v14" /></svg>
+              Chapter <strong className="header-number">{currentChapter.number}</strong>
+            </span>
+            <span className="header-divider" aria-hidden="true">/</span>
+            {section && <strong className="header-number header-lesson-number">{Number(currentChapter.number)}.{sectionNumber}</strong>}
+            <span className="header-lesson-title">{section?.title ?? currentChapter.title}</span>
+          </nav>
+        </header>
         <main id="main" className="page-content" tabIndex={-1}>
           {currentChapter.subchapters?.length ? <nav className="lesson-strip" aria-label="Subchapters in this chapter">
             {currentChapter.subchapters.map((item, index) => <a key={item.id} href={chapterHref(currentChapter, item)} aria-current={section?.id === item.id ? 'page' : undefined}>{Number(currentChapter.number)}.{index + 1} {item.title}</a>)}
