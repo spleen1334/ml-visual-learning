@@ -149,10 +149,14 @@
 .classification-basics__feature-values > span { display: grid; gap: 3px; min-width: 100px; padding: 7px 9px; border: 1px solid #e0eae5; border-radius: 7px; background: white; color: var(--cb-ink); font-size: 14px; }
 .classification-basics__feature-values > span b { color: var(--cb-muted); font-size: 12px; }
 .classification-basics__feature-values > span.is-empty { display: block; width: 100%; color: var(--cb-muted); font-style: italic; }
-.classification-basics__prediction-flow { display: grid; grid-template-columns: minmax(0,1fr) 18px minmax(120px,auto) 18px minmax(0,1fr); gap: 6px; align-items: center; margin-top: 10px; padding: 10px; border-radius: 8px; color: #506a66; background: #eef5f1; font-size: 14px; line-height: 1.35; text-align: center; }
+.classification-basics__prediction-flow { display: grid; grid-template-columns: minmax(0,1fr) 18px minmax(0,1fr); gap: 6px; align-items: center; margin-top: 10px; padding: 10px; border-radius: 8px; color: #506a66; background: #eef5f1; font-size: 14px; line-height: 1.35; text-align: center; }
 .classification-basics__prediction-flow > strong { color: var(--cb-teal); font-size: 14px; }
 .classification-basics__prediction-flow > b { color: #8aa6a0; font-size: 16px; }
 .classification-basics__prediction-flow .is-target { color: #785c20; font-weight: 750; }
+.classification-basics__interaction-status,.classification-basics__not-calculated,.classification-basics__observation-prompt { margin: 8px 0 0 !important; font-size: 14px !important; line-height: 1.45; }
+.classification-basics__interaction-status { color: #355957; }
+.classification-basics__not-calculated { color: #536d67; }
+.classification-basics__observation-prompt { padding: 10px 12px; border-left: 3px solid #8abcb3; border-radius: 5px; color: #355957; background: #f0f6f2; }
 .classification-basics__key-terms { display: grid; gap: 18px; padding: 27px 29px; border: 1px solid #d7c99f; border-radius: 17px; background: #fbf6e9; box-shadow: 0 8px 25px rgba(66, 55, 31, .045); }
 .classification-basics__key-terms-heading h2 { margin-bottom: 8px; font-size: clamp(25px, 2.8vw, 33px); }
 .classification-basics__key-terms-heading > p:last-child { max-width: 860px; }

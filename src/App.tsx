@@ -11,6 +11,7 @@ export default function App() {
   const { chapter: currentChapter, section, Content } = resolveLesson(hash)
   const lessons = publishedLessons()
   const position = lessons.findIndex(item => item.href === chapterHref(currentChapter, section))
+  const sectionNumber = section ? (currentChapter.subchapters?.findIndex(item => item.id === section.id) ?? -1) + 1 : undefined
   const previousLesson = lessons[position - 1]
   const nextLesson = lessons[position + 1]
   const nextChapter = chapters[chapters.indexOf(currentChapter) + 1]
@@ -44,7 +45,7 @@ export default function App() {
         </nav>
       </aside>
       <div className="main-panel">
-        <header className="topbar"><span className="breadcrumb">THE FOUNDATIONS <span aria-hidden="true">/</span> CHAPTER {currentChapter.number}{section && <> / {section.title}</>}</span><span className="local-badge"><span aria-hidden="true">●</span> Your personal learning lab</span></header>
+        <header className="topbar"><span className="breadcrumb">THE FOUNDATIONS <span aria-hidden="true">/</span> CHAPTER {currentChapter.number}{section && <> <span aria-hidden="true">/</span> {Number(currentChapter.number)}.{sectionNumber} {section.title}</>}</span><span className="local-badge"><span aria-hidden="true">●</span> Your personal learning lab</span></header>
         <main id="main" className="page-content" tabIndex={-1}>
           {currentChapter.subchapters?.length ? <nav className="lesson-strip" aria-label="Subchapters in this chapter">
             {currentChapter.subchapters.map((item, index) => <a key={item.id} href={chapterHref(currentChapter, item)} aria-current={section?.id === item.id ? 'page' : undefined}>{Number(currentChapter.number)}.{index + 1} {item.title}</a>)}

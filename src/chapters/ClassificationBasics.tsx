@@ -140,10 +140,8 @@ export function CLKeyConceptsRecap() {
 }
 
 const FEATURE_OPTIONS = [
-  { id: 'plan', label: 'Plan', value: 'Gold' },
-  { id: 'tenure', label: 'Tenure', value: '18 months' },
-  { id: 'usage', label: 'Recent usage', value: 'Low' },
-  { id: 'newsletter', label: 'Newsletter', value: 'No' },
+  { id: 'tenure', label: 'Tenure · months', value: '12' },
+  { id: 'sessions', label: 'Sessions last month', value: '3' },
 ] as const
 type FeatureId = typeof FEATURE_OPTIONS[number]['id']
 
@@ -160,7 +158,7 @@ export function CLClassification101() {
       <div className="classification-basics__key-terms-heading">
         <p className="classification-basics__eyebrow">Keep this guide visible</p>
         <h2 id="cl-101-key-terms-title">Key terms: read the data and the notation</h2>
-        <p>Each row below describes one past customer. The two feature columns hold available input information; the final column holds the recorded churn outcome.</p>
+        <p>Churn means cancelling a subscription during the following month; Stay means remaining subscribed throughout that month. These past-customer labels were recorded after that month ended. Each row below shows the two available input features and the recorded outcome.</p>
       </div>
       <dl className="classification-basics__term-list">
         <div><dt>Observation / record</dt><dd>One customer in the data, usually one table row.</dd></div>
@@ -215,24 +213,27 @@ export function CLClassification101() {
     </section>
     <section className="classification-basics__why"><p className="classification-basics__eyebrow">Why use it?</p><h2>Past outcomes can help organize the next decision.</h2><p>A subscriber team could use past customer records with known churn outcomes to estimate whether a new customer may leave next month. That estimate can guide who to review. It does not establish why a person will leave or guarantee the outcome.</p></section>
     <section className="classification-basics__interactive" aria-labelledby="cl-101-interaction-title">
-      <div className="classification-basics__section-heading"><p className="classification-basics__eyebrow">Follow one prediction setup</p><h2 id="cl-101-interaction-title">Churn is the target; customer details are features</h2><p>Turn features on or off to change which customer details appear. The controls illustrate model inputs; they do not change or calculate the target.</p></div>
+      <div className="classification-basics__section-heading"><p className="classification-basics__eyebrow">Follow one prediction setup</p><h2 id="cl-101-interaction-title">Churn is the target; customer details are features</h2><p>Turn either feature on or off to choose which inputs are shown. This setup does not calculate a model output.</p></div>
       <div className="classification-basics__churn-example">
         <div className="classification-basics__records">
           <h3>Past records · known labels</h3>
-          <div className="classification-basics__record-row"><span>Customer 01 · Bronze · 6 mo</span><b className="is-stay">Stayed</b></div>
-          <div className="classification-basics__record-row"><span>Customer 02 · Gold · 18 mo</span><b className="is-churn">Churned</b></div>
-          <div className="classification-basics__record-row"><span>Customer 03 · Silver · 3 mo</span><b className="is-churn">Churned</b></div>
+          <div className="classification-basics__record-row"><span>Customer 01 · 6 months · 2 sessions</span><b className="is-stay">Stay</b></div>
+          <div className="classification-basics__record-row"><span>Customer 02 · 18 months · 1 session</span><b className="is-churn">Churn</b></div>
+          <div className="classification-basics__record-row"><span>Customer 03 · 3 months · 4 sessions</span><b className="is-churn">Churn</b></div>
         </div>
         <div className="classification-basics__new-case">
           <h3>New customer · outcome not known</h3>
           <div className="classification-basics__feature-switches" role="group" aria-label="Choose customer features to show">
             {FEATURE_OPTIONS.map((feature) => <button key={feature.id} type="button" aria-pressed={features.includes(feature.id)} onClick={() => toggleFeature(feature.id)}><span aria-hidden="true">{features.includes(feature.id) ? '✓' : '+'}</span>{feature.label}</button>)}
           </div>
-          <div className="classification-basics__feature-values" aria-live="polite">{features.length ? FEATURE_OPTIONS.filter((feature) => features.includes(feature.id)).map((feature) => <span key={feature.id}><b>{feature.label}</b>{feature.value}</span>) : <span className="is-empty">No feature values selected</span>}</div>
-          <div className="classification-basics__prediction-flow"><span>Selected X values</span><b aria-hidden="true">→</b><strong>Classification model</strong><b aria-hidden="true">→</b><span className="is-target">Target Y: churn / stay</span></div>
+          <div className="classification-basics__feature-values" aria-label="Selected feature values">{features.length ? FEATURE_OPTIONS.filter((feature) => features.includes(feature.id)).map((feature) => <span key={feature.id}><b>{feature.label}</b>{feature.value}</span>) : <span className="is-empty">No feature values selected</span>}</div>
+          <p className="classification-basics__interaction-status" aria-live="polite">{features.length} of {FEATURE_OPTIONS.length} feature fields shown. The observed label y is unknown; labels in the past records are unchanged. No prediction is calculated.</p>
+          <div className="classification-basics__prediction-flow"><span>Selected X inputs</span><b aria-hidden="true">→</b><span className="is-target">Target question · possible classes: Churn or Stay</span></div>
+          <p className="classification-basics__not-calculated"><strong>Prediction ŷ:</strong> not calculated in this setup.</p>
+          <p className="classification-basics__observation-prompt"><strong>Notice:</strong> hiding a field only removes that input from this display. It does not change past outcomes or tell us what caused them.</p>
         </div>
       </div>
-      <p className="classification-basics__note"><strong>Important:</strong> a real model would learn patterns from many prepared, labeled examples and would need evaluation. The rows and flow here explain the setup only.</p>
+      <p className="classification-basics__note"><strong>Important:</strong> a real model would learn patterns from many prepared, labeled examples and would need evaluation. The rows and controls here explain the setup only.</p>
     </section>
     <Summary><strong>Remember:</strong> identify the categorical target first, then identify the feature variables that may help predict it. Training examples need known target values; a new case can have features before its outcome is known.</Summary>
   </article>

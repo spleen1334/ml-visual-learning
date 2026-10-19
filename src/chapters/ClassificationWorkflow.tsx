@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import overfittingReference from '../assets/overfitting-page-95.png'
 import './ClassificationWorkflow.css'
 
 type WorkflowStep = 'features' | 'split' | 'train' | 'select'
@@ -61,21 +62,24 @@ const transforms: { id: TransformId; title: string; note: string }[] = [
   { id: 'priority', title: 'Boolean rule', note: 'Create a 1/0 indicator for “age under 40 AND receives the newsletter.” This is a chosen interaction, not proof of causation.' },
 ]
 
-function featureValues(kind: TransformId, row: CRMRow) {
-  if (kind === 'onehot') return [row.status === 'Gold' ? '1' : '0', row.status === 'Silver' ? '1' : '0', row.status === 'Bronze' ? '1' : '0']
-  if (kind === 'scale') return [((row.income - 15000) / (75000 - 15000)).toFixed(3)]
-  if (kind === 'log') return [Math.log(row.income).toFixed(2)]
-  if (kind === 'age') return [`${Math.floor(row.age / 10) * 10}–${Math.floor(row.age / 10) * 10 + 9}`]
-  if (kind === 'year') return [row.signup.slice(0, 4)]
-  return [row.age < 40 && row.newsletter === 1 ? '1' : '0']
-}
+const engineeredFeatures: { id: string; title: string; value: (row: CRMRow) => string }[] = [
+  { id: 'gold', title: 'Gold', value: row => row.status === 'Gold' ? '1' : '0' },
+  { id: 'silver', title: 'Silver', value: row => row.status === 'Silver' ? '1' : '0' },
+  { id: 'bronze', title: 'Bronze', value: row => row.status === 'Bronze' ? '1' : '0' },
+  { id: 'scaled-income', title: 'Scaled income', value: row => ((row.income - 15000) / (75000 - 15000)).toFixed(3) },
+  { id: 'log-income', title: 'Log income', value: row => Math.log(row.income).toFixed(2) },
+  { id: 'age-group', title: 'Age group', value: row => `${Math.floor(row.age / 10) * 10}–${Math.floor(row.age / 10) * 10 + 9}` },
+  { id: 'signup-year', title: 'Signup year', value: row => row.signup.slice(0, 4) },
+  { id: 'priority-flag', title: 'Priority flag', value: row => row.age < 40 && row.newsletter === 1 ? '1' : '0' },
+]
 
 export function CLFeatureEngineering() {
   const [kind, setKind] = useState<TransformId>('onehot')
-  const [showSource, setShowSource] = useState(true)
   const selected = transforms.find(item => item.id === kind)!
-  const headings = kind === 'onehot' ? ['Gold', 'Silver', 'Bronze'] : [kind === 'scale' ? 'Scaled income' : kind === 'log' ? 'Log income' : kind === 'age' ? 'Age group' : kind === 'year' ? 'Signup year' : 'Priority flag']
-  const isSource = (field: string) => kind === 'onehot' ? field === 'Status' : kind === 'scale' || kind === 'log' ? field === 'Income' : kind === 'age' ? field === 'Age' : kind === 'year' ? field === 'Signup date' : field === 'Age' || field === 'Newsletter'
+  const highlightedFeatures: Record<TransformId, string[]> = { onehot: ['gold', 'silver', 'bronze'], scale: ['scaled-income'], log: ['log-income'], age: ['age-group'], year: ['signup-year'], priority: ['priority-flag'] }
+  const highlightedSources: Record<TransformId, string[]> = { onehot: ['Status'], scale: ['Income'], log: ['Income'], age: ['Age'], year: ['Signup date'], priority: ['Age', 'Newsletter'] }
+  const isSource = (field: string) => highlightedSources[kind].includes(field)
+  const isFeature = (featureId: string) => highlightedFeatures[kind].includes(featureId)
   const first = crmRows[0]
   const calculation = kind === 'onehot' ? 'Bronze → (Gold 0, Silver 0, Bronze 1)' : kind === 'scale' ? '($30,000 − $15,000) ÷ ($75,000 − $15,000) = 0.250' : kind === 'log' ? `ln($30,000) = ${Math.log(30000).toFixed(2)}` : kind === 'age' ? `Age ${first.age} → 20–29` : kind === 'year' ? `${first.signup} → ${first.signup.slice(0, 4)}` : `Age ${first.age} < 40 AND newsletter ${first.newsletter} → 1`
 
@@ -83,11 +87,21 @@ export function CLFeatureEngineering() {
     <header className="cl-lesson-intro"><p className="cl-eyebrow">Chapter 08 · Intro to Classification · 8.6</p><h1 id="cl-features-title">Make useful fields from information you already have</h1><p>To predict churn, a model needs useful customer inputs in a form it can work with. Feature engineering creates or reshapes predictors while keeping the outcome we want to predict separate.</p></header>
     <section className="cl-definition" aria-labelledby="cl-features-definition"><div><p className="cl-eyebrow">The central idea</p><h2 id="cl-features-definition">Feature engineering enriches a dataset by creating additional independent variables from existing fields.</h2><p>A well-chosen feature can expose a useful pattern or make a field model-friendly. Keep the original data available so each transformation can be understood and reversed where possible.</p></div><div className="cl-definition-mark" aria-hidden="true"><span>Existing fields</span><b>→</b><span>New predictors</span></div></section>
 
-    <section className="cl-transform-panel" aria-labelledby="cl-transform-title"><div className="cl-section-heading"><p className="cl-eyebrow">Small CRM example</p><h2 id="cl-transform-title">Choose a transformation and trace each output to its source.</h2><p>Five customer records show how the churn target (Y) stays separate from the possible predictors (X).</p></div>
+    <section className="cl-transform-panel" aria-labelledby="cl-transform-title"><div className="cl-section-heading"><p className="cl-eyebrow">Small CRM example</p><h2 id="cl-transform-title">Choose a transformation and trace each output to its source.</h2><p>All engineered fields stay visible in the feature table. Select a transformation to highlight its source and output; Churn · Y stays separate from the possible predictors (X).</p></div>
       <div className="cl-transform-controls" role="group" aria-label="Choose a feature transformation">{transforms.map(item => <button key={item.id} type="button" aria-pressed={kind === item.id} onClick={() => setKind(item.id)}>{item.title}</button>)}</div>
-      <label className="cl-source-toggle"><input type="checkbox" checked={showSource} onChange={event => setShowSource(event.target.checked)} /> Show original input fields alongside the result</label>
       <p className="cl-transform-calculation"><strong>Row 1 calculation:</strong> {calculation}</p>
-      <div className="cl-table-wrap"><table className="cl-data-table"><caption>Customer records; churn remains a separate outcome label.</caption><thead><tr><th scope="col">ID</th>{showSource && <><th className={isSource('Status') ? 'cl-source-column' : ''} scope="col">Status</th><th className={isSource('Income') ? 'cl-source-column' : ''} scope="col">Income</th><th className={isSource('Age') ? 'cl-source-column' : ''} scope="col">Age</th><th className={isSource('Signup date') ? 'cl-source-column' : ''} scope="col">Signup date</th><th className={isSource('Newsletter') ? 'cl-source-column' : ''} scope="col">Newsletter</th></>}<th className="cl-target-column" scope="col">Churn · Y</th>{headings.map(title => <th key={title} className="cl-feature-column" scope="col">{title} · X</th>)}</tr></thead><tbody>{crmRows.map(row => <tr key={row.id}><th scope="row">{row.id}</th>{showSource && <><td className={isSource('Status') ? 'cl-source-column' : ''}>{row.status}</td><td className={isSource('Income') ? 'cl-source-column' : ''}>${row.income.toLocaleString('en-US')}</td><td className={isSource('Age') ? 'cl-source-column' : ''}>{row.age}</td><td className={isSource('Signup date') ? 'cl-source-column' : ''}>{row.signup}</td><td className={isSource('Newsletter') ? 'cl-source-column' : ''}>{row.newsletter}</td></>}<td className="cl-target-column">{row.churn}</td>{featureValues(kind, row).map((value, index) => <td key={`${row.id}-${index}`} className="cl-feature-column">{value}</td>)}</tr>)}</tbody></table></div>
+      <div className="cl-feature-tables">
+        <section className="cl-feature-table-section" aria-labelledby="cl-original-fields-title">
+          <h3 id="cl-original-fields-title">Original CRM table</h3>
+          <p>The original fields remain in their own table. The highlighted column or columns supply the selected transformation; Churn · Y is the outcome label.</p>
+          <div className="cl-table-wrap"><table className="cl-data-table"><caption>Original customer fields; selection highlights the source used by one transformation. Churn remains the separate outcome.</caption><thead><tr><th scope="col">ID</th><th className={isSource('Status') ? 'cl-source-column' : ''} scope="col">Status</th><th className={isSource('Income') ? 'cl-source-column' : ''} scope="col">Income</th><th className={isSource('Age') ? 'cl-source-column' : ''} scope="col">Age</th><th className={isSource('Signup date') ? 'cl-source-column' : ''} scope="col">Signup date</th><th className={isSource('Newsletter') ? 'cl-source-column' : ''} scope="col">Newsletter</th><th className="cl-target-column" scope="col">Churn · Y</th></tr></thead><tbody>{crmRows.map(row => <tr key={row.id}><th scope="row">{row.id}</th><td className={isSource('Status') ? 'cl-source-column' : ''}>{row.status}</td><td className={isSource('Income') ? 'cl-source-column' : ''}>${row.income.toLocaleString('en-US')}</td><td className={isSource('Age') ? 'cl-source-column' : ''}>{row.age}</td><td className={isSource('Signup date') ? 'cl-source-column' : ''}>{row.signup}</td><td className={isSource('Newsletter') ? 'cl-source-column' : ''}>{row.newsletter}</td><td className="cl-target-column">{row.churn}</td></tr>)}</tbody></table></div>
+        </section>
+        <section className="cl-feature-table-section" aria-labelledby="cl-derived-features-title">
+          <h3 id="cl-derived-features-title">Feature table · transformed X fields</h3>
+          <p>Every engineered predictor stays visible here. The selected button highlights one transformation and its source; ID links rows to the original table, and Churn · Y stays separate from X.</p>
+          <div className="cl-table-wrap"><table className="cl-data-table"><caption>Complete engineered feature matrix for all five records; selection highlights one output and its source. Churn is shown separately.</caption><thead><tr><th scope="col">ID</th>{engineeredFeatures.map(feature => <th key={feature.id} className={`cl-feature-column ${isFeature(feature.id) ? 'cl-selected-feature-column' : ''}`} scope="col">{feature.title} · X</th>)}<th className="cl-target-column" scope="col">Churn · Y</th></tr></thead><tbody>{crmRows.map(row => <tr key={row.id}><th scope="row">{row.id}</th>{engineeredFeatures.map(feature => <td key={`${row.id}-${feature.id}`} className={`cl-feature-column ${isFeature(feature.id) ? 'cl-selected-feature-column' : ''}`}>{feature.value(row)}</td>)}<td className="cl-target-column">{row.churn}</td></tr>)}</tbody></table></div>
+        </section>
+      </div>
       <div className="cl-transform-note"><span className="cl-note-icon" aria-hidden="true">↳</span><p><strong>{selected.title}:</strong> {selected.note}</p></div>
       <div className="cl-leakage"><strong>Keep the target out of X.</strong><p>If the model is predicting <em>churn next month</em>, do not feed the churn label into its features. Also exclude fields recorded only after that month’s outcome; they would reveal information unavailable when the prediction is made.</p><p><strong>Fit preprocessing on training data only.</strong> For scaling, imputation, or other learned transformations, calculate parameters from training records, then apply those same parameters to validation and test records. This prevents held-out information from influencing the model setup.</p></div>
     </section>
@@ -163,31 +177,6 @@ export function CLDataSplitting() {
   </article>
 }
 
-type FitStyle = 'overfit' | 'wellfit' | 'underfit'
-const fitDescriptions: Record<FitStyle, { title: string; description: string; interpretation: string }> = {
-  overfit: { title: 'Overfit · boundary too flexible', description: 'The boundary bends around individual training examples, including their small quirks.', interpretation: 'The narrow bend captures the teal training exception near the middle, but puts the nearby hollow orange customer on the wrong side.' },
-  wellfit: { title: 'Well fit · pattern with some flexibility', description: 'A smoother boundary follows the broad separation, leaving one unusual teal training point above it.', interpretation: 'It may leave a few training points on the other side to capture a pattern that generalizes.' },
-  underfit: { title: 'Underfit · boundary too simple', description: 'A straight boundary ignores the bend in the class pattern.', interpretation: 'A model can be too simple to capture a useful relationship, even on familiar examples.' },
-}
-
-function FitDiagram({ style, showUnseen }: { style: FitStyle; showUnseen: boolean }) {
-  const points = [[65,145,0],[105,151,0],[145,137,0],[185,151,0],[225,137,0],[265,50,0],[305,132,0],[345,145,0],[385,129,0],[435,143,0],[65,65,1],[105,81,1],[145,60,1],[185,88,1],[225,68,1],[265,80,1],[305,63,1],[345,92,1],[385,70,1],[435,84,1]] as const
-  const unseen = [[83,138,0],[160,148,0],[286,150,0],[410,138,0],[83,84,1],[160,82,1],[266,92,1],[410,88,1]] as const
-  const paths: Record<FitStyle, string> = {
-    overfit: 'M48 100 C120 128 190 132 226 128 C244 126 245 34 265 34 C285 34 286 127 304 128 C360 126 410 118 457 100',
-    wellfit: 'M48 100 C145 140 335 140 457 100',
-    underfit: 'M48 51 L457 132',
-  }
-  return <svg className="cl-fit-svg" viewBox="0 0 500 205" role="img" aria-label={`${style} classification boundary schematic with training and unseen points`}>
-    <path className="cl-axis" d="M48 25 V175 H462"/><path className="cl-grid" d="M48 65 H458 M48 105 H458 M48 145 H458 M148 25 V175 M248 25 V175 M348 25 V175"/>
-    <text x="52" y="194">lower account tenure</text><text x="373" y="194">higher tenure →</text><text className="cl-axis-label" transform="translate(15 160) rotate(-90)">Monthly activity · higher at top</text>
-    <path className="cl-boundary" d={paths[style]} />
-    {points.map(([x,y,klass], index) => <circle key={`train-${index}`} cx={x} cy={y} r="5.2" className={klass === 0 ? 'cl-fit-point--stay' : 'cl-fit-point--churn'}><title>{klass === 0 ? 'Stay' : 'Churn'} training example</title></circle>)}
-    {showUnseen && unseen.map(([x,y,klass], index) => <circle key={`unseen-${index}`} cx={x} cy={y} r="6.2" className={`cl-fit-unseen ${klass === 0 ? 'cl-fit-point--stay' : 'cl-fit-point--churn'}`}><title>{klass === 0 ? 'Stay' : 'Churn'} unseen example</title></circle>)}
-    <text x="50" y="17">Schematic · training examples{showUnseen ? ' + unseen examples' : ''}</text>
-  </svg>
-}
-
 const finalWorkflow = [
   { title: 'Fit', copy: 'Train candidates on the training set; keep the target out of the inputs.' },
   { title: 'Compare', copy: 'Use validation results and error patterns to choose model complexity and settings.' },
@@ -196,18 +185,14 @@ const finalWorkflow = [
 ]
 
 export function CLOverfitting() {
-  const [style, setStyle] = useState<FitStyle>('wellfit')
   const [projectStep, setProjectStep] = useState(0)
-  const [showUnseen, setShowUnseen] = useState(true)
-  const current = fitDescriptions[style]
   return <article className="classification-workflow" aria-labelledby="cl-overfit-title">
-    <header className="cl-lesson-intro"><p className="cl-eyebrow">Chapter 08 · Intro to Classification · 8.8</p><h1 id="cl-overfit-title">A model should learn a pattern, not memorize examples</h1><p>A churn model can look perfect on familiar customers yet miss the pattern for new ones. The goal is useful performance on records that did not guide model training or tuning.</p></header>
-    <section className="cl-definition" aria-labelledby="cl-overfit-definition"><div><p className="cl-eyebrow">The central idea</p><h2 id="cl-overfit-definition">Overfitting happens when a model predicts training data well but performs poorly on unseen data.</h2><p>Generalization is the ability to predict accurately for new cases. A good fit balances capturing the broad pattern with ignoring incidental quirks in the sample.</p></div><div className="cl-definition-mark" aria-hidden="true"><span>Memorized rows</span><b>≠</b><span>New customers</span></div></section>
-    <section className="cl-fit-panel" aria-labelledby="cl-fit-title"><div className="cl-section-heading"><p className="cl-eyebrow">See model flexibility</p><h2 id="cl-fit-title">The boundary changes how much detail the model follows.</h2><p>Choose a boundary shape. Orange dots are customers who churned; teal dots stayed. Above the boundary, the model predicts churn; below it, stay. Filled dots are training cases; hollow dots are unseen cases. Watch the unusual teal point near the middle and the nearby hollow orange point.</p></div>
-      <div className="cl-fit-controls" role="group" aria-label="Choose a model boundary example">{(['overfit', 'wellfit', 'underfit'] as const).map(id => <button key={id} type="button" aria-pressed={style === id} onClick={() => setStyle(id)}>{id === 'overfit' ? 'Too flexible' : id === 'wellfit' ? 'Balanced' : 'Too simple'}</button>)}</div>
-      <label className="cl-source-toggle"><input type="checkbox" checked={showUnseen} onChange={event => setShowUnseen(event.target.checked)} /> Show unseen examples</label>
-      <div className="cl-fit-visual"><FitDiagram style={style} showUnseen={showUnseen} /><aside><span className={`cl-fit-badge cl-fit-badge--${style}`}>{style === 'overfit' ? 'High variance' : style === 'underfit' ? 'High bias' : 'Balance'}</span><h3>{current.title}</h3><p>{current.description}</p><p><strong>Notice:</strong> {current.interpretation}</p><div className="cl-fit-legend"><span><i className="cl-dot cl-dot--zero" /> Stay · training</span><span><i className="cl-dot cl-dot--one" /> Churn · training</span>{showUnseen && <><span><i className="cl-dot cl-dot--zero cl-dot--hollow" /> Stay · unseen</span><span><i className="cl-dot cl-dot--one cl-dot--hollow" /> Churn · unseen</span></>}<span><i className="cl-line-dot" /> Model boundary</span></div></aside></div>
-      <p className="cl-schematic-note"><strong>How to read this:</strong> overfit models have high variance and can shift sharply with training details; underfit models have high bias and miss structure. The middle sketch is a teaching illustration, not a fitted model or a performance claim.</p>
+    <header className="cl-lesson-intro"><p className="cl-eyebrow">Chapter 08 · Intro to Classification · 8.8</p><h1 id="cl-overfit-title">A model should learn a pattern, not memorize examples</h1><p>A model should generalize: predict well for held-out records it did not use to train or tune its choices.</p></header>
+    <section className="cl-definition" aria-labelledby="cl-overfit-definition"><div><p className="cl-eyebrow">The central idea</p><h2 id="cl-overfit-definition">A good model captures the useful pattern in training data and carries it to test data.</h2><p>Overfitting memorizes training details; underfitting misses the pattern.</p></div><div className="cl-definition-mark" aria-hidden="true"><span>Training</span><b>→</b><span>Test</span></div></section>
+    <section className="cl-fit-panel" aria-labelledby="cl-fit-title"><div className="cl-section-heading"><p className="cl-eyebrow">Compare model fit</p><h2 id="cl-fit-title">The three model-fit diagrams from the course.</h2><p>The source graphic uses the same examples in all three panels so the boundary shape is the only change.</p></div>
+      <figure className="cl-source-fit-figure"><img src={overfittingReference} alt="Three classification diagrams from the course: an overfit wavy boundary, a smooth well-fit boundary, and a straight underfit boundary over the same dark and peach points." /><figcaption>Direct crop from the provided course PDF, page 95.</figcaption></figure>
+      <div className="cl-fit-notes"><div className="cl-fit-definitions" aria-label="Bias and model variance definitions"><p><strong>Bias</strong> is error from overly simplifying assumptions. Here, the straight line misses the curved pattern.</p><p><strong>Model variance</strong> is sensitivity to a different training sample; following quirks may move the boundary. This means model instability, not numerical spread in the plotted dots.</p></div><p className="cl-fit-callout"><strong>Why the middle panel matters:</strong> it can leave a few familiar examples on the imperfect side of its boundary rather than memorizing every exception. That trade-off is what can help a model generalize to new records.</p><p className="cl-fit-badge-note">High/low bias and model-variance badges describe typical tendencies only; they are not measurements from these illustrative diagrams.</p></div>
+      <p className="cl-schematic-note"><strong>Illustrative schematic:</strong> these diagrams explain fit; they are not results from real fitted models.</p>
     </section>
     <section className="cl-project-check" aria-labelledby="cl-project-check-title"><div className="cl-section-heading"><p className="cl-eyebrow">Chapter 08 · project reference</p><h2 id="cl-project-check-title">Use held-out data to check generalization.</h2><p>Choose a step to see what to do, which evidence to use, and what to produce. This closes the chapter’s workflow; Chapter 09 moves on to classification model families.</p></div>
       <ol className="cl-project-steps">{finalWorkflow.map((step,index)=><li key={step.title}><button type="button" aria-pressed={projectStep===index} onClick={()=>setProjectStep(index)}><span>0{index+1}</span><strong>{step.title}</strong></button></li>)}</ol>
