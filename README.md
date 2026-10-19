@@ -33,6 +33,8 @@ npm run dev
 
 Open **http://127.0.0.1:5173/#chapter-01**. Dependencies, npm cache and build output stay in this folder. No account or backend is required; the app makes no third-party runtime requests. Experiment values reset on reload or lesson navigation.
 
+Use **Search course**, **⌘K** on Mac, or **Ctrl+K** to find chapters and lessons by number (such as `4.2`), title, or subtitle. Search tolerates small spelling mistakes. Use ↑/↓ and Enter to open a result; Escape closes the palette.
+
 ```sh
 npm run check       # focused tests, strict TypeScript, production build
 npm run preview     # serve dist at http://127.0.0.1:4173

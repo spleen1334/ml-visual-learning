@@ -1,5 +1,6 @@
 import { useEffect, useSyncExternalStore } from 'react'
 import { chapters, chapterHref, publishedLessons, resolveLesson } from './app/course'
+import CommandPalette from './app/CommandPalette'
 
 function subscribeToHashChange(notify: () => void) {
   window.addEventListener('hashchange', notify)
@@ -35,18 +36,19 @@ export default function App() {
       <a className="skip-link" href="#main">Skip to lesson</a>
       <aside className="sidebar" aria-label="Course chapters">
         <a className="brand" href="#chapter-01" aria-label="ML Visual Interactive home">
-          <span className="brand-mark" aria-hidden="true">m<span>l</span></span>
+          <img className="brand-mark" src="/ml-visual-learning-mark.png" alt="" />
           <span className="brand-copy">ML Visual<span>Interactive learning</span></span>
         </a>
+        <CommandPalette />
         <nav className="chapter-nav" aria-label="Chapters">
           {chapters.map(chapter => {
             const available = Boolean(chapter.content || chapter.subchapters?.some(item => item.content))
             const current = currentChapter.id === chapter.id
             const label = <><span className="chapter-number">{chapter.number}</span><span><span className="chapter-name">{chapter.title}</span><span className="chapter-meta">{available ? chapter.subtitle : 'In the roadmap'}</span></span></>
-            return <div key={chapter.id} className="chapter-group">
+            return <div key={chapter.id} className="chapter-group" data-chapter-id={chapter.id}>
               {available ? <a href={chapterHref(chapter)} className={`chapter-link ${current ? 'chapter-current' : ''}`} aria-current={current && !section ? 'page' : undefined}>{label}</a>
-                : !chapter.subchapters?.length && <div className="chapter-link chapter-future">{label}</div>}
-              {!available && chapter.subchapters?.length ? <details className="planned-chapter"><summary className="chapter-link chapter-future">{label}<span className="toc-chevron" aria-hidden="true">⌄</span></summary><ol className="subchapter-nav planned-sections" aria-label={`${chapter.title} subchapters`}>{chapter.subchapters.map((item, index) => <li key={item.id}><span className="planned-section"><span>{Number(chapter.number)}.{index + 1}</span> {item.title}</span></li>)}</ol></details> : chapter.subchapters?.length ? <ol className="subchapter-nav" aria-label={`${chapter.title} subchapters`}>
+                : !chapter.subchapters?.length && <div className="chapter-link chapter-future" tabIndex={-1}>{label}</div>}
+              {!available && chapter.subchapters?.length ? <details className="planned-chapter"><summary className="chapter-link chapter-future">{label}<span className="toc-chevron" aria-hidden="true">⌄</span></summary><ol className="subchapter-nav planned-sections" aria-label={`${chapter.title} subchapters`}>{chapter.subchapters.map((item, index) => <li key={item.id}><span className="planned-section" data-section-id={item.id} tabIndex={-1}><span>{Number(chapter.number)}.{index + 1}</span> {item.title}</span></li>)}</ol></details> : chapter.subchapters?.length ? <ol className="subchapter-nav" aria-label={`${chapter.title} subchapters`}>
                 {chapter.subchapters.map((item, index) => <li key={item.id}><a href={chapterHref(chapter, item)} aria-current={current && section?.id === item.id ? 'page' : undefined}><span>{Number(chapter.number)}.{index + 1}</span> {item.title}</a></li>)}
               </ol> : null}
             </div>
