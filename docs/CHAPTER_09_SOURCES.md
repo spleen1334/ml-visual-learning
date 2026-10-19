@@ -28,6 +28,18 @@ For a compact interactive lesson, use a new small, explicitly illustrative revie
 - The rendered equation on p.142 is the standard sigmoid, `1 / (1 + e^−(β₀ + β₁x))`. The likelihood visual on p.149 defines high likelihood for a prediction near the observed class and low likelihood for a mismatch. Precisely, binary logistic likelihood is the product of per-observation probabilities assigned to each observed class (usually optimized as summed log-likelihood); use that definition if reproducing the optimization lesson.
 - Workbook facts above come from stored worksheet XML (cached values), not recalculation in Excel. Raw source material remains read-only.
 
+## Lesson 9.2 source-image revision
+
+Lesson 9.2 displays static crops of PDF viewer pages 100–102, including the original age/income plots, input values, highlighted neighbors (K = 10, 20, and 6), counts, and predictions. The slide navigation and title are omitted. These replace the illustrative interactive graph and supporting prose at the user's request. The source image's “Confidence” percentages describe neighbor vote shares, not calibrated prediction probabilities; the image alternatives make that distinction explicit.
+
+Page 102 adds age 50, income $80,000, K = 6, and a 3–3 tie. Styled text below the three images follows page 103: ties, choosing K, and more than two input variables. Two accuracy adaptations are explicit: shortest total class distance is a possible tie rule rather than universal KNN behavior; K is selected on validation/cross-validation data rather than the final test set. Numerical feature scaling is retained as a practical clarification.
+
+The page 103 explanations now include static authored diagrams: a 3–3 tie with distance sums 6 versus 9; a comparison of candidate K values on the same 100 validation cases; and a three-feature distance calculation (0.3² + (−0.4)² + 0² = 0.25, distance 0.5). Every added value is explicitly illustrative, not extracted from the source plots or fitted results.
+
+## Approved lesson redistribution
+
+9.2 now contains the KNN definition and decisive source examples from pages 100–101, with a visible vote-share versus prediction-probability clarification. 9.3 retains its existing route and sidebar title, but contains the tied example from page 102 and the three page 103 explanations and authored diagrams. The redundant toy customer interaction was removed. Both lessons close with a concise summary. Lesson 9.4 is separately rebuilt from the workbook as described below.
+
 ## Lesson 9.4 workbook reproduction
 
 The user requested the Excel case-study interface, with only a short assignment header and no additional teaching panels. `knnWorkbookData.json` extracts all 100 rows of `K Nearest Neighbors (KNN)!B4:U103`: title, artist, genre, eight raw features (E:L), eight full-precision cached scaled features (M:T), and recorded outcome (U). Workbook SHA-256: `2a8cd660b21ef3e4b7190a4a4378f01eb9ce9dc5124535fb6f60c5d3049c7ffc`. Display rounds values to whole numbers like the sheet; hover titles retain their full numeric values. The table preserves the original title, artist, genre, raw feature and outcome columns, then appends all eight explicitly labeled scaled columns at the far right, as requested. Original and scaled values appear together; there is no view toggle. All rows and columns are accessible through the scrollable source table.

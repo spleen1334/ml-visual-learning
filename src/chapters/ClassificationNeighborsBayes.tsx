@@ -2,23 +2,9 @@ import { Fragment, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import './ClassificationNeighborsBayes.css'
 export { KnnWorkbookCase as CLCaseKNN } from './KnnWorkbookCase'
-
-type Label = 'Purchase' | 'No purchase'
-type Point = { id: string; x: number; y: number; label: Label }
-
-const toyPoints: Point[] = [
-  { id: 'A', x: -1.2, y: -0.8, label: 'No purchase' },
-  { id: 'B', x: -0.7, y: 0.1, label: 'No purchase' },
-  { id: 'C', x: -0.1, y: -0.4, label: 'Purchase' },
-  { id: 'D', x: 0.3, y: 0.6, label: 'Purchase' },
-  { id: 'E', x: 0.9, y: -0.2, label: 'No purchase' },
-  { id: 'F', x: 1.2, y: 0.9, label: 'No purchase' },
-  { id: 'G', x: -1.0, y: 1.1, label: 'No purchase' },
-  { id: 'H', x: 0.7, y: 1.3, label: 'Purchase' },
-]
-const query = { x: 0.15, y: 0.15 }
-const nearestToy = toyPoints.map(point => ({ ...point, distance: Math.hypot(point.x - query.x, point.y - query.y) })).sort((a, b) => a.distance - b.distance)
-const toyTrace = toyPoints.find(point => point.id === 'D')!
+import knnPage100 from '../assets/knn-page-100.png'
+import knnPage101 from '../assets/knn-page-101.png'
+import knnPage102 from '../assets/knn-page-102.png'
 
 type Customer = { id: number; newsletter: 0 | 1; facebook: 0 | 1; website: 0 | 1; purchase: 0 | 1 }
 const customers: Customer[] = [
@@ -53,24 +39,6 @@ function Why({ title, children }: { title: string; children: ReactNode }) {
 function Summary({ children }: { children: ReactNode }) {
   return <aside className="cnb__summary"><p className="cnb__eyebrow">Remember</p><p>{children}</p></aside>
 }
-function Plot({ k, selected = true }: { k: number; selected?: boolean }) {
-  const width = 500; const height = 360; const left = 92; const top = 30; const scale = 100
-  const px = (x: number) => left + (x + 1.5) * scale
-  const py = (y: number) => top + (1.6 - y) * scale
-  const right = px(1.5); const bottom = py(-1)
-  const xTicks = [-1, 0, 1]
-  const yTicks = [-1, 0, 1]
-  return <svg className="cnb__plot" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`Plot of eight labeled customers and one new customer; the ${k} nearest neighbors are highlighted`}>
-    {xTicks.map(tick => <g key={`x-${tick}`} className="cnb__axis-tick"><line x1={px(tick)} y1={top} x2={px(tick)} y2={bottom} /><text x={px(tick)} y={bottom + 18} textAnchor="middle">{tick}</text></g>)}
-    {yTicks.map(tick => <g key={`y-${tick}`} className="cnb__axis-tick"><line x1={left} y1={py(tick)} x2={right} y2={py(tick)} /><text x={left - 12} y={py(tick) + 4} textAnchor="end">{tick}</text></g>)}
-    <line className="cnb__axis" x1={left} y1={bottom} x2={right} y2={bottom} /><line className="cnb__axis" x1={left} y1={top} x2={left} y2={bottom} />
-    <text x={(left + right) / 2} y={height - 8} textAnchor="middle">Age · standardized score (SD)</text><text transform={`translate(16 ${(top + bottom) / 2}) rotate(-90)`} textAnchor="middle">Household income · standardized score (SD)</text>
-    <g className="cnb__distance-trace" aria-hidden="true"><line x1={px(toyTrace.x)} y1={py(toyTrace.y)} x2={px(query.x)} y2={py(toyTrace.y)} /><line x1={px(query.x)} y1={py(toyTrace.y)} x2={px(query.x)} y2={py(query.y)} /><path d={`M ${(px(toyTrace.x) + px(query.x)) / 2} ${py(toyTrace.y)} H 395 V 88 H 403`} /><path d={`M ${px(query.x)} ${(py(toyTrace.y) + py(query.y)) / 2} H 386 V 248 H 403`} /><text x="408" y="92">Δ age .15</text><text x="408" y="252">Δ income .45</text></g>
-    {toyPoints.map(point => { const rank = nearestToy.findIndex(item => item.id === point.id); const near = rank >= 0 && rank < k; return <g key={point.id} className={`cnb__dot cnb__dot--${point.label === 'Purchase' ? 'yes' : 'no'} ${selected && near ? 'is-near' : ''}`}><circle cx={px(point.x)} cy={py(point.y)} r={near ? 8 : 6} /><text x={px(point.x) + 9} y={py(point.y) - 8}>{point.id}</text><title>{point.id}: {point.label}; distance {nearestToy[rank]?.distance.toFixed(2)} SD</title></g> })}
-    <circle className="cnb__query" cx={px(query.x)} cy={py(query.y)} r="10" /><text className="cnb__query-label" x={px(query.x) - 14} y={py(query.y) + 25} textAnchor="end">New customer (0.15, 0.15)</text>
-  </svg>
-}
-
 export function CLCommonClassificationModels() {
   const methods = [
     { name: 'K-nearest neighbors', idea: 'Vote among similar, labeled examples.', question: 'Who behaves like this customer?' },
@@ -87,38 +55,58 @@ export function CLCommonClassificationModels() {
     <Summary>Classification predicts a categorical label. KNN, naive Bayes, trees, forests, logistic regression, and text sentiment each offer a different route from evidence to class.</Summary></article>
 }
 
+function KNNTieIllustration() {
+  return <figure className="cnb__mini-visual">
+    <figcaption>Illustrative tie · 3 votes each, different total distances</figcaption>
+    <div className="cnb__distance-comparison">
+      <div><strong>Purchase · 3 neighbors</strong><div className="cnb__distance-segments">{[1, 2, 3].map(value => <span key={value} style={{ flex: value }}>{value}</span>)}</div><b>1 + 2 + 3 = 6</b></div>
+      <div><strong>No Purchase · 3 neighbors</strong><div className="cnb__distance-segments is-other">{[2, 3, 4].map(value => <span key={value} style={{ flex: value }}>{value}</span>)}</div><b>2 + 3 + 4 = 9</b></div>
+    </div>
+    <p className="cnb__visual-result">Same vote count → shorter total distance → <strong>Purchase</strong></p>
+    <small>Each segment is one neighbor’s distance to the new observation, in the same scaled units. Hand-set values demonstrate the course’s tie rule; they are not measurements from the plot above.</small>
+  </figure>
+}
+
+function KNNChoiceIllustration() {
+  return <figure className="cnb__mini-visual">
+    <figcaption>Illustrative validation results · same 100 held-out cases</figcaption>
+    <div className="cnb__k-comparison">{[{ k: 1, correct: 78 }, { k: 3, correct: 86 }, { k: 5, correct: 91 }, { k: 9, correct: 84 }].map(({ k, correct }) => <div key={k} className={k === 5 ? 'is-best' : ''}><strong>K = {k}</strong><div className="cnb__accuracy-track"><span style={{ width: correct + '%' }} /></div><b>{correct}/100 correct · {correct}%</b>{k === 5 && <em>Best of these candidates</em>}</div>)}</div>
+    <p className="cnb__visual-result">Compare on validation data → <strong>choose K = 5 here</strong> → evaluate once on test data</p>
+    <small>Hand-set scores explain the selection process. K = 5 is not a general recommendation; another dataset can favor another K.</small>
+  </figure>
+}
+
+function KNNFeaturesIllustration() {
+  return <figure className="cnb__mini-visual">
+    <figcaption>Illustrative distance with three numerical features</figcaption>
+    <div className="cnb__table-wrap"><table className="cnb__table"><caption>All inputs below have already been scaled using training data.</caption><thead><tr><th scope="col">Observation</th><th scope="col">Age</th><th scope="col">Income</th><th scope="col">Visits</th></tr></thead><tbody><tr><th scope="row">New customer</th><td>0.2</td><td>0.6</td><td>0.1</td></tr><tr><th scope="row">Known customer A</th><td>0.5</td><td>0.2</td><td>0.1</td></tr><tr className="cnb__feature-differences"><th scope="row">Difference · A − new</th><td>0.3</td><td>−0.4</td><td>0</td></tr></tbody></table></div>
+    <div className="cnb__feature-contributions"><span>Age<br /><strong>0.3² = 0.09</strong></span><b>+</b><span>Income<br /><strong>(−0.4)² = 0.16</strong></span><b>+</b><span>Visits<br /><strong>0² = 0</strong></span><b>→</b><span>Distance<br /><strong>√0.25 = 0.5</strong></span></div>
+    <p className="cnb__visual-result">Each extra numerical feature adds another squared difference under the square root.</p>
+    <small>Hand-set values. Repeat for every known customer, rank the distances, and let the K nearest labels vote—no multidimensional plot required.</small>
+  </figure>
+}
+
 export function CLIntroKNN() {
-  const [k, setK] = useState(3)
-  const neighbors = nearestToy.slice(0, k)
-  const yes = neighbors.filter(point => point.label === 'Purchase').length
-  const no = neighbors.length - yes
-  return <article className="cnb" aria-labelledby="cnb-lesson-2-title"><Header lesson={2} title="Predict a class from nearby examples" lead="If two customers have similar browsing behavior, their purchase outcomes may be alike. K-nearest neighbors (KNN) turns that intuition into a vote based on feature distance." />
-    <Definition title="KNN predicts a new case from the classes of its K closest labeled observations." text="K is the number of neighbors included in the vote. Similarity is measured from the feature values, so scaling and feature choice affect what ‘close’ means." mark="Near → vote" />
-    <Why title="Nearby cases can make an unfamiliar case easier to interpret.">A recommendation system can look at users with similar listening patterns; a retailer can compare a new visitor with past visitors whose purchase outcomes are known. KNN makes the comparison explicit.</Why>
-    <section className="cnb__panel"><div className="cnb__section-heading"><p className="cnb__eyebrow">A small labeled example</p><h2>Find similar customers in two standardized features.</h2><p>Each dot is a past customer. Its color shows the recorded class. Both axes are standardized scores: 0 is the training average and 1 is one standard deviation above it.</p></div>
-      <div className="cnb__knn-layout"><div className="cnb__chart-frame"><Plot k={k} /><div className="cnb__legend"><span><i className="is-yes" /> Purchase</span><span><i className="is-no" /> No purchase</span><span><i className="is-query" /> New customer</span></div></div><div className="cnb__side-card"><label className="cnb__control">Neighbors to include · K <input type="range" min="1" max="7" step="1" value={k} onChange={event => setK(Number(event.target.value))} /><strong>{k}</strong></label><p className="cnb__live-result" aria-live="polite"><strong>{yes > no ? 'Purchase' : no > yes ? 'No purchase' : 'Tie'}</strong><span>{yes} purchase · {no} no-purchase votes among {k} neighbors</span></p><ol className="cnb__distance-list">{neighbors.map(point => <li key={point.id}><span>Customer {point.id}</span><b>{point.distance.toFixed(2)} SD</b><em className={point.label === 'Purchase' ? 'is-yes' : 'is-no'}>{point.label}</em></li>)}</ol></div></div>
-      <p className="cnb__note"><strong>Illustrative points:</strong> these eight plotted customers have example age and income scores so we can see KNN’s geometry; they are not the Spotify records in the later case study.</p>
-      <p className="cnb__calculation"><strong>Trace the dashed legs to Customer D (0.30, 0.60):</strong> Δ age = 0.30 − 0.15 = 0.15 and Δ income = 0.60 − 0.15 = 0.45. The straight-line distance is √(0.15² + 0.45²) = {nearestToy.find(point => point.id === 'D')!.distance.toFixed(2)} SD, matching the equal-scale plot. Distances put examples in order; K selects how many enter the vote.</p>
-      <p className="cnb__note"><strong>Scaling matters:</strong> if income is measured in dollars and age in years, raw Euclidean distance may be dominated by income’s larger numbers. Scale numerical features using training data before comparing distances.</p>
-    </section><Summary>KNN compares a new case with labeled examples and predicts the most common class among the K nearest. Its vote depends on K, the chosen features, and their scales.</Summary></article>
+  return <article className="cnb cnb--source-examples" aria-labelledby="cnb-lesson-2-title">
+    <header className="cnb__header"><p className="cnb__eyebrow">Chapter 09 · Classification Models · 9.2</p><h1 id="cnb-lesson-2-title">K-Nearest Neighbors (KNN)</h1><p className="cnb__knn-intro"><strong>KNN predicts a new observation’s class from its K closest labeled examples.</strong> K is the number of neighbors considered. Compare their input values, find the nearest neighbors, and predict the most common class among them.</p></header>
+    <img src={knnPage100} width={1440} height={1010} alt="Course page 100: age 28, household income $85,000, K = 10. The highlighted neighbors include 9 purchases and 1 no purchase, predicting Purchase. The source calls the 90% neighbor vote share confidence." />
+    <img src={knnPage101} width={1440} height={1010} alt="Course page 101: age 44, household income $40,000, K = 20. The highlighted neighbors include 14 no purchases and 6 purchases, predicting No Purchase. The source calls the 70% neighbor vote share confidence." />
+    <aside className="cnb__summary"><p><strong>Read the percentages as neighbor vote shares.</strong> In the first example, 9 of 10 neighbors purchased: 90% of the votes. This does not establish a 90% chance that the prediction is correct.</p></aside>
+    <Summary>Compare the new observation with labeled examples, select the K nearest, and predict their most common class.</Summary>
+  </article>
 }
 
 export function CLKNNExamples() {
-  const [k, setK] = useState(3)
-  const neighbors = nearestToy.slice(0, k)
-  const counts = { Purchase: neighbors.filter(item => item.label === 'Purchase').length, 'No purchase': neighbors.filter(item => item.label === 'No purchase').length }
-  const ranked = [...neighbors].sort((a, b) => a.distance - b.distance)
-  const tiedAtBoundary = k === 4
-  return <article className="cnb" aria-labelledby="cnb-lesson-3-title"><Header lesson={3} title="Read the neighbor vote and its edge cases" lead="KNN gives a transparent classification example: identify the nearby labeled cases, count their classes, then check whether the result is stable." />
-    <Definition title="The predicted class is usually the most frequent label among the selected neighbors." text="A class share such as 2 of 3 describes this particular neighborhood. It is a vote fraction, not automatically a calibrated probability that the prediction is correct." mark="Count → class" />
-    <Why title="A close vote should change how cautiously you use a prediction.">If a clinic triage queue or fraud review depends on the result, a 3-to-2 neighborhood split is less decisive than a 9-to-1 split. The share helps describe the local evidence; evaluation on held-out data tells us how reliable the model is overall.</Why>
-    <section className="cnb__panel"><div className="cnb__section-heading"><p className="cnb__eyebrow">Compare neighborhood sizes</p><h2>The same new customer can receive a different vote when K changes.</h2><p>These eight labeled examples use the same standardized feature coordinates. The controls redraw the neighborhood and recalculate the class counts.</p></div>
-      <div className="cnb__controls-row"><label className="cnb__control">Choose K <input type="range" min="1" max="7" value={k} onChange={event => setK(Number(event.target.value))} /><strong>{k}</strong></label><span>Odd K often avoids a two-class tie, but it does not guarantee a good model.</span></div>
-      <div className="cnb__knn-layout"><div className="cnb__chart-frame"><Plot k={k} /><div className="cnb__legend"><span><i className="is-yes" /> Purchase</span><span><i className="is-no" /> No purchase</span><span><i className="is-query" /> New customer</span></div></div><div className="cnb__side-card"><p className="cnb__eyebrow">Current neighborhood</p><h3>{counts.Purchase === counts['No purchase'] ? 'The vote is tied' : counts.Purchase > counts['No purchase'] ? 'Predict: Purchase' : 'Predict: No purchase'}</h3><div className="cnb__vote-bars"><div><span>Purchase</span><b style={{ width: `${(counts.Purchase / k * 100).toFixed(1)}%` }} /><strong>{counts.Purchase}</strong></div><div><span>No purchase</span><b style={{ width: `${(counts['No purchase'] / k * 100).toFixed(1)}%` }} /><strong>{counts['No purchase']}</strong></div></div><p className="cnb__fraction">Winning vote share: {Math.max(counts.Purchase, counts['No purchase'])}/{k} = {(Math.max(counts.Purchase, counts['No purchase']) / k * 100).toFixed(1)}%</p><small>Use this as a neighborhood summary, not as a promise of real-world accuracy.</small></div></div>
-      <div className="cnb__table-wrap"><table className="cnb__table"><caption>Nearest records, sorted by Euclidean distance</caption><thead><tr><th scope="col">Rank</th><th scope="col">Record</th><th scope="col">Distance · SD</th><th scope="col">Observed class</th></tr></thead><tbody>{ranked.map((point, index) => <tr key={point.id}><th scope="row">{index + 1}</th><td>Customer {point.id}</td><td>{point.distance.toFixed(2)}</td><td>{point.label}</td></tr>)}</tbody></table></div>
-      {tiedAtBoundary && <p className="cnb__note"><strong>Tie example:</strong> with K = 4, the vote is 2–2. A production workflow must define its tie rule in advance, such as using an odd K for two classes or checking distance-weighted votes. Do not quietly pick a class after seeing the desired answer.</p>}
-      <p className="cnb__note"><strong>Choosing K:</strong> compare candidate values on validation data, then estimate final performance once on a held-out test set. A very small K can follow noise; a very large K can blur local patterns.</p>
-    </section><Summary>K controls how local the vote is. Inspect class counts and ties, and select K using validation rather than the test set.</Summary></article>
+  return <article className="cnb cnb--source-examples" aria-labelledby="cnb-lesson-3-title">
+    <Header lesson={3} title="KNN: ties, choosing K, and more features" lead="The basic neighbor vote is simple. This example introduces a tie, followed by three practical questions about using KNN." />
+    <img src={knnPage102} width={1440} height={1010} alt="Course page 102: age 50, household income $80,000, K = 6. Three neighbors purchased and three did not: the vote is tied, so a tie-breaking rule is needed." />
+    <section className="cnb__knn-explanations" aria-label="Ties, choosing K, and multiple features">
+      <section><h2>What if there’s a tie?</h2><p>This example has <strong>3 Purchase and 3 No Purchase</strong> neighbors. The course breaks this tie by comparing each tied class’s <strong>total distance to the new observation</strong>: the class with the shorter total wins.</p><p>This is one possible tie-breaking rule. Choose the rule in advance; KNN implementations can handle ties differently.</p><KNNTieIllustration /></section>
+      <section><h2>How do we choose the right value for K?</h2><p>Try <strong>several K values</strong> and compare how accurately they predict labels on <strong>validation data</strong> or through cross-validation. Select K using those results, then evaluate the chosen model on a separate test set.</p><p>A small K uses a very local neighborhood; a larger K includes more observations and can smooth over local patterns.</p><KNNChoiceIllustration /></section>
+      <section><h2>What if we have more than two input variables?</h2><p>The customer scatter plots use two input variables, or <strong>features</strong>: age and household income. More features add more dimensions, which become difficult to visualize together.</p><p>A computer can still calculate distances using <strong>many features</strong> and apply the same nearest-neighbor logic. Scale numerical features appropriately so larger units do not dominate the distance.</p><KNNFeaturesIllustration /></section>
+    </section>
+    <Summary>Define how ties are resolved, choose K using validation data, and compare scaled feature values—even when there are too many features to plot.</Summary>
+  </article>
 }
 
 export function CLIntroNaiveBayes() {
