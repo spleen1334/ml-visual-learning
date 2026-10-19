@@ -17,6 +17,15 @@ export default function App() {
   const nextChapter = chapters[chapters.indexOf(currentChapter) + 1]
 
   useEffect(() => {
+    // Upgrade existing lesson bookmarks without adding a browser-history entry.
+    const legacyHash = section ? `#${currentChapter.id}/${section.id}` : undefined
+    if (hash === legacyHash) {
+      window.history.replaceState(window.history.state, '', chapterHref(currentChapter, section))
+      window.dispatchEvent(new HashChangeEvent('hashchange'))
+    }
+  }, [hash, currentChapter, section])
+
+  useEffect(() => {
     document.title = `${section?.title ?? currentChapter.title} · ML Visual Interactive`
     document.getElementById('main')?.focus({ preventScroll: true })
     window.scrollTo(0, 0)

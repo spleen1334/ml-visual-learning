@@ -191,7 +191,8 @@ export const chapters: readonly Chapter[] = [
 ]
 
 export function chapterHref(chapter: Chapter, section?: Subchapter): string {
-  return `#${chapter.id}${section ? `/${section.id}` : ''}`
+  const index = section ? chapter.subchapters?.findIndex(item => item.id === section.id) ?? -1 : -1
+  return `#${chapter.id}${section ? `/${Number(chapter.number)}.${index + 1}-${section.id}` : ''}`
 }
 
 export function resolveLesson(hash: string, course: readonly Chapter[] = chapters) {
@@ -199,7 +200,7 @@ export function resolveLesson(hash: string, course: readonly Chapter[] = chapter
   const chapter = course.find(item => item.id === chapterId && (item.content || item.subchapters?.some(section => section.content)))
     ?? course.find(item => item.content || item.subchapters?.some(section => section.content))
   if (!chapter) throw new Error('The course needs at least one published lesson.')
-  const section = chapter.subchapters?.find(item => item.id === sectionId && item.content)
+  const section = chapter.subchapters?.find(item => item.content && (item.id === sectionId || chapterHref(chapter, item) === `#${chapterId}/${sectionId}`))
     ?? (!chapter.content ? chapter.subchapters?.find(item => item.content) : undefined)
   return { chapter, section, Content: section?.content ?? chapter.content! }
 }

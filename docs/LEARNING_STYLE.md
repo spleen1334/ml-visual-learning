@@ -10,6 +10,7 @@ User-approved direction, updated during Chapter 04 review.
 - Explain every control: what changes, what stays fixed and what the learner should notice. Keep calculations visible and connect values to their sources where practical.
 - Treat data preparation, QA and profiling as a central foundation, not a passing stage label. Use the source's iceberg analogy and clearly attribute its rough 80%+ estimate.
 - No quizzes, answer scoring, completion gates or About sections. End each lesson with an emphasized summary.
+- Exception for an Excel case-study reproduction: explain the assignment briefly in the header, then reproduce the workbook's data table, editable inputs, calculations, results, and charts. Omit additional teaching panels and the closing summary. Preserve the workbook's visual encoding and calculation behavior.
 - Display subchapters as 2.1, 2.2, etc., without a leading zero. Existing URL identifiers may stay stable.
 - Before presenting a chapter, review the implementation process (source notes, lesson order/routing, assumptions, calculations, interactions, and validation evidence) and the finished chapter as a learner (wording, visuals, examples, terminology, cognitive load, interaction guidance, readability, and desktop experience). Prioritize findings, fix must-fix items, and report any verification limit. Passing a build does not establish readability.
 

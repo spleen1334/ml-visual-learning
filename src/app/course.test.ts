@@ -16,16 +16,40 @@ describe('optional subchapters', () => {
     expect(resolveLesson('#unknown', course).Content).toBe(Overview)
   })
   it('falls back for an unknown subchapter', () => expect(resolveLesson('#chapter-02/unknown', course).Content).toBe(Detail))
-  it('creates stable nested links', () => expect(chapterHref(course[1], course[1].subchapters![0])).toBe('#chapter-02/missing-values'))
+  it('creates stable nested links', () => expect(chapterHref(course[1], course[1].subchapters![0])).toBe('#chapter-02/2.1-missing-values'))
 })
 
 describe('lesson sequence', () => {
   it('includes only published pages in chapter and section order', () => {
-    expect(publishedLessons(course).map(item => item.href)).toEqual(['#chapter-01', '#chapter-02/missing-values'])
+    expect(publishedLessons(course).map(item => item.href)).toEqual(['#chapter-01', '#chapter-02/2.1-missing-values'])
   })
   it('includes an optional chapter overview before its subchapters', () => {
     const withOverview = [{ ...course[1], content: Overview }]
-    expect(publishedLessons(withOverview).map(item => item.href)).toEqual(['#chapter-02', '#chapter-02/missing-values'])
+    expect(publishedLessons(withOverview).map(item => item.href)).toEqual(['#chapter-02', '#chapter-02/2.1-missing-values'])
+  })
+})
+
+describe('numbered lesson URLs', () => {
+  it('generates numbers matching the sidebar and resolves both canonical and legacy links', () => {
+    for (const chapter of chapters) {
+      chapter.subchapters?.forEach((section, index) => {
+        if (!section.content) return
+        const href = chapterHref(chapter, section)
+        expect(href).toBe(`#${chapter.id}/${Number(chapter.number)}.${index + 1}-${section.id}`)
+        expect(resolveLesson(href).section).toBe(section)
+        expect(resolveLesson(`#${chapter.id}/${section.id}`).section).toBe(section)
+      })
+    }
+  })
+  it('uses 9.4 for the KNN case and preserves its previous and next lesson order', () => {
+    const lessons = publishedLessons()
+    const index = lessons.findIndex(lesson => lesson.href === '#chapter-09/9.4-case-study-knn')
+    expect(index).toBeGreaterThan(0)
+    expect(lessons[index - 1].href).toBe('#chapter-09/9.3-knn-examples')
+    expect(lessons[index + 1].href).toBe('#chapter-09/9.5-intro-to-nai-ve-bayes')
+  })
+  it('does not resolve a mismatched lesson number as the named section', () => {
+    expect(resolveLesson('#chapter-09/9.3-case-study-knn').section?.id).toBe('common-classification-models')
   })
 })
 
@@ -56,9 +80,9 @@ describe('chapter six publication', () => {
 describe('chapter seven publication', () => {
   it('publishes the Part 2 orientation before later classification chapters', () => {
     const lessons = publishedLessons()
-    expect(lessons.filter(item => item.chapter.id === 'chapter-07').map(item => item.href)).toEqual(['#chapter-07/part-2-classification-modeling'])
+    expect(lessons.filter(item => item.chapter.id === 'chapter-07').map(item => item.href)).toEqual(['#chapter-07/7.1-part-2-classification-modeling'])
     expect(resolveLesson('#chapter-07/part-2-classification-modeling').section?.id).toBe('part-2-classification-modeling')
-    expect(lessons.find(item => item.chapter.id === 'chapter-11')?.href).toBe('#chapter-11/part-3-regression-forecasting')
+    expect(lessons.find(item => item.chapter.id === 'chapter-11')?.href).toBe('#chapter-11/11.1-part-3-regression-forecasting')
     expect(lessons.some(item => item.chapter.id === 'chapter-10')).toBe(true)
   })
 })
@@ -100,9 +124,9 @@ describe('chapter ten publication', () => {
 describe('chapter eleven publication', () => {
  it('publishes the Part 3 orientation after model selection', () => {
   const lessons = publishedLessons()
-  expect(lessons.filter(item => item.chapter.id === 'chapter-11').map(item => item.href)).toEqual(['#chapter-11/part-3-regression-forecasting'])
+  expect(lessons.filter(item => item.chapter.id === 'chapter-11').map(item => item.href)).toEqual(['#chapter-11/11.1-part-3-regression-forecasting'])
   expect(resolveLesson('#chapter-11/part-3-regression-forecasting').section?.id).toBe('part-3-regression-forecasting')
-  expect(lessons.find(item => item.chapter.id === 'chapter-11')?.href).toBe('#chapter-11/part-3-regression-forecasting')
+  expect(lessons.find(item => item.chapter.id === 'chapter-11')?.href).toBe('#chapter-11/11.1-part-3-regression-forecasting')
  })
 })
 

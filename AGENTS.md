@@ -40,11 +40,13 @@ Use this default order in each section:
 - Important definitions must stand out, typically around 24–30px or larger on desktop. Do not bury them in small gray introductory text.
 - Break large text blocks into short, labeled pieces. Use selective **bold**, *italics*, and restrained underlining to create a readable hierarchy. Avoid giving everything equal emphasis.
 - Favor explanatory SVG/HTML diagrams and charts over decorative pictures. A visual should clarify the idea, not simply fill space. Decision trees and process diagrams need visible directional connectors between related nodes; grouped boxes alone do not show a path.
-- Support optional subchapters. Display their numbering as `2.1`, `4.2`, etc., without leading zeros. Preserve existing URL identifiers.
+- Support optional subchapters. Display their numbering as `2.1`, `4.2`, etc., without leading zeros. Include that number in canonical lesson URLs, for example `#chapter-09/9.4-case-study-knn`. Keep manifest IDs stable and support old unnumbered URLs as aliases.
 - Keep sidebar navigation focused on the course outline. Do not restore “The visual guide / A little curiosity…” introductory copy or “Explore at your own pace…” footer copy.
 - Future chapters may expand to reveal their outline, but must not appear as published lessons or enter lesson pagination before they have content.
 
 ## Tables, corrections, and feedback
+
+- When reproducing an Excel case study, use the workbook's complete data, controls, calculations, results, and chart presentation. A short header explains the assignment; do not add definition panels, worked examples, extra commentary, or a closing summary unless requested. For the KNN case, preserve both feature selectors, manual query values, K=0–100, the source table, paired charts, counts, prediction, and confidence, including workbook tie behavior.
 
 - Avoid duplicated “Before” and “Current” panels, noisy status bars, preparation histories, undo timelines, and workbook-reset panels.
 - Show one current value. When it changes, highlight it and show the original value in a hover bubble while leaving the current value visible.

@@ -1,6 +1,7 @@
 import { Fragment, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import './ClassificationNeighborsBayes.css'
+export { KnnWorkbookCase as CLCaseKNN } from './KnnWorkbookCase'
 
 type Label = 'Purchase' | 'No purchase'
 type Point = { id: string; x: number; y: number; label: Label }
@@ -18,34 +19,6 @@ const toyPoints: Point[] = [
 const query = { x: 0.15, y: 0.15 }
 const nearestToy = toyPoints.map(point => ({ ...point, distance: Math.hypot(point.x - query.x, point.y - query.y) })).sort((a, b) => a.distance - b.distance)
 const toyTrace = toyPoints.find(point => point.id === 'D')!
-
-const spotifyNeighbors = [
-  { title: 'IDGAF', tempo: 24.82, key: 63.98, label: 'Listened' },
-  { title: 'Vaina Loca', tempo: 22.58, key: 55.02, label: 'Skipped' },
-  { title: 'Back To You', tempo: 28.54, key: 54.97, label: 'Listened' },
-  { title: 'Eastside (with Halsey & Khalid)', tempo: 18.87, key: 54.95, label: 'Listened' },
-  { title: 'The Middle', tempo: 32.26, key: 63.99, label: 'Listened' },
-  { title: 'Lucid Dreams', tempo: 15.14, key: 55.01, label: 'Skipped' },
-  { title: 'All The Stars (with SZA)', tempo: 24.82, key: 72.98, label: 'Listened' },
-  { title: 'Perfect Duet (Ed Sheeran & Beyoncé)', tempo: 23.33, key: 72.94, label: 'Listened' },
-  { title: 'Perfect', tempo: 23.33, key: 72.99, label: 'Favorited' },
-  { title: 'Nice For What', tempo: 21.84, key: 73.02, label: 'Listened' },
-  { title: 'Let Me Go (Alesso, Florida Georgia Line & watt)', tempo: 29.28, key: 72.93, label: 'Listened' },
-  { title: 'River (feat. Ed Sheeran)', tempo: 19.61, key: 73.01, label: 'Listened' },
-  { title: 'Happier', tempo: 27.05, key: 46.04, label: 'Skipped' },
-  { title: 'Flames', tempo: 22.59, key: 45.97, label: 'Skipped' },
-  { title: 'Too Good At Goodbyes', tempo: 21.1, key: 46.03, label: 'Skipped' },
-  { title: 'Finesse - Remix; feat. Cardi B', tempo: 30.77, key: 46.02, label: 'Skipped' },
-  { title: "God's Plan", tempo: 9.93, key: 63.95, label: 'Listened' },
-  { title: 'What Lovers Do', tempo: 34.5, key: 46.03, label: 'Listened' },
-  { title: 'Youngblood', tempo: 41.94, key: 63.98, label: 'Listened' },
-  { title: 'Congratulations', tempo: 44.17, key: 55, label: 'Listened' },
-] as const
-const spotifyQuery = { tempo: 25, key: 60 }
-const rankedSpotifyNeighbors = spotifyNeighbors.map(point => ({
-  ...point,
-  distance: Math.hypot(point.tempo - spotifyQuery.tempo, point.key - spotifyQuery.key),
-})).sort((a, b) => a.distance - b.distance)
 
 type Customer = { id: number; newsletter: 0 | 1; facebook: 0 | 1; website: 0 | 1; purchase: 0 | 1 }
 const customers: Customer[] = [
@@ -146,29 +119,6 @@ export function CLKNNExamples() {
       {tiedAtBoundary && <p className="cnb__note"><strong>Tie example:</strong> with K = 4, the vote is 2–2. A production workflow must define its tie rule in advance, such as using an odd K for two classes or checking distance-weighted votes. Do not quietly pick a class after seeing the desired answer.</p>}
       <p className="cnb__note"><strong>Choosing K:</strong> compare candidate values on validation data, then estimate final performance once on a held-out test set. A very small K can follow noise; a very large K can blur local patterns.</p>
     </section><Summary>K controls how local the vote is. Inspect class counts and ties, and select K using validation rather than the test set.</Summary></article>
-}
-
-export function CLCaseKNN() {
-  const [k, setK] = useState(20)
-  const neighbors = rankedSpotifyNeighbors.slice(0, k)
-  const listened = neighbors.filter(item => item.label === 'Listened').length
-  const skipped = neighbors.filter(item => item.label === 'Skipped').length
-  const favorited = neighbors.filter(item => item.label === 'Favorited').length
-  const votes = { Listened: listened, Skipped: skipped, Favorited: favorited }
-  const voteMaximum = Math.max(...Object.values(votes))
-  const winners = Object.entries(votes).filter(([, count]) => count === voteMaximum).map(([label]) => label)
-  return <article className="cnb" aria-labelledby="cnb-lesson-4-title"><Header lesson={4} title="Case study: recommend what a listener may play" lead="Assignment: use past listening behavior to classify an unobserved track as Listened, Skipped, or Favorited from its song attributes." />
-    <Definition title="A KNN classifier assigns the class most common among the closest known records." text="For this Spotify teaching workbook, each row is a track with audio features and an observed listener outcome. We compare a new track against tracks whose outcomes are already recorded." mark="Track → outcome" />
-    <Why title="A recommendation needs both a useful comparison and a trustworthy evaluation.">The workbook contains 100 popular tracks with outcomes recorded as Listened, Skipped, or Favorited. It simplifies the model to two scaled attributes so we can see the geometry; it is a teaching demonstration, not a fitted production recommender.</Why>
-    <section className="cnb__panel"><div className="cnb__section-heading"><p className="cnb__eyebrow">Two-feature view of the course case</p><h2>Tempo = 25 and Key = 60 on scaled 1–100 values.</h2><p>The 100-track case includes eight audio features. This zoomed view plots the supplied two-feature values and ranks them by Euclidean distance from this test point. Equal plot scales preserve that distance visually. “Key” describes a track’s musical pitch class, which is categorical; treating its encoded number as a continuous distance is only a teaching simplification. Scaling changes units, but does not prove that key differences are meaningful.</p></div>
-      <div className="cnb__case-banner"><div><span>New track · Tempo</span><strong>25 / 100</strong></div><b aria-hidden="true">+</b><div><span>New track · Key</span><strong>60 / 100</strong></div><b aria-hidden="true">→</b><div><span>Most common nearby outcome</span><strong aria-live="polite">{winners.length === 1 ? winners[0] : 'Tie'}</strong></div></div>
-      <label className="cnb__control">Number of nearest tracks, K <input type="range" min="1" max="20" value={k} onChange={event => setK(Number(event.target.value))} /><strong>{k}</strong></label>
-      <div className="cnb__case-votes" aria-live="polite"><span><i className="is-listened" /> Listened <b>{listened}</b></span><span><i className="is-skipped" /> Skipped <b>{skipped}</b></span><span><i className="is-favorited" /> Favorited <b>{favorited}</b></span><strong>Winning vote share: {voteMaximum}/{k} = {(voteMaximum / k * 100).toFixed(1)}%</strong></div>
-      <div className="cnb__neighbor-chart"><svg viewBox="0 0 500 330" role="img" aria-label={`Zoomed view of the ${k} nearest tracks by scaled Tempo and Key, with numeric ticks and equal distance per unit`}>{[122, 182, 242, 302].map(x => <line key={`vx-${x}`} className="cnb__gridline" x1={x} y1="54" x2={x} y2="270" />)}{[54, 114, 174, 234].map(y => <line key={`hy-${y}`} className="cnb__gridline" x1="110" y1={y} x2="350" y2={y} />)}<line x1="110" y1="270" x2="350" y2="270" /><line x1="110" y1="54" x2="110" y2="270" />{[10, 20, 30, 40].map(value => <text key={`tempo-${value}`} x={110 + (value - 8) * 6} y="292" textAnchor="middle">{value}</text>)}{[40, 50, 60, 70].map(value => <text key={`key-${value}`} x="98" y={270 - (value - 40) * 6 + 4} textAnchor="end">{value}</text>)}<text x="230" y="320" textAnchor="middle">Tempo · scaled 1–100</text><text transform="translate(35 162) rotate(-90)" textAnchor="middle">Key · scaled 1–100</text>{rankedSpotifyNeighbors.map((point, index) => <circle key={`${point.title}-${index}`} cx={110 + (point.tempo - 8) * 6} cy={270 - (point.key - 40) * 6} r={index < k ? 7 : 4} className={`cnb__spotify-dot cnb__spotify-dot--${point.label.toLowerCase()} ${index < k ? 'is-active' : ''}`}><title>Rank {index + 1}: {point.title}, {point.label}; scaled Tempo {point.tempo}, scaled Key {point.key}; Euclidean distance {point.distance.toFixed(2)}</title></circle>)}<path className="cnb__test-marker" d="M0 -10 L10 0 L0 10 L-10 0 Z" transform="translate(212 150)" /><text className="cnb__spotify-test-label" x="224" y="145">New track (25, 60)</text></svg><p className="cnb__test-label">Zoomed axes span Tempo 8–48 and Key 40–76; all 20 tracks fit and both use 6 SVG units per feature unit.</p></div>
-      <p className="cnb__calculation"><strong>Distance example · “IDGAF”:</strong> √((24.82 − 25)² + (63.98 − 60)²) = √((−0.18)² + 3.98²) ≈ {rankedSpotifyNeighbors.find(point => point.title === 'IDGAF')!.distance.toFixed(2)} scaled-score units. The point’s offset on each equally scaled axis matches the two differences in the calculation.</p>
-      <div className="cnb__table-wrap"><table className="cnb__table"><caption>Tracks ranked by Euclidean distance using only scaled Tempo and Key; change K to inspect a shorter vote</caption><thead><tr><th scope="col">Rank</th><th scope="col">Track</th><th scope="col">Tempo · scaled</th><th scope="col">Key · scaled</th><th scope="col">Distance</th><th scope="col">Recorded outcome</th></tr></thead><tbody>{neighbors.map((point, index) => <tr key={point.title}><th scope="row">{index + 1}</th><td>{point.title}</td><td>{point.tempo.toFixed(2)}</td><td>{point.key.toFixed(2)}</td><td>{point.distance.toFixed(2)}</td><td>{point.label}</td></tr>)}</tbody></table></div>
-      <p className="cnb__note"><strong>What the percentage means:</strong> at K = 20, {listened} neighbors listened, {skipped} skipped, and {favorited} favorited. The winning share summarizes this neighborhood; it is not a calibrated probability that the listener will play the new track. The two-feature view leaves out six other audio attributes from the larger table.</p>
-    </section><Summary>For the course’s Tempo 25 / Key 60 example, 13 of the 20 nearest tracks were listened to. Scaling keeps the two plotted features comparable; a real recommendation model needs broader evaluation and context.</Summary></article>
 }
 
 export function CLIntroNaiveBayes() {

@@ -19,7 +19,7 @@ To split a larger chapter, create its React components, import them in `course.t
 }
 ```
 
-The sidebar generates numbered nested links automatically. Links such as `#chapter-04/missing-values` work directly and on reload; browser Back/Forward updates the lesson. A chapter without an overview opens its first subchapter. Unknown sections fall back to the chapter overview or first subchapter; unpublished/unknown chapters fall back to the first published chapter. Lesson state resets when navigating between pages. Navigation imposes no gates or scores.
+The sidebar generates numbered nested links automatically, including the subchapter number in the URL. For the example above, the first lesson is `#chapter-04/4.1-missing-values` (the actual manifest determines the lesson's position). Canonical links work directly and on reload; old unnumbered links such as `#chapter-04/missing-values` remain supported and are upgraded with `replaceState`, without adding a history entry. Browser Back/Forward updates the lesson. A chapter without an overview opens its first subchapter. Unknown sections fall back to the chapter overview or first subchapter; unpublished/unknown chapters fall back to the first published chapter. Lesson state resets when navigating between pages. Navigation imposes no gates or scores.
 
 Keep IDs stable, unique within their parent, and URL-safe (lowercase words and hyphens). Subchapter IDs can repeat across different chapters. No routing dependency, backend or CMS is needed.
 
