@@ -35,3 +35,5 @@ Explain why a method is useful with a concrete scenario before its formula or co
 - Trace representative input records through intermediate calculations to the result; introduce unfamiliar notation before aggregate scores.
 - Distinguish manually supplied rules/weights, supplied fitted models, and live training. Show labeled inputs → fitting → model parameters → separate prediction inputs when explaining training; a live optimizer is optional.
 - Verify mathematical meaning as well as layout: distance charts need faithful metric scales and readable coordinates; changing counts/scores should identify the contributing records.
+
+- For requested PDF reproductions, copy the source’s visual layout, data, colors, and calculation sequence. Use automatic step animation where useful; do not require learner inputs or surround the source visuals with extra teaching panels. Keep the introductory definition short. Naive Bayes 9.5–9.7 follows this exception with the ten-customer PDF example; 9.8 remains the separate approved twenty-customer workbook reproduction.
