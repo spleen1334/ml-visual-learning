@@ -22,6 +22,15 @@
 .dtw__section-head { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 14px; }
 .dtw__section-head h2 { margin: 0 0 4px; color: #244c49; font: 700 19px/1.2 system-ui,sans-serif; letter-spacing: .04em; }
 .dtw__section-head span { color: var(--dtw-muted); font-size: 14px; }
+.dtw__initial-entropy { display: flex; align-items: stretch; border: 1px solid #bdcfc4; border-radius: 7px; overflow: hidden; flex-shrink: 0; }
+.dtw__initial-value { display: grid; align-content: center; justify-items: center; gap: 2px; min-width: 112px; padding: 9px 16px; background: #f3f6f0; }
+.dtw__initial-value > span { color: #405e53; font-size: 13px; font-weight: 750; }
+.dtw__initial-value > strong { color: #244c49; font-size: 26px; line-height: 1.1; }
+.dtw__initial-counts { display: grid; border-left: 1px solid #bdcfc4; }
+.dtw__initial-counts > div { display: flex; align-items: center; gap: 10px; padding: 5px 10px; }
+.dtw__initial-counts > div + div { border-top: 1px solid #bdcfc4; }
+.dtw__initial-counts strong { min-width: 24px; font-size: 17px; }
+.dtw__initial-counts span { color: inherit; font-size: 12px; font-weight: 650; }
 .dtw__table-scroll { max-height: 335px; overflow: auto; border: 1px solid #dce6e1; border-radius: 8px; scrollbar-color: #b9cfc4 #f4f7f3; }
 .dtw__table-scroll:focus-visible { outline: 3px solid #5ca69a; outline-offset: 2px; }
 .dtw__data { width: 100%; border-collapse: separate; border-spacing: 0; font: 13px/1.25 system-ui,sans-serif; text-align: center; }
@@ -60,6 +69,7 @@
 .dtw__rows { border-top: 1px solid #e4ebe5; padding-top: 6px; }
 .dtw__rows summary { color: #526b63; cursor: pointer; font-size: 11px; font-weight: 800; }
 .dtw__rows summary span { display: block; max-height: 30px; overflow: hidden; margin-top: 3px; color: #85918a; font-size: 9px; font-weight: 500; line-height: 1.5; }
+.dtw__rows:not([open]) summary span { display: none; }
 .dtw__table-scroll--branch { max-height: 175px; margin-top: 8px; }
 .dtw__data--branch { min-width: 440px; font-size: 11px; }
 .dtw__data--branch th,.dtw__data--branch td { min-width: 60px; padding: 5px 6px; }
@@ -75,13 +85,15 @@
 .dtw__tree-lines { display: block; width: 100%; height: 83px; margin-top: -1px; overflow: visible; }
 .dtw__tree-lines path { fill: none; stroke: #83aa9d; stroke-width: 2; vector-effect: non-scaling-stroke; }
 .dtw__tree-branches { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 34px; margin-top: -2px; }
-.dtw__tree-branch { display: grid; justify-items: center; }
+.dtw__tree-branch { display: grid; align-content: start; justify-items: center; }
 .dtw__branch-label { display: grid; justify-items: center; gap: 2px; width: min(100%,330px); padding: 8px 12px; border: 1px solid #c3d8cb; border-radius: 8px; background: white; text-align: center; }
 .dtw__branch-label strong { color: #315950; font-size: 15px; }
-.dtw__leaf-lines { display: block; width: 72%; height: 28px; overflow: visible; }
+.dtw__branch-label > span { color: #60766f; font-size: 12px; }
+.dtw__leaf-lines { display: block; width: 100%; height: 38px; overflow: visible; }
 .dtw__leaf-lines path { fill: none; stroke: #83aa9d; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
 .dtw__leaf-lines marker path { fill: #56897c; stroke: none; }
 .dtw__leaf-row { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; width: 100%; }
+.dtw__leaf-row--single { grid-template-columns: minmax(0,1fr); width: 60%; }
 .dtw__leaf { display: grid; justify-items: center; align-content: center; gap: 2px; min-height: 76px; padding: 8px; border: 1px solid #d7e5da; border-radius: 8px; background: #eff7f1; text-align: center; }
 .dtw__leaf small { color: #668078; font-size: 10px; font-weight: 800; }
 .dtw__leaf strong { color: #28554d; font-size: 16px; }

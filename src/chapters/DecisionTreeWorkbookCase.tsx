@@ -20,7 +20,7 @@ function GroupCard({ group, feature, parentLabel, parentEntropy }: { group: Tree
       </tbody><tfoot><tr><th colSpan={2}>Entropy · H(p₁,p₀)</th><td>{entropy(group.entropy)}</td></tr></tfoot>
     </table>
     {parentEntropy !== undefined && <div className="dtw__branch-delta"><span>Workbook branch delta · H(parent) − H(this branch)</span><b>{(parentEntropy - group.entropy).toFixed(3)}</b></div>}
-    <details className="dtw__rows" open><summary>Source rows · {group.total} customers <span>{rowsLabel}</span></summary>
+    <details className="dtw__rows"><summary>Source rows · {group.total} customers <span>{rowsLabel}</span></summary>
       <div className="dtw__table-scroll dtw__table-scroll--branch"><SourceRows customers={group.customers} label={`${getTreeFeatureLabel(feature)} = ${group.value} source rows`} /></div>
     </details>
   </article>
@@ -84,13 +84,13 @@ function TreeDiagram({ rootFeature, rootGroups, splitA, splitB }: {
         const selected = index === 0 ? splitA : splitB
         const leaves = index === 0 ? leavesA : leavesB
         return <div className="dtw__tree-branch" key={branch.value}>
-          <div className="dtw__branch-label"><small>{getTreeFeatureLabel(rootFeature)} = {branch.value} · N={branch.total}</small><strong>{branch.subscribed} / {branch.notSubscribed}</strong></div>
-          {selected && <svg className="dtw__leaf-lines" viewBox="0 0 100 30" role="img" aria-label={`Connectors from the ${getTreeFeatureLabel(selected)} decision to its two leaves`}>
+          <div className="dtw__branch-label"><small>{getTreeFeatureLabel(rootFeature)} = {branch.value} · N={branch.total}</small><strong>{branch.subscribed} / {branch.notSubscribed}</strong><span>{selected ? `Split next on ${getTreeFeatureLabel(selected)}` : 'No second split selected'}</span></div>
+          <svg className="dtw__leaf-lines" viewBox="0 0 100 30" preserveAspectRatio="none" role="img" aria-label={selected ? `Connectors from the ${getTreeFeatureLabel(selected)} decision to its two leaves` : 'Connector to the unsplit branch result'}>
             <defs><marker id={`dtw-arrow-${branch.value}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs>
-            <path d="M50 0 V11 H24 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />
-            <path d="M50 0 V11 H76 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />
-          </svg>}
-          <div className="dtw__leaf-row">{leaves.map((leaf, leafIndex) => <div className="dtw__leaf" key={`${branch.value}-${leafIndex}`}>
+            {selected ? <><path d="M50 0 V11 H24 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />
+            <path d="M50 0 V11 H76 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} /></> : <path d="M50 0 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />}
+          </svg>
+          <div className={`dtw__leaf-row${selected ? '' : ' dtw__leaf-row--single'}`}>{leaves.map((leaf, leafIndex) => <div className="dtw__leaf" key={`${branch.value}-${leafIndex}`}>
             {selected && <small>{getTreeFeatureLabel(selected)} = {leaf.value}</small>}
             <strong>{leafText(leaf)}</strong><span>{leaf.total ? pct(leaf.probability) : '—'} subscribe</span>
           </div>)}</div>
@@ -115,7 +115,12 @@ export function CLDecisionTreeCaseStudy() {
     <header className="dtw__header"><p>Chapter 09 · Classification Models · 9.14</p><h1 id="dtw-title">Case study: Decision Trees</h1><p>Use Trip Genie customer behavior to compare splits for paid subscription.</p></header>
     <div className="dtw__sheet" role="region" aria-label="Decision tree workbook case study">
       <section className="dtw__source" aria-labelledby="dtw-source-title">
-        <div className="dtw__section-head"><div><h2 id="dtw-source-title">CUSTOMER INTERACTIONS</h2><span>50 training customers · target: Subscribe?</span></div></div>
+        <div className="dtw__section-head"><div><h2 id="dtw-source-title">CUSTOMER INTERACTIONS</h2><span>50 training customers · target: Subscribe?</span></div>
+          <div className="dtw__initial-entropy" role="group" aria-label="Initial entropy and subscription counts">
+            <div className="dtw__initial-value"><span>Entropy</span><strong>{entropy(root.entropy)}</strong></div>
+            <div className="dtw__initial-counts"><div className="dtw__class-yes"><strong>{root.subscribed}</strong><span>Subscribed</span></div><div className="dtw__class-no"><strong>{root.notSubscribed}</strong><span>Not subscribed</span></div></div>
+          </div>
+        </div>
         <div className="dtw__table-scroll" role="region" aria-label="All 50 source customers" tabIndex={0}>
           <SourceRows customers={treeWorkbookCustomers} label="All 50 customer interaction rows" />
         </div>
