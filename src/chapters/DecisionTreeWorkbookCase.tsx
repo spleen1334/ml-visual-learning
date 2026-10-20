@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { treeWorkbookCustomers, treeWorkbookDefaults } from './treeWorkbookData'
 import {
   getTreeFeatureLabel, splitTreeGroup, summarizeTreeGroup, treeInformationGain, treeWorkbookFeatures,
@@ -6,25 +6,7 @@ import {
 } from './treeWorkbookMath'
 import './DecisionTreeWorkbookCase.css'
 
-const pct = (value: number) => `${(value * 100).toFixed(1)}%`
 const entropy = (value: number) => value.toFixed(3)
-
-function GroupCard({ group, feature, parentLabel, parentEntropy }: { group: TreeGroup; feature: TreeFeatureKey; parentLabel: string; parentEntropy?: number }) {
-  const rowsLabel = group.customers.map(customer => customer.id).join(', ')
-  return <article className="dtw__group-card">
-    <div className="dtw__group-head"><div><small>{parentLabel}</small><h3>{getTreeFeatureLabel(feature)} = {group.value}</h3></div><span>N = {group.total}</span></div>
-    <table className="dtw__calc-table" aria-label={`${getTreeFeatureLabel(feature)} equals ${group.value} count and probability calculation`}>
-      <thead><tr><th>Subscribe?</th><th>Count</th><th>Probability</th></tr></thead>
-      <tbody><tr><th>1</th><td>{group.subscribed}</td><td>{group.total ? pct(group.probability) : '—'}</td></tr>
-        <tr><th>0</th><td>{group.notSubscribed}</td><td>{group.total ? pct(1 - group.probability) : '—'}</td></tr>
-      </tbody><tfoot><tr><th colSpan={2}>Entropy · H(p₁,p₀)</th><td>{entropy(group.entropy)}</td></tr></tfoot>
-    </table>
-    {parentEntropy !== undefined && <div className="dtw__branch-delta"><span>Workbook branch delta · H(parent) − H(this branch)</span><b>{(parentEntropy - group.entropy).toFixed(3)}</b></div>}
-    <details className="dtw__rows"><summary>Source rows · {group.total} customers <span>{rowsLabel}</span></summary>
-      <div className="dtw__table-scroll dtw__table-scroll--branch"><SourceRows customers={group.customers} label={`${getTreeFeatureLabel(feature)} = ${group.value} source rows`} /></div>
-    </details>
-  </article>
-}
 
 function SourceRows({ customers, label }: { customers: typeof treeWorkbookCustomers; label: string }) {
   return <table className="dtw__data dtw__data--branch" aria-label={label}>
@@ -36,68 +18,91 @@ function SourceRows({ customers, label }: { customers: typeof treeWorkbookCustom
   </table>
 }
 
-function SplitPanel({
-  label, parent, feature, onFeatureChange,
-}: {
-  label: string
-  parent: TreeGroup & { label: string; feature?: TreeFeatureKey }
-  feature: TreeFeatureKey | null
-  onFeatureChange: (feature: TreeFeatureKey | null) => void
-}) {
-  const children = feature ? splitTreeGroup(parent.customers, feature) : null
-  const gain = children ? treeInformationGain(parent, children) : null
-  const options = treeWorkbookFeatures.filter(item => item.key !== parent.feature)
-  return <section className="dtw__split" aria-label={`${label} split`}>
-    <div className="dtw__split-title"><div><p className="dtw__eyebrow">{label}</p><h3>Test the next feature</h3></div>
-      <label className="dtw__select-label">Split on
-        <select aria-label={`${label} feature`} value={feature ?? ''} onChange={event => onFeatureChange(event.target.value ? event.target.value as TreeFeatureKey : null)}>
-          <option value="">—</option>{options.map(item => <option value={item.key} key={item.key}>{item.label}</option>)}
-        </select>
-      </label>
-    </div>
-    <div className="dtw__parent"><span>Current branch · {parent.label}</span><strong>{parent.subscribed} subscribed / {parent.notSubscribed} not</strong><small>N={parent.total} · H={entropy(parent.entropy)}</small></div>
-    {children ? <>
-      <div className="dtw__groups">{children.map(group => <GroupCard key={group.value} group={group} feature={feature!} parentLabel={`${parent.label} ·`} parentEntropy={parent.entropy} />)}</div>
-      <div className="dtw__gain"><span>Weighted information gain for this split</span><strong>{gain!.toFixed(3)} bits</strong><small>H(parent) − [({children[0].total}/{parent.total})H(1) + ({children[1].total}/{parent.total})H(0)]</small></div>
-    </> : <div className="dtw__empty">{label === 'SPLIT 2B' ? 'The saved worksheet leaves this second split unselected and its dependent cells show #REF!. Choose a feature to calculate from the source rows.' : 'No second split is selected.'}</div>}
-  </section>
+function CalculationPopup({ parent, children = [], title }: { parent: TreeGroup; children?: TreeGroup[]; title: string }) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  const [entropyIndex, setEntropyIndex] = useState(0)
+  const selectedGroup = [parent, ...children][entropyIndex] ?? parent
+  const selectedLabel = entropyIndex === 0 ? (children.length ? 'Parent' : 'Selection') : `Branch ${selectedGroup.value}`
+  const p1 = selectedGroup.probability
+  const p0 = 1 - p1
+  const term1 = p1 > 0 ? -p1 * Math.log2(p1) : 0
+  const term0 = p0 > 0 ? -p0 * Math.log2(p0) : 0
+  return <>
+    <button className="dtw__math-button" onClick={() => dialog.current?.showModal()}>Calculations</button>
+    <dialog ref={dialog} className="dtw__math-dialog" aria-label={`${title} calculations`} onClick={event => { if (event.target === event.currentTarget) dialog.current?.close() }}>
+      <form method="dialog"><button aria-label="Close calculations">Close ×</button></form>
+      <h2>{title}</h2>
+      <div className="dtw__calculation-trace">
+        <table className="dtw__trace-table">
+          <thead><tr><th></th>{[parent, ...children].map((group, index) => <th key={index} className={`dtw__trace-color-${index}`}>{index === 0 ? (children.length ? 'Parent' : 'Selection') : `Branch ${group.value}`}</th>)}</tr></thead>
+          <tbody>
+            <tr><th>Subscribe 1</th>{[parent, ...children].map((group, index) => <td key={index}><strong className="dtw__class-yes">{group.subscribed}</strong><small>p₁ = {group.subscribed}/{group.total}</small></td>)}</tr>
+            <tr><th>Subscribe 0</th>{[parent, ...children].map((group, index) => <td key={index}><strong className="dtw__class-no">{group.notSubscribed}</strong><small>p₀ = {group.notSubscribed}/{group.total}</small></td>)}</tr>
+            <tr><th>Customers</th>{[parent, ...children].map((group, index) => <td key={index}><strong className={index === 0 ? 'dtw__parent-total' : undefined} title={index === 0 ? 'Parent customer total: denominator for branch weights' : undefined}>{group.total}</strong></td>)}</tr>
+            <tr className="dtw__trace-entropy"><th>Entropy</th>{[parent, ...children].map((group, index) => <td key={index} className={`dtw__trace-color-${index}`}><button className="dtw__entropy-value" aria-label={`Show entropy calculation for ${index === 0 ? (children.length ? 'parent' : 'selection') : `branch ${group.value}`}`} aria-pressed={entropyIndex === index} onMouseEnter={() => setEntropyIndex(index)} onFocus={() => setEntropyIndex(index)} onClick={() => setEntropyIndex(index)}>{group.total ? entropy(group.entropy) : '—'}</button></td>)}</tr>
+            {children.length > 0 && <>
+              <tr className="dtw__trace-arrows" aria-hidden="true"><th></th>{[parent, ...children].map((_, index) => <td key={index} className={`dtw__trace-color-${index}`}><svg viewBox="0 0 40 42"><path d="M20 0 V34 M13 27 L20 35 L27 27" /></svg></td>)}</tr>
+              <tr className="dtw__trace-terms"><th>Weighted<br />Info Gain</th><td className="dtw__trace-color-0"><small>Parent entropy</small><strong>{entropy(parent.entropy)}</strong></td>{children.map((group, index) => <td key={group.value} className={`dtw__trace-color-${index + 1}`}><small>Branch {group.value}: size × entropy</small><strong><span className="dtw__trace-operator">{index === 0 ? '− [' : '+'}</span> ({group.total}/{parent.total}) × {entropy(group.entropy)} {index === children.length - 1 && <span className="dtw__trace-operator">]</span>}</strong></td>)}</tr>
+            </>}
+          </tbody>
+        </table>
+      </div>
+      {children.length > 0 && <div className="dtw__trace-answer">≈ <strong>{entropy(treeInformationGain(parent, children))} bits</strong></div>}
+      <div className={`dtw__entropy-work dtw__trace-color-${entropyIndex}`} aria-live="polite">
+        <div><strong>Entropy calculation · {selectedLabel}</strong><small>Hover or focus an entropy value above.</small></div>
+        {selectedGroup.total ? <>
+          <p>p₁ = {selectedGroup.subscribed}/{selectedGroup.total} = {p1.toFixed(3)} <span>p₀ = {selectedGroup.notSubscribed}/{selectedGroup.total} = {p0.toFixed(3)}</span></p>
+          <p className="dtw__entropy-substitution">H = −({selectedGroup.subscribed}/{selectedGroup.total}) log₂({selectedGroup.subscribed}/{selectedGroup.total}) − ({selectedGroup.notSubscribed}/{selectedGroup.total}) log₂({selectedGroup.notSubscribed}/{selectedGroup.total})</p>
+          <p className="dtw__entropy-result">≈ {term1.toFixed(4)} + {term0.toFixed(4)} ≈ <strong>{entropy(selectedGroup.entropy)} bits</strong></p>
+          {(p1 === 0 || p0 === 0) && <small>A zero-probability term contributes 0.</small>}
+        </> : <p>No matching customers: entropy is unavailable.</p>}
+      </div>
+      {children.length > 0 && <p className="dtw__excel-note"><strong>Excel Info Gain:</strong> parent entropy − one branch’s entropy. The calculation above weights both branches.</p>}
+    </dialog>
+  </>
 }
 
-type Branch = TreeGroup & { label: string; feature?: TreeFeatureKey }
-
-function TreeDiagram({ rootFeature, rootGroups, splitA, splitB }: {
-  rootFeature: TreeFeatureKey
-  rootGroups: [Branch, Branch]
-  splitA: TreeFeatureKey | null
-  splitB: TreeFeatureKey | null
-}) {
-  const aChildren = splitA ? splitTreeGroup(rootGroups[0].customers, splitA) : null
-  const bChildren = splitB ? splitTreeGroup(rootGroups[1].customers, splitB) : null
-  const leavesA = aChildren ?? [rootGroups[0]]
-  const leavesB = bChildren ?? [rootGroups[1]]
-  const leafText = (group: TreeGroup) => `${group.subscribed} / ${group.notSubscribed}`
-  return <section className="dtw__tree" aria-label="Current decision tree">
-    <div className="dtw__tree-root"><small>ROOT · 50 customers</small><strong>{getTreeFeatureLabel(rootFeature)}</strong><span>H = {entropy(summarizeTreeGroup(treeWorkbookCustomers).entropy)}</span></div>
-    <svg className="dtw__tree-lines" viewBox="0 0 1000 84" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="dtw-root-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs><path d="M500 0 V35 H250 V82" markerEnd="url(#dtw-root-arrow)" /><path d="M500 35 H750 V82" markerEnd="url(#dtw-root-arrow)" /></svg>
-    <div className="dtw__tree-branches">
-      {rootGroups.map((branch, index) => {
-        const selected = index === 0 ? splitA : splitB
-        const leaves = index === 0 ? leavesA : leavesB
-        return <div className="dtw__tree-branch" key={branch.value}>
-          <div className="dtw__branch-label"><small>{getTreeFeatureLabel(rootFeature)} = {branch.value} · N={branch.total}</small><strong>{branch.subscribed} / {branch.notSubscribed}</strong><span>{selected ? `Split next on ${getTreeFeatureLabel(selected)}` : 'No second split selected'}</span></div>
-          <svg className="dtw__leaf-lines" viewBox="0 0 100 30" preserveAspectRatio="none" role="img" aria-label={selected ? `Connectors from the ${getTreeFeatureLabel(selected)} decision to its two leaves` : 'Connector to the unsplit branch result'}>
-            <defs><marker id={`dtw-arrow-${branch.value}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs>
-            {selected ? <><path d="M50 0 V11 H24 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />
-            <path d="M50 0 V11 H76 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} /></> : <path d="M50 0 V28" markerEnd={`url(#dtw-arrow-${branch.value})`} />}
-          </svg>
-          <div className={`dtw__leaf-row${selected ? '' : ' dtw__leaf-row--single'}`}>{leaves.map((leaf, leafIndex) => <div className="dtw__leaf" key={`${branch.value}-${leafIndex}`}>
-            {selected && <small>{getTreeFeatureLabel(selected)} = {leaf.value}</small>}
-            <strong>{leafText(leaf)}</strong><span>{leaf.total ? pct(leaf.probability) : '—'} subscribe</span>
-          </div>)}</div>
-        </div>
-      })}
+function WorkbookGroup({ group, feature, parent, path }: { group: TreeGroup; feature: TreeFeatureKey; parent: TreeGroup; path: string }) {
+  return <article className="dtw__workbook-group" aria-label={path}>
+    <h3>{getTreeFeatureLabel(feature)} = {group.value}</h3>
+    <div className="dtw__workbook-result">
+      <div className="dtw__mini-entropy"><span>Entropy</span><strong>{entropy(group.entropy)}</strong><div className="dtw__mini-counts"><b className="dtw__class-yes" title="Subscribed">{group.subscribed}</b><b className="dtw__class-no" title="Not subscribed">{group.notSubscribed}</b></div></div>
+      <div className="dtw__delta"><span>Info Gain</span><strong className={parent.entropy - group.entropy < 0 ? 'dtw__class-no' : 'dtw__class-yes'}>{(parent.entropy - group.entropy).toFixed(3)}</strong></div>
     </div>
-    <div className="dtw__legend"><span><i className="dtw__swatch dtw__swatch--yes" />Subscribes</span><span><i className="dtw__swatch dtw__swatch--no" />Does not subscribe</span><small>Each leaf shows Subscribe = 1 / Subscribe = 0 counts.</small></div>
+    <details className="dtw__rows"><summary>Source rows · {group.total} customers</summary><div className="dtw__table-scroll dtw__table-scroll--branch"><SourceRows customers={group.customers} label={`${path} source rows`} /></div></details>
+  </article>
+}
+
+function SplitSelector({ label, feature, exclude, onChange }: { label: string; feature: TreeFeatureKey | null; exclude?: TreeFeatureKey; onChange: (feature: TreeFeatureKey | null) => void }) {
+  return <label className="dtw__node"><span>{label}</span><select aria-label={`${label} feature`} value={feature ?? ''} onChange={event => onChange(event.target.value ? event.target.value as TreeFeatureKey : null)}>
+    {exclude && <option value="">— Select —</option>}{treeWorkbookFeatures.filter(item => item.key !== exclude).map(item => <option value={item.key} key={item.key}>{item.label}</option>)}
+  </select></label>
+}
+
+function WorkbookFlow({ root, rootFeature, rootGroups, splitA, splitB, onRootChange, onSplitA, onSplitB }: {
+  root: TreeGroup; rootFeature: TreeFeatureKey; rootGroups: [TreeGroup, TreeGroup]; splitA: TreeFeatureKey | null; splitB: TreeFeatureKey | null;
+  onRootChange: (feature: TreeFeatureKey) => void; onSplitA: (feature: TreeFeatureKey | null) => void; onSplitB: (feature: TreeFeatureKey | null) => void;
+}) {
+  return <section className="dtw__flow-section" aria-label="Decision Trees worksheet splits">
+    <div className="dtw__flow-heading"><h2>DECISION TREES</h2><span>Green: subscribed · Red: not subscribed</span><CalculationPopup parent={root} children={rootGroups} title="Split 1" /></div>
+    <div className="dtw__flow-scroll" tabIndex={0} role="region" aria-label="Scrollable worksheet split layout">
+      <div className="dtw__flow">
+        <div className="dtw__first-node"><SplitSelector label="SPLIT 1" feature={rootFeature} onChange={value => { if (value) onRootChange(value) }} /></div>
+        <div className="dtw__fork" aria-hidden="true"><svg viewBox="0 0 60 400" preserveAspectRatio="none"><defs><marker id="dtw-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" /></marker></defs><path d="M0 200 C35 200 25 100 60 100" markerEnd="url(#dtw-flow-arrow)" /><path d="M0 200 C35 200 25 300 60 300" markerEnd="url(#dtw-flow-arrow)" /></svg></div>
+        <div className="dtw__flow-branches">{rootGroups.map((branch, index) => {
+          const selected = index === 0 ? splitA : splitB
+          const children = selected ? splitTreeGroup(branch.customers, selected) : null
+          const label = `SPLIT 2${index === 0 ? 'A' : 'B'}`
+          return <div className="dtw__flow-branch" key={branch.value}>
+            <WorkbookGroup group={branch} feature={rootFeature} parent={root} path={`${getTreeFeatureLabel(rootFeature)} = ${branch.value}`} />
+            <div className="dtw__next-node"><SplitSelector label={label} feature={selected} exclude={rootFeature} onChange={index === 0 ? onSplitA : onSplitB} />{children && <CalculationPopup parent={branch} children={children} title={label} />}</div>
+            <div className={`dtw__fork${children ? '' : ' dtw__fork--empty'}`} aria-hidden="true"><svg viewBox="0 0 60 400" preserveAspectRatio="none"><path d="M0 200 C35 200 25 100 60 100" markerEnd="url(#dtw-flow-arrow)" /><path d="M0 200 C35 200 25 300 60 300" markerEnd="url(#dtw-flow-arrow)" /></svg></div>
+            <div className="dtw__final-groups">{children ? children.map(child => <WorkbookGroup key={child.value} group={child} feature={selected!} parent={branch} path={`${getTreeFeatureLabel(rootFeature)} = ${branch.value}, ${getTreeFeatureLabel(selected!)} = ${child.value}`} />) : <p className="dtw__unselected">Choose a feature for {label}.<small>The saved worksheet leaves this split unselected.</small></p>}</div>
+          </div>
+        })}</div>
+      </div>
+    </div>
+    <p className="dtw__try-note">Select different combinations to compare Info Gain. Try <strong>Split 1: Sessions &gt; 10</strong>, then <strong>Split 2A: Follow</strong>. For Split 2B, Newsletter gives the larger gain in this sample.</p>
   </section>
 }
 
@@ -108,9 +113,10 @@ export function CLDecisionTreeCaseStudy() {
   const [pivotNewsletter, setPivotNewsletter] = useState<'all' | '0' | '1'>('all')
   const [pivotFollow, setPivotFollow] = useState<'all' | '0' | '1'>('all')
   const rootGroupsRaw = useMemo(() => splitTreeGroup(treeWorkbookCustomers, rootFeature), [rootFeature])
-  const rootGroups: [Branch, Branch] = rootGroupsRaw.map(group => ({ ...group, label: `${getTreeFeatureLabel(rootFeature)} = ${group.value}`, feature: rootFeature })) as [Branch, Branch]
+  const rootGroups = rootGroupsRaw
+  const pivotCustomers = treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow)))
+  const pivotGroup = summarizeTreeGroup(pivotCustomers)
   const root = summarizeTreeGroup(treeWorkbookCustomers)
-  const rootGain = treeInformationGain(root, rootGroups)
   return <article className="dtw" aria-labelledby="dtw-title">
     <header className="dtw__header"><p>Chapter 09 · Classification Models · 9.14</p><h1 id="dtw-title">Case study: Decision Trees</h1><p>Use Trip Genie customer behavior to compare splits for paid subscription.</p></header>
     <div className="dtw__sheet" role="region" aria-label="Decision tree workbook case study">
@@ -125,31 +131,18 @@ export function CLDecisionTreeCaseStudy() {
           <SourceRows customers={treeWorkbookCustomers} label="All 50 customer interaction rows" />
         </div>
       </section>
-      <section className="dtw__root-split" aria-labelledby="dtw-root-title">
-        <div className="dtw__section-head"><div><h2 id="dtw-root-title">SPLIT 1</h2><span>Compare the target classes in both branches.</span></div>
-          <label className="dtw__select-label">Test feature
-            <select value={rootFeature} onChange={event => { const next = event.target.value as TreeFeatureKey; setRootFeature(next); setSplitA(treeWorkbookFeatures.find(item => item.key !== next)?.key ?? null); setSplitB(null) }}>
-              {treeWorkbookFeatures.map(item => <option key={item.key} value={item.key}>{item.label}</option>)}
-            </select>
-          </label>
-        </div>
-        <table className="dtw__calc-table dtw__calc-table--root" aria-label="Class totals and root entropy">
-          <thead><tr><th>Basis · Subscribe?</th><th>Count</th><th>Probability</th><th>Entropy</th></tr></thead>
-          <tbody><tr><th>1</th><td>{root.subscribed}</td><td>{pct(root.probability)}</td><td rowSpan={2}>{entropy(root.entropy)}</td></tr>
-            <tr><th>0</th><td>{root.notSubscribed}</td><td>{pct(1 - root.probability)}</td></tr></tbody>
-          <tfoot><tr><th>Total · N</th><td>{root.total}</td><td>100%</td><td>H(parent)</td></tr></tfoot>
-        </table>
-        <div className="dtw__groups">{rootGroups.map(group => <GroupCard key={group.value} group={group} feature={rootFeature} parentLabel="Root branch ·" parentEntropy={root.entropy} />)}</div>
-        <div className="dtw__gain"><span>Weighted information gain</span><strong>{rootGain.toFixed(3)} bits</strong><small>H(parent) − Σ (branch size / 50 × branch entropy)</small></div>
-      </section>
-      <TreeDiagram rootFeature={rootFeature} rootGroups={rootGroups} splitA={splitA} splitB={splitB} />
-      <div className="dtw__second-splits">
-        {rootGroups.map((parent, index) => <SplitPanel key={`${rootFeature}-${parent.value}`} label={`SPLIT 2${index === 0 ? 'A' : 'B'}`} parent={parent} feature={index === 0 ? splitA : splitB}
-          onFeatureChange={index === 0 ? setSplitA : setSplitB} />)}
-      </div>
+      <WorkbookFlow root={root} rootFeature={rootFeature} rootGroups={rootGroups} splitA={splitA} splitB={splitB}
+        onRootChange={next => { setRootFeature(next); setSplitA(treeWorkbookFeatures.find(item => item.key !== next)?.key ?? null); setSplitB(null) }} onSplitA={setSplitA} onSplitB={setSplitB} />
       <section className="dtw__pivot" aria-labelledby="dtw-pivot-title"><div className="dtw__section-head"><div><h2 id="dtw-pivot-title">DECISION TREE PIVOT</h2><span>Filter the same customer outcomes by root and second feature.</span></div></div>
         <div className="dtw__pivot-controls"><label>Newsletter<select aria-label="Filter pivot by Newsletter" value={pivotNewsletter} onChange={event => setPivotNewsletter(event.target.value as typeof pivotNewsletter)}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label><label>Follow<select aria-label="Filter pivot by Follow" value={pivotFollow} onChange={event => setPivotFollow(event.target.value as typeof pivotFollow)}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label><span>{pivotNewsletter === 'all' && pivotFollow === 'all' ? 'Saved workbook filters: (All) · (All)' : `Matching customers: ${treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow))).length}`}</span></div>
-        <div className="dtw__table-scroll dtw__table-scroll--pivot"><table className="dtw__data dtw__data--pivot"><caption>Decision Tree Pivot worksheet · B6:C56</caption><thead><tr><th>ID</th><th>Subscribe?</th></tr></thead><tbody>{treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow))).map(customer => <tr key={`pivot-${customer.id}`}><th scope="row">{customer.id}</th><td className={customer.subscribe ? 'dtw__class-yes' : 'dtw__class-no'}>{customer.subscribe}</td></tr>)}</tbody></table></div>
+        <div className="dtw__pivot-body">
+          <div className="dtw__table-scroll dtw__table-scroll--pivot"><table className="dtw__data dtw__data--pivot"><caption>Decision Tree Pivot worksheet · B6:C56</caption><thead><tr><th>ID</th><th>Subscribe?</th></tr></thead><tbody>{pivotCustomers.map(customer => <tr key={`pivot-${customer.id}`}><th scope="row">{customer.id}</th><td className={customer.subscribe ? 'dtw__class-yes' : 'dtw__class-no'}>{customer.subscribe}</td></tr>)}</tbody></table></div>
+          <div className="dtw__pivot-result" aria-live="polite" aria-label="Filtered pivot results"><h3>Selected customers</h3><p>{pivotGroup.total} of 50 customers</p>
+            <div className="dtw__initial-entropy"><div className="dtw__initial-value"><span>Entropy</span><strong>{pivotGroup.total ? entropy(pivotGroup.entropy) : '—'}</strong></div><div className="dtw__initial-counts"><div className="dtw__class-yes"><strong>{pivotGroup.subscribed}</strong><span>Subscribed</span></div><div className="dtw__class-no"><strong>{pivotGroup.notSubscribed}</strong><span>Not subscribed</span></div></div></div>
+            <p>{pivotGroup.total ? `${(pivotGroup.probability * 100).toFixed(1)}% of selected customers subscribed.` : 'No customers match these filters.'}</p>
+            <CalculationPopup parent={pivotGroup} title="Pivot selection" />
+          </div>
+        </div>
       </section>
     </div>
   </article>
