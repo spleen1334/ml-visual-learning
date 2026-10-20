@@ -1,0 +1,365 @@
+{
+  "source": {
+    "file": "3. Maven_ML_Demos_COMPLETE.xlsx",
+    "sheet": "Decision Trees",
+    "range": "B3:F53",
+    "sha256": "2a8cd660b21ef3e4b7190a4a4378f01eb9ce9dc5124535fb6f60c5d3049c7ffc"
+  },
+  "defaults": {
+    "rootSplit": "newsletter",
+    "secondSplitA": "follow",
+    "secondSplitB": null
+  },
+  "customers": [
+    {
+      "id": 1,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 2,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 3,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 4,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 5,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 6,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 7,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 8,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 9,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 10,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 11,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 12,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 13,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 14,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 15,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 16,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 17,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 18,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 19,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 20,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 21,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 22,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 23,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 24,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 25,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 26,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 27,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 28,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 1,
+      "subscribe": 0
+    },
+    {
+      "id": 29,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 30,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 1,
+      "subscribe": 0
+    },
+    {
+      "id": 31,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 32,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 33,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 34,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 35,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 36,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 37,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 38,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 39,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 40,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 41,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 42,
+      "newsletter": 0,
+      "follow": 0,
+      "sessionsOver10": 1,
+      "subscribe": 0
+    },
+    {
+      "id": 43,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 1,
+      "subscribe": 0
+    },
+    {
+      "id": 44,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    },
+    {
+      "id": 45,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 0
+    },
+    {
+      "id": 46,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 47,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 48,
+      "newsletter": 1,
+      "follow": 0,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 49,
+      "newsletter": 0,
+      "follow": 1,
+      "sessionsOver10": 1,
+      "subscribe": 1
+    },
+    {
+      "id": 50,
+      "newsletter": 1,
+      "follow": 1,
+      "sessionsOver10": 0,
+      "subscribe": 1
+    }
+  ]
+}

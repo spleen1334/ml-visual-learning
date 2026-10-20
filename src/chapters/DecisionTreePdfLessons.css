@@ -1,0 +1,85 @@
+.tree-pdf { padding: 34px 34px 48px; display: grid; gap: 22px; color: #284b46; max-width: 1360px; margin: auto; }
+.tree-pdf h1 { font: 500 clamp(32px,3vw,44px)/1.1 Georgia,serif; margin: 5px 0 14px; }
+.tree-pdf__number { text-transform: uppercase; font-size: 12px; font-weight: 800; letter-spacing: .12em; margin: 0; }
+.tree-pdf__lead { font-size: 24px; line-height: 1.45; margin: 0; max-width: 1050px; }
+.tree-pdf__slide { display: block; width: 100%; height: auto; background: white; border-radius: 10px; border: 1px solid #dbe3d9; }
+.tree-pdf__note { font-size: 16px; line-height: 1.6; margin: 0; padding: 12px 16px; border-left: 3px solid #cbb467; }
+.tree-pdf__calculation { background: #eef5ef; border: 1px solid #c9dacf; border-radius: 10px; padding: 20px; font-size: 21px; }
+.tree-pdf__calculation p { margin: 10px 0 0; }
+.tree-pdf__playback { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.tree-pdf__playback button { font: inherit; background: #f8faf4; border: 1px solid #abcabd; border-radius: 7px; padding: 9px 15px; color: #245b52; cursor: pointer; }
+.tree-pdf__playback button:disabled { opacity: .45; cursor: default; }
+.tree-pdf__caption { margin: 0; font-size: 21px; font-weight: 650; }
+.tree-pdf__questions { display: grid; gap: 12px; font-size: 19px; line-height: 1.5; }
+.tree-pdf__questions p { margin: 0; }
+.ct-terms { display: grid; gap: 12px; font-size: 22px; line-height: 1.5; }
+.ct-terms p { margin: 0; }
+.ct-terms strong { color: #15685f; background: #e6f0e7; padding: 2px 6px; border-radius: 4px; }
+
+.tree-pdf__goal { font-size: 21px; line-height: 1.5; margin: 0; padding: 18px 20px; background: #edf4eb; border-radius: 8px; }
+
+.tree-pdf__gain-intro h2,.tree-pdf__calculation h2 { margin: 0 0 12px; font: 500 29px/1.25 Georgia,serif; }
+.tree-pdf__gain-intro p { font-size: 21px; line-height: 1.55; margin: 10px 0 0; }
+.tree-pdf__calculation { line-height: 1.55; }
+.tree-pdf__branch-calculations { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 18px 0; }
+.tree-pdf__branch-calculations > div { background: #fffefa; border: 1px solid #ceded2; border-radius: 8px; padding: 17px; font-size: 18px; }
+.tree-pdf__branch-calculations h3 { font-size: 21px; margin: 0; }
+.tree-pdf__equation { padding: 14px 16px; background: #e0ede2; border-radius: 7px; }
+@media (max-width: 850px) { .tree-pdf__branch-calculations { grid-template-columns: 1fr; } }
+
+.tree-pdf__branch-change { margin: 16px 0 22px; padding: 18px; background: #fff9e9; border-left: 3px solid #cbb467; border-radius: 6px; font-size: 19px; }
+.tree-pdf__branch-change h3 { margin: 0; font-size: 23px; }
+
+.tree-pdf__table-scroll { overflow-x: auto; }
+.tree-pdf__change-table { width: 100%; margin: 14px 0; border-collapse: collapse; text-align: left; font-size: 18px; }
+.tree-pdf__change-table th,.tree-pdf__change-table td { padding: 10px 12px; border-bottom: 1px solid #ddd8bd; }
+.tree-pdf__change-table thead th { font-size: 14px; color: #617267; }
+.tree-pdf__change-table tbody th { font-weight: 600; }
+.tree-pdf__step-title { margin: 22px 0 8px; font-size: 22px; color: #205d53; }
+.tree-pdf__source-fix { font-size: 17px; padding-bottom: 14px; border-bottom: 1px solid #cbdccf; }
+
+.tree-pdf__node-terms { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin: 0; padding: 16px 0; border-block: 1px solid #d4dfd3; }
+.tree-pdf__node-terms dt { font-size: 20px; font-weight: 750; }
+.tree-pdf__node-terms dd { margin: 5px 0 0; font-size: 17px; line-height: 1.45; }
+.tree-pdf__example-tabs { display: flex; gap: 10px; }
+.tree-pdf__example-tabs button { padding: 9px 18px; border: 1px solid #b7cdbd; border-radius: 7px; background: #fffefa; color: #275d52; font: inherit; cursor: pointer; }
+.tree-pdf__example-tabs button[aria-pressed="true"] { background: #205f55; color: #fff; }
+.tree-pdf__customer-header { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; padding: 18px; background: #eaf2e8; border-radius: 9px; }
+.tree-pdf__customer-header h2 { margin: 0; font: 500 28px Georgia,serif; }
+.tree-pdf__customer-header dl { display: flex; flex-wrap: wrap; gap: 16px 30px; margin: 0; }
+.tree-pdf__customer-header dt { font-size: 14px; color: #526f62; }
+.tree-pdf__customer-header dd { font-size: 23px; font-weight: 750; margin: 4px 0 0; }
+.tree-pdf__animated-tree { position: relative; }
+.tree-pdf__path-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.tree-pdf__traced-path { fill: none; stroke: #007d76; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.tree-pdf__traced-path.is-drawing { stroke-dasharray: 1; animation: tree-path-draw 1.3s linear both; }
+.tree-pdf__active-node { fill: #00cbb80d; stroke: #007d76; stroke-width: 5; }
+.tree-pdf__active-node.is-prediction { stroke: #e59812; stroke-width: 7; fill: #ffd34c16; }
+.tree-pdf__customer-dot { fill: #ffbb35; stroke: #214f47; stroke-width: 3; }
+.tree-pdf__prediction-cover { fill: #eef4ea; stroke: #c4d4c2; stroke-width: 1; }
+.tree-pdf__waiting-label { text-anchor: middle; fill: #557665; font: 20px system-ui,sans-serif; }
+.tree-pdf__path-caption { margin: 0; min-height: 30px; font-size: 21px; font-weight: 650; }
+.tree-pdf__path-result { margin: 0; font-size: 18px; color: #526f62; }
+.tree-pdf__path-result.is-visible { padding: 14px 18px; color: #20574d; background: #e3f0df; border-left: 4px solid #d69e2b; font-size: 25px; font-weight: 800; }
+@keyframes tree-path-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .tree-pdf__traced-path.is-drawing { animation: none; stroke-dashoffset: 0; } }
+@media (max-width: 850px) { .tree-pdf__node-terms { grid-template-columns: 1fr; } }
+
+.tree-pdf__faq { margin-top: 12px; padding-top: 26px; border-top: 2px solid #cedbcb; }
+.tree-pdf__faq h2 { margin: 0 0 20px; font: 500 32px/1.2 Georgia,serif; }
+.tree-pdf__faq article { padding: 22px 0; border-top: 1px solid #d6dfd2; }
+.tree-pdf__faq h3 { font-size: 23px; margin: 0 0 12px; }
+.tree-pdf__faq p { font-size: 19px; line-height: 1.55; margin: 10px 0; }
+.tree-pdf__hyperparameters { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 18px 0; }
+.tree-pdf__hyperparameters > div { padding: 16px 18px; border-left: 3px solid #559887; background: #edf4ea; }
+.tree-pdf__hyperparameters dt { font-size: 20px; font-weight: 750; }
+.tree-pdf__hyperparameters dd { font-size: 18px; line-height: 1.5; margin: 7px 0 0; }
+.tree-pdf__thresholds { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.tree-pdf__thresholds > div { display: grid; gap: 8px; text-align: center; background: #fffefa; padding: 17px 12px; border: 1px solid #ccdaca; border-radius: 9px; font-size: 16px; }
+.tree-pdf__thresholds strong { font-size: 19px; color: #215f53; }
+.tree-pdf__thresholds b { color: #215f53; }
+.tree-pdf__faq .tree-pdf__threshold-note { font-size: 15px; color: #637468; }
+@media (max-width: 850px) { .tree-pdf__hyperparameters,.tree-pdf__thresholds { grid-template-columns: 1fr; } }
+.tree-pdf__traced-path { stroke-opacity: .65; }
+.tree-pdf__active-node { stroke-opacity: .7; fill-opacity: .55; }
+.tree-pdf__customer-dot { fill-opacity: .85; stroke-opacity: .75; }

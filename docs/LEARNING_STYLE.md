@@ -1,26 +1,27 @@
 # Learning-page style
 
-User-approved direction, updated during Chapter 04 review.
+User-approved direction, refined through the Naive Bayes 9.5–9.8 review.
 
-- Desktop is the primary target. Keep the teal/cream palette.
-- Put important definitions and principles in prominent visual panels. Use a short label, a large readable statement (roughly 24–30px on desktop), selective bold/underline and an illustration or diagram that explains the concept.
-- Do not bury a definition in a small gray introductory paragraph. Supporting introductions should be comfortably readable (about 18px), with a bold opening idea.
-- Break long explanations into short labeled points. Use bold for key terms, italics for a takeaway or caveat, and restrained underline for the most important ideas. Avoid emphasizing everything equally.
-- Pair a definition with a meaningful picture: data rows, distributions, relationships, model inputs/outputs or an annotated calculation. Prefer original SVG/HTML diagrams over decorative stock imagery.
-- Explain every control: what changes, what stays fixed and what the learner should notice. Keep calculations visible and connect values to their sources where practical.
-- Treat data preparation, QA and profiling as a central foundation, not a passing stage label. Use the source's iceberg analogy and clearly attribute its rough 80%+ estimate.
-- No quizzes, answer scoring, completion gates or About sections. End each lesson with an emphasized summary.
-- Exception for an Excel case-study reproduction: explain the assignment briefly in the header, then reproduce the workbook's data table, editable inputs, calculations, results, and charts. Omit additional teaching panels and the closing summary. Preserve the workbook's visual encoding and calculation behavior.
+- The default is to copy the course explanation faithfully. Inspect the PDF visually and inspect the matching Excel data, formulas, and charts before implementation. Use 9.5–9.8 as the reference for visual style and text density.
+- Preserve source datasets, table structures, graphs, layout, colors, labels, and calculation order. Use a readable source-image crop directly or recreate it faithfully in HTML/SVG. Preserve useful PDF/workbook graphs, including axes, scales, legends, and annotations. Do not replace a clear source visual with an invented example or dashboard.
+- Keep the introduction to a short, plain-language definition or assignment. Let the visual carry the explanation. Add a brief targeted clarification only where needed; avoid repeated descriptions, buzzwords, and compulsory definition/Why/glossary/summary panels.
+- Excel-backed case studies replicate all relevant tables completely, including rows, columns, headers, ordering, totals, intermediate calculations, results, saved defaults, source controls, and meaningful graphs. Keep large tables accessible with contained scrolling. Do not substitute a sample or score cards for the worksheet. Explain the goal briefly in the header, then show the workbook reproduction.
+- Animation is enough interactivity when it helps: highlight matching records, construct frequency tables, trace graph relationships, and reveal calculations in the source's sequence. Do not invent user-input tasks merely to make the page interactive. Provide autoplay plus Previous/Next for step demonstrations; manual stepping pauses, autoplay stops at the completed result, and reduced motion shows the final view.
+- Retain the app's teal/cream shell, with the source visual's own meaningful colors inside it. Omit duplicated slide navigation and decorative mastheads. Desktop is the primary target.
+- Keep definitions prominent and readable, and explain new terms through short labels beside the relevant visual. Use emphasis sparingly. Include a takeaway only if it adds something beyond the displayed result.
+- Preserve separate PDF and workbook examples when their data differs; document that boundary. Correct genuine source errors and record important adaptations rather than silently changing the example.
+- No quizzes, answer scoring, completion gates, or About sections.
+- Explain optional controls briefly and keep calculations visibly connected to their inputs. Preserve mathematical distinctions and do not imply causal proof or validated predictions from a teaching example.
 - Display subchapters as 2.1, 2.2, etc., without a leading zero. Existing URL identifiers may stay stable.
 - Before presenting a chapter, review the implementation process (source notes, lesson order/routing, assumptions, calculations, interactions, and validation evidence) and the finished chapter as a learner (wording, visuals, examples, terminology, cognitive load, interaction guidance, readability, and desktop experience). Prioritize findings, fix must-fix items, and report any verification limit. Passing a build does not establish readability.
 
-- Default section order: a short, prominent definition, then a graph, image or small worked example. Supporting text follows the visual; avoid walls of text.
+- Default lesson order: short header → faithful source visual or animation → only necessary clarification.
 - Use small, concept-specific examples before a separate full case study. Do not reuse the large case-study table throughout the lessons.
 - Keep the PDF’s clear, simple wording when it already explains the concept well. Do not rephrase merely for novelty; correct material inaccuracies when needed.
 - Distinguish counts of records within a category from counts of distinct labels. Explain the question each calculation answers.
 
 
-Explain why a method is useful with a concrete scenario before its formula or controls. For example, a normal model turns the mean and standard deviation into expected ranges and a benchmark for unusual observations. Use simple, topic-specific illustrations for variable concepts rather than relying on label cards alone.
+Use the source scenario to show the method’s purpose; a short sentence or annotation is usually enough.
 
 - For variance and standard deviation, start with concrete observations and units, then compare consistency at the same mean. Avoid abstract numbered sliders; explain the practical meaning of the metric before its arithmetic.
 
@@ -30,10 +31,14 @@ Explain why a method is useful with a concrete scenario before its formula or co
 
 - Heat-map lessons should explicitly show why color makes dense counts easier to scan. Include marginal totals in the color treatment using clearly explained separate scales, and label percentage views with `%` and an explicit denominator.
 
-- Explain new ML vocabulary in an always-visible key-terms area tied to a small example. Separate feature inputs (X), observed target labels (y), and predictions (ŷ). Explain that model notation does not prescribe chart axes: both axes may show features while color shows the target class.
+- Explain new ML vocabulary with brief labels tied to the source visual. Separate feature inputs (X), observed target labels (y), and predictions (ŷ). Explain that model notation does not prescribe chart axes: both axes may show features while color shows the target class.
 
 - Trace representative input records through intermediate calculations to the result; introduce unfamiliar notation before aggregate scores.
 - Distinguish manually supplied rules/weights, supplied fitted models, and live training. Show labeled inputs → fitting → model parameters → separate prediction inputs when explaining training; a live optimizer is optional.
 - Verify mathematical meaning as well as layout: distance charts need faithful metric scales and readable coordinates; changing counts/scores should identify the contributing records.
 
-- For requested PDF reproductions, copy the source’s visual layout, data, colors, and calculation sequence. Use automatic step animation where useful; do not require learner inputs or surround the source visuals with extra teaching panels. Keep the introductory definition short. Naive Bayes 9.5–9.7 follows this exception with the ten-customer PDF example; 9.8 remains the separate approved twenty-customer workbook reproduction.
+- Reference implementation: Naive Bayes 9.5 has a short definition and diagram; 9.6 copies and animates the PDF frequency tables; 9.7 copies the probability lookup/product sequence with one denominator note; 9.8 replicates the complete Excel case with a short goal statement. Apply this approach to future lessons without requiring a new request to copy the sources.
+
+- Decision Trees 9.9–9.14 follow the approved Naive Bayes source-reproduction approach. Preserve the approved 9.9 graph and layout; simplify repeated prose only, and emphasize entropy and information gain beside the graph. Lessons 9.10–9.13 retain the PDF entropy curve, split diagrams, complete traced trees, and forest diagram. Lesson 9.14 reproduces the separate full Decision Trees worksheet. Flag inconsistent slide counts and distinguish individual branch entropy changes from weighted information gain.
+
+- In binary entropy explanations, emphasize 0 = low uncertainty and 1 = high uncertainty. Explain that useful input variables X produce low-entropy target-label groups after splitting; do not describe entropy as a property of the input variable itself. Keep the last-login example and its weighted calculation in 9.11; avoid duplicating them in 9.10.
