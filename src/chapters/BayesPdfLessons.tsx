@@ -69,7 +69,7 @@ function CustomerTable({ active, explain = false }: {
 }) {
   return <div className="bpdf__customer-wrap">
     <div className="bpdf__table-labels"><span>Each record is a <strong>customer</strong></span><span>Input features →</span><span>Target ↓</span></div>
-    <table className={`bpdf__customers ${explain ? 'bpdf__customers--outlined' : ''}`} aria-label="Ten observed customers from the course PDF">
+    <table className={`bpdf__customers ${explain ? 'bpdf__customers--outlined' : ''}`} aria-label="Ten observed customers from the course">
       <thead><tr><th scope="col">Cust. ID</th><th scope="col">Subscribed to<br />Newsletter</th><th scope="col">Followed FB<br />Page</th><th scope="col">Visited<br />Website</th><th scope="col">Purchase?</th></tr></thead>
       <tbody>{pdfBayesCustomers.map(row => {
         const matched = active && row[active.feature] === active.value && row.purchase === active.purchase

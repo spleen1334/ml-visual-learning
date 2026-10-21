@@ -48,3 +48,5 @@ Use the source scenario to show the method’s purpose; a short sentence or anno
 - The 9.14 pivot follows the demonstrated Excel grouping (Sessions > 10 → Follow → ID, with Newsletter as a report filter), rather than the workbook’s earlier saved ID-only layout. Collapsing a group changes row visibility, not the filtered population used in the entropy result.
 
 - Keep the 9.14 Decision Tree Pivot optional and collapsed by default, described simply as an alternative table view of the same customer data. The connected decision tree is the primary exploration.
+
+- Keep PDF mentions and source page numbers out of learner-facing captions, controls, and accessibility labels. Preserve explanatory captions; keep source/page provenance in reference documents and code metadata.

@@ -43,7 +43,7 @@ function SourceGallery({ slides, label }: { slides: SourceSlide[]; label: string
   return <div className="logistic-gallery" aria-label={label}>
     {slides.map(slide => <figure className="logistic-source" key={slide.page}>
       <img src={slide.src} alt={slide.alt} />
-      <figcaption><span>PDF page {slide.page}</span>{slide.caption}</figcaption>
+      <figcaption>{slide.caption}</figcaption>
     </figure>)}
   </div>
 }
@@ -86,11 +86,11 @@ function SourceSequence({ slides, label, autoplay = false }: { slides: SourceSli
   return <div className="logistic-sequence" aria-label={label}>
     <figure className="logistic-source logistic-source--sequence" aria-live="polite">
       <img src={slide.src} alt={slide.alt} />
-      <figcaption><span>PDF page {slide.page} · Step {position + 1} of {slides.length}</span>{slide.caption}</figcaption>
+      <figcaption><span>Step {position + 1} of {slides.length}</span>{slide.caption}</figcaption>
     </figure>
     <div className="logistic-sequence__controls" aria-label={`${label} controls`}>
       <button type="button" onClick={() => move(-1)} disabled={position === 0}>Previous</button>
-      <span aria-live="polite">Page {slide.page} of the source sequence</span>
+      <span aria-live="polite">Step {position + 1} of {slides.length}</span>
       <button type="button" onClick={() => move(1)} disabled={atEnd}>Next</button>
       {slides.length > 1 && <button type="button" onClick={() => playing ? setPlaying(false) : replay()}>{playing && !atEnd ? 'Pause' : atEnd ? 'Replay' : 'Autoplay'}</button>}
     </div>
@@ -140,7 +140,7 @@ const multivariateSlides: SourceSlide[] = [
 
 export function LogisticIntro() {
   return <Lesson number={15} title="Intro to logistic regression" lead="Logistic regression is a classification technique that estimates the probability of a binary outcome.">
-    <section className="logistic-intro-text" aria-label="Introduction from PDF page 135">
+    <section className="logistic-intro-text" aria-label="Logistic regression introduction">
       <ul>
         <li>In its simplest form, logistic regression forms an <strong>S-shaped curve between 0 and 1</strong>, representing the probability of a true outcome for a given value of X.</li>
         <li>The <strong>likelihood function</strong> measures how much probability the model assigns to observed outcomes and is used to optimize the shape of the curve.</li>
@@ -152,13 +152,13 @@ export function LogisticIntro() {
         <li>Determining whether to serve a particular ad to a website visitor.</li>
       </ul>
     </section>
-    <SourceGallery slides={introSlides} label="Logistic regression introduction from the course PDF" />
+    <SourceGallery slides={introSlides} label="Logistic regression introduction from the course" />
   </Lesson>
 }
 
 export function LogisticExample() {
   return <Lesson number={16} title="Logistic regression example" lead="The source uses the number of email recipients to estimate the probability that an email is spam.">
-    <SourceGallery slides={curveSlides} label="Spam probability example from the course PDF" />
+    <SourceGallery slides={curveSlides} label="Spam probability example from the course" />
   </Lesson>
 }
 
@@ -184,7 +184,7 @@ export function LogisticLikelihood() {
 
 export function LogisticMultivariate() {
   return <Lesson number={20} title="Multivariate logistic regression" lead="Several input variables can contribute to the weighted score used to estimate one binary outcome’s probability.">
-    <SourceGallery slides={multivariateSlides} label="Multiple-input logistic regression from the course PDF" />
+    <SourceGallery slides={multivariateSlides} label="Multiple-input logistic regression from the course" />
   </Lesson>
 }
 

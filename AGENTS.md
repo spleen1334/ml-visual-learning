@@ -102,3 +102,5 @@ The user explicitly requests that this file evolve with the project.
 - For the 9.14 pivot, follow the final course walkthrough’s Newsletter report filter and Sessions > 10 → Follow → ID row hierarchy, with expand/collapse controls and Subscribe values. The saved workbook’s ID-only pivot is an earlier state. Keep all three feature filters available and calculate results from filtered records, independently of collapsed groups.
 
 - Keep the 9.14 Decision Tree Pivot optional and collapsed by default, described simply as an alternative table view of the same customer data. The connected decision tree is the primary exploration.
+
+- Keep PDF mentions and source page numbers out of learner-facing captions, controls, and accessibility labels. Preserve explanatory captions; keep source/page provenance in reference documents and code metadata.

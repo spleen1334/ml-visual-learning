@@ -401,7 +401,7 @@ export function MLLandscape() {
     <section className="landscape-lesson__section" aria-labelledby="landscape-map-heading">
       <div className="landscape-lesson__section-heading"><p className="landscape-lesson__eyebrow">Select a family</p><h2 id="landscape-map-heading">A map of methods and terms</h2><p>Supervised examples include a known outcome. Unsupervised exploration looks for structure without a supplied outcome label.</p></div>
       <figure className="landscape-lesson__branch-map method-atlas" aria-labelledby="ml-family-map-title">
-        <figcaption id="ml-family-map-title">Machine learning landscape <span>Following the course map · PDF page 16</span></figcaption>
+        <figcaption id="ml-family-map-title">Machine learning landscape <span>Following the course map</span></figcaption>
         <div className="method-atlas__root">Machine learning</div>
         <div className="landscape-lesson__branches">
           <section className="landscape-lesson__branch"><h3>Supervised learning</h3><p>Learn from examples with <strong>known outcomes</strong>.</p><div className="method-atlas__supervised">
