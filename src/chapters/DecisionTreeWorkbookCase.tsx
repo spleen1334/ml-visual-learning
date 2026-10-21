@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { Fragment, useMemo, useRef, useState } from 'react'
 import { treeWorkbookCustomers, treeWorkbookDefaults } from './treeWorkbookData'
 import {
   getTreeFeatureLabel, splitTreeGroup, summarizeTreeGroup, treeInformationGain, treeWorkbookFeatures,
@@ -106,15 +106,50 @@ function WorkbookFlow({ root, rootFeature, rootGroups, splitA, splitB, onRootCha
   </section>
 }
 
+function PivotRows({ customers, sessionsFilter, followFilter, onSessionsChange, onFollowChange }: {
+  customers: typeof treeWorkbookCustomers; sessionsFilter: string; followFilter: string;
+  onSessionsChange: (value: 'all' | '0' | '1') => void; onFollowChange: (value: 'all' | '0' | '1') => void;
+}) {
+  const [collapsed, setCollapsed] = useState<string[]>([])
+  const toggle = (key: string) => setCollapsed(current => current.includes(key) ? current.filter(item => item !== key) : [...current, key])
+  const groupButton = (key: string, value: number, label: string) => <button className="dtw__pivot-toggle" aria-label={`${collapsed.includes(key) ? 'Expand' : 'Collapse'} ${label}`} aria-expanded={!collapsed.includes(key)} onClick={() => toggle(key)}><span aria-hidden="true">{collapsed.includes(key) ? '+' : '−'}</span>{value}</button>
+  return <div className="dtw__table-scroll dtw__table-scroll--pivot" role="region" aria-label="Pivot grouped by Sessions, Follow and ID" tabIndex={0}>
+    <table className="dtw__data dtw__data--pivot"><thead><tr>
+      <th><label>Sessions &gt; 10<select aria-label="Filter pivot by Sessions > 10" value={sessionsFilter} onChange={event => onSessionsChange(event.target.value as 'all' | '0' | '1')}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label></th>
+      <th><label>Follow<select aria-label="Filter pivot by Follow" value={followFilter} onChange={event => onFollowChange(event.target.value as 'all' | '0' | '1')}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label></th>
+      <th>ID</th><th>Subscribe?</th></tr></thead><tbody>
+      {([1, 0] as const).map(sessions => {
+        const sessionRows = customers.filter(customer => customer.sessionsOver10 === sessions)
+        const sessionKey = `sessions-${sessions}`
+        if (!sessionRows.length) return null
+        return <Fragment key={sessionKey}>
+          <tr className="dtw__pivot-session"><th scope="row">{groupButton(sessionKey, sessions, `Sessions > 10 = ${sessions}`)}</th><td colSpan={3}></td></tr>
+          {!collapsed.includes(sessionKey) && ([1, 0] as const).map(follow => {
+            const rows = sessionRows.filter(customer => customer.follow === follow)
+            const key = `${sessionKey}-follow-${follow}`
+            if (!rows.length) return null
+            return <Fragment key={key}>
+              <tr className="dtw__pivot-follow"><td></td><th scope="row">{groupButton(key, follow, `Sessions > 10 = ${sessions}, Follow = ${follow}`)}</th><td colSpan={2}></td></tr>
+              {!collapsed.includes(key) && rows.map(customer => <tr className="dtw__pivot-customer" key={customer.id}><td></td><td></td><th scope="row">{customer.id}</th><td className={customer.subscribe ? 'dtw__class-yes' : 'dtw__class-no'}>{customer.subscribe}</td></tr>)}
+            </Fragment>
+          })}
+        </Fragment>
+      })}
+      {!customers.length && <tr><td colSpan={4}>No matching customers.</td></tr>}
+    </tbody></table>
+  </div>
+}
+
 export function CLDecisionTreeCaseStudy() {
   const [rootFeature, setRootFeature] = useState<TreeFeatureKey>(treeWorkbookDefaults.rootSplit)
   const [splitA, setSplitA] = useState<TreeFeatureKey | null>(treeWorkbookDefaults.secondSplitA)
   const [splitB, setSplitB] = useState<TreeFeatureKey | null>(treeWorkbookDefaults.secondSplitB)
   const [pivotNewsletter, setPivotNewsletter] = useState<'all' | '0' | '1'>('all')
+  const [pivotSessions, setPivotSessions] = useState<'all' | '0' | '1'>('all')
   const [pivotFollow, setPivotFollow] = useState<'all' | '0' | '1'>('all')
   const rootGroupsRaw = useMemo(() => splitTreeGroup(treeWorkbookCustomers, rootFeature), [rootFeature])
   const rootGroups = rootGroupsRaw
-  const pivotCustomers = treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow)))
+  const pivotCustomers = treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow)) && (pivotSessions === 'all' || customer.sessionsOver10 === Number(pivotSessions)))
   const pivotGroup = summarizeTreeGroup(pivotCustomers)
   const root = summarizeTreeGroup(treeWorkbookCustomers)
   return <article className="dtw" aria-labelledby="dtw-title">
@@ -133,17 +168,17 @@ export function CLDecisionTreeCaseStudy() {
       </section>
       <WorkbookFlow root={root} rootFeature={rootFeature} rootGroups={rootGroups} splitA={splitA} splitB={splitB}
         onRootChange={next => { setRootFeature(next); setSplitA(treeWorkbookFeatures.find(item => item.key !== next)?.key ?? null); setSplitB(null) }} onSplitA={setSplitA} onSplitB={setSplitB} />
-      <section className="dtw__pivot" aria-labelledby="dtw-pivot-title"><div className="dtw__section-head"><div><h2 id="dtw-pivot-title">DECISION TREE PIVOT</h2><span>Filter the same customer outcomes by root and second feature.</span></div></div>
-        <div className="dtw__pivot-controls"><label>Newsletter<select aria-label="Filter pivot by Newsletter" value={pivotNewsletter} onChange={event => setPivotNewsletter(event.target.value as typeof pivotNewsletter)}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label><label>Follow<select aria-label="Filter pivot by Follow" value={pivotFollow} onChange={event => setPivotFollow(event.target.value as typeof pivotFollow)}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label><span>{pivotNewsletter === 'all' && pivotFollow === 'all' ? 'Saved workbook filters: (All) · (All)' : `Matching customers: ${treeWorkbookCustomers.filter(customer => (pivotNewsletter === 'all' || customer.newsletter === Number(pivotNewsletter)) && (pivotFollow === 'all' || customer.follow === Number(pivotFollow))).length}`}</span></div>
+      <details className="dtw__pivot"><summary className="dtw__pivot-summary"><strong>Decision Tree Pivot</strong><span>An alternative table view of the same customer data.</span></summary>
+        <div className="dtw__pivot-controls"><label>Newsletter<select aria-label="Filter pivot by Newsletter" value={pivotNewsletter} onChange={event => setPivotNewsletter(event.target.value as typeof pivotNewsletter)}><option value="all">(All)</option><option value="1">1</option><option value="0">0</option></select></label><span>Matching customers: {pivotGroup.total}</span></div>
         <div className="dtw__pivot-body">
-          <div className="dtw__table-scroll dtw__table-scroll--pivot"><table className="dtw__data dtw__data--pivot"><caption>Decision Tree Pivot worksheet · B6:C56</caption><thead><tr><th>ID</th><th>Subscribe?</th></tr></thead><tbody>{pivotCustomers.map(customer => <tr key={`pivot-${customer.id}`}><th scope="row">{customer.id}</th><td className={customer.subscribe ? 'dtw__class-yes' : 'dtw__class-no'}>{customer.subscribe}</td></tr>)}</tbody></table></div>
-          <div className="dtw__pivot-result" aria-live="polite" aria-label="Filtered pivot results"><h3>Selected customers</h3><p>{pivotGroup.total} of 50 customers</p>
+          <PivotRows customers={pivotCustomers} sessionsFilter={pivotSessions} followFilter={pivotFollow} onSessionsChange={setPivotSessions} onFollowChange={setPivotFollow} />
+          <div className="dtw__pivot-result" aria-live="polite" aria-label="Filtered pivot results"><h3>Filtered customers</h3><p>{pivotGroup.total} of 50 customers</p>
             <div className="dtw__initial-entropy"><div className="dtw__initial-value"><span>Entropy</span><strong>{pivotGroup.total ? entropy(pivotGroup.entropy) : '—'}</strong></div><div className="dtw__initial-counts"><div className="dtw__class-yes"><strong>{pivotGroup.subscribed}</strong><span>Subscribed</span></div><div className="dtw__class-no"><strong>{pivotGroup.notSubscribed}</strong><span>Not subscribed</span></div></div></div>
             <p>{pivotGroup.total ? `${(pivotGroup.probability * 100).toFixed(1)}% of selected customers subscribed.` : 'No customers match these filters.'}</p>
             <CalculationPopup parent={pivotGroup} title="Pivot selection" />
           </div>
         </div>
-      </section>
+      </details>
     </div>
   </article>
 }

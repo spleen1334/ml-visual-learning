@@ -98,3 +98,7 @@ The user explicitly requests that this file evolve with the project.
 - In binary entropy explanations, emphasize 0 = low uncertainty and 1 = high uncertainty. Explain that useful input variables X produce low-entropy target-label groups after splitting; do not describe entropy as a property of the input variable itself. Keep the last-login example and its weighted calculation in 9.11; avoid duplicating them in 9.10.
 
 - For Decision Trees 9.14, preserve the approved customer-interactions table and initial entropy/count block. Follow Excel’s left-to-right split selectors, filtered groups, connectors, entropy cells, green/red class counts, and visible “Info Gain” labels. Keep detailed math in calculation pop-ups and source rows collapsed by default. The pivot filters must update visible class counts, subscription proportion, and entropy. Explain Excel’s branch-wise gain versus weighted split gain inside the pop-up.
+
+- For the 9.14 pivot, follow the final course walkthrough’s Newsletter report filter and Sessions > 10 → Follow → ID row hierarchy, with expand/collapse controls and Subscribe values. The saved workbook’s ID-only pivot is an earlier state. Keep all three feature filters available and calculate results from filtered records, independently of collapsed groups.
+
+- Keep the 9.14 Decision Tree Pivot optional and collapsed by default, described simply as an alternative table view of the same customer data. The connected decision tree is the primary exploration.

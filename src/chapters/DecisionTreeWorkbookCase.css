@@ -159,3 +159,20 @@
 .dtw__math-dialog .dtw__entropy-result { font-size: 17px; }
 
 .dtw__parent-total { display: inline-grid; place-items: center; min-width: 44px; height: 44px; padding: 0 6px; border: 2px solid #176e69; border-radius: 50%; color: #176e69; background: #edf6ef; }
+
+.dtw__table-scroll--pivot { max-height: 520px; width: min(100%,570px); border-radius: 2px; }
+.dtw__data--pivot { font-size: 14px; }
+.dtw__data--pivot thead th { color: #304c49; background: #dce5ec; border-color: #c4d1da; }
+.dtw__data--pivot thead label { display: grid; gap: 5px; text-align: left; }
+.dtw__data--pivot thead select { width: 100%; min-width: 70px; padding: 3px 5px; color: #304c49; border: 1px solid #b8c7d0; background: #f4f7fa; font: 12px system-ui,sans-serif; }
+.dtw__data--pivot tbody th { position: static; color: #405c56; background: #fff; font-weight: 500; }
+.dtw__data--pivot th,.dtw__data--pivot td { min-width: 65px; padding: 5px 8px; border-top: 0; border-right: 0; }
+.dtw__data--pivot .dtw__pivot-session th,.dtw__data--pivot .dtw__pivot-session td { border-top: 1px solid #acbdca; background: #eef3f6; }
+.dtw__data--pivot .dtw__pivot-follow th,.dtw__data--pivot .dtw__pivot-follow td { background: #f8fafb; }
+.dtw__data--pivot .dtw__pivot-customer td:not(.dtw__class-yes):not(.dtw__class-no) { background: #fff; }
+.dtw__pivot-toggle { display: inline-flex; align-items: center; gap: 8px; width: 100%; padding: 1px 0; color: #405c56; border: 0; background: none; font: 700 13px system-ui,sans-serif; cursor: pointer; }
+.dtw__pivot-toggle span { display: inline-grid; place-items: center; width: 16px; height: 16px; border: 1px solid #a8bdc8; border-radius: 2px; color: #526b75; background: #fff; font-weight: 500; }
+
+.dtw__pivot-summary { color: #244c49; cursor: pointer; font-size: 18px; }
+.dtw__pivot-summary > span { display: block; margin: 5px 0 0 20px; color: #647771; font-size: 14px; font-weight: 400; }
+.dtw__pivot[open] > .dtw__pivot-summary { margin-bottom: 18px; }
