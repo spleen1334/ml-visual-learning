@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import './ClassificationLogistic.css'
+import { LogisticSurface } from './LogisticSurface'
 
 import page136 from '../assets/logistic-page-136.png'
 import page137 from '../assets/logistic-page-137.png'
@@ -23,7 +24,6 @@ import page153 from '../assets/logistic-page-153.png'
 import page154 from '../assets/logistic-page-154.png'
 import page155 from '../assets/logistic-page-155.png'
 import page156 from '../assets/logistic-page-156.png'
-import page157 from '../assets/logistic-page-157.png'
 import page158 from '../assets/logistic-page-158.png'
 
 type SourceSlide = { page: number; src: string; alt: string; caption: string }
@@ -134,7 +134,6 @@ const likelihoodSlides: SourceSlide[] = [
 
 const multivariateSlides: SourceSlide[] = [
   { page: 156, src: page156, alt: 'The number of recipients is shown as one input that can help predict spam, alongside other possible features.', caption: 'The course names recipient count, typos, word counts, and sender reputation as possible inputs.' },
-  { page: 157, src: page157, alt: 'Three-dimensional logistic probability surface with input axes X1 and X2 and output Y.', caption: 'With two inputs, the output can be pictured as a probability surface.' },
   { page: 158, src: page158, alt: 'General logistic equation whose weighted score includes multiple input variables X1 through Xn.', caption: 'The same sigmoid maps a weighted sum of several inputs to a probability. The source notes that plots become harder to interpret beyond two inputs.' },
 ]
 
@@ -165,13 +164,21 @@ export function LogisticExample() {
 export function LogisticErrors() {
   return <Lesson number={17} title="Choose a decision threshold" lead="A probability threshold turns a model’s estimate into a class decision. The right choice depends on the costs of false positives and false negatives.">
     <SourceGallery slides={thresholdSlides} label="Two source examples of decision thresholds" />
-    <p className="logistic-lesson__note">The 90% spam threshold and 10% employee threshold are choices inside the course’s scenarios, not general recommendations.</p>
+    <section className="logistic-tradeoff" aria-labelledby="threshold-tradeoff">
+      <h2 id="threshold-tradeoff">Choose the trade-off that fits the goal</h2>
+      <div className="logistic-tradeoff__examples">
+        <p><strong>Spam · higher threshold (90%)</strong>Protect regular emails from being flagged as spam (<b>false positives</b>). We accept more spam slipping through (<b>false negatives</b>); some regular emails may still be flagged.</p>
+        <p><strong>Employee leaving · lower threshold (10%)</strong>Flag more employees as at risk so we can offer support early. Missing someone who leaves (<b>false negative</b>) is costlier here because of lost training investment and replacement costs. We accept more alerts for employees who would stay (<b>false positives</b>).</p>
+      </div>
+      <p className="logistic-tradeoff__takeaway"><strong>Higher threshold → fewer false positives, more false negatives. Lower threshold → the reverse.</strong> The error definitions stay the same; which error matters more depends on the goal. These thresholds are scenario choices, not error rates or guarantees of error-free predictions.</p>
+    </section>
   </Lesson>
 }
 
 export function LogisticEquation() {
   return <Lesson number={18} title="Logistic regression equation" lead="The sigmoid turns a weighted input score into a probability between 0 and 1. Follow how the source changes the slope and intercept.">
     <SourceSequence slides={equationSlides} label="Slope and intercept sequence" autoplay />
+    <p className="logistic-lesson__note"><strong>The goal is to find the curve that best fits the observed data.</strong> We adjust β₀ (intercept) and β₁ (slope), choosing the values that maximize the <strong>likelihood function</strong>—a measure of how well the model’s probabilities match the observed outcomes.</p>
   </Lesson>
 }
 
@@ -184,7 +191,9 @@ export function LogisticLikelihood() {
 
 export function LogisticMultivariate() {
   return <Lesson number={20} title="Multivariate logistic regression" lead="Several input variables can contribute to the weighted score used to estimate one binary outcome’s probability.">
-    <SourceGallery slides={multivariateSlides} label="Multiple-input logistic regression from the course" />
+    <SourceGallery slides={multivariateSlides.slice(0, 1)} label="Multiple inputs" />
+    <LogisticSurface />
+    <SourceGallery slides={multivariateSlides.slice(1)} label="Multiple-input logistic equation" />
   </Lesson>
 }
 
