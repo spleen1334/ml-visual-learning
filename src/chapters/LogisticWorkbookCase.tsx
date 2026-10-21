@@ -27,7 +27,7 @@ export function LogisticCase() {
   const modelPath = sorted.map((row, i) => `${i ? 'L' : 'M'}${sx(row.emailsPerWeek)},${sy(probability(row.emailsPerWeek, b0, b1))}`).join(' ')
   const selectedRow = raw.find(row => row.customer === selected)
   return <article className="lrw" aria-labelledby="lrw-title">
-    <header><p className="lrw__eyebrow">9.21 · Logistic regression</p><h1 id="lrw-title">Case study: logistic regression</h1><p>Lux Dining wants to predict whether a customer will <strong>unsubscribe</strong> from the number of emails received per week. Explore the supplied worksheet and its 50% decision point.</p></header>
+    <header><p className="lrw__eyebrow">9.21 · Logistic regression</p><h1 id="lrw-title">Case study: logistic regression</h1><p>As marketing manager at <strong>Lux Dining</strong>, investigate how weekly email frequency relates to unsubscribing. Use the supplied model to find its 50% decision point.</p></header>
     <div className="lrw__sheet">
       <section className="lrw__records" aria-label="Emails per week and unsubscribes">
         <h2>Emails Per Week &amp; Unsubscribes</h2>
@@ -45,16 +45,23 @@ export function LogisticCase() {
             <label>Select β₀ <input aria-label="Select intercept beta zero" type="number" min={-25} max={0} step={.5} value={b0} disabled={optimized} onChange={event => { if (event.target.value !== '') setIntercept(Math.max(-25, Math.min(0, Number(event.target.value)))) }} /></label>
             <label>Select β₁ <input aria-label="Select slope beta one" type="number" min={0} max={25} step={.5} value={b1} disabled={optimized} onChange={event => { if (event.target.value !== '') setSlope(Math.max(0, Math.min(25, Number(event.target.value)))) }} /></label>
           </div>
-          <div className="lrw__objective"><span>LIKELIHOOD*</span><output aria-live="polite">{showModel ? score.toFixed(1) : '—'}</output><label><input type="checkbox" checked={optimized} onChange={event => setOptimized(event.target.checked)} />Optimize · saved model</label></div>
+          <div className="lrw__objective"><span>LIKELIHOOD*</span><output aria-live="polite">{showModel ? score.toFixed(1) : '—'}</output><label><input type="checkbox" checked={optimized} onChange={event => setOptimized(event.target.checked)} />Optimize · restore saved fit</label></div>
           <div className="lrw__query"><label>Emails Per Week: <input aria-label="Emails per week to predict" type="number" step="any" value={query} onChange={event => setQuery(event.target.value)} /></label><div><span>Unsubscribe Probability:</span><output aria-live="polite">{queryP === null ? '—' : `${(queryP * 100).toFixed(1)}%`}</output></div></div>
         </div>
-        <p className="lrw__caption">Uncheck Optimize to adjust the plotted coefficients. Optimize restores the supplied model; it does not run a new fit. The query prediction always uses the saved model, as in Excel.</p>
+        <p className="lrw__caption">Uncheck Optimize to change the curve. The customer table and query retain the saved model, as in Excel; no new fitting runs here.</p>
         <svg className="lrw__chart" viewBox="0 0 770 420" role="img" aria-label="Workbook chart: emails per week from 0 to 18, unsubscribe probability from minus 20 to 120 percent; observed binary labels, logistic model and unobserved value.">
           <defs><clipPath id="lrw-plot"><rect x="64" y="50" width="660" height="310" /></clipPath></defs>
           {[-.2, 0, .2, .4, .6, .8, 1, 1.2].map(p => <g key={p}><line x1="64" x2="724" y1={sy(p)} y2={sy(p)} className="lrw__grid" /><text x="54" y={sy(p) + 4} textAnchor="end">{Math.round(p * 100)}%</text></g>)}
           {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18].map(x => <text key={x} x={sx(x)} y="382" textAnchor="middle">{x}</text>)}
           <g clipPath="url(#lrw-plot)">
-            {showModel && <path d={modelPath} className="lrw__curve" />}
+            {showModel && <>
+              <line x1="64" x2="724" y1={sy(.5)} y2={sy(.5)} className="lrw__decision" />
+              {b1 !== 0 && -b0 / b1 >= 0 && -b0 / b1 <= 18 && <g>
+                <line x1={sx(-b0 / b1)} x2={sx(-b0 / b1)} y1={sy(.5)} y2={sy(0)} className="lrw__decision" />
+                <text x={sx(-b0 / b1) + 9} y={sy(.5) - 12}>50% at {(-b0 / b1).toFixed(2)} emails/week</text>
+              </g>}
+              <path d={modelPath} className="lrw__curve" />
+            </>}
             {raw.map((row, i) => { const offset = jitter ? (((i * 73 + 19) % 201) - 100) / 1000 : 0; return <circle key={row.customer} cx={sx(row.emailsPerWeek)} cy={sy(row.unsubscribe + offset)} r={row.customer === selected ? 5 : 2.6} className={row.customer === selected ? 'lrw__selected' : 'lrw__observed'}><title>Customer {row.customer}: {row.emailsPerWeek} emails/week; observed unsubscribe {row.unsubscribe}</title></circle> })}
             {queryP !== null && queryX !== null && <circle cx={sx(queryX)} cy={sy(queryP)} r="5.5" className="lrw__query-point"><title>Saved model prediction at {queryX} emails/week: {(queryP * 100).toFixed(1)}%</title></circle>}
           </g>

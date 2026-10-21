@@ -1,129 +1,114 @@
 import { useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import './ClassificationSentiment.css'
+import workbook from './sentimentWorkbookData.json'
+import { predictSentiment } from './SentimentMath'
 
-const words = ['hate', 'garbage', 'love', 'book', 'not', 'great'] as const
-type Review = { id: string; text: string; sentiment: 'Negative' | 'Positive' }
-
-const examples: Review[] = [
-  { id: 'A', text: 'I hate this garbage', sentiment: 'Negative' },
-  { id: 'B', text: 'I love this book', sentiment: 'Positive' },
-  { id: 'C', text: 'This book is not great', sentiment: 'Negative' },
-]
-
-function cleanText(text: string, lowercase: boolean, punctuation: boolean) {
-  let result = text
-  if (lowercase) result = result.toLowerCase()
-  if (punctuation) result = result.replace(/[.,!?;:"()[\]{}]/g, ' ').replace(/\s+/g, ' ').trim()
-  return result
-}
-
-function hasWord(text: string, word: string) {
-  const tokens: string[] = text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) ?? []
-  return tokens.includes(word.toLowerCase())
-}
+type WorkbookReview = (typeof workbook.training)[number]
 
 function Header({ id, number, title, lead }: { id: string; number: string; title: string; lead: string }) {
-  return <header className="sentiment__intro"><p className="sentiment__eyebrow">Chapter 09 · Classification Models · {number}</p><h1 id={id}>{title}</h1><p>{lead}</p></header>
+  return <header className="sentiment__intro"><p className="sentiment__eyebrow">Chapter 09 · {number}</p><h1 id={id}>{title}</h1><p>{lead}</p></header>
 }
 
-function Definition({ label, children, note }: { label: string; children: ReactNode; note: string }) {
-  return <section className="sentiment__definition"><div><p className="sentiment__eyebrow">{label}</p><h2>{children}</h2><p>{note}</p></div><div className="sentiment__definition-flow" aria-hidden="true"><span>Text</span><b>→</b><span>Class</span></div></section>
+function BinaryFeatureTable({
+  review,
+  highlight,
+  caption,
+}: {
+  review: Pick<WorkbookReview, 'features'>
+  highlight?: boolean
+  caption?: string
+}) {
+  return <div className="sentiment__table-wrap" tabIndex={0} aria-label="Word feature table, scroll horizontally"><table className="sentiment__table sentiment__binary-table">
+    {caption && <caption>{caption}</caption>}
+    <thead><tr>{workbook.features.map((word, index) => <th className={highlight && review.features[index] ? 'is-selected-feature' : ''} scope="col" key={word}>{word.trim()}</th>)}</tr></thead>
+    <tbody><tr>{review.features.map((value, index) => <td className={value ? 'is-present' : ''} key={workbook.features[index]}>{value}</td>)}</tr></tbody>
+  </table></div>
 }
 
-function Summary({ children }: { children: ReactNode }) {
-  return <section className="sentiment__summary"><p className="sentiment__eyebrow">Carry this forward</p><h2>{children}</h2></section>
+function SentimentWordCloud() {
+  return <div className="sentiment__wordcloud" role="img" aria-label="A word cloud of book-review words, shown as a simple count-based summary">
+    <span className="wc wc--good">good</span><span className="wc wc--read">read</span><span className="wc wc--bad">bad</span><span className="wc wc--book">book</span>
+    <span className="wc wc--great">great</span><span className="wc wc--worse">worse</span><span className="wc wc--love">love</span><span className="wc wc--trash">trash</span><span className="wc wc--time">time</span>
+    <span className="wc wc--waste">waste</span><span className="wc wc--author">author</span><span className="wc wc--garbage">garbage</span><span className="wc wc--character">character</span>
+  </div>
 }
 
 export function CLSentimentIntro() {
   return <article className="sentiment" aria-labelledby="sentiment-intro-title">
-    <Header id="sentiment-intro-title" number="9.22" title="Can a review sound positive or negative?" lead="A reader may describe a book as “wonderful,” “disappointing,” or “not bad.” Sentiment analysis turns labeled text into a classification problem so a model can estimate the tone of a new review." />
-    <Definition label="The central idea" note="It is a supervised task: people first label examples, then a model learns patterns that may help classify new text.">Sentiment analysis predicts the emotional tone or opinion expressed in text.</Definition>
-    <section className="sentiment__panel" aria-labelledby="sentiment-intro-example"><div className="sentiment__section-heading"><p className="sentiment__eyebrow">A tiny review sample</p><h2 id="sentiment-intro-example">The label is the outcome we want to predict.</h2><p>Imagine an author sorting reader feedback about a new mystery novel. These short examples make the roles visible.</p></div>
-      <div className="sentiment__review-pair">{examples.slice(0, 2).map(review => <div className="sentiment__review-card" key={review.id}><blockquote>“{review.text}”</blockquote><span className={review.sentiment === 'Positive' ? 'is-positive' : 'is-negative'}>{review.sentiment} · observed label</span></div>)}</div>
-      <div className="sentiment__roles"><div><span className="sentiment__role-tag sentiment__role-tag--x">X · features</span><strong>The words in a review</strong><p>Text fields are prepared into inputs the model can use.</p></div><b aria-hidden="true">→</b><div><span className="sentiment__role-tag sentiment__role-tag--y">y · target</span><strong>Positive or negative</strong><p>A person supplies this label for training examples.</p></div><b aria-hidden="true">→</b><div><span className="sentiment__role-tag sentiment__role-tag--prediction">ŷ · prediction</span><strong>Estimated tone</strong><p>The model's output for a review it has not seen.</p></div></div>
-      <p className="sentiment__caveat"><strong>Text classification sits within a wider language field.</strong> Sentiment analysis is often grouped under natural language processing (NLP), but here we focus on the supervised classification task.</p>
+    <Header id="sentiment-intro-title" number="9.22" title="Sentiment analysis" lead="Sentiment analysis predicts the tone or feeling behind text. Here, we study it as a supervised classification task." />
+    <section className="sentiment__panel">
+      <p className="sentiment__definition-copy"><strong>Text → numeric word features → sentiment class.</strong> A person labels the training reviews; a classifier learns from those examples and predicts labels for new text.</p>
+      <div className="sentiment__use-cases"><div><h2>Where it helps</h2><p>Group negative customer reviews for human follow-up, or compare themes in open-ended survey responses.</p><p>It can support product research or employee feedback analysis; the label is an estimate of expressed tone.</p></div><SentimentWordCloud /></div>
+      <p className="sentiment__warning"><strong>A word cloud is only a rough summary.</strong> It counts words, but it does not reliably assign tone. People must interpret it, so conclusions can vary.</p>
     </section>
-    <Summary>Text becomes a classification problem when reviews are paired with clear human-assigned tone labels.</Summary>
   </article>
 }
 
 export function CLTextCleaning() {
-  const [lowercase, setLowercase] = useState(true)
-  const [punctuation, setPunctuation] = useState(true)
-  const [removeNegation, setRemoveNegation] = useState(false)
-  const raw = "I DON'T love this book... not at all!"
-  const prepared = useMemo(() => {
-    let value = cleanText(raw, lowercase, punctuation)
-    if (removeNegation) value = value.replace(/\b(?:not|no|don't|doesn't|never)\b/gi, '').replace(/\s+/g, ' ').trim()
-    return value
-  }, [lowercase, punctuation, removeNegation])
   return <article className="sentiment" aria-labelledby="sentiment-cleaning-title">
-    <Header id="sentiment-cleaning-title" number="9.23" title="Clean the text without erasing its meaning" lead="Reviews arrive with different capitalization, punctuation, typos, and word forms. Preparation can make useful patterns easier to recognize, but each change should fit the task." />
-    <Definition label="The central idea" note="Cleaning is a preparation choice, not a universal recipe. Keep the original text so edits can be reviewed.">Text cleaning reduces noise while preserving information that matters for the classification task.</Definition>
-    <section className="sentiment__panel" aria-labelledby="sentiment-cleaning-example"><div className="sentiment__section-heading"><p className="sentiment__eyebrow">Try a review snippet</p><h2 id="sentiment-cleaning-example">Switch common preparation steps on and off.</h2><p>Notice that changing case or punctuation leaves the message’s words intact. Removing negation can reverse what those words mean together.</p></div>
-      <div className="sentiment__clean-controls" role="group" aria-label="Text cleaning options">
-        <label><input type="checkbox" checked={lowercase} onChange={event => setLowercase(event.target.checked)} /> Normalize capitalization</label>
-        <label><input type="checkbox" checked={punctuation} onChange={event => setPunctuation(event.target.checked)} /> Remove punctuation</label>
-        <label className="sentiment__danger-option"><input type="checkbox" checked={removeNegation} onChange={event => setRemoveNegation(event.target.checked)} /> Remove negation words</label>
+    <Header id="sentiment-cleaning-title" number="9.23" title="Clean text for the task" lead="Prepare the text so useful words are easier to compare, while checking each change against the meaning you need to preserve." />
+    <section className="sentiment__panel">
+      <h2>The source example</h2>
+      <div className="sentiment__clean-example">
+        <p className="sentiment__source-label">Original text</p><blockquote>“The computer is running hot because I'm mining bitcoin!”</blockquote>
+        <div className="sentiment__clean-steps"><p><span>Remove selected stop words and punctuation</span><del>the</del> computer <del>is</del> running hot <del>because I'm</del> mining bitcoin<del>!</del></p><p><span>Reduce word forms</span>running → run · mining → mine</p></div>
+        <p className="sentiment__clean-result"><span>One possible cleaned version</span><strong>computer run hot mine bitcoin</strong></p>
       </div>
-      <div className="sentiment__clean-compare"><div><span>Original review</span><blockquote>“{raw}”</blockquote></div><b aria-hidden="true">→</b><div><span>Prepared text</span><blockquote>{prepared || '∅ (no words remain)'}</blockquote></div></div>
-      <div className="sentiment__warning"><strong>Keep meaning in view.</strong><p>“I don't love this book” and “I love this book” differ by one small word. Removing “don't” destroys that distinction. A stop-word list or stemming rule should be checked against examples from the actual task.</p></div>
-      <div className="sentiment__cleaning-notes"><p><strong>Common options:</strong> standardize case, handle punctuation and encoding, correct important spelling errors, remove task-specific noise, or reduce word forms with stemming/lemmatization.</p><p><strong>Check before applying:</strong> inspect what each rule changes, especially negation, names, slang, and meaningful punctuation.</p></div>
+      <div className="sentiment__cleaning-notes"><p><strong>Common choices:</strong> remove selected punctuation, standardize case, correct spelling or encoding, reduce words to a stem or lemma, and remove task-specific stop words.</p><p><strong>Stop words</strong> are common words that may add little for a task. <strong>Stemming</strong> trims word forms; <strong>lemmatization</strong> maps them to a base form. The source keeps context-dependent choices explicit.</p></div>
+      <p className="sentiment__warning"><strong>Cleaning can erase a useful signal.</strong> The source notes that capitalization or punctuation can show intensity (“GREAT!” versus “great”). Preserve negation such as “not” when it matters to the label.</p>
     </section>
-    <Summary>Cleaning should make useful signals easier to learn while preserving context the model needs.</Summary>
   </article>
 }
 
 export function CLBagOfWords() {
-  const [selected, setSelected] = useState('C')
-  const review = examples.find(item => item.id === selected)!
+  const sample = useMemo(() => [
+    { text: 'I HATE this garbage!', words: [1, 1, 0, 0], label: 'Negative' },
+    { text: 'I love this book.', words: [0, 0, 1, 1], label: 'Positive' },
+    { text: 'This book is garbage', words: [0, 1, 0, 1], label: 'Unseen' },
+  ], [])
+  const words = ['hate', 'garbage', 'love', 'book']
   return <article className="sentiment" aria-labelledby="sentiment-bow-title">
-    <Header id="sentiment-bow-title" number="9.24" title="Turn words into simple numeric features" lead="A numeric classifier needs a numeric representation of text. A bag of words creates numeric features from selected words in each review." />
-    <Definition label="The central idea" note="A bag can record word counts; this example uses binary presence: 1 means a word appears at least once and 0 means it does not.">A bag-of-words representation turns each text into numeric features based on its selected words.</Definition>
-    <section className="sentiment__panel" aria-labelledby="sentiment-bow-example"><div className="sentiment__section-heading"><p className="sentiment__eyebrow">Three short book reviews</p><h2 id="sentiment-bow-example">Select a review and trace its words into the feature table.</h2><p>Each row is one observation. The word columns are X features; the observed sentiment is y.</p></div>
-      <div className="sentiment__review-select" role="group" aria-label="Select a review to inspect">{examples.map(item => <button key={item.id} type="button" aria-pressed={selected === item.id} onClick={() => setSelected(item.id)}>Review {item.id}</button>)}</div>
-      <p className="sentiment__calculation"><strong>Selected text:</strong> “{review.text}” &nbsp; <strong>Present words:</strong> {words.filter(word => hasWord(review.text, word)).join(', ') || 'none from this feature list'}</p>
-      <div className="sentiment__table-wrap"><table className="sentiment__table"><caption>Binary word-presence features computed from the example sentences.</caption><thead><tr><th scope="col">Review</th><th scope="col">Text</th>{words.map(word => <th className={hasWord(review.text, word) && selected === review.id ? 'is-selected-feature' : ''} key={word} scope="col">{word} · X</th>)}<th scope="col" className="is-target">Sentiment · y</th></tr></thead><tbody>{examples.map(item => <tr key={item.id} className={selected === item.id ? 'is-current' : ''}><th scope="row">{item.id}</th><td>{item.text}</td>{words.map(word => <td className={hasWord(item.text, word) ? 'is-present' : ''} key={`${item.id}-${word}`}>{hasWord(item.text, word) ? '1' : '0'}</td>)}<td className="is-target">{item.sentiment}</td></tr>)}</tbody></table></div>
-      <p className="sentiment__warning"><strong>What the bag leaves out:</strong> word order, how often a word repeats, and context. “Not great” contains <em>great</em>, but the basic binary table cannot represent how “not” changes its meaning unless the feature design captures it.</p>
+    <Header id="sentiment-bow-title" number="9.24" title="Turn text into word features" lead="A bag of words represents each review with numeric values for selected words. This source example uses binary presence: one if a word appears, zero if it does not." />
+    <section className="sentiment__panel">
+      <p className="sentiment__source-label">Tokenize the cleaned text, then mark word presence</p>
+      <div className="sentiment__table-wrap" tabIndex={0} aria-label="Word feature table, scroll horizontally"><table className="sentiment__table sentiment__lesson-table"><caption>Words are input features X; sentiment is the observed target y for training rows.</caption><thead><tr><th scope="col">Review text</th>{words.map(word => <th scope="col" key={word}>{word} · X</th>)}<th className="is-target" scope="col">Sentiment · y</th></tr></thead><tbody>{sample.map(row => <tr key={row.text}><th scope="row">{row.text}</th>{row.words.map((value, index) => <td className={value ? 'is-present' : ''} key={words[index]}>{value}</td>)}<td className="is-target">{row.label}</td></tr>)}</tbody></table></div>
+      <p className="sentiment__source-note">Rows one and two are hand-labeled training examples. The third is a new review: its word features are known, but its sentiment is the value to predict.</p>
+      <div className="sentiment__nuance-examples"><p><strong>“If you like watching paint dry, you’ll love this movie.”</strong><br />A word-presence list may see <em>like</em> and <em>love</em> while missing the sarcastic meaning.</p><p><strong>“The new version is awfully good, not as bad as expected.”</strong><br />Removing or ignoring negation can change how the words are read together.</p></div>
+      <p className="sentiment__warning"><strong>This is binary word presence.</strong> Some bag-of-words methods count repeated words instead. Both basic forms lose word order and much of the surrounding context.</p>
     </section>
-    <Summary>Bag of words makes text countable, while leaving important parts of language outside this simple representation.</Summary>
   </article>
 }
 
-const caseTraining: Review[] = [
-  { id: 'T1', text: 'I love this story', sentiment: 'Positive' },
-  { id: 'T2', text: 'This book is great', sentiment: 'Positive' },
-  { id: 'T3', text: 'I hate this story', sentiment: 'Negative' },
-  { id: 'T4', text: 'This ending is terrible', sentiment: 'Negative' },
-]
-const caseTests: Review[] = [
-  { id: 'N1', text: 'Not great after all', sentiment: 'Negative' },
-  { id: 'N2', text: "I love it, not hate it", sentiment: 'Positive' },
-]
-const illustrativeWeights: Record<string, number> = { love: 1.2, great: 0.9, hate: -1.2, terrible: -1.1, not: -0.8 }
-const caseFeatures = Object.keys(illustrativeWeights)
-const sigmoid = (value: number) => 1 / (1 + Math.exp(-value))
+function FullReviewTable({ rows, title, test = false }: { rows: typeof workbook.training | typeof workbook.test; title: string; test?: boolean }) {
+  return <div className="sentiment__table-wrap sentiment__workbook-wrap" tabIndex={0} aria-label={title + ", scroll for all rows and columns"}><table className="sentiment__table sentiment__workbook-table"><caption>{title}</caption><thead><tr><th scope="col">Sheet row</th><th scope="col">{test ? 'New review' : 'Raw review'}</th><th scope="col">Clean text</th>{workbook.features.map(word => <th scope="col" key={word}>{word.trim()}</th>)}{!test && <th scope="col">Human label y</th>}<th scope="col">Model P(positive)</th>{!test && <th scope="col">Observed-label likelihood</th>}{test && <th scope="col">Sheet predicted class</th>}</tr></thead><tbody>{rows.map(row => {
+    const result = predictSentiment(row.features, workbook.coefficients, workbook.intercept)
+    const trainingRow = row as WorkbookReview
+    const testRow = row as (typeof workbook.test)[number]
+    return <tr key={row.row}><th scope="row">{row.row}</th><td className="sentiment__review-cell">{row.raw}</td><td className="sentiment__review-cell">{row.clean}</td>{row.features.map((value, index) => <td className={value ? 'is-present' : ''} key={workbook.features[index]}>{value}</td>)}{!test && <td className="is-target">{trainingRow.label ? 'Positive (1)' : 'Negative (0)'}</td>}<td>{result.probability.toFixed(6)}</td>{!test && <td>{predictSentiment(row.features, workbook.coefficients, workbook.intercept, trainingRow.label).likelihood.toFixed(6)}</td>}{test && <td className="is-target">{testRow.sheetClass ? 'Positive (1)' : 'Negative (0)'}</td>}</tr>
+  })}</tbody></table></div>
+}
 
 export function CLSentimentCaseStudy() {
-  const [selected, setSelected] = useState('N1')
-  const [showLabels, setShowLabels] = useState(false)
-  const review = caseTests.find(item => item.id === selected)!
-  const present = Object.keys(illustrativeWeights).filter(word => hasWord(review.text, word))
-  const score = present.reduce((sum, word) => sum + illustrativeWeights[word], 0)
-  const probability = sigmoid(score)
-  const predicted = probability >= 0.5 ? 'Positive' : 'Negative'
+  const [selectedRow, setSelectedRow] = useState(57)
+  const selected = workbook.test.find(row => row.row === selectedRow) ?? workbook.test[0]
+  const output = predictSentiment(selected.features, workbook.coefficients, workbook.intercept)
+  const sourceOutput = selected.probability
+  const contributions = workbook.features.flatMap((word, index) => selected.features[index] ? [{ word: word.trim(), value: workbook.coefficients[index] }] : [])
   return <article className="sentiment" aria-labelledby="sentiment-case-title">
-    <Header id="sentiment-case-title" number="9.25" title="From reader feedback to a first text classifier" lead="You are the author of the fictional Bark Twain the Data Dog mystery series. Reviews of the newest book are arriving, and you want to organize their tone and prepare to score future feedback." />
-    <Definition label="The central idea" note="A classifier learns patterns from examples with known labels, then estimates a class for a new review. Separate unseen reviews for evaluation.">Sentiment analysis uses labeled text to learn patterns for classifying the tone of new text.</Definition>
-    <section className="sentiment__panel" aria-labelledby="sentiment-case-example"><div className="sentiment__section-heading"><p className="sentiment__eyebrow">The author’s assignment</p><h2 id="sentiment-case-example">Keep each step visible from raw text to a new prediction.</h2><p>Prepare reviews, assign sentiment labels, and see what a simple word-based model predicts.</p></div>
-      <ol className="sentiment__pipeline"><li><strong>Training features + labels</strong><span>reviews become X; people provide y</span></li><li><strong>Fit model</strong><span>use labeled examples to choose parameters</span></li><li><strong>Model weights</strong><span>parameters used to score features</span></li><li><strong>Unseen text features</strong><span>represent a held-out review as X</span></li><li><strong>Prediction</strong><span>score features and apply a threshold</span></li><li><strong>Human-label comparison</strong><span>check the prediction against y</span></li></ol>
-      <div className="sentiment__training-explainer"><strong>Why train?</strong><p>Training uses examples with known human labels (the feature inputs <b>X</b> and target labels <b>y</b>) to choose model parameters. Those parameters are then applied to features from a review the model has not seen.</p></div>
-      <div className="sentiment__case-columns"><section><h3>Training input · features X and labels y</h3><p className="sentiment__small-note">Each row pairs binary word-presence features with a human-assigned target label.</p><div className="sentiment__table-wrap sentiment__training-table-wrap"><table className="sentiment__table sentiment__training-table"><caption>Four labeled examples showing the inputs a fitting step would use.</caption><thead><tr><th scope="col">ID</th><th scope="col">Review text</th>{caseFeatures.map(word => <th scope="col" key={word}>{word} · X</th>)}<th scope="col" className="is-target">Sentiment · y</th></tr></thead><tbody>{caseTraining.map(item => <tr key={item.id}><th scope="row">{item.id}</th><td>{item.text}</td>{caseFeatures.map(word => <td className={hasWord(item.text, word) ? 'is-present' : ''} key={`${item.id}-${word}`}>{hasWord(item.text, word) ? '1' : '0'}</td>)}<td className="is-target">{item.sentiment}</td></tr>)}</tbody></table></div><div className="sentiment__manual-weights"><h4>Example model weights · manually supplied</h4><p>These values illustrate what a fitted model's output could look like. They were <strong>not learned from the four rows above</strong>; no fitting is performed in this example.</p><div>{caseFeatures.map(word => <span key={word}><b>{word}</b><strong>{illustrativeWeights[word] > 0 ? '+' : ''}{illustrativeWeights[word].toFixed(1)}</strong></span>)}</div></div><p className="sentiment__small-note">In an actual fit, an algorithm would use the labeled feature rows to select weights that reduce prediction error.</p></section>
-        <section><h3>Unseen review · prediction first</h3><div className="sentiment__review-select" role="group" aria-label="Select a held-out review">{caseTests.map(item => <button key={item.id} type="button" aria-pressed={selected === item.id} onClick={() => setSelected(item.id)}>Review {item.id}</button>)}</div><blockquote className="sentiment__new-review">“{review.text}”</blockquote><div className="sentiment__selected-features"><strong>Selected review features · X</strong><div>{caseFeatures.map(word => <span className={hasWord(review.text, word) ? 'is-on' : ''} key={word}><b>{word}</b><i>{hasWord(review.text, word) ? '1' : '0'}</i></span>)}</div></div><div className="sentiment__prediction"><span>Illustrative calculation using the manual weights above</span><strong>{Math.round(probability * 100)}% estimated positive</strong><div className="sentiment__probability-track" role="img" aria-label={`${Math.round(probability * 100)} percent estimated positive`}><i style={{ width: `${probability * 100}%` }} /></div><small>Score = {present.map(word => `${word} (${illustrativeWeights[word] > 0 ? '+' : ''}${illustrativeWeights[word]})`).join(' + ') || 'no matching features'} = {score.toFixed(1)}; logistic score → probability.</small><p className="sentiment__threshold">Decision rule: probability ≥ 50% → <b>Positive</b>; probability &lt; 50% → <b>Negative</b>. Predicted class: <strong className={predicted === 'Positive' ? 'is-positive' : 'is-negative'}>{predicted}</strong>.</p></div><label className="sentiment__label-toggle"><input type="checkbox" checked={showLabels} onChange={event => setShowLabels(event.target.checked)} /> Compare with the held-out human label</label>{showLabels && <div className="sentiment__heldout-labels"><p><strong>{review.id} human label:</strong> {review.sentiment} · {predicted === review.sentiment ? 'matches' : 'differs from'} the predicted class {predicted}. The label is revealed only after prediction.</p></div>}</section></div>
-      <div className="sentiment__warning"><strong>A word list is not language understanding.</strong><p>In “Not great after all,” the positive word <em>great</em> can outweigh <em>not</em> in this simple example. In “I love it, not hate it,” separate word weights cannot tell which sentiment word is negated. Bag-of-words models miss order, scope, sarcasm and other context; compare predictions with unseen, human-labeled reviews before relying on them.</p></div>
+    <Header id="sentiment-case-title" number="9.25" title="Case study: book-review sentiment" lead="The fictional Bark Twain the Data Dog series is receiving reviews. Use the workbook’s labeled examples to classify new reviews and inspect the predictions for unseen reviews." />
+    <section className="sentiment__panel sentiment__case-panel">
+      <ol className="sentiment__pipeline"><li>Clean and tokenize text</li><li>Hand-label training reviews</li><li>Fit logistic regression</li><li>Predict held-out reviews</li><li>Check against independent labels*</li></ol>
+      <p className="sentiment__source-note">The workbook contains 47 training reviews and 7 test reviews. Training labels are hand-scored human judgments; test classes are model outputs. *Independent test labels would be needed to evaluate accuracy.</p>
+      <details className="sentiment__details" open><summary>Workbook training rows · 47 reviews and all 25 word features</summary><FullReviewTable rows={workbook.training} title="Sentiment Analysis sheet · rows 4–50. Binary features, hand-scored labels, and saved model outputs." /></details>
+      <div className="sentiment__model-block"><div><h2>Saved logistic model</h2><p>The source video uses logistic regression to combine the 25 word features. The workbook stores the fitted intercept and coefficients; this lesson applies those saved values.</p><p className="sentiment__equation">P(positive) = 1 ÷ (1 + e<sup>−(β₀ + Σ featureᵢ × βᵢ)</sup>)</p><p className="sentiment__source-note">The sheet reports objective <strong>{workbook.objective.toFixed(2)}</strong> in AJ52 as the sum of per-row observed-label probabilities (AJ4:AJ50). That is the workbook's Solver score, not a joint likelihood or an accuracy score.</p><details className="sentiment__details sentiment__coefficient-details"><summary>Saved intercept and 25 workbook coefficients</summary><div className="sentiment__table-wrap sentiment__coefficients-wrap"><table className="sentiment__table"><tbody><tr><th scope="row">Intercept β₀</th><td>{workbook.intercept.toFixed(6)}</td></tr>{workbook.features.map((word, index) => <tr key={word}><th scope="row">β · {word.trim()}</th><td>{workbook.coefficients[index].toFixed(6)}</td></tr>)}</tbody></table></div></details></div></div>
+      <section className="sentiment__prediction-block" aria-labelledby="sentiment-test-heading"><div className="sentiment__section-heading"><h2 id="sentiment-test-heading">Predict an unseen review</h2><p>Choose one of the seven source reviews to trace its word features through the saved model.</p></div>
+        <div className="sentiment__review-select" role="group" aria-label="Select a test review">{workbook.test.map(row => <button type="button" key={row.row} aria-pressed={selectedRow === row.row} onClick={() => setSelectedRow(row.row)}>Review {row.row - 56}</button>)}</div>
+        <div className="sentiment__selected-review"><div><span>Raw review · workbook row {selected.row}</span><blockquote>“{selected.raw}”</blockquote></div><div><span>Clean text</span><strong>{selected.clean}</strong></div></div>
+        <BinaryFeatureTable review={selected} highlight caption="Unseen review represented with the same 25 binary word features used by the workbook model." />
+        <div className="sentiment__prediction"><span>Workbook model output</span><strong>{(sourceOutput * 100).toFixed(2)}% positive</strong><div className="sentiment__probability-track" role="img" aria-label={`${(sourceOutput * 100).toFixed(2)} percent probability of positive sentiment`}><i style={{ width: `${Math.min(100, Math.max(0, sourceOutput * 100))}%` }} /></div><p>Using the sheet’s probability &gt; 0.5 rule, predicted class: <b>{output.prediction ? 'Positive' : 'Negative'}</b>. Sheet class output: <b>{selected.sheetClass ? 'Positive' : 'Negative'}</b>.</p><small>Recomputed from the saved coefficients: P(positive) = {output.probability.toFixed(9)}. The test-set class column repeats the model output; it is not an independent human label.</small><details className="sentiment__calculation-details"><summary>Trace this prediction</summary><p>Score = intercept {workbook.intercept.toFixed(4)}{contributions.map(item => ` ${item.value < 0 ? '−' : '+'} ${Math.abs(item.value).toFixed(4)} (${item.word})`).join('')} = {output.score.toFixed(4)}</p><p>Logistic score → P(positive) = {output.probability.toFixed(9)}.</p></details></div>
+      </section>
+      <details className="sentiment__details"><summary>Workbook test set · all 7 rows, features, predictions and sheet class outputs</summary><FullReviewTable rows={workbook.test} title="Sentiment Analysis sheet · rows 57–63. The final column is the thresholded model output, not a separate evaluation label." test /></details>
+      <p className="sentiment__warning"><strong>One source boundary matters.</strong> The workbook does not preserve independent human labels for its seven test rows: AG57–AG58 calculate a class directly from the model probability, and the remaining cached classes match that rule. In the video, the instructor says a human might judge “It was OK, not great” as negative while the model predicts positive from <em>great</em>. Treat this as a plausible disagreement, not a measured test error.</p>
     </section>
-    <Summary>A useful sentiment workflow prepares text, defines labels, separates unseen reviews, and checks model errors before use.</Summary>
   </article>
 }
-
