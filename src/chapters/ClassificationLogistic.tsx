@@ -1,62 +1,191 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { sigmoid, logLikelihood, confusion } from './logisticMath'
 import './ClassificationLogistic.css'
-import { logisticEmails } from './logisticEmails'
 
-const EMAILS = [{x:2,y:0},{x:4,y:0},{x:7,y:0},{x:9,y:1},{x:11,y:0},{x:13,y:0},{x:14,y:1},{x:16,y:1},{x:18,y:0},{x:20,y:1},{x:23,y:1},{x:26,y:1}]
-const LIKELIHOOD_ROWS = [EMAILS[9], EMAILS[1], EMAILS[6]]
-const pct = (p: number) => `${(p * 100).toFixed(1)}%`
-function Frame({number,title,definition,children,summary}:{number:number;title:string;definition:ReactNode;children:ReactNode;summary:ReactNode}) {
- return <article className="logistic-lesson" aria-labelledby={`logistic-${number}`}><header><p className="logistic-eyebrow">Chapter 9 · Lesson {number}</p><h1 id={`logistic-${number}`}>{title}</h1></header><section className="logistic-definition"><span className="logistic-eyebrow">The central idea</span><h2>{definition}</h2></section>{children}<aside className="logistic-summary"><strong>Remember</strong><p>{summary}</p></aside></article>
+import page136 from '../assets/logistic-page-136.png'
+import page137 from '../assets/logistic-page-137.png'
+import page138 from '../assets/logistic-page-138.png'
+import page139 from '../assets/logistic-page-139.png'
+import page140 from '../assets/logistic-page-140.png'
+import page141 from '../assets/logistic-page-141.png'
+import page142 from '../assets/logistic-page-142.png'
+import page143 from '../assets/logistic-page-143.png'
+import page144 from '../assets/logistic-page-144.png'
+import page145 from '../assets/logistic-page-145.png'
+import page146 from '../assets/logistic-page-146.png'
+import page147 from '../assets/logistic-page-147.png'
+import page148 from '../assets/logistic-page-148.png'
+import page149 from '../assets/logistic-page-149.png'
+import page150 from '../assets/logistic-page-150.png'
+import page151 from '../assets/logistic-page-151.png'
+import page152 from '../assets/logistic-page-152.png'
+import page153 from '../assets/logistic-page-153.png'
+import page154 from '../assets/logistic-page-154.png'
+import page155 from '../assets/logistic-page-155.png'
+import page156 from '../assets/logistic-page-156.png'
+import page157 from '../assets/logistic-page-157.png'
+import page158 from '../assets/logistic-page-158.png'
+
+type SourceSlide = { page: number; src: string; alt: string; caption: string }
+
+function Lesson({ number, title, lead, children }: { number: number; title: string; lead: string; children: ReactNode }) {
+  return <article className="logistic-lesson" aria-labelledby={`logistic-${number}`}>
+    <header className="logistic-lesson__header">
+      <p className="logistic-lesson__number">Chapter 9 · Lesson {number}</p>
+      <h1 id={`logistic-${number}`}>{title}</h1>
+      <p className="logistic-lesson__lead">{lead}</p>
+    </header>
+    {children}
+  </article>
 }
-function Curve({intercept=-7,slope=.5,selected,threshold=.5,rows=EMAILS,max=28,xLabel='Recipients per email'}:{intercept?:number;slope?:number;selected?:number;threshold?:number;rows?:readonly {x:number;y:number}[];max?:number;xLabel?:string}) {
- const sx=(x:number)=>65+x/max*510, sy=(y:number)=>300-y*240
- const d=Array.from({length:121},(_,i)=>{const x=i/120*max;return `${i?'L':'M'}${sx(x)},${sy(sigmoid(intercept+slope*x))}`}).join(' ')
- return <div className="logistic-chart"><svg className="logistic-curve" viewBox="0 0 640 370" role="img" aria-label={`Logistic probability curve; horizontal axis ${xLabel}, vertical axis probability from zero to one. Observations appear at zero or one.`}><line x1="65" y1="300" x2="580" y2="300" className="axis"/><line x1="65" y1="60" x2="65" y2="300" className="axis"/>{[0,.25,.5,.75,1].map(y=><g key={y}><line x1="65" x2="580" y1={sy(y)} y2={sy(y)} className="grid"/><text x="53" y={sy(y)+5} textAnchor="end">{y*100}%</text></g>)}<line x1="65" x2="580" y1={sy(threshold)} y2={sy(threshold)} className="threshold"/><text x="575" y={sy(threshold)-8} textAnchor="end">Threshold {pct(threshold)}</text>{rows.map((r,i)=><circle key={i} cx={sx(r.x)} cy={sy(r.y)+(i%3-1)*3} r="5" fill={r.y?'#b26a3d':'#438476'} opacity=".65"><title>{xLabel}: {r.x}; observed label {r.y}</title></circle>)}<path d={d} className="curve"/>{selected!==undefined&&<g><line x1={sx(selected)} x2={sx(selected)} y1="300" y2={sy(sigmoid(intercept+slope*selected))} className="guide"/><circle cx={sx(selected)} cy={sy(sigmoid(intercept+slope*selected))} r="8" fill="#d0a241" stroke="#234a43" strokeWidth="2"/></g>}{[0,max/2,max].map(x=><text key={x} x={sx(x)} y="324" textAnchor="middle">{x}</text>)}<text x="320" y="355" textAnchor="middle">{xLabel}</text><text x="65" y="30">Predicted probability of label 1</text></svg><div className="logistic-legend"><span><i className="is-zero"/>Observed label 0</span><span><i className="is-one"/>Observed label 1</span>{selected!==undefined&&<span><i className="is-selected"/>Selected prediction</span>}<span>— Model probability</span></div></div>
-}
-function Range({label,value,min,max,step=1,onChange}:{label:string;value:number;min:number;max:number;step?:number;onChange:(n:number)=>void}){return <label className="logistic-range"><span>{label}<b>{value}</b></span><input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))}/></label>}
 
-export function LogisticIntro(){return <Frame number={15} title="Intro to logistic regression" definition={<>Logistic regression estimates the <strong>probability of a class</strong> by mapping a weighted input score onto an S-shaped curve.</>} summary={<>The curve outputs a <b>probability</b>; a decision threshold turns it into a <b>class prediction</b>. Here we study binary labels, 0 and 1.</>}><section><h2>Why use it?</h2><p>An email filter needs more than a yes/no guess: a probability lets the team decide <b>how much evidence to require before flagging spam</b>.</p><Curve/><div className="logistic-flow"><div><b>Features · X</b><span>Number of recipients</span></div><i>→</i><div><b>Probability · p</b><span>How likely is spam?</span></div><i>→</i><div><b>Threshold</b><span>Spam or not spam</span></div></div><p className="logistic-note">The dots are observed labels; the curve is an illustrative model. Despite its name, this is a <b>classification</b> method. Binary logistic regression handles two classes; extensions handle multiple classes.</p></section></Frame>}
-
-export function LogisticExample(){const[x,setX]=useState(14);const p=sigmoid(-7+.5*x);return <Frame number={16} title="Logistic regression example" definition={<>A fitted logistic curve connects an input value to an <strong>estimated probability</strong>, rather than directly to a certain outcome.</>} summary={<>A predicted probability is <b>uncertainty about an outcome</b>, not an observed label. Different thresholds can turn the same probability into different decisions.</>}><section><h2>One email, one input, one prediction</h2><p>We compare an email’s <b>recipient count</b> with observed spam labels. Move the recipient count to read the curve. More recipients raises the probability in this example; it does not prove an email is spam.</p><div className="logistic-layout"><Curve selected={x}/><div><Range label="Recipients" value={x} min={0} max={28} onChange={setX}/><div className="logistic-result" aria-live="polite"><span>Estimated probability of spam</span><strong>{pct(p)}</strong><b>{p>=.5?'Predict spam':'Predict not spam'} · threshold 50%</b></div><p>At <b>14 recipients</b>, this illustrative curve reaches 50%. The gold point is a prediction; the dots at 0 and 1 are observations.</p></div></div></section></Frame>}
-
-export function LogisticErrors(){const[t,setT]=useState(.5);const c=confusion(EMAILS,-7,.5,t);return <Frame number={17} title="False positives vs. false negatives" definition={<>A <strong>false positive</strong> flags a negative case as positive. A <strong>false negative</strong> misses a positive case.</>} summary={<>Choose thresholds according to the <b>cost of mistakes</b>, then evaluate on appropriate validation data. A 50% threshold is a convention, not a universal rule.</>}><section><h2>What would the mistake cost?</h2><div className="logistic-cards"><div><h3>False positive · false alarm</h3><p>A legitimate email is marked as spam. <b>An important message may be missed.</b></p></div><div><h3>False negative · missed spam</h3><p>A spam email is marked as legitimate. <b>Unwanted email reaches the inbox.</b></p></div></div><p>Raise the threshold to demand more evidence before flagging spam. Watch the two counts below: fewer false alarms can mean more missed spam.</p><Range label="Spam decision threshold" min={.1} max={.9} step={.1} value={t} onChange={setT}/><div className="logistic-layout"><Curve threshold={t}/><div className="logistic-result" aria-live="polite"><span>12 observed example emails</span><strong>{c.fp} false positives</strong><strong>{c.fn} false negatives</strong><p>{c.tp} correctly flagged spam · {c.tn} correctly passed legitimate emails</p></div></div><aside className="logistic-note"><b>A different decision can need a different threshold.</b> For an inexpensive retention check-in, missing an at-risk subscriber may cost more than contacting someone who would have stayed. Thresholds require case-specific evidence, not a blanket 90% or 10% rule.</aside></section></Frame>}
-
-export function LogisticEquation(){const[b0,setB0]=useState(-7);const[b1,setB1]=useState(.5);const x=14,z=b0+b1*x;return <Frame number={18} title="Logistic regression equation" definition={<>A weighted sum creates a score <strong>z</strong>. The sigmoid function converts that score into a probability between 0 and 1.</>} summary={<>The <b>intercept</b> sets a baseline; each <b>coefficient</b> changes the score with its feature. The sigmoid keeps the output within probability bounds.</>}><section><h2>Follow the numbers into the curve</h2><p>Use the controls to see how a model’s coefficients change its shape. These are manual illustrations; adjusting them here does not fit a model.</p><div className="logistic-formula"><div><small>Input</small><b>x = {x} recipients</b></div><i>→</i><div><small>Weighted score</small><b>z = β₀ + β₁x</b><span>{b0} + {b1} × {x} = {z.toFixed(2)}</span></div><i>→</i><div><small>Probability</small><b>p = 1 / (1 + e<sup>−z</sup>)</b><span>{pct(sigmoid(z))}</span></div></div><div className="logistic-layout"><Curve intercept={b0} slope={b1} selected={x}/><div><Range label="Intercept β₀" min={-14} max={4} step={.5} value={b0} onChange={setB0}/><Range label="Weight β₁" min={-.5} max={1} step={.1} value={b1} onChange={setB1}/><p><b>Positive weight:</b> probability rises with recipients. <b>Negative weight:</b> it falls. <b>Zero weight:</b> the probability stays constant.</p><p><b>e ≈ 2.718</b> is a mathematical constant. You do not need to calculate it by hand to interpret the model.</p></div></div></section></Frame>}
-
-export function LogisticLikelihood(){
- const[fit,setFit]=useState(true)
- const b0=fit?-7:0,b1=fit?.5:0
- const workedRows=LIKELIHOOD_ROWS.map(row=>{
-  const p=sigmoid(b0+b1*row.x)
-  return {...row,p,contribution:row.y===1?p:1-p}
- })
- const product=workedRows.reduce((value,row)=>value*row.contribution,1)
- const logSum=workedRows.reduce((value,row)=>value+Math.log(row.contribution),0)
- const flatScore=logLikelihood(EMAILS,0,0)
- const risingScore=logLikelihood(EMAILS,-7,.5)
- return <Frame number={19} title="The likelihood function" definition={<>Likelihood measures how much probability a model assigns to the <strong>outcomes actually observed</strong>. Fitting logistic regression maximizes that likelihood.</>} summary={<>For each row, use <b>p when y = 1</b> and <b>1 − p when y = 0</b>. Multiply the row contributions, or sum their logarithms. This rewards confident correct probabilities and penalizes confident errors.</>}><section>
-  <h2>Why do some curves fit better?</h2>
-  <p>A curve is useful when it assigns high probability to the outcomes in the training data. The worked calculation follows three distinct emails from the <b>same 12-row dataset</b>; the score comparison below uses all 12.</p>
-  <div className="logistic-buttons"><button aria-pressed={!fit} onClick={()=>setFit(false)}>Flat · every email 50%</button><button aria-pressed={fit} onClick={()=>setFit(true)}>Rising probability curve</button></div>
-  <Curve intercept={b0} slope={b1}/>
-  <h3 className="logistic-subheading">Three observed outcomes become one likelihood</h3>
-  <p>For each email, the model predicts spam probability <b>p</b>. If its observed label is spam (y = 1), that row contributes p; if it stayed legitimate (y = 0), it contributes 1 − p.</p>
-  <div className="logistic-table-wrap"><table className="logistic-likelihood-table"><thead><tr><th scope="col">Example email</th><th scope="col">Label y</th><th scope="col">Spam probability p</th><th scope="col">Probability of what happened</th></tr></thead><tbody>{workedRows.map((row,index)=><tr key={row.x}><th scope="row">{String.fromCharCode(65+index)} · {row.x} recipients</th><td>{row.y} · {row.y===1?'spam':'legitimate'}</td><td>{row.p.toFixed(4)}</td><td><b>{row.y===1?'p':'1 − p'} = {row.contribution.toFixed(4)}</b></td></tr>)}</tbody></table></div>
-  <div className="logistic-likelihood-steps"><div><span>Multiply the three row probabilities</span><b>{workedRows.map(row=>row.contribution.toFixed(4)).join(' × ')} = {product.toFixed(4)}</b></div><div><span>Log of the product: add the row logarithms</span><b>{workedRows.map(row=>`ln(${row.contribution.toFixed(4)})`).join(' + ')} = {logSum.toFixed(4)}</b></div></div>
-  <p className="logistic-note"><b>Why take logs?</b> <b>ln</b> means the natural logarithm. Here, ln({product.toFixed(4)}) ≈ {logSum.toFixed(4)}; displayed values are rounded. A logarithm preserves ordering: the model with the larger likelihood also has the larger log-likelihood. It turns multiplication into addition and keeps very small products manageable for a computer.</p>
-  <h3 className="logistic-subheading">Extend the same calculation to all 12 emails</h3>
-  <p>The two scores below use every row, with each row contributing its observed-outcome probability. The higher log-likelihood fits these labels better under this objective.</p>
-  <div className="logistic-score-comparison" aria-label="Full dataset log-likelihood comparison">
-   <div><span>Flat model · β₀ = 0, β₁ = 0</span><strong>{flatScore.toFixed(3)}</strong><small>12 emails · p = 50% for every row</small></div>
-   <div className="is-better"><span>Rising model · β₀ = −7, β₁ = 0.5</span><strong>{risingScore.toFixed(3)}</strong><small>12 emails · higher log-likelihood here</small></div>
+function SourceGallery({ slides, label }: { slides: SourceSlide[]; label: string }) {
+  return <div className="logistic-gallery" aria-label={label}>
+    {slides.map(slide => <figure className="logistic-source" key={slide.page}>
+      <img src={slide.src} alt={slide.alt} />
+      <figcaption><span>PDF page {slide.page}</span>{slide.caption}</figcaption>
+    </figure>)}
   </div>
-  <p>Training searches for coefficient values that raise this full-data score. The two curves are examples for comparison; this lesson does not run that search.</p>
-  <p className="logistic-note"><b>Keep the objective straight:</b> likelihood is a product of row probabilities, not their sum. Maximizing log-likelihood is not the same as minimizing ordinary vertical distances or maximizing classification accuracy.</p>
- </section></Frame>
 }
 
-export function LogisticMultivariate(){const[typos,setTypos]=useState(2);const[reputation,setReputation]=useState(3);const recipients=14,z=-3+.15*recipients+.7*typos-.8*reputation;return <Frame number={20} title="Multivariate logistic regression" definition={<>Multivariate logistic regression combines <strong>several input features</strong> in a weighted score, then maps that score to one class probability.</>} summary={<>Each feature contributes through its coefficient. More features can capture useful context, but they still need <b>QA, leakage checks, validation, and a clear target</b>.</>}><section><h2>The same recipient count can mean different things</h2><p>Compare emails with <b>14 recipients</b>. Typos may raise suspicion; a trusted sender may lower it. Change those two features and watch their contributions combine.</p><div className="logistic-layout"><div><Range label="Typos in email" value={typos} min={0} max={6} onChange={setTypos}/><Range label="Sender reputation · 0 low, 5 high" value={reputation} min={0} max={5} onChange={setReputation}/></div><div className="logistic-result" aria-live="polite"><span>Illustrative spam probability</span><strong>{pct(sigmoid(z))}</strong><b>{sigmoid(z)>=.5?'Predict spam':'Predict not spam'} at 50%</b></div></div><div className="logistic-contributions"><div><span>Baseline β₀</span><b>−3.00</b></div><div><span>Recipients · 0.15 × 14</span><b>+2.10</b></div><div><span>Typos · 0.70 × {typos}</span><b>+{(.7*typos).toFixed(2)}</b></div><div><span>Reputation · −0.80 × {reputation}</span><b>{(-.8*reputation).toFixed(2)}</b></div><div className="is-total"><span>Combined score z → sigmoid</span><b>{z.toFixed(2)} → {pct(sigmoid(z))}</b></div></div><p className="logistic-note">The coefficients here illustrate the mechanics; they are not fitted estimates. A real model learns coefficients from labeled training examples. A coefficient describes a model association while other inputs are held fixed, not proof of causation.</p></section></Frame>}
+function SourceSequence({ slides, label, autoplay = false }: { slides: SourceSlide[]; label: string; autoplay?: boolean }) {
+  const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const [position, setPosition] = useState(() => autoplay && prefersReducedMotion() ? slides.length - 1 : 0)
+  const [playing, setPlaying] = useState(() => autoplay && !prefersReducedMotion())
+  const atEnd = position === slides.length - 1
+  const slide = slides[position]
 
-export function LogisticCase(){const[x,setX]=useState(8);const[show,setShow]=useState(true);const p=sigmoid(-21.962+2.516*x);return <Frame number={21} title="Case study: logistic regression" definition={<>A logistic model can connect a measurable input to the <strong>probability of a binary outcome</strong>, helping a team examine a practical decision.</>} summary={<>Use the curve to estimate unsubscribe probability, then validate the model and weigh business costs before choosing a policy. <b>An association is not proof that changing email frequency will cause the predicted change.</b></>}><section><h2>Luxe Dining · how many emails are too many?</h2><p>The food blog’s marketing team is concerned about unsubscribes. We compare <b>average emails received per week</b> with <b>whether a customer unsubscribed · 1 yes, 0 no</b>. The goal is to explore where predicted unsubscribe probability rises sharply.</p><div className="logistic-layout"><div>{show?<Curve intercept={-21.962} slope={2.516} selected={x} rows={logisticEmails} max={18} xLabel="Average emails per week"/>:<div className="logistic-hidden">Model curve hidden · the calculated probability remains visible.</div>}<button className="logistic-toggle" aria-pressed={show} onClick={()=>setShow(!show)}>{show?'Hide':'Show'} model curve</button></div><div><Range label="Average emails per week" min={0} max={12} step={.5} value={x} onChange={setX}/><div className="logistic-result" aria-live="polite"><span>Estimated unsubscribe probability</span><strong>{pct(p)}</strong><b>{p>=.5?'Above':'Below'} the 50% decision point</b></div></div></div><div className="logistic-formula"><div><small>Model coefficients</small><b>β₀ = −21.962 · β₁ = 2.516</b></div><i>→</i><div><small>Score at {x} emails/week</small><b>−21.962 + 2.516 × {x} = {(-21.962+2.516*x).toFixed(2)}</b></div><i>→</i><div><small>Sigmoid</small><b>{pct(p)}</b></div></div><div className="logistic-cards"><div><h3>Read the turning point</h3><p>50% occurs around <b>{(21.962/2.516).toFixed(2)} emails per week</b>. At 7, the estimate is {pct(sigmoid(-21.962+2.516*7))}; at 9, it is {pct(sigmoid(-21.962+2.516*9))}.</p></div><div><h3>Turn exploration into a decision</h3><p>Check held-out performance, other customer features, and the costs of losing subscribers. A controlled experiment can test a frequency change before rolling it out.</p></div></div><p className="logistic-note">The dots show 624 customer observations: 306 unsubscribed and 318 stayed. Small vertical offsets separate overlapping dots; observed labels remain 0 or 1. This view reads the workbook’s supplied curve; it does not refit it or establish a business threshold.</p></section></Frame>}
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => {
+      if (preference.matches && autoplay) {
+        setPosition(slides.length - 1)
+        setPlaying(false)
+      }
+    }
+    preference.addEventListener('change', update)
+    return () => preference.removeEventListener('change', update)
+  }, [autoplay, slides.length])
+
+  useEffect(() => {
+    if (!playing || atEnd) return
+    const timer = window.setTimeout(() => setPosition(current => Math.min(slides.length - 1, current + 1)), 6000)
+    return () => window.clearTimeout(timer)
+  }, [playing, position, atEnd, slides.length])
+
+  const move = (delta: number) => {
+    setPlaying(false)
+    setPosition(current => Math.max(0, Math.min(slides.length - 1, current + delta)))
+  }
+
+  const replay = () => {
+    if (atEnd) setPosition(0)
+    setPlaying(true)
+  }
+
+  return <div className="logistic-sequence" aria-label={label}>
+    <figure className="logistic-source logistic-source--sequence" aria-live="polite">
+      <img src={slide.src} alt={slide.alt} />
+      <figcaption><span>PDF page {slide.page} · Step {position + 1} of {slides.length}</span>{slide.caption}</figcaption>
+    </figure>
+    <div className="logistic-sequence__controls" aria-label={`${label} controls`}>
+      <button type="button" onClick={() => move(-1)} disabled={position === 0}>Previous</button>
+      <span aria-live="polite">Page {slide.page} of the source sequence</span>
+      <button type="button" onClick={() => move(1)} disabled={atEnd}>Next</button>
+      {slides.length > 1 && <button type="button" onClick={() => playing ? setPlaying(false) : replay()}>{playing && !atEnd ? 'Pause' : atEnd ? 'Replay' : 'Autoplay'}</button>}
+    </div>
+  </div>
+}
+
+const introSlides: SourceSlide[] = [
+  { page: 136, src: page136, alt: 'Observed binary outcomes plotted against X1, with labels at zero and one.', caption: 'Each dot is an observed X and binary Y pair.' },
+  { page: 137, src: page137, alt: 'An S-shaped curve between zero and one fitted between observed binary labels.', caption: 'The curve estimates the probability of a true outcome for each X1 value.' },
+]
+
+const curveSlides: SourceSlide[] = [
+  { page: 138, src: page138, alt: 'Spam probability curve using number of email recipients as X1.', caption: 'Here, X1 is the number of email recipients; Y is whether the email is spam.' },
+  { page: 139, src: page139, alt: 'Three unobserved recipient counts placed on the spam probability curve at one, fifty, and ninety-five percent.', caption: 'Use the fitted curve to estimate probabilities for recipient counts not shown as observations.' },
+]
+
+const thresholdSlides: SourceSlide[] = [
+  { page: 140, src: page140, alt: 'Source spam example raises the decision threshold to ninety percent because false positives are considered costly.', caption: 'The course’s spam scenario treats false positives as costly and shows a 90% decision point.' },
+  { page: 141, src: page141, alt: 'Source employee attrition example lowers the decision threshold to ten percent because false positives are considered less costly.', caption: 'In the separate employee example, the source treats false positives as less costly and shows a 10% decision point.' },
+]
+
+const equationSlides: SourceSlide[] = [
+  { page: 142, src: page142, alt: 'Sigmoid equation with three probability curves showing slope coefficients beta one of 0.5, 1.0, and 5.0.', caption: 'The slope coefficient β₁ changes how quickly the curve rises.' },
+  { page: 143, src: page143, alt: 'The logistic curve with slope coefficient beta one set to 0.5.', caption: 'Compare the source’s slope settings.' },
+  { page: 144, src: page144, alt: 'The logistic curve with slope coefficient beta one set to 1.0.', caption: 'A larger positive slope makes the transition steeper.' },
+  { page: 145, src: page145, alt: 'The logistic curve with slope coefficient beta one set to 5.0.', caption: 'The largest shown slope makes the transition sharpest.' },
+  { page: 146, src: page146, alt: 'The logistic equation with the intercept beta zero set to zero.', caption: 'The intercept β₀ shifts where the curve reaches 50% probability.' },
+  { page: 147, src: page147, alt: 'The logistic curve after changing intercept beta zero to two.', caption: 'A positive intercept shifts the curve toward smaller X values.' },
+  { page: 148, src: page148, alt: 'The logistic curve after changing intercept beta zero to negative two.', caption: 'A negative intercept shifts the curve toward larger X values.' },
+]
+
+const likelihoodSlides: SourceSlide[] = [
+  { page: 149, src: page149, alt: 'Likelihood table: model outputs near the observed binary outcome receive high likelihood; mismatches receive low likelihood.', caption: 'For one row, likelihood is high when the predicted probability is close to the observed outcome.' },
+  { page: 150, src: page150, alt: 'Bernoulli likelihood function: output to the power y times one minus output to the power one minus y.', caption: 'For output p and observed label y: pʸ × (1 − p)⁽¹⁻ʸ⁾.' },
+  { page: 151, src: page151, alt: 'Worked likelihood calculation for observed y equals one and output probability 0.99, yielding 0.99.', caption: 'Observed 1, predicted p = 0.99 → contribution 0.99.' },
+  { page: 152, src: page152, alt: 'Worked likelihood calculation for observed y equals zero and output probability 0.01, yielding 0.99.', caption: 'Observed 0, predicted p = 0.01 → contribution 1 − p = 0.99.' },
+  { page: 153, src: page153, alt: 'Worked likelihood calculation for observed y equals one and output probability 0.01, yielding 0.01.', caption: 'Observed 1, predicted p = 0.01 → contribution 0.01.' },
+  { page: 154, src: page154, alt: 'Worked likelihood calculation for observed y equals zero and output probability 0.99, yielding 0.01.', caption: 'Observed 0, predicted p = 0.99 → contribution 1 − p = 0.01.' },
+  { page: 155, src: page155, alt: 'Spam probability curve annotated with high and low likelihood observations.', caption: 'The plot helps visualize fit; the likelihood calculation uses the observed-outcome probability for each row.' },
+]
+
+const multivariateSlides: SourceSlide[] = [
+  { page: 156, src: page156, alt: 'The number of recipients is shown as one input that can help predict spam, alongside other possible features.', caption: 'The course names recipient count, typos, word counts, and sender reputation as possible inputs.' },
+  { page: 157, src: page157, alt: 'Three-dimensional logistic probability surface with input axes X1 and X2 and output Y.', caption: 'With two inputs, the output can be pictured as a probability surface.' },
+  { page: 158, src: page158, alt: 'General logistic equation whose weighted score includes multiple input variables X1 through Xn.', caption: 'The same sigmoid maps a weighted sum of several inputs to a probability. The source notes that plots become harder to interpret beyond two inputs.' },
+]
+
+export function LogisticIntro() {
+  return <Lesson number={15} title="Intro to logistic regression" lead="Logistic regression is a classification technique that estimates the probability of a binary outcome.">
+    <section className="logistic-intro-text" aria-label="Introduction from PDF page 135">
+      <ul>
+        <li>In its simplest form, logistic regression forms an <strong>S-shaped curve between 0 and 1</strong>, representing the probability of a true outcome for a given value of X.</li>
+        <li>The <strong>likelihood function</strong> measures how much probability the model assigns to observed outcomes and is used to optimize the shape of the curve.</li>
+        <li>Although its name includes “regression,” logistic regression is used for <strong>classification</strong>, rather than predicting a numerical target.</li>
+      </ul>
+      <h2>Example use cases</h2>
+      <ul>
+        <li>Flagging spam emails or fraudulent credit card transactions.</li>
+        <li>Determining whether to serve a particular ad to a website visitor.</li>
+      </ul>
+    </section>
+    <SourceGallery slides={introSlides} label="Logistic regression introduction from the course PDF" />
+  </Lesson>
+}
+
+export function LogisticExample() {
+  return <Lesson number={16} title="Logistic regression example" lead="The source uses the number of email recipients to estimate the probability that an email is spam.">
+    <SourceGallery slides={curveSlides} label="Spam probability example from the course PDF" />
+  </Lesson>
+}
+
+export function LogisticErrors() {
+  return <Lesson number={17} title="Choose a decision threshold" lead="A probability threshold turns a model’s estimate into a class decision. The right choice depends on the costs of false positives and false negatives.">
+    <SourceGallery slides={thresholdSlides} label="Two source examples of decision thresholds" />
+    <p className="logistic-lesson__note">The 90% spam threshold and 10% employee threshold are choices inside the course’s scenarios, not general recommendations.</p>
+  </Lesson>
+}
+
+export function LogisticEquation() {
+  return <Lesson number={18} title="Logistic regression equation" lead="The sigmoid turns a weighted input score into a probability between 0 and 1. Follow how the source changes the slope and intercept.">
+    <SourceSequence slides={equationSlides} label="Slope and intercept sequence" autoplay />
+  </Lesson>
+}
+
+export function LogisticLikelihood() {
+  return <Lesson number={19} title="The likelihood function" lead="Likelihood scores the probabilities a model assigns to the outcomes that were observed. The source walks through all four binary-label cases.">
+    <SourceSequence slides={likelihoodSlides} label="Observed-outcome likelihood calculations" autoplay />
+    <p className="logistic-lesson__note"><strong>For the full dataset, multiply each row’s observed-outcome probability.</strong> Maximizing that product (or its log) is the likelihood objective. It is not a sum of probabilities or a minimization of vertical distances; the annotated plot is an intuition for fit.</p>
+  </Lesson>
+}
+
+export function LogisticMultivariate() {
+  return <Lesson number={20} title="Multivariate logistic regression" lead="Several input variables can contribute to the weighted score used to estimate one binary outcome’s probability.">
+    <SourceGallery slides={multivariateSlides} label="Multiple-input logistic regression from the course PDF" />
+  </Lesson>
+}
+
+export { LogisticCase } from './LogisticWorkbookCase'
