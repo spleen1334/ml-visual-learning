@@ -6,3 +6,86 @@
 .me-multi .is-diagonal.is-focus-row.is-focus-column{color:#125e52;background:#dcefe6;box-shadow:inset 0 0 0 3px #1a7567}
 .me-multi small{display:block;color:#8a6221;font-size:10px;font-weight:800;text-transform:uppercase}
 .me-drift-chart .me-threshold{stroke:#ba7d32;stroke-dasharray:3 3}
+
+/* Keep the definition readable while bringing the worked visual closer. */
+.me-definition { grid-template-columns: minmax(0, 1fr); gap: 0; margin-top: 22px; padding: 20px 24px; }
+.me-definition h2 { font-size: clamp(24px, 2.6vw, 30px); }
+.me-panel { margin-top: 22px; }
+div.me-cell { cursor: default; }
+.me-reset { margin-top: 12px; padding: 9px 13px; border: 1px solid #c5d7ca; border-radius: 7px; color: #366456; background: #fffefa; font: inherit; font-weight: 700; cursor: pointer; }
+.model-evaluation button:focus-visible, .model-evaluation input:focus-visible { outline: 3px solid #cb9133; outline-offset: 3px; }
+
+/* Source-style brackets identify actual columns above and predicted rows at left. */
+.me-matrix-frame { --row-label: 82px; display: grid; grid-template-columns: 100px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 8px; max-width: 760px; margin: 0 auto; }
+.me-axis-top { grid-column: 2; margin-left: var(--row-label); display: grid; justify-items: center; gap: 8px; padding: 0 5px; color: var(--me-ink); font-size: 15px; font-weight: 750; text-transform: uppercase; }
+.me-axis-top i { width: 100%; height: 8px; border-top: 1px solid #7a877f; border-left: 1px solid #7a877f; border-right: 1px solid #7a877f; position: relative; }
+.me-axis-top i::before { content: ''; position: absolute; left: 50%; top: -9px; height: 8px; border-left: 1px solid #7a877f; }
+.me-axis-left { grid-column: 1; grid-row: 2; display: flex; align-items: center; gap: 9px; margin-top: 44px; margin-bottom: 5px; color: var(--me-ink); font-size: 14px; font-weight: 700; line-height: 1.4; text-align: right; text-transform: uppercase; }
+.me-axis-left i { align-self: stretch; width: 8px; flex: 0 0 8px; border-left: 1px solid #7a877f; border-top: 1px solid #7a877f; border-bottom: 1px solid #7a877f; position: relative; }
+.me-axis-left i::before { content: ''; position: absolute; top: 50%; left: -9px; width: 8px; border-top: 1px solid #7a877f; }
+.me-matrix-body { grid-column: 2; grid-row: 2; min-width: 0; }
+.me-row-label-column { width: var(--row-label); }
+.me-matrix { table-layout: fixed; }
+.me-matrix-wrap--concept .me-cell { min-height: 110px; padding: 12px; }
+.me-matrix-wrap--concept .me-cell strong { font: 700 20px/1.3 system-ui; }
+.me-matrix-wrap--concept .me-cell span { font-size: 15px; font-weight: 500; }
+.me-axis-key { display: flex; flex-wrap: wrap; gap: .5rem 2rem; margin: 14px 0 24px; color: var(--me-muted); font-size: 15px; line-height: 1.5; }
+.me-axis-key strong { color: var(--me-ink); }
+.me-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0!important; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.me-multi-wrap { padding: 18px 12px; }
+.me-multi-wrap .me-matrix-frame { min-width: 530px; }
+.me-multi-wrap .me-multi { min-width: 0; table-layout: fixed; }
+.me-matrix-frame--product .me-axis-left { margin-top: 38px; margin-bottom: 0; }
+@media(max-width: 600px) {
+  .me-matrix-frame { grid-template-columns: 78px minmax(0, 1fr); --row-label: 64px; }
+  .me-axis-left { font-size: 11px; gap: 5px; }
+  .me-axis-top { font-size: 12px; }
+  .me-matrix-wrap--concept .me-cell strong { font-size: 16px; }
+}
+
+.me-matrix-wrap--concept .me-cell--fp, .me-matrix-wrap--concept .me-cell--fn { background: #f7e5e4; }
+.me-metrics-intro figure { margin: 22px 0 0; padding: 12px; background: white; border-radius: 8px; overflow-x: auto; }
+.me-metrics-intro img { display: block; width: 100%; min-width: 620px; height: auto; }
+
+.me-confusion-pair { display: grid; grid-template-columns: minmax(0, 1fr) 20px 205px; align-items: end; gap: 14px; margin-top: 22px; }
+.me-confusion-pair .me-matrix-wrap { margin: 0; }
+.me-confusion-pair .me-matrix-frame { grid-template-columns: 92px minmax(0, 1fr); --row-label: 70px; }
+.me-confusion-pair .me-matrix-wrap--concept .me-cell strong { font-size: 18px; }
+.me-example-brace { align-self: stretch; display: flex; align-items: center; justify-content: center; padding-top: 56px; font: 200 220px/1 Georgia, serif; color: #88958c; transform: scaleX(.2); transform-origin: center; }
+.me-numeric-example { margin: 0; padding-top: 34px; }
+.me-numeric-example table { width: 100%; table-layout: fixed; border-spacing: 8px 5px; text-align: center; }
+.me-numeric-example th { height: 34px; color: var(--me-ink); font-size: 14px; }
+.me-numeric-example th:first-child { width: 18px; }
+.me-numeric-example td { height: 110px; border: 1px solid #9aa79e; border-radius: 6px; background: #f3f4f1; font: 500 27px Georgia, serif; }
+.me-numeric-example td.is-selected { outline: 2px solid var(--me-teal); outline-offset: -2px; }
+@media(max-width: 1000px) {
+  .me-confusion-pair { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .me-example-brace { display: none; }
+  .me-numeric-example { width: 240px; justify-self: end; padding-top: 0; }
+  .me-numeric-example td { height: 75px; }
+}
+
+/* Preserve the complete source comparison and the separate B/C diagnosis. */
+.me-source-multiclass figure { margin: 22px 0 0; padding: 16px; border-radius: 8px; background: #fff; overflow-x: auto; }
+.me-source-multiclass img { display: block; width: 100%; height: auto; min-width: 780px; }
+
+/* Give chart labels their own space; keep the selection readout compact. */
+.me-drift-chart { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 18px; }
+.me-drift-chart .me-drift-plot { display: block; min-width: 0; }
+.me-drift-chart svg { display: block; width: 100%; max-height: 310px; overflow: hidden; }
+.me-drift-chart svg text { fill: #405d50; font: 13px system-ui; }
+.me-drift-chart svg .me-drift-axis-title { font-weight: 700; }
+.me-drift-chart svg .me-drift-grid { stroke: #dce5dc; stroke-width: 1; }
+.me-drift-chart svg .me-baseline { stroke: #9a6c20; stroke-width: 1.4; stroke-dasharray: 6 4; }
+.me-drift-chart svg .me-threshold { stroke: #ae663c; stroke-width: 1.4; stroke-dasharray: 2 4; }
+.me-drift-chart svg polyline { stroke-width: 2.5; }
+.me-drift-chart svg .me-drift-point { fill: #147064; stroke: #fffefa; stroke-width: 1.5; }
+.me-drift-chart svg .me-drift-selected { fill: #ae663c; stroke: #fffefa; stroke-width: 2; }
+.me-drift-chart .me-drift-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-bottom: 8px; }
+.me-drift-chart .me-drift-legend span { display: inline-flex; align-items: center; gap: 7px; color: #405d50; font-size: 13px; font-weight: 500; text-transform: none; }
+.me-drift-legend span::before { content: ''; width: 22px; border-top: 3px solid #147064; }
+.me-drift-legend .me-legend-baseline::before { border-top: 2px dashed #9a6c20; }
+.me-drift-legend .me-legend-threshold::before { border-top: 2px dotted #ae663c; }
+.me-drift-chart > div:last-child { grid-template-columns: auto 1fr; align-items: baseline; gap: 6px 16px; padding-top: 12px; border-top: 1px solid #dce5dc; }
+.me-drift-chart > div:last-child > strong { font: 700 21px system-ui; }
+.me-drift-chart > div:last-child > p, .me-drift-chart > div:last-child > b { grid-column: 1 / -1; }

@@ -2,20 +2,20 @@
 
 ## Purpose and scope
 
-Build a visual, interactive learning companion to the local **Visual Guide to Machine Learning** course. Follow its chapter flow and terminology closely. Favor simple, maintainable React/TypeScript and HTML/CSS/SVG visuals over elaborate infrastructure or unnecessary dependencies.
+Build a visual, interactive learning companion to the local **Visual Guide to Machine Learning** course. Follow its chapter flow and terminology closely. Favor simple, maintainable React/TypeScript over elaborate infrastructure or unnecessary dependencies. Choose raster images, SVG, or HTML/CSS visuals according to clarity and source fidelity; SVG is not a requirement.
 
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–9 have implemented content. Chapter 10 currently has a sidebar outline only, taken from the video titles, with quizzes omitted. Check the live manifest before relying on this snapshot.
+- Chapters 1–14 have implemented content. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach
 
-Default to faithful reproduction of the course sources. The approved Naive Bayes lessons 9.5–9.8 demonstrate the preferred visual style and amount of text.
+Default to faithful reproduction of the course sources. Section 9 (Classification Models) is the user-approved reference for how chapters and subchapters should look, and for creating, editing, updating, and reviewing them. The approved Naive Bayes lessons 9.5–9.8 demonstrate the preferred visual style and amount of text. For quality passes on an already liked chapter, preserve its working examples, visuals, and controls; focus on concise framing and concrete clarity or correctness fixes.
 
 1. Inspect the relevant PDF pages visually, the matching subtitles, and any Excel worksheet, including its charts and formulas. Original course files remain read-only.
-2. Reproduce the source explanation: its data, tables, graphs, labels, layout, visual encoding, and calculation sequence. Reuse a legible source-image crop directly when it already teaches the idea well; otherwise recreate it faithfully in HTML/SVG. Do not invent a replacement example or redesign a working explanation merely to make it interactive.
+2. Do not invent replacement graphs, datasets, dashboards, or worked examples when the PDF or Excel already contains a good one. Copy the existing structure, data, visual explanation, and calculation flow; do not reinvent it. Add something new only to resolve a specific teaching gap or at the user’s request. Reproduce the source explanation: its data, tables, graphs, labels, layout, visual encoding, and calculation sequence. Reuse a legible source-image crop directly when it already teaches the idea well; otherwise recreate it faithfully using raster graphics, SVG, or HTML/CSS. Do not invent a replacement example or redesign a working explanation merely to make it interactive.
 3. Add only a short, plain-language definition or assignment in the header. Let the source visual do most of the teaching. Add a brief clarification beside or below a calculation only when it resolves a specific ambiguity, such as its denominator. Avoid buzzwords, repeated explanations, and routine definition/Why/key-terms/summary panels.
 4. Use animation or light interaction only when it helps follow the existing explanation: highlight source records, build a table, reveal calculation steps, or trace a graph. User inputs are optional, not a requirement. For step demonstrations, provide autoplay and Previous/Next; manual stepping pauses playback, autoplay stops on the completed result, and reduced-motion mode shows the completed view.
 5. Check the finished page against the source and the approved visual examples. Preserve meaningful graphs from the PDF and workbook, including axes, scales, legends, values, and important annotations. Omit duplicated slide navigation and decorative mastheads inside the app shell. Keep the app's established theme while preserving the source visual's own meaningful colors and styling.
@@ -38,11 +38,13 @@ Default to faithful reproduction of the course sources. The approved Naive Bayes
 
 ## Visual design and readability
 
+- Generated and reproduced images may be raster graphics (such as PNG or WebP); they do not have to be SVG. Prefer raster images when they give clearer, more faithful results. Choose the format for visual quality, readable labels at the displayed size, and any interaction needs, not a blanket preference for SVG.
+
 - Desktop is the primary target. Do not spend effort on phone-specific polish unless asked.
 - Preserve the established warm teal/cream theme. Do not redesign the palette without a request.
 - Important definitions must stand out, typically around 24–30px or larger on desktop. Do not bury them in small gray introductory text.
 - Break large text blocks into short, labeled pieces. Use selective **bold**, *italics*, and restrained underlining to create a readable hierarchy. Avoid giving everything equal emphasis.
-- Copy meaningful source tables, diagrams, and graphs directly as readable crops or faithful HTML/SVG reproductions; favor these over decorative pictures. A visual should clarify the idea, not simply fill space. Decision trees and process diagrams need visible directional connectors between related nodes; grouped boxes alone do not show a path.
+- Copy meaningful source tables, diagrams, and graphs directly as readable raster/vector crops or faithful reproductions; favor these over decorative pictures. A visual should clarify the idea, not simply fill space. Decision trees and process diagrams need visible directional connectors between related nodes; grouped boxes alone do not show a path.
 - Support optional subchapters. Display their numbering as `2.1`, `4.2`, etc., without leading zeros. Include that number in canonical lesson URLs, for example `#chapter-09/9.4-case-study-knn`. Keep manifest IDs stable and support old unnumbered URLs as aliases.
 - Keep sidebar lesson lists collapsed by default except for the active chapter. Lesson navigation must reopen the active chapter and bring the highlighted current lesson into view; allow manual chapter expansion for browsing. Keep the current lesson visually distinct and provide a small icon-only target button beside Search to reopen and center it in the sidebar. Include the same control in the search dialog; it closes search and reveals the current lesson.
 - Keep sidebar navigation focused on the course outline. Do not restore “The visual guide / A little curiosity…” introductory copy or “Explore at your own pace…” footer copy.
@@ -107,3 +109,7 @@ The user explicitly requests that this file evolve with the project.
 - Keep the 9.14 Decision Tree Pivot optional and collapsed by default, described simply as an alternative table view of the same customer data. The connected decision tree is the primary exploration.
 
 - Keep PDF mentions and source page numbers out of learner-facing captions, controls, and accessibility labels. Preserve explanatory captions; keep source/page provenance in reference documents and code metadata.
+
+- For 10.3, preserve the original up-sampling, down-sampling and weighted-sampling row-and-arrow diagrams. Keep majority/minority definitions separate and brief, with a short warning about majority-only prediction. Use one shared row-color legend and an always-visible simple definition for the selected method; avoid repeated caveat panels, invented accuracy examples, and click-to-read explanations for these basic methods.
+
+- Keep conceptual diagrams free of incidental result counts (10.4 uses TP/FP/FN/TN labels with the separate source numeric example beside it; 10.5 retains counts for metric calculations). Label predicted as model output and actual as the observed evaluation label. Follow the source's actual-above and predicted-at-left bracket placement. Avoid routine learner-facing statements that data is fake or illustrative; keep provenance in source notes, while preserving distinctions needed to explain what a demonstration computes.
