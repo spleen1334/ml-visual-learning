@@ -41,14 +41,19 @@ export function LogisticCase() {
       </section>
       <section className="lrw__model" aria-label="Workbook model controls and chart">
         <div className="lrw__controls">
+          <div className="lrw__query"><strong className="lrw__query-title">Test a specific case</strong><p id="lrw-query-help">Enter emails per week (input X) to predict the probability of unsubscribing.</p><label>Emails Per Week: <input aria-label="Emails per week to predict" aria-describedby="lrw-query-help" type="number" step="any" value={query} onChange={event => setQuery(event.target.value)} /></label><div><span>Unsubscribe Probability:</span><output aria-live="polite">{queryP === null ? '—' : `${(queryP * 100).toFixed(1)}%`}</output></div><p>Prediction uses the saved fitted model.</p></div>
+          <div className="lrw__fit">
+            <h2>Model settings</h2>
+            <div className="lrw__fit-values">
           <div className="lrw__coefficients">
             <label>Select β₀ <input aria-label="Select intercept beta zero" type="number" min={-25} max={0} step={.5} value={b0} disabled={optimized} onChange={event => { if (event.target.value !== '') setIntercept(Math.max(-25, Math.min(0, Number(event.target.value)))) }} /></label>
             <label>Select β₁ <input aria-label="Select slope beta one" type="number" min={0} max={25} step={.5} value={b1} disabled={optimized} onChange={event => { if (event.target.value !== '') setSlope(Math.max(0, Math.min(25, Number(event.target.value)))) }} /></label>
           </div>
           <div className="lrw__objective"><span>LIKELIHOOD*</span><output aria-live="polite">{showModel ? score.toFixed(1) : '—'}</output><label><input type="checkbox" checked={optimized} onChange={event => setOptimized(event.target.checked)} />Optimize · restore saved fit</label></div>
-          <div className="lrw__query"><label>Emails Per Week: <input aria-label="Emails per week to predict" type="number" step="any" value={query} onChange={event => setQuery(event.target.value)} /></label><div><span>Unsubscribe Probability:</span><output aria-live="polite">{queryP === null ? '—' : `${(queryP * 100).toFixed(1)}%`}</output></div></div>
+            </div>
+            <p className="lrw__model-note"><strong>Optimize restores the pre-calculated fitted model.</strong> The course supplies β₀ and β₁; no new optimization runs here. Uncheck to adjust the curve. The table and test case keep using the saved model.</p>
+          </div>
         </div>
-        <p className="lrw__caption">Uncheck Optimize to change the curve. The customer table and query retain the saved model, as in Excel; no new fitting runs here.</p>
         <svg className="lrw__chart" viewBox="0 0 770 420" role="img" aria-label="Workbook chart: emails per week from 0 to 18, unsubscribe probability from minus 20 to 120 percent; observed binary labels, logistic model and unobserved value.">
           <defs><clipPath id="lrw-plot"><rect x="64" y="50" width="660" height="310" /></clipPath></defs>
           {[-.2, 0, .2, .4, .6, .8, 1, 1.2].map(p => <g key={p}><line x1="64" x2="724" y1={sy(p)} y2={sy(p)} className="lrw__grid" /><text x="54" y={sy(p) + 4} textAnchor="end">{Math.round(p * 100)}%</text></g>)}
@@ -69,7 +74,7 @@ export function LogisticCase() {
           <g className="lrw__legend"><line x1="542" x2="565" y1="220" y2="220" className="lrw__curve"/><text x="574" y="224">Logistic Model</text><circle cx="553" cy="242" r="3" className="lrw__observed"/><text x="574" y="246">Observed Values</text><circle cx="553" cy="264" r="4" className="lrw__query-point"/><text x="574" y="268">Unobserved Value</text></g>
         </svg>
         <div className="lrw__chart-controls"><label><input type="checkbox" checked={jitter} onChange={event => setJitter(event.target.checked)}/>Add Jitter</label><label><input type="checkbox" checked={showModel} onChange={event => setShowModel(event.target.checked)}/>Show Model</label></div>
-        {jitter && <p className="lrw__caption">Jitter separates overlapping dots by up to ±0.1 vertically. Observed labels remain 0 or 1; a repeatable spread replaces Excel’s random redraw.</p>}
+        {jitter && <p className="lrw__jitter-note"><strong>Jitter separates overlapping dots</strong> by up to ±0.1 vertically. <strong>Observed labels remain 0 or 1</strong>; a repeatable spread replaces Excel’s random redraw.</p>}
         <p className="lrw__correction">* The worksheet’s “Likelihood” total <strong>adds</strong> each observed-outcome probability. Statistical likelihood <strong>multiplies</strong> them (see 9.19). The saved coefficients are supplied course values.</p>
         <details className="lrw__calculation"><summary>Worksheet calculation</summary><p>Plotted p = 1 / (1 + e<sup>−({b0} + {b1} × emails)</sup>). Each row contributes p if y = 1, or 1 − p if y = 0. The displayed worksheet total is their sum: {showModel ? score.toFixed(6) : 'hidden with model'}.</p><p>The saved model reaches 50% at {( -saved.intercept / saved.slope).toFixed(2)} emails/week. This is the course’s decision point, not evidence that changing email frequency causes a customer to unsubscribe.</p></details>
       </section>

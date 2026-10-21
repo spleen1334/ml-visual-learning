@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import './ClassificationLogistic.css'
 import { LogisticSurface } from './LogisticSurface'
+import { LogisticMultipleInputs } from './LogisticMultipleInputs'
 
 import page136 from '../assets/logistic-page-136.png'
 import page137 from '../assets/logistic-page-137.png'
@@ -23,7 +24,6 @@ import page152 from '../assets/logistic-page-152.png'
 import page153 from '../assets/logistic-page-153.png'
 import page154 from '../assets/logistic-page-154.png'
 import page155 from '../assets/logistic-page-155.png'
-import page156 from '../assets/logistic-page-156.png'
 import page158 from '../assets/logistic-page-158.png'
 
 type SourceSlide = { page: number; src: string; alt: string; caption: string }
@@ -133,7 +133,6 @@ const likelihoodSlides: SourceSlide[] = [
 ]
 
 const multivariateSlides: SourceSlide[] = [
-  { page: 156, src: page156, alt: 'The number of recipients is shown as one input that can help predict spam, alongside other possible features.', caption: 'The course names recipient count, typos, word counts, and sender reputation as possible inputs.' },
   { page: 158, src: page158, alt: 'General logistic equation whose weighted score includes multiple input variables X1 through Xn.', caption: 'The same sigmoid maps a weighted sum of several inputs to a probability. The source notes that plots become harder to interpret beyond two inputs.' },
 ]
 
@@ -191,9 +190,9 @@ export function LogisticLikelihood() {
 
 export function LogisticMultivariate() {
   return <Lesson number={20} title="Multivariate logistic regression" lead="Several input variables can contribute to the weighted score used to estimate one binary outcome’s probability.">
-    <SourceGallery slides={multivariateSlides.slice(0, 1)} label="Multiple inputs" />
+    <LogisticMultipleInputs />
     <LogisticSurface />
-    <SourceGallery slides={multivariateSlides.slice(1)} label="Multiple-input logistic equation" />
+    <SourceGallery slides={multivariateSlides} label="Multiple-input logistic equation" />
   </Lesson>
 }
 

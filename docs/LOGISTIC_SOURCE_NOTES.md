@@ -30,6 +30,8 @@ The worksheet chart (chart7) is an XY scatter with smooth-marker style and three
 
 ## Fidelity and correction boundaries
 
+- Lesson 9.20 also recreates the p.156 recipient-count illustration as native SVG and HTML: the observed-dot positions and curve are visually traced from the source, not recovered raw observations or a newly fitted model. Preserve the original axis ticks, binary labels, turquoise curve/probability arrows, and feature-example wording. The decorative mascot is omitted to match the app’s source-reproduction convention.
+
 - Lesson 9.20 replaces the static p.157 surface with a rotatable SVG projection of a two-input logistic surface. It preserves X₁/X₂, probability height from 0 to 1, and the turquoise-to-yellow encoding. Since the source supplies no surface coefficients or numeric input scales, the recreation explicitly uses illustrative β₀=0, β₁=β₂=1 with internal input ranges −3 to 3; it does not claim an exact fitted-source reconstruction. Rotation/elevation change only the view, not the probabilities.
 
 - Preserve the binary observed labels at 0/1, the probability curve, its unit-labelled input axis, the 0.5 reference, and the case-study data/table separately from the synthetic spam/quit illustrations. Keep probability distinct from a class prediction: a threshold is a decision rule, and the source's threshold examples depend on the relative cost of errors.
