@@ -30,9 +30,11 @@ The workbook's test class boundary is **probability > 0.5**. Its data was derive
 
 ## Adaptation boundaries
 
+- Lesson 9.23 retains the source sentence and adds compact illustrative before/after examples for case, punctuation, spelling, encoding, stems, lemmas, and task-specific stop words. The `studies → studi` stem illustrates rule-based trimming (method-dependent); `studies → study` illustrates a dictionary lemma. These additional examples explain vocabulary, not extra required preprocessing steps. Preserve negation and other task-relevant signals.
+
 - Lessons 9.22–9.24 stay close to the PDF's examples. Cleaning is shown as a fixed, inspectable sequence rather than a generalized cleaning dashboard. The bag-of-words table is binary word presence and explicitly distinguishes it from frequency-count variants.
 - Lesson 9.25 includes all 47 training rows, all 25 features, the saved labels/probabilities/row scores, all 25 saved coefficients, all seven test rows and the saved predictions. Wide source tables scroll inside their own containers.
-- The model applies cached fitted coefficients; it does not claim to fit or optimize a new model in the browser. A selected test row traces its active coefficients through the intercept and sigmoid. The aggregate AJ52 score is described exactly as stored, not as a conventional likelihood.
+- The model starts with cached fitted coefficients. Optimize is a reversible switch: on uses the saved workbook coefficients; off uses persistent manual values initialized to zero as an explicitly illustrative unoptimized baseline. Manual edits are available only with Optimize off. No new fitting runs. Current coefficients drive training predictions, per-row likelihoods, the worksheet sum, and unseen-review predictions. Human labels and source sheet classes remain fixed. A selected test row traces its active coefficients through the intercept and sigmoid. The aggregate AJ52 score is described exactly as stored, not as a conventional likelihood.
 - Keep test class outputs separate from evaluation labels. Do not calculate or report test accuracy from AG57:AG63. The source's final disagreement is described as the instructor's likely human judgment, not a stored truth label.
 - The workbook story names Mark Twain in the subtitles but the case slide/video uses Bark Twain the Data Dog. Use the slide/video name consistently and call the case fictional.
 
