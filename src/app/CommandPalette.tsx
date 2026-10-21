@@ -5,7 +5,7 @@ import './CommandPalette.css'
 
 const searchIndex = createCourseSearchIndex(chapters)
 
-export default function CommandPalette() {
+export default function CommandPalette({ onFocusCurrentLesson }: { onFocusCurrentLesson: () => void }) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
@@ -75,7 +75,7 @@ export default function CommandPalette() {
       onCancel={event => { event.preventDefault(); setOpen(false) }}
       onClick={event => { if (event.target === event.currentTarget) setOpen(false) }}>
       <div className="course-search-panel">
-        <div className="course-search-heading"><h2 id="course-search-title">Find a chapter or lesson</h2><button type="button" className="course-search-close" onClick={() => setOpen(false)} aria-label="Close course search">Esc</button></div>
+        <div className="course-search-heading"><h2 id="course-search-title">Find a chapter or lesson</h2><button type="button" className="course-search-focus" aria-label="Focus current lesson" title="Close search and center the current lesson in the sidebar" onClick={() => { setOpen(false); onFocusCurrentLesson() }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="2" /><path d="M12 2v4m0 12v4M2 12h4m12 0h4" /></svg></button><button type="button" className="course-search-close" onClick={() => setOpen(false)} aria-label="Close course search">Esc</button></div>
         <label className="course-search-label" htmlFor="course-search-input">Search by number, title, or outline text</label>
         <input ref={input} id="course-search-input" className="course-search-input" type="text" role="combobox"
           autoComplete="off" spellCheck={false} placeholder="Try 9.4, regression, or empty values…" value={query}

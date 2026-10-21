@@ -25,3 +25,8 @@
 .course-search-help kbd { padding: 1px 4px; border: 1px solid #cfd8cc; border-radius: 3px; background: var(--white); font: inherit; }
 @media (max-width: 850px) { .course-search-trigger { width: auto; margin-bottom: 14px; gap: 10px; } }
 @media (max-width: 620px) { .course-search-dialog { margin-top: 24px; width: calc(100vw - 24px); max-height: calc(100dvh - 48px); } .course-search-panel { padding: 20px 16px 0; max-height: calc(100dvh - 48px); } .course-search-heading h2 { font-size: 23px; } .course-search-kind { display: none; } .course-search-help { margin-right: -16px; margin-left: -16px; padding: 12px 16px; } }
+
+.course-search-heading h2 { margin-right: auto; }
+.course-search-focus { display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 5px; color: var(--teal-dark); background: transparent; cursor: pointer; }
+.course-search-focus:hover { background: var(--teal-soft); }
+.course-search-focus:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
