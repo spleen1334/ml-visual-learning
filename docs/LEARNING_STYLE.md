@@ -52,3 +52,7 @@ Use the source scenario to show the method’s purpose; a short sentence or anno
 - Keep the 9.14 Decision Tree Pivot optional and collapsed by default, described simply as an alternative table view of the same customer data. The connected decision tree is the primary exploration.
 
 - Keep PDF mentions and source page numbers out of learner-facing captions, controls, and accessibility labels. Preserve explanatory captions; keep source/page provenance in reference documents and code metadata.
+
+- The revised Chapter 12 is also a user-approved style reference: adapt the source’s working visual structure, preserve complete examples, use selectable text/tables, and add only brief clarification. Preserve this style in future lessons. Add a focused visual example when a conceptual comparison feels too dry, without inventing fitted results.
+
+- Excel case studies preserve the worksheet’s spatial grouping: data beside charts, with parameters and forecasts above the relevant chart. Do not scatter connected tables into separate lesson panels.

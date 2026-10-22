@@ -1,134 +1,132 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import equation from '../assets/regression-modeling-205.png'
+import patterns from '../assets/regression-modeling-206.png'
+import perfectLine from '../assets/regression-modeling-207.png'
+import noisyLines from '../assets/regression-modeling-208.png'
+import step1 from '../assets/least-squares-step-1.png'
+import step2 from '../assets/least-squares-step-2.png'
+import step3 from '../assets/least-squares-step-3.png'
+import step4 from '../assets/least-squares-step-4.png'
+import step5 from '../assets/least-squares-step-5.png'
 import './RegressionModeling.css'
 import './RegressionFoundations.css'
 
 function Lesson({ number, title, lead, children }: { number: string; title: string; lead: string; children: ReactNode }) {
-  return <article className="regression-modeling" aria-labelledby={`rf-${number}-title`}><header><p className="rm-eyebrow">Chapter 13 · Lesson {number}</p><h1 id={`rf-${number}-title`}>{title}</h1><p>{lead}</p></header>{children}</article>
+  return <article className="regression-modeling regression-foundations" aria-labelledby={`rf-${number}-title`}><header><p className="rm-eyebrow">Chapter 13 · Lesson {number}</p><h1 id={`rf-${number}-title`}>{title}</h1><p>{lead}</p></header>{children}</article>
 }
 
-function Definition({ children }: { children: ReactNode }) {
-  return <section className="rm-definition"><p className="rm-eyebrow">The central idea</p><h2>{children}</h2></section>
-}
-
-function Summary({ children }: { children: ReactNode }) {
-  return <aside className="rm-summary"><span>✓</span><p>{children}</p></aside>
-}
-
-type Point = { x: number; y: number }
-
-const observations: Point[] = [
-  { x: 10, y: 10 }, { x: 20, y: 25 }, { x: 30, y: 20 }, { x: 35, y: 30 }, { x: 40, y: 40 },
-  { x: 50, y: 15 }, { x: 60, y: 40 }, { x: 65, y: 30 }, { x: 70, y: 50 }, { x: 80, y: 40 },
-]
-
-function TaxiGraph({ rate, selectedRide }: { rate: number; selectedRide: number }) {
-  const left = 42
-  const right = 286
-  const top = 15
-  const bottom = 194
-  const px = (km: number) => left + km / 10 * (right - left)
-  const py = (fare: number) => bottom - fare / 35 * (bottom - top)
-  const fare = (km: number) => 3 + rate * km
-  const steps = [0, 2, 4, 6, 8, 10]
-  return <svg className="rf-chart" viewBox="0 0 310 230" role="img" aria-label={`Taxi fare starts at 3 euros and rises by ${rate.toFixed(1)} euros per kilometre. Selected ride: ${selectedRide} kilometres.`}>
-    {[0, 10, 20, 30].map(value => <g key={`y-${value}`}><line className="rf-grid" x1={left} y1={py(value)} x2={right} y2={py(value)} /><text x={left - 8} y={py(value) + 4} textAnchor="end">€{value}</text></g>)}
-    {steps.map(value => <g key={`x-${value}`}><line className="rf-grid rf-grid-vertical" x1={px(value)} y1={top} x2={px(value)} y2={bottom} /><text x={px(value)} y={bottom + 16} textAnchor="middle">{value}</text></g>)}
-    <line className="rf-axis" x1={left} y1={bottom} x2={right} y2={bottom} /><line className="rf-axis" x1={left} y1={top} x2={left} y2={bottom} />
-    <path className="rf-taxi-line" d={`M${px(0)} ${py(fare(0))} L${px(10)} ${py(fare(10))}`} />
-    <line className="rf-rise" x1={px(4)} y1={py(fare(4))} x2={px(4)} y2={py(fare(6))} />
-    <line className="rf-run" x1={px(4)} y1={py(fare(4))} x2={px(6)} y2={py(fare(4))} />
-    <circle className="rf-intercept-dot" cx={px(0)} cy={py(3)} r="5" />
-    <text className="rf-label" x={px(0) + 7} y={py(3) - 8}>Intercept €3</text>
-    <text className="rf-label" x={px(6) + 5} y={py(fare(4)) + 4}>run +2 km</text>
-    <text className="rf-label" x={px(4) + 6} y={(py(fare(4)) + py(fare(6))) / 2}>rise +€{(rate * 2).toFixed(1)}</text>
-    <line className="rf-selection" x1={px(selectedRide)} y1={bottom} x2={px(selectedRide)} y2={py(fare(selectedRide))} />
-    <circle className="rf-selected-point" cx={px(selectedRide)} cy={py(fare(selectedRide))} r="7" />
-    <text className="rf-label" x={px(selectedRide) + 7} y={py(fare(selectedRide)) - 9}>{selectedRide} km · €{fare(selectedRide).toFixed(2)}</text>
-    <text x="165" y="225" textAnchor="middle">Distance · km</text><text x="12" y="105" transform="rotate(-90 12 105)" textAnchor="middle">Fare</text>
-  </svg>
-}
-
-const patternPoints = {
-  positive: [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 2.7 }, { x: 3, y: 4 }, { x: 4, y: 4.7 }],
-  negative: [{ x: 0, y: 4.7 }, { x: 1, y: 4 }, { x: 2, y: 3.3 }, { x: 3, y: 2 }, { x: 4, y: 1.2 }],
-  log: [{ x: 0, y: 1 }, { x: 1, y: 3.6 }, { x: 2, y: 4.5 }, { x: 3, y: 4.9 }, { x: 4, y: 5 }],
-  none: [{ x: 0, y: 3.9 }, { x: 1, y: 1.3 }, { x: 2, y: 4.6 }, { x: 3, y: 2.4 }, { x: 4, y: 3.4 }],
-}
-
-function MiniPattern({ title, type }: { title: string; type: keyof typeof patternPoints }) {
-  const points = patternPoints[type]
-  const px = (x: number) => 12 + x * 32
-  const py = (y: number) => 67 - y * 10
-  const trend = type === 'positive' ? `M${px(0)} ${py(1)} L${px(4)} ${py(5)}` : type === 'negative' ? `M${px(0)} ${py(5)} L${px(4)} ${py(1)}` : type === 'log' ? `M${px(0)} ${py(1)} C${px(1)} ${py(4.5)} ${px(2)} ${py(5)} ${px(4)} ${py(5)}` : ''
-  return <div className="rf-mini"><strong>{title}</strong><svg viewBox="0 0 160 82" role="img" aria-label={`${title} scatterplot`}><line className="rf-axis" x1="10" y1="68" x2="150" y2="68" /><line className="rf-axis" x1="10" y1="8" x2="10" y2="68" />{trend && <path className={`rf-mini-trend rf-mini-${type}`} d={trend} />}{points.map((point, index) => <circle key={index} className="rf-mini-dot" cx={px(point.x)} cy={py(point.y)} r="3.3" />)}</svg></div>
+function SourceFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return <figure className={`rf-source-figure ${className}`}><img src={src} alt={alt} /></figure>
 }
 
 export function RMLinearRelationships() {
-  const [rate, setRate] = useState(1.5)
-  const [ride, setRide] = useState(6)
-  const fare = 3 + rate * ride
-  return <Lesson number="13.2" title="Linear relationships" lead="A linear relationship changes at a steady rate: equal steps in the input produce equal steps in the outcome.">
-    <Definition>For a straight line, <strong>y = α + βx</strong>. The <strong>intercept α</strong> is the outcome when x is zero; the <strong>slope β</strong> is how much y changes for each one-unit increase in x.</Definition>
+  return <Lesson number="13.2" title="Linear relationships" lead="A linear relationship changes at a steady rate: equal steps in x produce equal steps in y.">
     <section className="rm-panel">
-      <h2>A taxi fare has a starting charge and a rate</h2>
-      <p>Use a plausible fare model: €3 to start, then a positive charge per kilometre. The line begins at €3 and rises at the same rate for every kilometre.</p>
-      <div className="rf-controls"><label className="rm-control">Rate β: €{rate.toFixed(2)} per km<input aria-label="Taxi price per kilometre" type="range" min="0.5" max="3" step="0.25" value={rate} onChange={event => setRate(Number(event.target.value))} /></label><label className="rm-control">Selected ride: {ride} km<input aria-label="Selected ride distance" type="range" min="1" max="10" step="1" value={ride} onChange={event => setRide(Number(event.target.value))} /></label></div>
-      <div className="rf-taxi-layout"><TaxiGraph rate={rate} selectedRide={ride} /><div className="rf-equation-card"><span>Fare equation</span><strong>Fare = €3 + €{rate.toFixed(2)} × distance</strong><p><b>Intercept:</b> €3 at 0 km</p><p><b>Selected ride:</b> €3 + €{rate.toFixed(2)} × {ride} = <strong>€{fare.toFixed(2)}</strong></p><p className="rm-note">Every additional 2 km adds €{(rate * 2).toFixed(2)} at this fixed rate. The slider cannot make the fare rate negative.</p></div></div>
+      <h2>A straight line has an intercept and a slope</h2>
+      <SourceFigure src={equation} alt="The source equation y equals alpha plus beta x, with arrows labeling y as the outcome, x as the input, alpha as the y-intercept, and beta as slope (rise over run); the adjacent graph marks the intercept and slope." className="rf-equation-figure" />
+      <p><strong>y = α + βx.</strong> The intercept α is y when x is zero. The slope β is the change in y for each one-unit increase in x.</p>
     </section>
-    <section className="rm-panel"><h2>Four common patterns in the points</h2><p>Each mini-plot uses observed points. A log-shaped pattern curves while its rate changes; it is not the same shape as a straight line.</p><div className="rf-minis"><MiniPattern title="Positive linear" type="positive" /><MiniPattern title="Negative linear" type="negative" /><MiniPattern title="Log-shaped curve" type="log" /><MiniPattern title="No clear relationship" type="none" /></div></section>
-    <Summary><strong>Remember:</strong> slope tells the direction and steady rate of a line; the intercept tells where it meets the y-axis. Real data can show positive, negative, curved, or no clear relationship.</Summary>
+    <section className="rm-panel">
+      <h2>Four patterns in observed data</h2>
+      <SourceFigure src={patterns} alt="Four source scatterplots: positive linear, negative linear, nonlinear logarithmic, and no relationship." className="rf-pattern-figure" />
+      <div className="rf-pattern-explanations">
+        <div><h3>Positive linear</h3><p>As <strong>x increases, y tends to increase</strong>. The points follow an upward straight trend, with a roughly steady change in y for each extra unit of x.</p></div>
+        <div><h3>Negative linear</h3><p>As <strong>x increases, y tends to decrease</strong>. The points follow a downward straight trend, again with a roughly steady rate of change.</p></div>
+        <div><h3>Non-linear</h3><p>The points follow a <strong>curve</strong>, so the rate changes. In this logarithmic example, y rises quickly at first, then increases more slowly as x grows.</p></div>
+        <div><h3>No relationship</h3><p>The points form a cloud with <strong>no clear upward, downward, or curved trend</strong>. Here, knowing x gives little guidance about y.</p></div>
+      </div>
+    </section>
+    <section className="rm-panel rf-perfect-noisy">
+      <div><h2>A perfect line is rare in real data</h2><p>With a perfectly linear relationship, every point lies on one line and y can be calculated exactly from x. Real observations vary around candidate lines; least squares compares their errors.</p></div>
+      <SourceFigure src={perfectLine} alt="A source graph where every observed point lies on one straight line, illustrating a perfectly linear relationship." />
+      <SourceFigure src={noisyLines} alt="The ten noisy source observations with three candidate straight lines. The source explains that variance allows several lines to fit the data and introduces least squared error for choosing a best fit." />
+    </section>
   </Lesson>
 }
 
 type Candidate = 'first' | 'second'
+type Point = { x: number; y: number }
+const observations: Point[] = [
+  { x: 10, y: 10 }, { x: 20, y: 25 }, { x: 30, y: 20 }, { x: 35, y: 30 }, { x: 40, y: 40 },
+  { x: 50, y: 15 }, { x: 60, y: 40 }, { x: 65, y: 30 }, { x: 70, y: 50 }, { x: 80, y: 40 },
+]
 const candidates: Record<Candidate, { label: string; alpha: number; beta: number }> = {
   first: { label: 'y = 10 + 0.5x', alpha: 10, beta: 0.5 },
   second: { label: 'y = 12 + 0.4x', alpha: 12, beta: 0.4 },
 }
 
-function calculateSse(candidate: Candidate) {
+function calculateRows(candidate: Candidate) {
   const { alpha, beta } = candidates[candidate]
-  return observations.reduce((total, point) => total + (point.y - (alpha + beta * point.x)) ** 2, 0)
-}
-
-function ResidualGraph({ candidate, selectedX, rows }: { candidate: Candidate; selectedX: number; rows: { x: number; y: number; prediction: number; residual: number }[] }) {
-  const model = candidates[candidate]
-  const px = (x: number) => 42 + x / 80 * 250
-  const py = (y: number) => 205 - y / 55 * 180
-  return <svg className="rf-chart rf-residual-chart" viewBox="0 0 310 238" role="img" aria-label={`${model.label} with observed points and vertical residuals; selected observation x equals ${selectedX}`}>
-    {[0, 10, 20, 30, 40, 50].map(y => <g key={`y-${y}`}><line className="rf-grid" x1="42" y1={py(y)} x2="292" y2={py(y)} /><text x="34" y={py(y) + 4} textAnchor="end">{y}</text></g>)}
-    {[0, 20, 40, 60, 80].map(x => <g key={`x-${x}`}><line className="rf-grid rf-grid-vertical" x1={px(x)} y1="25" x2={px(x)} y2="205" /><text x={px(x)} y="222" textAnchor="middle">{x}</text></g>)}
-    <line className="rf-axis" x1="42" y1="205" x2="292" y2="205" /><line className="rf-axis" x1="42" y1="25" x2="42" y2="205" />
-    <path className="rf-taxi-line" d={`M${px(0)} ${py(model.alpha)} L${px(80)} ${py(model.alpha + model.beta * 80)}`} />
-    {rows.map(row => <g key={row.x}><line className={`rf-residual${row.x === selectedX ? ' rf-residual-selected' : ''}`} x1={px(row.x)} y1={py(row.y)} x2={px(row.x)} y2={py(row.prediction)} /><circle className={`rf-observed${row.x === selectedX ? ' rf-observed-selected' : ''}`} cx={px(row.x)} cy={py(row.y)} r={row.x === selectedX ? 6 : 4} /><circle className={`rf-predicted${row.x === selectedX ? ' rf-predicted-selected' : ''}`} cx={px(row.x)} cy={py(row.prediction)} r={row.x === selectedX ? 5 : 3} /></g>)}
-    <text x="166" y="237" textAnchor="middle">Input x</text><text x="12" y="112" transform="rotate(-90 12 112)" textAnchor="middle">Outcome y</text><text className="rf-legend" x="53" y="17">● actual  ○ predicted  │ residual</text>
-  </svg>
-}
-
-export function RMLeastSquares() {
-  const [candidate, setCandidate] = useState<Candidate>('first')
-  const [selectedX, setSelectedX] = useState(35)
-  const model = candidates[candidate]
-  const rows = useMemo(() => observations.map(point => {
-    const prediction = model.alpha + model.beta * point.x
+  return observations.map(point => {
+    const prediction = alpha + beta * point.x
     const residual = point.y - prediction
     return { ...point, prediction, residual, squared: residual ** 2 }
-  }), [model])
-  const selected = rows.find(row => row.x === selectedX)!
-  const first35 = observations.find(row => row.x === 35)!.y - (10 + 0.5 * 35)
-  const second35 = observations.find(row => row.x === 35)!.y - (12 + 0.4 * 35)
-  return <Lesson number="13.3" title="Least squared error" lead="Least squares compares candidate lines by adding the squared vertical gaps between actual outcomes and predictions.">
-    <Definition>A <strong>residual</strong> is actual y minus predicted y. Square each residual, then add them: <strong>SSE = Σ(actual − predicted)²</strong>. The lower total is the better fit among the candidates being compared.</Definition>
-    <section className="rm-panel">
-      <h2>Compare the two source candidate lines</h2>
-      <p>These are the exact ten source observations. Select a candidate line, then select any input value to link its point, residual, and table row.</p>
-      <div className="rm-choice" role="group" aria-label="Choose candidate regression line">{(['first', 'second'] as Candidate[]).map(key => <button key={key} aria-pressed={candidate === key} onClick={() => setCandidate(key)}>{candidates[key].label}</button>)}</div>
-      <div className="rf-sse-comparison"><div aria-current={candidate === 'first' ? 'true' : undefined}><span>Candidate 1</span><strong>y = 10 + 0.5x</strong><b>SSE = {calculateSse('first').toFixed(1)}</b></div><div aria-current={candidate === 'second' ? 'true' : undefined}><span>Candidate 2</span><strong>y = 12 + 0.4x</strong><b>SSE = {calculateSse('second').toFixed(0)}</b></div><p>Candidate 2 has the smaller overall SSE, even though its residual at x = 35 is worse: {first35.toFixed(1)} for Candidate 1 versus {second35.toFixed(1)} for Candidate 2. The improvements at x = 50, 65, and 80 more than offset that local increase.</p></div>
-      <div className="rf-trace-layout"><div><ResidualGraph candidate={candidate} selectedX={selectedX} rows={rows} /><label className="rm-control">Selected record x = {selectedX}<input aria-label="Select source observation by x" type="range" min="10" max="80" step="5" value={selectedX} onChange={event => setSelectedX(Number(event.target.value))} /></label></div><div className="rf-selected-card"><span>Selected source record · x = {selected.x}</span><strong>Actual y = {selected.y}</strong><b>Prediction = {model.alpha} + {model.beta} × {selected.x} = {selected.prediction.toFixed(1)}</b><p>Residual = actual − prediction</p><p>{selected.y} − {selected.prediction.toFixed(1)} = <strong>{selected.residual.toFixed(1)}</strong></p><p>Residual² = ({selected.residual.toFixed(1)})² = <strong>{selected.squared.toFixed(2)}</strong></p></div></div>
-      <div className="rm-table-wrap rf-record-table"><table><caption>Source records and their contribution to the selected line’s SSE · active record highlighted</caption><thead><tr><th>x</th><th>Actual y</th><th>Predicted y</th><th>Actual − predicted</th><th>Residual²</th></tr></thead><tbody>{rows.map(row => <tr key={row.x} className={row.x === selectedX ? 'rf-active-record' : ''} onClick={() => setSelectedX(row.x)} aria-selected={row.x === selectedX}><td>{row.x}</td><td>{row.y}</td><td>{row.prediction.toFixed(1)}</td><td>{row.residual.toFixed(1)}</td><td>{row.squared.toFixed(2)}</td></tr>)}</tbody><tfoot><tr><th colSpan={4}>Displayed SSE total</th><th>{rows.reduce((total, row) => total + row.squared, 0).toFixed(candidate === 'first' ? 1 : 0)}</th></tr></tfoot></table></div>
-      <p className="rm-note">The plotted residual connectors show vertical errors. A selected connector and table row stay linked. Squaring makes errors non-negative and gives larger gaps more influence.</p>
+  })
+}
+
+function totalSse(candidate: Candidate) {
+  return calculateRows(candidate).reduce((total, row) => total + row.squared, 0)
+}
+
+const steps = [
+  { title: 'Plot the observations', description: 'Plot each (x, y) pair and record the observed values.', image: step1 },
+  { title: 'Draw a candidate line', description: 'Use y = 10 + 0.5x to calculate a predicted y for every x.', image: step2 },
+  { title: 'Calculate each residual', description: 'A residual is the prediction error: actual y − predicted y. The dashed vertical gap joins an observation to the line at the same x.', image: step3 },
+  { title: 'Square the residuals and add them', description: 'The sum of squared errors (SSE) measures the total squared error for this line.', image: step4 },
+  { title: 'Try another line and compare', description: 'Repeat the calculation with y = 12 + 0.4x. Its smaller SSE means a closer overall fit to the same ten observations.', image: step5 },
+]
+
+export function RMLeastSquares() {
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [step, setStep] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 4 : 0)
+  const [playing, setPlaying] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => { setReducedMotion(query.matches); if (query.matches) { setPlaying(false); setStep(4) } }
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+  useEffect(() => {
+    if (!playing || reducedMotion) return
+    const timer = window.setTimeout(() => {
+      if (step === 4) setPlaying(false)
+      else setStep(step + 1)
+    }, 5500)
+    return () => window.clearTimeout(timer)
+  }, [playing, reducedMotion, step])
+  const candidate: Candidate = step === 4 ? 'second' : 'first'
+  const rows = calculateRows(candidate)
+  const navigate = (next: number) => { setPlaying(false); setStep(next) }
+  return <Lesson number="13.3" title="Least squared error" lead="Find the line that minimizes the total squared prediction error across the dataset.">
+    <section className="rm-panel rf-error-definition">
+      <h2>What is a residual?</h2>
+      <p>A <strong>residual</strong> is an error: the difference between an observed value and the value predicted by the line.</p>
+      <p className="rf-formula">Residual = actual y − predicted y</p>
+      <p>For x = 10, the first line predicts 15, but the observed y is 10. The residual is <strong>10 − 15 = −5</strong>. Above the line, residuals are positive; below it, they are negative.</p>
     </section>
-    <Summary><strong>Remember:</strong> least squares minimizes the sum, not every individual residual. A candidate can have a worse error for one record and still have the lower overall SSE.</Summary>
+    <section className="rm-panel rf-walkthrough">
+      <h2>Least squares, step by step</h2>
+      <ol className="rf-step-strip" aria-label="Five steps of least squares">{steps.map((item, index) => <li key={item.title} aria-current={step === index ? 'step' : undefined}><button onClick={() => navigate(index)}><span>Step {index + 1}</span>{item.title}</button></li>)}</ol>
+      <div className="rm-choice rf-playback"><button onClick={() => navigate(Math.max(0, step - 1))} disabled={step === 0}>Previous step</button><button disabled={reducedMotion} onClick={() => { if (step === 4) setStep(0); setPlaying(!playing) }}>{playing ? 'Pause' : step === 4 ? 'Replay five steps' : 'Play'}</button><button onClick={() => navigate(Math.min(4, step + 1))} disabled={step === 4}>Next step</button></div>
+      <div className="rf-step-caption"><h3>Step {step + 1}: {steps[step].title}</h3><p>{steps[step].description}</p></div>
+      <div className="rf-slide-layout">
+        <figure className="rf-step-graph"><img src={steps[step].image} alt={step === 0 ? 'Ten observed points on a scatterplot, with x from 10 to 80 and y from 10 to 50.' : `${candidates[candidate].label} drawn through the same ten points${step >= 2 ? ', with dashed vertical residuals' : ''}${step === 4 ? '; the first line remains faintly visible for comparison' : ''}.`} /></figure>
+        <div className="rm-table-wrap rf-step-table"><table><caption>Same ten observations at every step</caption><thead><tr><th>x</th><th>Actual y</th>{step >= 1 && <th>Predicted y</th>}{step >= 2 && <th>Residual</th>}{step >= 3 && <th>Residual²</th>}</tr></thead><tbody>{rows.map(row => <tr key={row.x}><td>{row.x}</td><td>{row.y}</td>{step >= 1 && <td>{row.prediction}</td>}{step >= 2 && <td>{row.residual}</td>}{step >= 3 && <td>{row.squared}</td>}</tr>)}</tbody>{step >= 3 && <tfoot><tr><th colSpan={4}>SSE</th><td>{totalSse(candidate)}</td></tr></tfoot>}</table></div>
+      </div>
+      {step >= 2 && <p className="rf-worked-residual">At x = 10: actual <strong>10</strong> − predicted <strong>{rows[0].prediction}</strong> = residual <strong>{rows[0].residual}</strong>{step >= 3 && <> → squared error <strong>({rows[0].residual})² = {rows[0].squared}</strong></>}</p>}
+      {step >= 3 && <p className="rf-formula">SSE = sum of all ten squared residuals = <strong>{totalSse(candidate)}</strong></p>}
+    </section>
+    <section className="rm-panel">
+      <h2>Why square the errors?</h2>
+      <div className="rf-pattern-explanations"><div><h3>Errors cannot cancel out</h3><p>Positive and negative residuals can add to zero even when predictions are wrong. Squaring makes them non-negative: <strong>(−5)² = 25</strong> and <strong>(+5)² = 25</strong>, so both errors count.</p></div><div><h3>Large errors count more</h3><p>An error of 10 contributes <strong>100</strong>; an error of 5 contributes <strong>25</strong>. Doubling an error makes its squared contribution four times larger, so outliers can strongly influence the fitted line.</p></div></div>
+      <p>Squaring also gives a smooth objective that software can optimize efficiently.</p>
+    </section>
+    <section className="rm-panel">
+      <h2>Lower SSE means a better fit to these data</h2>
+      <div className="rf-sse-comparison"><div><span>Candidate 1</span><strong>y = 10 + 0.5x</strong><b>SSE = 862.5</b></div><div className="rf-better-fit"><span>Candidate 2 · lower error</span><strong>y = 12 + 0.4x</strong><b>SSE = 722</b></div></div>
+      <p><strong>722 is lower than 862.5</strong>, so the second line fits this dataset better overall. It need not improve the error for every individual point.</p>
+      <p>Keep the dataset fixed and repeat the fit calculation with different intercepts and slopes, seeking the <strong>smallest possible SSE</strong>. These two lines illustrate the comparison; the second is not necessarily the best possible line. Software finds the minimizing parameters efficiently, rather than relying on repeated guesses.</p>
+    </section>
   </Lesson>
 }

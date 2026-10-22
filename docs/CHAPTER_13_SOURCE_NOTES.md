@@ -28,3 +28,30 @@ I reviewed the eight numbered VTTs in `../13. Regression Modeling 101/`, pages 2
 - A lower training SSE after adding predictors does not prove a better model for new records. Do not repeat the source's loose “more accurate” wording without the held-out-data boundary.
 - Transformations depend on the observed relationship and valid data (for example, positive values for a logarithm). A log transform does not handle every nonlinear pattern.
 - Regression coefficients and historical ad spend/revenue patterns do not establish causal return on spend.
+
+## Source-fidelity revision — 2026-10-22
+
+The user requested the approved Chapters 9, 10 and revised 12 approach: reproduce working source explanations, with short framing rather than substitute examples or controls. Visually re-inspected pages 204–225; checked matching narration and workbook chart/formula definitions.
+
+- Restore the four dense scatter patterns (206), perfect/noisy comparison (207–208), annotated equation (215), two views of the fitted plane (218), Airbnb source data/prediction excerpts (219/221), and both paired transformation examples (223/224).
+- Airbnb excerpts are the complete visible slide examples, not the complete original Airbnb dataset. Source SSE values are supplied model results and cannot be recomputed from a truncated slide excerpt. Preserve the source model coefficients and flag held-out evaluation separately.
+- Cone Zone worksheet has ten dated rows, a manual candidate starting at intercept 2 and slope 0.78 (SSE 773.25), separate fitted trendline `10.867 + 0.6958x`, and a 35°C forecast (35.22 cones). Preserve the separate manual candidate and fitted forecast instead of changing the forecast equation whenever the manual candidate changes.
+- Maven Marketing contains all 1,000 dated records (2019-01-01 through 2021-09-26), natural-log spend and two prediction columns. Preserve the complete table, full scatter and two regression output blocks. Saved chart visibility is raw linear off, log-spend on. The former six-record chart and invented campaign-budget slider did not reproduce this worksheet.
+- Slides 223–224 label formulae with `ln` but plotted transformed scales appear base-10 (spend about 1.2–2.4 and population about 3–6.5). Preserve original source graphs as conceptual before/after visuals; do not derive natural-log numeric substitutions from those axes. Workbook `LN` values and fitted coefficients use natural logarithms consistently. Changing logarithm base changes the coefficient scale, not whether the relationship becomes straight.
+- The source's blanket wording that simple regression is rarely used is omitted; the lesson focuses on its definition and mechanics. The transformed models remain linear in their fitted coefficients; this is one approach to a nonlinear relationship, not a definition of every nonlinear regression model.
+
+### Lesson 13.3 five-step correction
+
+User requested the original 210–214 graph sequence instead of a record inspector. Use direct graph crops with selectable, progressively revealed full tables and the source five steps. Define residual as actual minus predicted (source tables use the opposite sign; SSE unchanged), explain non-cancellation, large-error weighting and smooth optimization, compare 862.5 with 722, and distinguish a better candidate from the global least-squares optimum. Autoplay stops after step five, manual navigation pauses it, replay restarts it, and reduced-motion opens the completed result.
+
+### Lesson 13.5 worksheet layout correction
+
+Re-inspected sheet13 cells B2:E13, G2:J4, M2:N3 and drawing11 anchors: main data at left, chart F4:U28, parameters/SSE and forecast above chart. Rebuilt as one shared worksheet surface with all ten rows, source defaults and four source chart toggles (including restored error lines). Candidate calculation helper table stays available in a disclosure below, corresponding to the worksheet’s out-of-view chart-source columns. Residual sign remains actual minus predicted, as in 13.3; squared values match.
+
+### 13.5 requested line clarification
+
+User requested manual line enabled by default and clearer fitted coefficients, SSE, forecast input and dynamic predictions. Manual fit starts visible (departure from saved workbook); fitted table/forecast remain initial selection. Explicit radio selection links table, forecast curve and new-day forecast to either manual or fitted model independently of visibility toggles. Manual values are orange; fitted values teal. Added y-hat/alpha/beta notation, fitted SSE 329.59 (using supplied rounded coefficients), and temperature hover/focus tooltip.
+
+### 13.5 fitted coefficient toggle
+
+Replaced the prediction radio selector with a compact “Use fitted α and β” toggle beside the parameter inputs. Starts manual; enabling applies 10.867 and 0.6958 to inputs, line, SSE, table and forecast; disabling restores prior manual edits. Inputs are disabled while fitted values are applied. Added the requested smallest-squared-error explanation beside the fitted equation. Browser checked application (14.346 / 35.22) and manual restoration after intercept edit to 4 (7.900 / 31.30). All 110 tests and build passed before the final copy-only sentence.

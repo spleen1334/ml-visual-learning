@@ -113,3 +113,13 @@ The user explicitly requests that this file evolve with the project.
 - For 10.3, preserve the original up-sampling, down-sampling and weighted-sampling row-and-arrow diagrams. Keep majority/minority definitions separate and brief, with a short warning about majority-only prediction. Use one shared row-color legend and an always-visible simple definition for the selected method; avoid repeated caveat panels, invented accuracy examples, and click-to-read explanations for these basic methods.
 
 - Keep conceptual diagrams free of incidental result counts (10.4 uses TP/FP/FN/TN labels with the separate source numeric example beside it; 10.5 retains counts for metric calculations). Label predicted as model output and actual as the observed evaluation label. Follow the source's actual-above and predicted-at-left bracket placement. Avoid routine learner-facing statements that data is fake or illustrative; keep provenance in source notes, while preserving distinctions needed to explain what a demonstration computes.
+
+- Chapter 12 preserves the source landscape, five-session recap table, complete ten-month marketing example plus unknown month 11, five-row engineered-feature table, training/test split, workflow, and fit diagrams. Adapt the working source visual style instead of replacing it with invented data or controls. Keep source inconsistencies and numerical corrections in the chapter source notes.
+
+- The revised Chapter 12 is also a user-approved style reference: adapt the source’s working visual structure, preserve complete examples, use selectable text/tables, and add only brief clarification. Preserve this style in future lessons. Add a focused visual example when a conceptual comparison feels too dry, without inventing fitted results.
+
+- For 13.3, follow the source’s five-step graph/table progression. Define residual/error and SSE visibly, explain why errors are squared and why lower SSE is better, then compare the two supplied lines. Prefer simple playback to record inspectors or extra controls when the source already supplies a clear teaching sequence.
+
+- For worksheet case studies such as 13.5, preserve spatial grouping: source data beside the chart, parameters and forecast directly above it. Avoid turning related worksheet regions into successive full-width panels. Keep auxiliary chart-source calculations secondary.
+
+- In 13.5, keep the manual fit line visible by default and explain that its intercept/slope are trial values. Distinguish it by color from the fitted least-squares trend line; use the small “Use fitted α and β” toggle to apply calculated coefficients, and restore manual edits when toggled off. Keep table and forecast tied to the active parameters.

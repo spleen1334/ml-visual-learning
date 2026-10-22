@@ -17,7 +17,18 @@ function Scatter({ alpha = 10, beta = .5, curve = false, data = points }: { alph
   return <svg className="rm-scatter" viewBox="0 0 310 225" role="img" aria-label={curve ? 'A curve that rises quickly then flattens' : 'Observed points and the selected fitted line'}><line x1="36" y1="16" x2="36" y2="196"/><line x1="36" y1="196" x2="290" y2="196"/>{[20, 40, 60, 80].map(x => <text key={x} x={px(x)} y="213" textAnchor="middle">{x}</text>)}{[10, 30, 50].map(y => <text key={y} x="27" y={py(y) + 4} textAnchor="end">{y}</text>)}<text x="163" y="224" textAnchor="middle">input X</text><text x="12" y="105" transform="rotate(-90 12 105)" textAnchor="middle">outcome Y</text><path className="rm-line" d={path}/>{!curve && data.map(point => <circle key={`${point.x}-${point.y}`} cx={px(point.x)} cy={py(point.y)} r="4.5"/> )}</svg>
 }
 
-export function RMIntro() { return <Lesson number="13.1" title="Intro to regression modeling" lead="This chapter turns the regression idea into fitted relationships: lines, residuals, multiple inputs, and useful transformations."><Definition>A <strong>regression model</strong> uses observed inputs and outcomes to fit a relationship that can estimate a numerical target for a new record.</Definition><section className="rm-panel"><h2>One question, four building blocks</h2><div className="rm-roadmap"><div><b>1</b><strong>Is the relationship steady?</strong><span>Look for a linear or curved pattern.</span></div><div><b>2</b><strong>Which line fits best?</strong><span>Compare the total squared residuals.</span></div><div><b>3</b><strong>Which inputs matter?</strong><span>Extend one input to several features.</span></div><div><b>4</b><strong>Can a transform help?</strong><span>Make a curved relationship model-friendly.</span></div></div><p className="rm-note">A fitted line is a compact description of the observed data—not proof that an input causes the outcome, nor a guarantee of useful future predictions. The next chapter evaluates fit and diagnostics.</p></section><Summary><strong>Remember:</strong> modeling chooses a relationship from observed records; evaluation checks whether that relationship is useful on appropriate unseen data.</Summary></Lesson> }
+export function RMIntro() {
+  return <Lesson number="13.1" title="Intro to regression modeling" lead="Fit numerical outcomes using linear relationships, least squares, and transformed variables.">
+    <section className="rm-panel"><h2>What we’ll cover</h2><div className="rm-roadmap">
+      <div><strong>Linear relationships</strong><span>Recognize a steady rate of change.</span></div>
+      <div><strong>Least squared error</strong><span>Find a line by minimizing its squared errors.</span></div>
+      <div><strong>Univariate linear regression</strong><span>Predict a numerical outcome from one input.</span></div>
+      <div><strong>Multiple linear regression</strong><span>Use several inputs in the same model.</span></div>
+      <div><strong>Non-linear regression</strong><span>Transform variables to model a curved relationship.</span></div>
+    </div></section>
+    <section className="rm-panel"><h2>Two case studies</h2><div className="rm-two"><div><h3>The Cone Zone</h3><p>Use daily temperature to predict ice-cream sales for a cart on the Atlantic City boardwalk.</p></div><div><h3>Maven Marketing</h3><p>Compare daily ad spend and revenue to help estimate campaign performance.</p></div></div></section>
+  </Lesson>
+}
 
 export function RMLinearRelationships() {
   const [slope, setSlope] = useState(1)

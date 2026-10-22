@@ -1,29 +1,13 @@
 # Chapter 12 review — Intro to Regression
 
-Reviewed after implementation on 2026-10-17. This is a process and learner-experience review; source details are recorded separately in [CHAPTER_12_SOURCE_NOTES.md](CHAPTER_12_SOURCE_NOTES.md).
+## Source-fidelity revision, 2026-10-22
 
-## Process review
+Compared implementation with visual renders of pages 191–202 and all five lesson subtitles. The previous implementation substituted invented session and marketing records and omitted source diagrams. Replaced those examples with the complete source tables and restored the landscape, workflow, training/test grouping, and overfit/well-fit/underfit visuals. Preserved five lesson routes and order. Text and tables use accessible HTML; complex source diagrams use cropped raster images without mastheads.
 
-| Check | Result |
-| --- | --- |
-| Source coverage | Complete: five non-quiz lessons, PDF pages 191–202, and key assumptions/corrections documented. |
-| Lesson order and routing | Complete: Chapter 12 publishes five direct-linkable lessons in the course manifest and sequence tests. |
-| Calculation/data assumptions | Checked: `ln(18) = 2.89` when spend is measured in €k; the Boolean flag is true for 12 promotions and 28 social posts; the revenue estimate is visibly described as hand-supplied rather than trained. |
-| Interaction behavior | Checked in code: controls use React state, pressed states, live-result regions where content changes, and visible keyboard focus styles. |
-| Automated validation | `rtk npm run check` passed: 63 tests, TypeScript check, and production build. `rtk git diff --check` passed. |
+Applied correctness fixes: preserve the separate page-199 month-3 value, correct the narration’s Boolean row-4 claim, consistently round natural logs of dollar spend, reserve test data for evaluation, and qualify causal conclusions. Removed the hand-supplied revenue reveal and unnecessary goal/category toggles. Prediction remains unknown for month 11, as in the source.
 
-## Independent pedagogical review
+Validation: 105 tests passed, TypeScript and production build passed, diff whitespace check passed. Vite reports its existing large-bundle warning. Browser opened Regression 101 and Feature Engineering; inspected the rendered feature lesson’s accessibility tree and full desktop screenshot. The first screenshot captured an unloaded page; a later screenshot confirmed the complete feature lesson. Five engineered rows and ten split rows render, with source colors and the fit image. The engineered table retains all columns in contained horizontal scrolling, with a visible scroll cue.
 
-An independent reviewer assessed wording, visual explanation, examples, terminology, cognitive load, interaction guidance, and readability without rechecking source material.
+Review boundary: this was a self-review. Full desktop screenshot inspection covered 12.4; the other lessons were source/code-reviewed, but do not yet have complete screenshot verification. No independent reviewer was invoked. No commit or publication performed.
 
-### Applied findings
-
-1. **Must fix — clarify target type in the recap.** The original web-session example showed a categorical purchase target immediately after the regression framing. It now labels that as classification and contrasts it with a numerical purchase-value regression target.
-2. **High value — complete the regression path.** The marketing flow now explicitly shows past records → fitting → new planned inputs → estimated revenue.
-3. **High value — define prediction-time availability.** Marketing inputs are now framed as planned or already-known at the start of the predicted month.
-4. **Optional refinement — focus feature engineering.** One-hot indicator values are grouped and trace the active category; Boolean and log examples have their own meaning and units.
-5. **Optional refinement — make confounding concrete.** The causal lesson now shows holiday demand potentially increasing both marketing spend and revenue.
-
-### Remaining review boundary
-
-Desktop browser inspection remains unavailable in the current environment. The normal-width readability of the non-wrapping marketing table and feature labels therefore still needs live visual verification. The project’s automated checks do not establish that layout boundary.
+12.5 follow-up: added paired prediction-flow and possible-confounder diagrams at the user’s request. Desktop screenshot checked for readability and alignment; corrected the shared SVG path so both confounder branches have arrowheads. 105 tests, TypeScript, production build, and diff check passed before this SVG-only correction.
