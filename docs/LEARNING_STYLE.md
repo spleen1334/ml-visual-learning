@@ -12,7 +12,7 @@ User-approved direction: Section 9 (Classification Models) is the reference for 
 - Retain the app's teal/cream shell, with the source visual's own meaningful colors inside it. Omit duplicated slide navigation and decorative mastheads. Desktop is the primary target.
 - Keep definitions prominent and readable, and explain new terms through short labels beside the relevant visual. Use focused bold, underline and italics on the definition’s key action or concept; keep surrounding prose plain. Include a takeaway only if it adds something beyond the displayed result.
 - Preserve separate PDF and workbook examples when their data differs; document that boundary. Correct genuine source errors and record important adaptations rather than silently changing the example.
-- No quizzes, answer scoring, completion gates, or About sections.
+- Optional chapter-end source quizzes may include answer checking, explanations, and retries. No completion gates or About sections.
 - Explain optional controls briefly and keep calculations visibly connected to their inputs. Preserve mathematical distinctions and do not imply causal proof or validated predictions from a teaching example.
 - Display subchapters as 2.1, 2.2, etc., without a leading zero. Existing URL identifiers may stay stable.
 - Before presenting a chapter, review the implementation process (source notes, lesson order/routing, assumptions, calculations, interactions, and validation evidence) and the finished chapter as a learner (wording, visuals, examples, terminology, cognitive load, interaction guidance, readability, and desktop experience). Prioritize findings, fix must-fix items, and report any verification limit. Passing a build does not establish readability.

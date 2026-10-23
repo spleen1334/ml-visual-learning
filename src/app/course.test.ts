@@ -174,3 +174,15 @@ describe('chapter fifteen publication', () => {
     expect(all[first - 1].section?.id).toBe('recap-sample-model-output')
   })
 })
+
+
+describe('chapter four quiz', () => {
+  it('places the optional quiz after the case study and before chapter five', () => {
+    const lessons = publishedLessons()
+    const index = lessons.findIndex(item => item.href === '#chapter-04/4.7-quiz')
+    expect(index).toBeGreaterThan(0)
+    expect(lessons[index - 1].section?.id).toBe('inventory-case')
+    expect(lessons[index + 1].chapter.id).toBe('chapter-05')
+    expect(resolveLesson(lessons[index].href).section?.id).toBe('quiz')
+  })
+})

@@ -113,7 +113,7 @@ export default function App() {
               <span className="lesson-position-fill" style={{ width: `${currentChapter.subchapters.length > 1 ? ((sectionNumber ?? 1) - 1) / (currentChapter.subchapters.length - 1) * 100 : 0}%` }} />
               <span className="lesson-position-marker" style={{ left: `${currentChapter.subchapters.length > 1 ? ((sectionNumber ?? 1) - 1) / (currentChapter.subchapters.length - 1) * 100 : 0}%` }}>{sectionNumber ?? 1}</span>
             </div>
-          </div> : <span />}
+          </div> : null}
           <nav className="lesson-pagination" aria-label="Lesson navigation">
             {previousLesson ? <a className="header-nav-button" href={previousLesson.href} aria-label={`Previous: ${previousLesson.title}`}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14" /></svg>

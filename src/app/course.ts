@@ -1,3 +1,4 @@
+import QAQuiz from '../chapters/QAQuiz'
 import { CLCommonClassificationModels, CLIntroKNN, CLKNNExamples, CLCaseKNN, CLIntroNaiveBayes, CLNaiveBayesFrequencyTables, CLNaiveBayesConditionalProbability, CLCaseNaiveBayes } from '../chapters/ClassificationNeighborsBayes'
 import { LogisticIntro, LogisticExample, LogisticErrors, LogisticEquation, LogisticLikelihood, LogisticMultivariate, LogisticCase } from '../chapters/ClassificationLogistic'
 import { CLIntroDecisionTrees, CLEntropy101, CLEntropyInformationGain, CLDecisionTreeExamples, CLRandomForests, CLDecisionTreeCaseStudy } from '../chapters/ClassificationTrees'
@@ -65,6 +66,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'observation-limits', title: 'Left- and right-censored data', content: QACensoring },
     { id: 'table-structure', title: 'Table structures', content: QATableStructure },
     { id: 'inventory-case', title: 'Maven Market case study', content: QACaseStudy },
+    { id: 'quiz', title: 'Quiz · Preliminary Data QA', content: QAQuiz },
   ] },
   { id: 'chapter-05', number: '05', title: "Univariate Profiling", subtitle: 'One variable, many perspectives', subchapters: [
     { id: "introduction", title: "Introduction", content: UVIntroduction },

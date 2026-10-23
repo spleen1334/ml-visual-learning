@@ -1,0 +1,158 @@
+[
+  {
+    "id": "57839274",
+    "question": "A variable listing a product's country of origin would be considered which type?",
+    "options": [
+      "Numerical",
+      "Binary",
+      "Discrete",
+      "Categorical"
+    ],
+    "answer": 3,
+    "explanation": "Country names are labels with no numerical order, so this variable is categorical."
+  },
+  {
+    "id": "57839276",
+    "question": "Which approach is generally unsuitable for handling missing values?",
+    "options": [
+      "Keep",
+      "Remove",
+      "Fill with arbitrary random values",
+      "Impute"
+    ],
+    "answer": 2,
+    "explanation": "Keeping, removing, or imputing can be appropriate depending on the task. Arbitrary random values have no justification; statistical imputation needs a defensible method."
+  },
+  {
+    "id": "57839280",
+    "question": "Ignoring the missing value (NA), what is the mean age? [NA, 10, 20, 30, 40]",
+    "options": [
+      "NA",
+      "20",
+      "25",
+      "30"
+    ],
+    "answer": 2,
+    "explanation": "Exclude the unknown value: (10 + 20 + 30 + 40) ÷ 4 = 25 years. NA does not mean zero."
+  },
+  {
+    "id": "57839286",
+    "question": "Which of the following variables should be coded as a string or categorical type?",
+    "options": [
+      "Zip Code",
+      "Revenue",
+      "Year-over-year growth",
+      "Customer count"
+    ],
+    "answer": 0,
+    "explanation": "A ZIP code is an identifier, even when it contains only digits. Text also preserves leading zeros."
+  },
+  {
+    "id": "57839294",
+    "question": "How often should you QA your data?",
+    "options": [
+      "Randomly",
+      "Every other day",
+      "Every time you work with new data",
+      "Only if you have time"
+    ],
+    "answer": 2,
+    "explanation": "Check every new dataset and check again after transformations or source updates."
+  },
+  {
+    "id": "57839298",
+    "question": "What are the minimum and maximum of [4, 10, 2, 11, 14, 18, 20]?",
+    "options": [
+      "(2,20)",
+      "(4,20)",
+      "(0,20)",
+      "(10,20)"
+    ],
+    "answer": 0,
+    "explanation": "The minimum is 2 and the maximum is 20. The numerical range (maximum minus minimum) is 18."
+  },
+  {
+    "id": "57839308",
+    "question": "A customer has not repurchased when observation ends. Their time until repurchase is known only to exceed their follow-up time. What is this called?",
+    "options": [
+      "Left Censored",
+      "Right Censored",
+      "Uncensored",
+      "Time-series"
+    ],
+    "answer": 1,
+    "explanation": "The event has not been observed by the cutoff. We know the waiting time exceeds the observed follow-up time."
+  },
+  {
+    "id": "57839316",
+    "question": "Generally speaking, which type of table structure is best suited for exploratory analysis and aggregation?",
+    "options": [
+      "Long",
+      "Wide",
+      "Categorical",
+      "Summarized"
+    ],
+    "answer": 0,
+    "explanation": "Long tables make it easy to group by category and aggregate a value column. The best structure still depends on the task."
+  },
+  {
+    "id": "57839324",
+    "question": "What is converting a long table to wide form, with a separate value column for each category, called?",
+    "options": [
+      "Unpivoting",
+      "Pivoting",
+      "Rotating",
+      "Censoring"
+    ],
+    "answer": 1,
+    "explanation": "Pivoting turns category values into separate columns. Unpivoting reverses that reshape."
+  },
+  {
+    "id": "57839334",
+    "question": "Which of the following is an example of \"imputing\" an empty value?",
+    "options": [
+      "Removing the entire record",
+      "Leaving the value blank",
+      "Substituting the empty value with the mean",
+      "All of the above"
+    ],
+    "answer": 2,
+    "explanation": "Imputation fills an unknown value with an estimate. The mean is one option, but may be unsuitable for skewed data or categorical fields."
+  },
+  {
+    "id": "57839342",
+    "question": "Suppose you have a categorical field containing some strings with trailing spaces. Which technique might help you identify this issue?",
+    "options": [
+      "Count",
+      "Sum",
+      "Distinct Count",
+      "Range"
+    ],
+    "answer": 2,
+    "explanation": "A distinct count can reveal extra labels such as ‘Tea’ and ‘Tea ’ when whitespace is preserved. Inspect the labels to confirm the cause."
+  },
+  {
+    "id": "57839348",
+    "question": "An employee stays in the dataset, but their age is recorded only as “under 18”. How is their age observed?",
+    "options": [
+      "Exactly observed",
+      "Right censored",
+      "Missing entirely",
+      "Left censored"
+    ],
+    "answer": 3,
+    "explanation": "The employee remains in the data, but their exact age is unknown below the bound of 18. Excluding all under-18 people instead would be truncation."
+  },
+  {
+    "id": "57839352",
+    "question": "Which situation creates right censoring when studying time until subscription cancellation?",
+    "options": [
+      "Some subscriptions are still active when observation ends",
+      "Every cancellation date is known",
+      "Subscription prices vary by country",
+      "All of the above"
+    ],
+    "answer": 0,
+    "explanation": "For active subscribers, cancellation has not yet been observed. Their follow-up gives a lower bound on time until cancellation."
+  }
+]

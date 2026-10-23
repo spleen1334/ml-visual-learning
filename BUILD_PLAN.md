@@ -1,4 +1,4 @@
-> Design update: use interactive experiments, explicit explanatory callouts and a summary at the bottom of every chapter. Do not build quizzes, prediction answer selectors, scoring, exit checks or completion gates. Source provenance belongs in documentation, not an “About this chapter” UI section. This supersedes assessment suggestions below.
+> Design update: use interactive experiments, explicit explanatory callouts and a summary at the bottom of every chapter. Optional chapter-end source quizzes are now requested (2026-10-23); implement Chapter 04 first and defer the rest to todo.md. Keep progression ungated. Source provenance belongs in documentation, not an “About this chapter” UI section. This supersedes assessment suggestions below.
 
 # ML Visual Interactive — build plan
 

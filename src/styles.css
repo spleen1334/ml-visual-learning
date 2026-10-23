@@ -400,15 +400,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .planned-section > span { color: #e7c76e; margin-right: 4px; }
 
 /* Location within the active chapter, with only one current-position marker. */
-.topbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, 240px) auto; gap: 18px; }
-.chapter-track { position: relative; min-width: 0; height: 30px; margin-inline: 10px; }
+.topbar { display: grid; grid-template-areas: "context track navigation"; grid-template-columns: minmax(0, 1fr) minmax(190px, 240px) auto; gap: 18px; }
+.topbar > .breadcrumb { grid-area: context; }
+.topbar > .lesson-pagination { grid-area: navigation; white-space: nowrap; }
+.chapter-track { grid-area: track; position: relative; min-width: 0; height: 30px; margin-inline: 12px; isolation: isolate; }
 .lesson-position-line { position: absolute; top: calc(50% - 1px); left: 0; right: 0; height: 2px; background: #d5e0d8; }
 .lesson-position-line::before, .lesson-position-line::after { content: ''; position: absolute; top: -3px; width: 2px; height: 8px; background: #709c8b; }
 .lesson-position-line::before { left: 0; }
 .lesson-position-line::after { right: 0; }
 .lesson-position-fill { display: block; height: 100%; background: #709c8b; }
-.lesson-position-marker { position: absolute; top: 50%; display: grid; place-items: center; width: 20px; height: 20px; transform: translate(-50%, -50%); border: 1px solid #cba346; border-radius: 50%; color: #3f3b24; background: #e8c76f; box-shadow: 0 0 0 2px #fffefa; font-size: 10px; font-weight: 750; }
+.lesson-position-marker { position: absolute; z-index: 1; top: 50%; display: grid; place-items: center; width: 20px; height: 20px; transform: translate(-50%, -50%); border: 1px solid #cba346; border-radius: 50%; color: #3f3b24; background: #e8c76f; box-shadow: 0 0 0 2px #fffefa; font-size: 10px; font-weight: 750; }
 @media (max-width: 1100px) {
-  .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 0 14px; }
-  .chapter-track { grid-row: 2; grid-column: 1 / -1; width: min(100%, 340px); justify-self: center; height: 30px; margin-bottom: 4px; }
+  .topbar { grid-template-areas: "context navigation" "track track"; grid-template-columns: minmax(0, 1fr) auto; gap: 0 14px; }
+  .chapter-track { width: min(calc(100% - 24px), 340px); justify-self: center; height: 30px; margin-bottom: 4px; }
 }
