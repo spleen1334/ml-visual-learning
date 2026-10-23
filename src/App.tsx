@@ -52,10 +52,12 @@ export default function App() {
   }, [hash, currentChapter, section])
 
   useEffect(() => {
-    document.title = `${section?.title ?? currentChapter.title} · ML Visual Interactive`
+    document.title = section
+      ? `${currentChapter.number}.${sectionNumber} ${section.title} · ML Visual Interactive`
+      : `Chapter ${currentChapter.number}: ${currentChapter.title} · ML Visual Interactive`
     document.getElementById('main')?.focus({ preventScroll: true })
     window.scrollTo(0, 0)
-  }, [currentChapter.id, currentChapter.title, section?.id, section?.title])
+  }, [currentChapter.id, currentChapter.number, currentChapter.title, sectionNumber, section?.id, section?.title])
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">Skip to lesson</a>
