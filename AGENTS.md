@@ -7,7 +7,7 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 - Keep all project edits, generated assets, and Git operations inside `ml-visual-interactive/`. The parent course folders and learning files are read-only references.
 - Follow the inherited shell instruction: prefix shell commands with `rtk`; use `rtk proxy` when raw output is needed.
 - Build chapter by chapter. Present a usable desktop result for the user to validate before moving to another chapter. Do not interpret a sidebar outline as authorization to implement all listed lessons.
-- Chapters 1–14 have implemented content. Check the live manifest before relying on this snapshot.
+- Chapters 1–15 have implemented content. Check the live manifest before relying on this snapshot.
 - Commit when requested or already authorized for the current work. Never push or publish without authorization. Preserve unrelated edits.
 
 ## Teaching approach
@@ -151,3 +151,5 @@ The user explicitly requests that this file evolve with the project.
 - **Plain interpretation and action:** retain formal labels such as “reject H₀,” but pair them with everyday meaning (“the data points to a relationship”) and the next step (“a promising sign—check prediction errors next”). Prefer short concrete explanations over unexplained “evidence against a zero coefficient.” Explain what a finding suggests we keep, review, remove or check; do not turn lack of evidence into proof of no effect or significance into proof of predictive accuracy.
 - **Recap structure:** inspect the matching transcript before writing a recap. Follow its actual walkthrough of the displayed output, rather than inventing a narrative or mixing separate examples. Use direct headings such as “Walk through the model output.” Explain values in context, including residual signs, quartiles and units. Keep observed worst errors distinct from future-error guarantees.
 - **Illustration reference:** `src/assets/diagnostics-null-delivery.webp` in 14.6 is the approved raster style: soft painted texture, warm ivory, teal/sage and a simple scene related to the explanation. Place it beside short explanatory text, with responsive stacking. It can be decorative rather than quantitative; never let it replace a meaningful source graph. Broader illustration/definition/style retrofits remain deferred in `todo.md`.
+
+- For supporting illustrations, prefer mathematical ideas, charts, calendars, objects, or abstract compositions over people. Keep the soft painted ivory/teal/sage style; avoid making human scenes the default.

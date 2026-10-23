@@ -20,6 +20,8 @@ import { RMUnivariate, RMUnivariateCase } from '../chapters/RegressionConeZone'
 import { RMMultiple } from '../chapters/RegressionMultiple'
 import { RMNonLinear, RMNonLinearCase } from '../chapters/RegressionNonlinear'
 import { RDIntro, RDSampleOutput, RDRSquared, RDErrorMetrics, RDHomoskedasticity, RDNullHypothesis, RDFSignificance, RDTValues, RDMulticollinearity, RDVIF, RDRecap } from '../chapters/RegressionDiagnostics'
+import { TSIntro, TSSeasonality, TSACF, TSOneHot, TSLinearTrend, TSSmoothing, TSNonLinear, TSIntervention, TSLookingAhead } from '../chapters/TimeSeriesForecasting'
+import { TSACFCase, TSOneHotCase, TSLinearTrendCase, TSSmoothingCase, TSNonLinearCase, TSInterventionCase } from '../chapters/TimeSeriesCases'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -187,6 +189,23 @@ export const chapters: readonly Chapter[] = [
     { id: 'multicollinearity', title: 'Multicollinearity', content: RDMulticollinearity },
     { id: 'variance-inflation-factor', title: 'Variance Inflation Factor', content: RDVIF },
     { id: 'recap-sample-model-output', title: 'RECAP Sample Model Output', content: RDRecap },
+  ] },
+  { id: 'chapter-15', number: '15', title: 'Time-Series Forecasting', subtitle: 'Seasonality, trends & interventions', subchapters: [
+    { id: 'intro-to-forecasting', title: 'Intro to Forecasting', content: TSIntro },
+    { id: 'seasonality', title: 'Seasonality', content: TSSeasonality },
+    { id: 'auto-correlation-function', title: 'Auto Correlation Function', content: TSACF },
+    { id: 'case-study-seasonality-with-acf', title: 'CASE STUDY Seasonality with ACF', content: TSACFCase },
+    { id: 'one-hot-encoding', title: 'One-Hot Encoding', content: TSOneHot },
+    { id: 'case-study-seasonality-with-one-hot-encoding', title: 'CASE STUDY Seasonality with One-Hot Encoding', content: TSOneHotCase },
+    { id: 'linear-trending', title: 'Linear Trending', content: TSLinearTrend },
+    { id: 'case-study-seasonality-with-linear-trend', title: 'CASE STUDY Seasonality with Linear Trend', content: TSLinearTrendCase },
+    { id: 'smoothing', title: 'Smoothing', content: TSSmoothing },
+    { id: 'case-study-smoothing', title: 'CASE STUDY Smoothing', content: TSSmoothingCase },
+    { id: 'non-linear-trends', title: 'Non-Linear Trends', content: TSNonLinear },
+    { id: 'case-study-non-linear-trend', title: 'CASE STUDY Non-Linear Trend', content: TSNonLinearCase },
+    { id: 'intervention-analysis', title: 'Intervention Analysis', content: TSIntervention },
+    { id: 'case-study-intervention-analysis', title: 'CASE STUDY Intervention Analysis', content: TSInterventionCase },
+    { id: 'looking-ahead-to-part-4', title: 'Looking Ahead to Part 4', content: TSLookingAhead },
   ] },
 ]
 

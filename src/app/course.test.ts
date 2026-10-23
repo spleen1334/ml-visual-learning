@@ -58,7 +58,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 14)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 15)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
@@ -73,7 +73,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 14)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 15)).toBe(false)
   })
 })
 
@@ -95,7 +95,7 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('overfitting')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 14)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 15)).toBe(false)
   })
 })
 
@@ -158,4 +158,19 @@ describe('chapter fourteen publication', () => {
   expect(lessons.at(-1)?.section?.id).toBe('recap-sample-model-output')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
+})
+
+
+describe('chapter fifteen publication', () => {
+  it('publishes the source sequence without a quiz and resolves all direct links', () => {
+    const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-15')
+    expect(lessons).toHaveLength(15)
+    expect(resolveLesson('#chapter-15').section?.id).toBe('intro-to-forecasting')
+    expect(lessons.filter(item => item.title.startsWith('CASE STUDY'))).toHaveLength(6)
+    expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-4')
+    for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
+    const all = publishedLessons()
+    const first = all.findIndex(item => item.href === lessons[0].href)
+    expect(all[first - 1].section?.id).toBe('recap-sample-model-output')
+  })
 })

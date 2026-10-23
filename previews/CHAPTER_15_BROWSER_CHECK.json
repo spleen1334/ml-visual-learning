@@ -1,0 +1,137 @@
+[
+  {
+    "lesson": 1,
+    "state": {
+      "title": "Intro to forecasting",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 2,
+    "state": {
+      "title": "Seasonality",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 1
+    }
+  },
+  {
+    "lesson": 3,
+    "state": {
+      "title": "Auto correlation function",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 4
+    }
+  },
+  {
+    "lesson": 4,
+    "state": {
+      "title": "Case study: seasonality with ACF",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 5,
+    "state": {
+      "title": "One-hot encoding",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 1
+    }
+  },
+  {
+    "lesson": 6,
+    "state": {
+      "title": "Case study: seasonality with one-hot encoding",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 7,
+    "state": {
+      "title": "Linear trending",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 1
+    }
+  },
+  {
+    "lesson": 8,
+    "state": {
+      "title": "Case study: seasonality with linear trend",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 9,
+    "state": {
+      "title": "Smoothing",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 1
+    }
+  },
+  {
+    "lesson": 10,
+    "state": {
+      "title": "Case study: smoothing",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 11,
+    "state": {
+      "title": "Non-linear trends",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 5
+    }
+  },
+  {
+    "lesson": 12,
+    "state": {
+      "title": "Case study: non-linear trend",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 13,
+    "state": {
+      "title": "Intervention analysis",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 4
+    }
+  },
+  {
+    "lesson": 14,
+    "state": {
+      "title": "Case study: intervention analysis",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 0
+    }
+  },
+  {
+    "lesson": 15,
+    "state": {
+      "title": "Looking ahead to Part 4",
+      "overflow": false,
+      "brokenImages": 0,
+      "images": 1
+    }
+  }
+]

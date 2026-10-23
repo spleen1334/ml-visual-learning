@@ -73,7 +73,7 @@ export function searchCourse(index: readonly CourseSearchResult[], query: string
         const number = token.split('.').map(Number).join('.')
         if (number === result.number) score += 100
         else if (!number.includes('.') && result.number.startsWith(`${number}.`)) score += 35
-        else if (titleWords.includes(token)) score += 12
+        else if (tokens.length > 1 && titleWords.includes(token)) score += 12
         else return { result, score: -1, order }
       } else {
         const match = tokenScore(token, words)

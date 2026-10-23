@@ -1,0 +1,68 @@
+# Chapter 15 — Time-Series Forecasting: source notes
+
+## Sources and publication order
+
+Reviewed the chapter folder's numbered VTT subtitles, the matching pages in `../Learning Files/3. Visual Guide to Machine Learning.pdf`, and the forecast-related tabs in `../Learning Files/3. Maven_ML_Demos_COMPLETE.xlsx`. Rendered and visually inspected PDF pages 245–272, including the source graph and table sequences. The chapter folder contains 14 lesson VTTs numbered 1–14, `16. Looking Ahead to Part 4.vtt`, and `15.10 QUIZ Time-Series Forecasting.html`. Keep the quiz excluded. The separate lesson 16 is the brief Part 3 transition.
+
+| Order | VTT | PDF pages | Source flow and visuals |
+| --- | --- | --- | --- |
+| 1 | Intro to Forecasting | 245 | Chapter map; forecast one numeric dependent variable over time using regression ideas, seasonality and trends. |
+| 2 | Seasonality | 247 | Definition and examples: website traffic by hour, seasonal sales, airline prices around holidays. |
+| 3 | Auto Correlation Function | 248–251 | Daily repeating series and progressively revealed lag overlays (248–250), then ACF bars. Peaks at lags 7, 14, 21 and 28 are labeled a weekly cycle (251). |
+| 4 | CASE STUDY Seasonality with ACF | 252 | Accucorp Accounting tax-keyword-search assignment; identify whether searches are seasonal. |
+| 5 | One-Hot Encoding | 253 | Quarterly revenue example and Q1–Q4 indicators; PDF explicitly warns to omit one category. |
+| 6 | CASE STUDY Seasonality with One-Hot Encoding | 254 | Weather Trends, Rio de Janeiro; use about five years of monthly temperatures to forecast the next year. |
+| 7 | Linear Trending | 255–256 | Define trend separately from seasonality; source revenue table has months Jan–Dec, revenue, T-Step 1–12 and Jan–Nov dummy columns. |
+| 8 | CASE STUDY Seasonality with Linear Trend | 257 | Maven Muscles revenue; compare seasonal-only and seasonal-plus-trend fits. |
+| 9 | Smoothing | 258–259 | Noisy series; moving averages/weighted smoothing reveal patterns. Page 259 overlays a yellow smoothed line on the cyan observations. |
+| 10 | CASE STUDY Smoothing | 260 | Maven Motel daily guest-rating trend assignment. |
+| 11 | Non-Linear Trends | 261–265 | Same 20-week product-sales curve (y-axis 0–1,200); build in sequence exponential (262), cubic (263), step function (264), then compare ADBUDG and Gompertz (265). |
+| 12 | CASE STUDY Non-Linear Trend | 266 | Cat Slacks launched product; forecast weekly sales from the first eight weeks with a Gompertz curve, adjusting capacity and growth parameters. |
+| 13 | Intervention Analysis | 267–271 | Definition, then same daily CVR graph across steps: mark intervention (268), fit only pre-intervention data (269–270), compare post-period actuals with forecast and shade/sum daily residuals (271). |
+| 16 | Looking Ahead to Part 4 | 273–274 transition pages | The subtitle congratulates the learner on finishing regression/forecasting and transitions to unsupervised ML. PDF pages 273–274 open Part 4 and give its outline. Keep this short. |
+
+## Workbook and case-study boundaries
+
+The general Maven workbook has separate forecasting sheets: `Auto Correlation`, `One-Hot Encoding`, `Seasonality + Trend`, `Smoothing`, `Non-Linear Trend`, and `Intervention Analysis`. They correspond to the six practical case-study videos above. These worksheet datasets and calculations are the worked demos; the PDF case-study pages are the assignment/situation/objective briefs. Keep the examples separate rather than blending their data. Chart definitions, including plotted formulas, saved axis limits, series order, and style colors, were inspected from the workbook's chart XML.
+
+- `Auto Correlation`: the `"TAX" KEYWORD SEARCHES` table contains ten years of monthly search data (Jan 2010–Dec 2019), monthly Search Volume plus Lag 1–36 columns and a lag/correlation output series. The VTT reports correlation 98.2% at lag 12 and further annual peaks at 24 and 36. The PDF visual is a shorter daily weekly-cycle illustration; do not merge its values with the monthly tax-search workbook data.
+- `One-Hot Encoding`: `BRAZIL AVG TEMP (C˚)` has Year, Month, Feb–Dec indicators, Temp, and Forecast. Jan is the omitted reference level. Forecast is intercept plus the selected monthly coefficient. The last observed month is Oct 2019; the sheet forecasts Nov–Dec 2019 and all of 2020.
+- `Seasonality + Trend`: `MAVEN MUSCLES REVENUE` includes Year, Month, Jan–Nov indicators, Tstep, Revenue ($MM), two forecasts (“No Trend” and “Trend”), and residual columns. Its paired regressions quantify seasonal-only versus seasonal-plus-linear-trend fit. December is the omitted month reference.
+- `Smoothing`: `MAVEN MOTEL GUEST RATINGS` has 1,095 daily Date/Avg. Rating observations and 1-, 2-, 3-, 4-, 6- and 12-week averages, plus a `Select Window` control. Preserve the source curve and its selected moving-average overlay.
+- `Non-Linear Trend`: weekly sales observations and a Gompertz model (`A * exp(-B * t * exp(-C * t))`), squared errors, and adjustable A/B/C controls. Workbook starts from eight observed weeks; subsequent model values are projections. The source slide's other curve shapes are conceptual comparisons, not fitted alternatives from this workbook.
+- `Intervention Analysis`: daily Date, Landing Page (Original/New), Sessions, CVR, weekday flags, T-Step, Forecast, Incremental and Cumulative columns, with pre/post/forecast chart series. The case specifically tracks session volume and CVR to estimate daily and cumulative incremental sales.
+
+## Workbook chart styling and saved controls
+
+Keep each chart beside its connected data/model in the case-study composition. The workbook uses cyan `#26E2F6` for observed values, pale yellow `#FFFF89` for forecasts/smoothed values, and magenta `#FF66FF` for the trend-enabled model. The chart theme accent 6 is green `#70AD47`; its lightened version is used for post-intervention and sales series. Preserve bottom legends where listed.
+
+- **Auto Correlation:** one vertical bar ACF chart; lag 1–36 in order; correlation axis fixed from −0.8 to 1.2 with 0.2 steps and percent labels; turquoise bars. This is the chart computed from the monthly TAX-search sheet, distinct from the PDF's daily weekly-cycle graphic.
+- **One-Hot Encoding:** one month line chart; historical Temp is a smoothed cyan solid line, forecast is a yellow dashed line; y-axis is 15–35 °C in integer steps; month dates along x. Saved `Show?` default (`AE3=1`) turns the forecast series on.
+- **Seasonality + Trend:** top line chart orders actual revenue (cyan solid), regression without trend (yellow dashed), regression with trend (magenta dashed); y-axis $2–6MM; month dates on x and bottom legend. Two additional residual plots compare each model's residuals with its fitted reference series. Saved toggles `AP2=1`, `AQ2=1` show both regressions.
+- **Smoothing:** date line chart over 1,095 daily observations; Avg. Rating cyan with diamond markers, selected average yellow without markers, bottom legend; rating axis 0.5–10.5 by auto major spacing. The saved `Select Window` is `2-Week`; dropdown choices are 1-, 2-, 3-, 4-, 6- and 12-Week. Its data columns calculate centered 7-, 14-, 21-, 28-, 42- or 84-day averages, respectively.
+- **Non-Linear Trend:** cyan actual sales line with diamond markers; yellow Gompertz forecast line without markers; Product Sales y-axis starts at 0, major 200 units, Week # x-axis; bottom legend. Saved controls are A=900, B=7, C=0.4; C is formula-driven as the high-end growth rate divided by 20 (8/20). Eight weekly observations are populated; later weeks show only the model projection. These are editable shape parameters, not an optimizer fit.
+- **Intervention Analysis:** five related charts. (1) pre-CVR cyan and post-CVR light green series, % axis from 0; (2) raw CVR cyan, % axis from 0; (3) pre actual cyan, forecast yellow dashed, post actual light green, % axis from 0; all daily date axes. (4) post-period daily Marginal Sales columns in light green. (5) post-period Cumulative Sales light-green area and matching line; number axis. Saved `Show?` forecast switch `AL4=1`. The source case's incremental sales equal the CVR gap times actual sessions and sum to 1,277; cumulative sales is the running total. Preserve the distinction between the CVR forecast and its conversion to incremental sales using sessions.
+
+## Faithful crop/reproduction guidance
+
+- Best source crops for the conceptual components: PDF p248–251 for the ACF build (preserve both top series and bottom ACF with shared lag labels, correlation scale, and the lag-7 weekly annotation); p253 for the one-hot table and omit-one guidance; p256 for the seasonality-plus-trend indicator table; p259 for the noisy series and moving-average overlay; p261–265 for each successive curve choice against the same observed series; p268–271 for the intervention line and pre/post step sequence.
+- Keep charts, source series, axes, scales, labels and annotations intact. Crop duplicated slide masthead and left lesson navigation only where the graphic/text remains complete and readable. Prose can be selectable HTML; use chart crops or faithful recreations for the meaningful plots.
+- The six assignment briefs (pp.252, 254, 257, 260, 267, 272) are concise prompts, not substitute datasets. Workbook sheets are required for their complete calculations and chart behavior.
+
+## Correction and interpretation boundaries
+
+- ACF correlates a series with lagged versions of itself; the repeated peaks suggest a period in this example. Do not describe ACF as causal evidence or imply every seasonal pattern must be calendar-based. Keep the page-251 conclusion specific: strong correlation every seventh lag indicates a weekly cycle in the illustrated daily data.
+- One-hot regression needs a reference category when an intercept is present; PDF's “exclude one” note is essential. In the workbook the absent month is January (one-hot temperature) or December (Maven Muscles), and the coefficient for another month is relative to that reference, not an independent absolute temperature/revenue.
+- A linear trend is an overall time direction separate from seasonal fluctuations. T-Step is the time input; month flags encode the seasonal pattern. The p256 PDF table omits December; do not silently add a twelfth dummy alongside the intercept.
+- Smoothing reveals a broad pattern by averaging or weighting nearby values. The workbook uses centered windows (confirmed by formulas such as averaging rows 4–10 for the value plotted at row 7); these use later observations within each window, so present them as descriptive smoothing rather than an available-at-that-date forecast. Smoothing also can hide real changes or lag turns; don't claim it always improves forecast accuracy or treat every fluctuation as meaningless noise.
+- Gompertz/ADBUDG curves are forms chosen to describe saturation/diminishing growth, not proof that launch sales will follow that shape. The workbook exposes hand-adjusted parameters and has only eight actual weekly observations; keep model outputs distinct from observed sales and avoid claiming the controls refit a statistically estimated curve unless implementation demonstrates that.
+- Intervention analysis estimates a counterfactual baseline by fitting the pre-change period and comparing post-change actuals. The source's “impact” is an estimate conditional on the pre-period model and no other concurrent changes; it does not by itself prove the page redesign caused the difference. Preserve the source calculation direction explicitly when showing residuals/incremental sales, and distinguish CVR-point differences from sales (which also use sessions).
+
+
+## 15.1 supporting illustration
+
+User-requested after the initial chapter review. The final composition follows the user's refinement: preserve the painted style, use mathematical objects and fewer humans. Asset: `src/assets/time-series-forecasting-math.png`. Generated with built-in imagegen using the earlier shop scene only as a style reference. It is decorative and does not encode course observations or fitted results. The original definition and examples remain selectable text.
+
+Final generation prompt:
+
+> Use case: scientific-educational. Generate a replacement illustration for the introduction to time-series forecasting. Use the supplied image ONLY as a style reference: preserve its soft painted gouache texture, warm ivory paper, teal and sage green with restrained ochre accents. Completely change the composition. NO PEOPLE, faces, hands, human figures or anthropomorphic characters. A clean mathematical still-life: an open calendar on a quiet desk, four small seasonal symbols (blossom, leaf, autumn leaf, snowflake), a notebook and a prominent simple time-series graph on an ivory sheet. The graph has minimal unlabeled horizontal time and vertical value axes, a continuous teal curve with six observed dots forming gentle repeated rises and falls, then a dashed teal continuation to the right indicating a forecast. The dashed extension continues smoothly from the last solid point. No extra curves, random equations, numbers, labels, legends, letters or text. Clear elegant geometric composition, plenty of ivory negative space, no busy shop or room scene. Landscape framing, readable at 450px wide. This is a decorative concept illustration, not a plot of real course data.
