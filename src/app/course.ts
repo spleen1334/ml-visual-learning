@@ -24,6 +24,7 @@ import { RDIntro, RDSampleOutput, RDRSquared, RDErrorMetrics, RDHomoskedasticity
 import { TSIntro, TSSeasonality, TSACF, TSOneHot, TSLinearTrend, TSSmoothing, TSNonLinear, TSIntervention, TSLookingAhead } from '../chapters/TimeSeriesForecasting'
 import { TSACFCase, TSOneHotCase, TSLinearTrendCase, TSSmoothingCase, TSNonLinearCase, TSInterventionCase } from '../chapters/TimeSeriesCases'
 import ChapterSixteen from '../chapters/ChapterSixteen'
+import { UICommonTechniques, UIFeatureEngineeringRecap, UISupervisedVsUnsupervised, UIUnsupervisedQuiz, UIUnsupervisedTakeaways, UIUnsupervisedWorkflow } from '../chapters/UnsupervisedIntro'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -211,6 +212,14 @@ export const chapters: readonly Chapter[] = [
     { id: 'looking-ahead-to-part-4', title: 'Looking Ahead to Part 4', content: TSLookingAhead },
   ] },
   { id: 'chapter-16', number: '16', title: 'Part 4: Unsupervised Learning', subtitle: 'Find patterns without a target label', content: ChapterSixteen },
+  { id: 'chapter-17', number: '17', title: 'Intro to Unsupervised ML', subtitle: 'Explore patterns and useful structure', subchapters: [
+    { id: 'supervised-vs-unsupervised-learning', title: 'Supervised vs. Unsupervised Learning', content: UISupervisedVsUnsupervised },
+    { id: 'common-unsupervised-techniques', title: 'Common Unsupervised Techniques', content: UICommonTechniques },
+    { id: 'unsupervised-ml-workflow', title: 'Unsupervised ML Workflow', content: UIUnsupervisedWorkflow },
+    { id: 'recap-feature-engineering', title: 'RECAP Feature Engineering', content: UIFeatureEngineeringRecap },
+    { id: 'key-takeaways-unsupervised-ml', title: 'KEY TAKEAWAYS Intro to Unsupervised ML', content: UIUnsupervisedTakeaways },
+    { id: 'quiz-intro-unsupervised-ml', title: 'Quiz · Intro to Unsupervised ML', content: UIUnsupervisedQuiz },
+  ] },
 ]
 
 export function chapterHref(chapter: Chapter, section?: Subchapter): string {

@@ -23,3 +23,5 @@ Requested on 2026-10-23: implement Chapter 04 as the first trial; defer the rema
 
 - [x] Adapt Chapter 04’s HTML quiz to the teal/cream style as the final optional lesson, with explanations and retries.
 - [ ] After feedback on Chapter 04, add an optional final quiz to each chapter with a source quiz HTML file. Inspect chapters 05, 06, 08, 09, 10, 12–15, and 17–21; some quiz files omit QUIZ in their filenames. Preserve source topics/order, correct ambiguous wording, and document changes. Do not invent quizzes for chapters without sources or gate navigation.
+
+Progress: Chapter 17's five-question source quiz is implemented as the optional final lesson. Its source issue (feedback stored under a property the source UI does not read) is corrected with course-based explanations; the final question no longer claims that clustering is required.
