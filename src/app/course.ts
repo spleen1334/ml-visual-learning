@@ -23,6 +23,7 @@ import { RMNonLinear, RMNonLinearCase } from '../chapters/RegressionNonlinear'
 import { RDIntro, RDSampleOutput, RDRSquared, RDErrorMetrics, RDHomoskedasticity, RDNullHypothesis, RDFSignificance, RDTValues, RDMulticollinearity, RDVIF, RDRecap } from '../chapters/RegressionDiagnostics'
 import { TSIntro, TSSeasonality, TSACF, TSOneHot, TSLinearTrend, TSSmoothing, TSNonLinear, TSIntervention, TSLookingAhead } from '../chapters/TimeSeriesForecasting'
 import { TSACFCase, TSOneHotCase, TSLinearTrendCase, TSSmoothingCase, TSNonLinearCase, TSInterventionCase } from '../chapters/TimeSeriesCases'
+import ChapterSixteen from '../chapters/ChapterSixteen'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -209,6 +210,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'case-study-intervention-analysis', title: 'CASE STUDY Intervention Analysis', content: TSInterventionCase },
     { id: 'looking-ahead-to-part-4', title: 'Looking Ahead to Part 4', content: TSLookingAhead },
   ] },
+  { id: 'chapter-16', number: '16', title: 'Part 4: Unsupervised Learning', subtitle: 'Find patterns without a target label', content: ChapterSixteen },
 ]
 
 export function chapterHref(chapter: Chapter, section?: Subchapter): string {

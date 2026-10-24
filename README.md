@@ -1,10 +1,10 @@
 # ML Visual Interactive
 
-A personal, interactive learning companion for the first fifteen chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
+A personal, interactive learning companion for the first sixteen chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
 
 ## Current milestone
 
-Chapters 01–15 are implemented. [Chapter 15 — Time-Series Forecasting](http://127.0.0.1:5173/#chapter-15) contains 15 source-aligned lessons, including six complete workbook case studies. See [the source notes](docs/CHAPTER_15_SOURCE_NOTES.md), [workbook notes](docs/CHAPTER_15_WORKBOOK_NOTES.md), and [verification review](docs/CHAPTER_15_REVIEW.md). Chapter 02 — The ML Landscape has four subchapters:
+Chapters 01–16 are implemented. [Chapter 16 — Part 4: Unsupervised Learning](http://127.0.0.1:5173/#chapter-16) opens the course's five-topic unsupervised-learning sequence. [Chapter 15 — Time-Series Forecasting](http://127.0.0.1:5173/#chapter-15) contains 15 source-aligned lessons, including six complete workbook case studies. See the [Chapter 16 source notes](docs/CHAPTER_16_SOURCE_NOTES.md), Chapter 15 [source notes](docs/CHAPTER_15_SOURCE_NOTES.md), [workbook notes](docs/CHAPTER_15_WORKBOOK_NOTES.md), and [verification review](docs/CHAPTER_15_REVIEW.md). Chapter 02 — The ML Landscape has four subchapters:
 
 1. [What is machine learning?](http://127.0.0.1:4173/#chapter-02/what-is-ml) — switch business questions and inspect the form of the answer.
 2. [When does ML help?](http://127.0.0.1:4173/#chapter-02/when-to-use-ml) — compare an average and a fitted trend with a held-out sales observation.

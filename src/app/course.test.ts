@@ -58,7 +58,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 15)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 16)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
@@ -73,7 +73,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 15)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 16)).toBe(false)
   })
 })
 
@@ -95,7 +95,16 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('overfitting')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 15)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 16)).toBe(false)
+  })
+})
+
+describe('chapter sixteen publication', () => {
+  it('publishes the Part 4 orientation as the final available chapter', () => {
+    const lessons = publishedLessons()
+    expect(lessons.at(-1)?.href).toBe('#chapter-16')
+    expect(resolveLesson('#chapter-16').Content).toBe(chapters.find(item => item.id === 'chapter-16')?.content)
+    expect(lessons.some(item => Number(item.chapter.number) > 16)).toBe(false)
   })
 })
 
