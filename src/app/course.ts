@@ -25,6 +25,7 @@ import { TSIntro, TSSeasonality, TSACF, TSOneHot, TSLinearTrend, TSSmoothing, TS
 import { TSACFCase, TSOneHotCase, TSLinearTrendCase, TSSmoothingCase, TSNonLinearCase, TSInterventionCase } from '../chapters/TimeSeriesCases'
 import ChapterSixteen from '../chapters/ChapterSixteen'
 import { UICommonTechniques, UIFeatureEngineeringRecap, UISupervisedVsUnsupervised, UIUnsupervisedQuiz, UIUnsupervisedTakeaways, UIUnsupervisedWorkflow } from '../chapters/UnsupervisedIntro'
+import { ClusterBasics, ClusterIntroduction, ClusteringQuiz, ClusteringTakeaways, DendrogramAnatomy, HierarchicalFaqs as HierarchicalClusteringFaqs, HierarchicalIntroduction, KMeansFaqs, KMeansIntroduction, KMeansPetPalsCase, WssElbowLesson } from '../chapters/UnsupervisedClustering'
 import { QAVariableTypes, QATableStructure } from '../chapters/QAFoundations'
 import { QACaseStudy } from '../chapters/QAWorkbench'
 import { QAMissingValues, QARangesCounts } from '../chapters/QASmallExamples'
@@ -219,6 +220,19 @@ export const chapters: readonly Chapter[] = [
     { id: 'recap-feature-engineering', title: 'RECAP Feature Engineering', content: UIFeatureEngineeringRecap },
     { id: 'key-takeaways-unsupervised-ml', title: 'KEY TAKEAWAYS Intro to Unsupervised ML', content: UIUnsupervisedTakeaways },
     { id: 'quiz-intro-unsupervised-ml', title: 'Quiz · Intro to Unsupervised ML', content: UIUnsupervisedQuiz },
+  ] },
+  { id: 'chapter-18', number: '18', title: 'Clustering & Segmentation', subtitle: 'Group observations and interpret the result', subchapters: [
+    { id: 'introduction', title: 'Introduction', content: ClusterIntroduction },
+    { id: 'clustering-basics', title: 'Clustering Basics', content: ClusterBasics },
+    { id: 'intro-to-k-means', title: 'Intro to K-Means', content: KMeansIntroduction },
+    { id: 'wss-elbow-plots', title: 'WSS & Elbow Plots', content: WssElbowLesson },
+    { id: 'k-means-faqs', title: 'K-Means FAQs', content: KMeansFaqs },
+    { id: 'case-study-k-means', title: 'CASE STUDY K-Means', content: KMeansPetPalsCase },
+    { id: 'intro-to-hierarchical-clustering', title: 'Intro to Hierarchical Clustering', content: HierarchicalIntroduction },
+    { id: 'anatomy-dendrogram', title: 'Anatomy of a Dendrogram', content: DendrogramAnatomy },
+    { id: 'hierarchical-clustering-faqs', title: 'Hierarchical Clustering FAQs', content: HierarchicalClusteringFaqs },
+    { id: 'key-takeaways-clustering-segmentation', title: 'KEY TAKEAWAYS Clustering & Segmentation', content: ClusteringTakeaways },
+    { id: 'quiz-clustering-segmentation', title: 'Quiz · Clustering & Segmentation', content: ClusteringQuiz },
   ] },
 ]
 

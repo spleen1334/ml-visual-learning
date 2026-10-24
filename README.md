@@ -1,10 +1,10 @@
 # ML Visual Interactive
 
-A personal, interactive learning companion for the first seventeen chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
+A personal, interactive learning companion for the first eighteen chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
 
 ## Current milestone
 
-Chapters 01–17 are implemented. [Chapter 17 — Intro to Unsupervised ML](http://127.0.0.1:5173/#chapter-17) follows the source sequence with an optional source-based quiz, full feature-engineering table, and an inspectable workflow. [Chapter 16 — Part 4: Unsupervised Learning](http://127.0.0.1:5173/#chapter-16) introduces the five-topic sequence. See the [Chapter 17 source notes](docs/CHAPTER_17_SOURCE_NOTES.md), [Chapter 16 source notes](docs/CHAPTER_16_SOURCE_NOTES.md), Chapter 15 [source notes](docs/CHAPTER_15_SOURCE_NOTES.md), [workbook notes](docs/CHAPTER_15_WORKBOOK_NOTES.md), and [verification review](docs/CHAPTER_15_REVIEW.md). Chapter 02 — The ML Landscape has four subchapters:
+Chapters 01–18 are implemented. [Chapter 18 — Clustering & Segmentation](http://127.0.0.1:5173/#chapter-18) follows the source lessons with the complete 50-customer K-Means workbook case and an optional source-based quiz. [Chapter 17 — Intro to Unsupervised ML](http://127.0.0.1:5173/#chapter-17) includes its optional quiz, feature-engineering table, and inspectable workflow; [Chapter 16 — Part 4: Unsupervised Learning](http://127.0.0.1:5173/#chapter-16) introduces the five-topic sequence. See the [Chapter 18 source notes](docs/CHAPTER_18_SOURCE_NOTES.md), [Chapter 17 source notes](docs/CHAPTER_17_SOURCE_NOTES.md), [Chapter 16 source notes](docs/CHAPTER_16_SOURCE_NOTES.md), Chapter 15 [source notes](docs/CHAPTER_15_SOURCE_NOTES.md), [workbook notes](docs/CHAPTER_15_WORKBOOK_NOTES.md), and [verification review](docs/CHAPTER_15_REVIEW.md). Chapter 02 — The ML Landscape has four subchapters:
 
 1. [What is machine learning?](http://127.0.0.1:4173/#chapter-02/what-is-ml) — switch business questions and inspect the form of the answer.
 2. [When does ML help?](http://127.0.0.1:4173/#chapter-02/when-to-use-ml) — compare an average and a fitted trend with a held-out sales observation.
