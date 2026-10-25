@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1",
+    "question": "Which classification technique makes a prediction based on the classes of the closest observations in a scatterplot?",
+    "options": [
+      "K-NN",
+      "Logistic Regression",
+      "Random Forest",
+      "Naïve Bayes"
+    ],
+    "answer": 0,
+    "explanation": "K-NN, the rest of the models don't use scatter plots"
+  },
+  {
+    "id": "2",
+    "question": "Which classification technique fits an S-curve to binary data as part of the classification process?",
+    "options": [
+      "Decision Tree",
+      "Logistic Regression",
+      "Random Forest",
+      "K-NN"
+    ],
+    "answer": 1,
+    "explanation": "Only logistic regression uses an S-curve in the modeling process"
+  },
+  {
+    "id": "3",
+    "question": "Which classification technique covered is often considered to be a part of Natural Language Processing (NLP)?",
+    "options": [
+      "Logistic Regression",
+      "Random Forest",
+      "Decision Tree",
+      "Sentiment Analysis"
+    ],
+    "answer": 3,
+    "explanation": "Sentiment analysis determines the tone behind text-based data, the rest are simple classification techniques"
+  },
+  {
+    "id": "4",
+    "question": "What does the \"K\" in K-NN stand for?",
+    "options": [
+      "Thousand",
+      "Million",
+      "The Number of Neighbors",
+      "Positivity"
+    ],
+    "answer": 2,
+    "explanation": "K represents the number of nearby points (or “neighbors”) the model will consider when making a prediction"
+  },
+  {
+    "id": "5",
+    "question": "Which technique uses frequency tables, conditional probability, and products of probabilities to make predictions?",
+    "options": [
+      "Naïve Bayes",
+      "Logistic Regression",
+      "Decision Tree",
+      "K-NN"
+    ],
+    "answer": 0,
+    "explanation": "Naive Bayes is the only one to build predictions almost solely off of frequency tables and conditional probabilities"
+  },
+  {
+    "id": "6",
+    "question": "What metric measures the \"unevenness\" or \"uncertainty\" in a set of data with categorical variables?",
+    "options": [
+      "Accuracy",
+      "Underfitting",
+      "Entropy",
+      "Classification"
+    ],
+    "answer": 2,
+    "explanation": "Entropy measures the “evenness” or “uncertainty” between classes, and can be compared before/after each split to measure information gain"
+  },
+  {
+    "id": "7",
+    "question": "In a two-class category, entropy is maximized at a value of 1 when each class's probability is what?",
+    "options": [
+      "0",
+      "0.1",
+      "0.5",
+      "1"
+    ],
+    "answer": 2,
+    "explanation": "Plugging 0.5 (a 50/50 split between classes) into the entropy formula gives you 1"
+  },
+  {
+    "id": "8",
+    "question": "The change in entropy before and after a split is known as what?",
+    "options": [
+      "Probability",
+      "Accuracy",
+      "Variance",
+      "Information Gain"
+    ],
+    "answer": 3,
+    "explanation": "The reduction in entropy after the split tells us that we’re gaining information"
+  },
+  {
+    "id": "9",
+    "question": "In a Logistic Regression, what is being maximized by adjusting the betas in the logistic function?",
+    "options": [
+      "Likelihood",
+      "Probability",
+      "Variance",
+      "Entropy"
+    ],
+    "answer": 0,
+    "explanation": "Likelihood, which is the measure for how well the S-Curve fits the data"
+  },
+  {
+    "id": "10",
+    "question": "Common words that are removed before running a sentiment model are called what?",
+    "options": [
+      "Stem words",
+      "Lemmatized words",
+      "Stop Words",
+      "Go Words"
+    ],
+    "answer": 2,
+    "explanation": "Stop words; stemming or lemmatizing has to do with removing grammar tense and go words don't exist."
+  },
+  {
+    "id": "11",
+    "question": "Which classification technique can be used to predict sentiment?",
+    "options": [
+      "Logistic Regression",
+      "Decision Tree",
+      "Random Forest",
+      "All of the above"
+    ],
+    "answer": 3,
+    "explanation": "Any classification model can be used for predicting sentiment in a classification setting"
+  },
+  {
+    "id": "12",
+    "question": "How many classes can a logistic regression predict?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "Any number of classes"
+    ],
+    "answer": 0,
+    "explanation": "The course presents logistic regression for a binary target. Multiclass extensions exist, so this is a course-scope question."
+  },
+  {
+    "id": "13",
+    "question": "A Random Forest is a collection of what type of model?",
+    "options": [
+      "Logistic Regression",
+      "Decision Tree",
+      "Sentiment",
+      "Naïve Bayes"
+    ],
+    "answer": 1,
+    "explanation": "A Random Forest is a collection of individual decision trees, each built using a random subset of observations"
+  },
+  {
+    "id": "14",
+    "question": "What shape does a logistic curve form?",
+    "options": [
+      "Line",
+      "S-curve",
+      "Semicircle",
+      "L shape"
+    ],
+    "answer": 1,
+    "explanation": "Logistic regression forms an S shaped curve between 0 and 1 becuase of the 1 and the 1+e in the formula"
+  },
+  {
+    "id": "15",
+    "question": "Which of these is NOT a use case for classification models?",
+    "options": [
+      "Predicting if a subscriber will stay or churn",
+      "Predicting if an email is spam",
+      "Predicting revenue for the quarter",
+      "Predicting tone or sentiment from a user review"
+    ],
+    "answer": 2,
+    "explanation": "Since revenue is a numerical variable, this is a regression example, not classification"
+  },
+  {
+    "id": "16",
+    "question": "How are ties handled in a K-NN model?",
+    "options": [
+      "The class with the shortest total distance to the observation wins",
+      "The class with the longest total distance to the observation wins",
+      "Both classes are considered",
+      "The two classes participate in a nationally-televised rock-paper-scissors match to determine a victor"
+    ],
+    "answer": 0,
+    "explanation": "A tie in neighbor votes needs a tie-breaking rule; distance weighting is one possible approach, not a universal default."
+  },
+  {
+    "id": "17",
+    "question": "How do you figure out the \"right\" value for K in a K-NN model?",
+    "options": [
+      "Rough estimates",
+      "Data Profiling",
+      "Visual Analysis",
+      "Machine Learning"
+    ],
+    "answer": 3,
+    "explanation": "Machine learning; the model tests multiple K values to see which one is most accurate when applied to your Test data"
+  },
+  {
+    "id": "18",
+    "question": "Which classification technique uses a series of binary rules to predict multiclass or binary outcomes?",
+    "options": [
+      "Decision Tree",
+      "K-NN",
+      "Logistic Regression",
+      "Naïve Bayes"
+    ],
+    "answer": 0,
+    "explanation": "Decision Trees use a series of binary (true/false) rules to predict multi class or binary outcomes"
+  },
+  {
+    "id": "19",
+    "question": "Which of the following is a possible consequence of splitting too much when using decision trees?",
+    "options": [
+      "Underfitting",
+      "Overfitting",
+      "Entropy",
+      "Stemming"
+    ],
+    "answer": 1,
+    "explanation": "Splitting too much can lead to overfitting, so you can adjust model inputs (known as “hyperparameters”) to limit things like tree depth or leaf size"
+  },
+  {
+    "id": "20",
+    "question": "What's the main difference between Sentiment Analysis and other common classification models?",
+    "options": [
+      "You must \"hand-score\" the dependent variable",
+      "You must \"hand-score\" the independent variables",
+      "It is used to predict classes for categorical variables",
+      "It is used to predict values for numerical variables"
+    ],
+    "answer": 0,
+    "explanation": "Unlike other classification models, you must ”hand score” the sentiment (DV) values for your Training data, which your model will learn from"
+  }
+]

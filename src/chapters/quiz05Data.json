@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1",
+    "question": "Which of the following is NOT a categorical type variable?",
+    "options": [
+      "Price",
+      "Customer Type",
+      "Region",
+      "Acquisition Channel"
+    ],
+    "answer": 0,
+    "explanation": "Price is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "2",
+    "question": "Which of the following is an example of an ordinal variable?",
+    "options": [
+      "City",
+      "Gender",
+      "Education Level",
+      "Product Color"
+    ],
+    "answer": 2,
+    "explanation": "Education Level is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "3",
+    "question": "Which type of variables are typically used as dimensions to \"cut\" or filter your data?",
+    "options": [
+      "Numerical",
+      "Categorical",
+      "Interval",
+      "Ratio"
+    ],
+    "answer": 1,
+    "explanation": "Categorical is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "4",
+    "question": "Which of the following is a type of categorical distribution?",
+    "options": [
+      "Frequency Table",
+      "Proportions Table",
+      "Heat Map",
+      "All of the above"
+    ],
+    "answer": 3,
+    "explanation": "All of the above is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "5",
+    "question": "Which of the following describes the process of creating new categorical variables from an existing numerical variable?",
+    "options": [
+      "Discretization",
+      "Filtering",
+      "Imputing",
+      "Censoring"
+    ],
+    "answer": 0,
+    "explanation": "Discretization is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "6",
+    "question": "Product Category is an example of which type of variable?",
+    "options": [
+      "Numerical",
+      "Interval",
+      "Nominal",
+      "Ordinal"
+    ],
+    "answer": 2,
+    "explanation": "Nominal is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "7",
+    "question": "Which type of variable is typically aggregated as part of an analysis?",
+    "options": [
+      "Categorical",
+      "Numerical",
+      "Nominal",
+      "Ordinal"
+    ],
+    "answer": 1,
+    "explanation": "Numerical is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "8",
+    "question": "Which type of variable is typically aggregated as part of an analysis?",
+    "options": [
+      "Categorical",
+      "Numerical",
+      "Nominal",
+      "Ordinal"
+    ],
+    "answer": 1,
+    "explanation": "Numerical is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "9",
+    "question": "Which of the following is a histogram designed to communicate?",
+    "options": [
+      "Distribution",
+      "Trending",
+      "Cardinality",
+      "Geospatial"
+    ],
+    "answer": 0,
+    "explanation": "Distribution is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "10",
+    "question": "How is variance defined?",
+    "options": [
+      "Average cubed distance from the mean",
+      "Average squared distance from the mean",
+      "Average distance from the mean",
+      "Max distance from the mean"
+    ],
+    "answer": 1,
+    "explanation": "Average squared distance from the mean is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "11",
+    "question": "Which of the following are means sensitive to, but medians are not?",
+    "options": [
+      "Variable Types",
+      "Modes",
+      "Variance",
+      "Outliers"
+    ],
+    "answer": 3,
+    "explanation": "Sort the values (200, 250, 300, 350); with four values, average the two middle values: (250 + 300) ÷ 2 = 275."
+  },
+  {
+    "id": "12",
+    "question": "A normal distribution with more variance than another will be:",
+    "options": [
+      "Thinner",
+      "Shorter",
+      "Wider",
+      "Taller"
+    ],
+    "answer": 2,
+    "explanation": "Wider is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "13",
+    "question": "A distribution which has a mean lower than its median is likely to be:",
+    "options": [
+      "Left-skewed",
+      "Right-skewed",
+      "High variance",
+      "Low variance"
+    ],
+    "answer": 0,
+    "explanation": "Sort the values (200, 250, 300, 350); with four values, average the two middle values: (250 + 300) ÷ 2 = 275."
+  },
+  {
+    "id": "14",
+    "question": "If Sarah is the #20 ranked swimmer out of 500, which percentile is she in?",
+    "options": [
+      "4th",
+      "20th",
+      "90th",
+      "96th"
+    ],
+    "answer": 3,
+    "explanation": "20th out of 500 is near the bottom: 20 ÷ 500 = 4%, so Sarah is around the 4th percentile."
+  },
+  {
+    "id": "15",
+    "question": "What's the mode of the following values? [1,2,2,3,4,5,5,6,7,8]",
+    "options": [
+      "NA",
+      "2",
+      "5",
+      "2 and 5"
+    ],
+    "answer": 3,
+    "explanation": "2 and 5 is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "16",
+    "question": "What is the median of the following values? [300, 200, 250, 350]",
+    "options": [
+      "200",
+      "225",
+      "250",
+      "275"
+    ],
+    "answer": 3,
+    "explanation": "Sort the values (200, 250, 300, 350); with four values, average the two middle values: (250 + 300) ÷ 2 = 275."
+  },
+  {
+    "id": "17",
+    "question": "Which operation can you apply to the variance to get the standard deviation?",
+    "options": [
+      "Squaring",
+      "Square root",
+      "Absolute value",
+      "Log"
+    ],
+    "answer": 1,
+    "explanation": "Square root is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "18",
+    "question": "Which of the following would help show a more granular distribution using a histogram?",
+    "options": [
+      "Increasing bin size",
+      "Decreasing bin size",
+      "Removing outliers",
+      "Increasing sample size"
+    ],
+    "answer": 1,
+    "explanation": "Decreasing bin size is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "19",
+    "question": "Which of the following would be most likely to follow a normal distribution, or \"bell curve\"?",
+    "options": [
+      "Population growth rate",
+      "Conversions by product type",
+      "Student test scores",
+      "Customer count by country"
+    ],
+    "answer": 2,
+    "explanation": "Student test scores is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "20",
+    "question": "Which of the following profiling metrics can be applied to a categorical variable?",
+    "options": [
+      "Mode",
+      "Mean",
+      "Median",
+      "None of the above"
+    ],
+    "answer": 0,
+    "explanation": "Mode is the correct answer based on the course's explanation of this topic."
+  }
+]

@@ -61,18 +61,18 @@ describe('chapter five publication', () => {
     expect(lessons.some(item => Number(item.chapter.number) > 18)).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
-    expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(15)
+    expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(17)
   })
 })
 
 
 describe('chapter six publication', () => {
-  it('publishes all 15 source lessons and resolves direct links', () => {
+  it('publishes all 15 source lessons plus quiz and resolves direct links', () => {
     const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-06')
-    expect(lessons).toHaveLength(15)
+    expect(lessons).toHaveLength(17)
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
-    expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-2')
+    expect(lessons.at(-1)?.section?.id).toBe('quiz-multivariate-profiling')
     expect(publishedLessons().some(item => Number(item.chapter.number) > 18)).toBe(false)
   })
 })
@@ -89,12 +89,12 @@ describe('chapter seven publication', () => {
 
 
 describe('chapter eight publication', () => {
-  it('publishes all eight lessons in source order and resolves direct links', () => {
+  it('publishes all eight lessons plus quiz in source order and resolves direct links', () => {
     const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-08')
-    expect(lessons).toHaveLength(8)
+    expect(lessons).toHaveLength(9)
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
-    expect(lessons.at(-1)?.section?.id).toBe('overfitting')
+    expect(lessons.at(-1)?.section?.id).toBe('quiz-intro-classification')
     expect(publishedLessons().some(item => Number(item.chapter.number) > 18)).toBe(false)
   })
 })
@@ -136,12 +136,12 @@ describe('chapter eighteen publication', () => {
 
 
 describe('chapter nine publication', () => {
- it('publishes the 25 source lessons with stable direct links before chapter ten', () => {
+ it('publishes the 25 source lessons plus quiz with stable direct links before chapter ten', () => {
   const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-09')
-  expect(lessons).toHaveLength(25)
+  expect(lessons).toHaveLength(26)
   expect(resolveLesson('#chapter-09').section?.id).toBe('common-classification-models')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
-  expect(lessons.at(-1)?.section?.id).toBe('case-study-sentiment-analysis')
+  expect(lessons.at(-1)?.section?.id).toBe('quiz-classification-models')
   expect(chapters.find(c => c.id === 'chapter-10')?.subchapters?.every(s => s.content)).toBe(true)
  })
 })
@@ -149,9 +149,9 @@ describe('chapter nine publication', () => {
 describe('chapter ten publication', () => {
  it('publishes all source lessons in order with stable direct links', () => {
   const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-10')
-  expect(lessons).toHaveLength(10)
+  expect(lessons).toHaveLength(11)
   expect(resolveLesson('#chapter-10').section?.id).toBe('intro-to-selection-tuning')
-  expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-3')
+  expect(lessons.at(-1)?.section?.id).toBe('quiz-model-selection-tuning')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
 })
@@ -166,47 +166,47 @@ describe('chapter eleven publication', () => {
 })
 
 describe('chapter twelve publication', () => {
- it('publishes the five non-quiz source lessons in order with stable direct links', () => {
+ it('publishes the five source lessons plus quiz in order with stable direct links', () => {
   const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-12')
-  expect(lessons).toHaveLength(5)
+  expect(lessons).toHaveLength(6)
   expect(resolveLesson('#chapter-12').section?.id).toBe('supervised-vs-unsupervised-learning')
-  expect(lessons.at(-1)?.section?.id).toBe('prediction-vs-root-cause-analysis')
+  expect(lessons.at(-1)?.section?.id).toBe('quiz-intro-regression')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
 })
 
 describe('chapter thirteen publication', () => {
- it('publishes the eight non-quiz source lessons in order with stable direct links', () => {
+ it('publishes the eight source lessons plus quiz in order with stable direct links', () => {
   const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-13')
-  expect(lessons).toHaveLength(8)
+  expect(lessons).toHaveLength(9)
   expect(resolveLesson('#chapter-13').section?.id).toBe('intro-to-regression-modeling')
-  expect(lessons.at(-1)?.section?.id).toBe('case-study-non-linear-regression')
+  expect(lessons.at(-1)?.section?.id).toBe('quiz-regression-modeling')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
 })
 
 describe('chapter fourteen publication', () => {
- it('publishes all eleven non-quiz source lessons in order with stable direct links', () => {
+ it('publishes all eleven source lessons plus quiz in order with stable direct links', () => {
   const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-14')
-  expect(lessons).toHaveLength(11)
+  expect(lessons).toHaveLength(12)
   expect(resolveLesson('#chapter-14').section?.id).toBe('intro-to-model-diagnostics')
-  expect(lessons.at(-1)?.section?.id).toBe('recap-sample-model-output')
+  expect(lessons.at(-1)?.section?.id).toBe('quiz-model-diagnostics')
   for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
  })
 })
 
 
 describe('chapter fifteen publication', () => {
-  it('publishes the source sequence without a quiz and resolves all direct links', () => {
+  it('publishes the source sequence followed by optional quiz and resolves all direct links', () => {
     const lessons = publishedLessons().filter(item => item.chapter.id === 'chapter-15')
-    expect(lessons).toHaveLength(15)
+    expect(lessons).toHaveLength(16)
     expect(resolveLesson('#chapter-15').section?.id).toBe('intro-to-forecasting')
     expect(lessons.filter(item => item.title.startsWith('CASE STUDY'))).toHaveLength(6)
-    expect(lessons.at(-1)?.section?.id).toBe('looking-ahead-to-part-4')
+    expect(lessons.at(-1)?.section?.id).toBe('quiz-time-series-forecasting')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     const all = publishedLessons()
     const first = all.findIndex(item => item.href === lessons[0].href)
-    expect(all[first - 1].section?.id).toBe('recap-sample-model-output')
+    expect(all[first - 1].section?.id).toBe('quiz-model-diagnostics')
   })
 })
 

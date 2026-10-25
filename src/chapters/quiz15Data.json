@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1",
+    "question": "Time-series forecasting implies that you have a dependent variable of which type?",
+    "options": [
+      "Numeric",
+      "Weekday",
+      "Class",
+      "Category"
+    ],
+    "answer": 0,
+    "explanation": "Time-series regression, like all regression models, needs a numeric DV"
+  },
+  {
+    "id": "2",
+    "question": "Which of the following techniques is used to turn a categorical variable into a set of IVs with binary flags for specific values?",
+    "options": [
+      "Log",
+      "One-Hot Encoding",
+      "Exponentiating",
+      "Classification"
+    ],
+    "answer": 1,
+    "explanation": "One-hot encoding creates binary flags in separate columns based on one IV"
+  },
+  {
+    "id": "3",
+    "question": "To account for linear trends, what type of additional IV would you need?",
+    "options": [
+      "Time-step index",
+      "Day of week",
+      "Time of day",
+      "Date Part"
+    ],
+    "answer": 0,
+    "explanation": "This captures a linear trend from time 1 to the final time period"
+  },
+  {
+    "id": "4",
+    "question": "Smoothing can be used to help identify which of the following?",
+    "options": [
+      "P-values",
+      "Residuals",
+      "Variance",
+      "Trends"
+    ],
+    "answer": 3,
+    "explanation": "Smoothing out variance can help you see the overarching movement of a time-series, i.e. the trend"
+  },
+  {
+    "id": "5",
+    "question": "Intervention analysis is used to compare actual values against which of the following, in the post-intervention period?",
+    "options": [
+      "Residuals",
+      "Errors",
+      "Forecasts",
+      "P-Values"
+    ],
+    "answer": 2,
+    "explanation": "Compare post-intervention actual values with the forecast for what would have been expected without the intervention."
+  },
+  {
+    "id": "6",
+    "question": "Which of the following is the Auto Correlation Function designed to help determine?",
+    "options": [
+      "The seasonality period",
+      "Homoskedasticity",
+      "Multicollinearity",
+      "Trending over time"
+    ],
+    "answer": 0,
+    "explanation": "By seeing when the correlations in the plot are strongly positive or negative you see the length of the period of the seasonality"
+  },
+  {
+    "id": "7",
+    "question": "Gompertz and ADBUDG curves are more flexible versions of a...",
+    "options": [
+      "Parabolic curve",
+      "S-Curve (or logistic curve)",
+      "Linear equation",
+      "Auto Correlation Function"
+    ],
+    "answer": 1,
+    "explanation": "Gompertz and ADBUDG are asymmetric S-curves, related to the logistic S-curve."
+  }
+]

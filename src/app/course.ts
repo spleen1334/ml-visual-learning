@@ -1,4 +1,24 @@
 import QAQuiz from '../chapters/QAQuiz'
+import SourceQuiz from '../chapters/SourceQuiz'
+import quiz05 from '../chapters/quiz05Data.json'
+import quiz06 from '../chapters/quiz06Data.json'
+import quiz08 from '../chapters/quiz08Data.json'
+import quiz09 from '../chapters/quiz09Data.json'
+import quiz10 from '../chapters/quiz10Data.json'
+import quiz12 from '../chapters/quiz12Data.json'
+import quiz13 from '../chapters/quiz13Data.json'
+import quiz14 from '../chapters/quiz14Data.json'
+import quiz15 from '../chapters/quiz15Data.json'
+
+const Quiz05Quiz = () => SourceQuiz({ title: "Univariate Profiling", questions: quiz05 })
+const Quiz06Quiz = () => SourceQuiz({ title: "Multivariate Profiling", questions: quiz06 })
+const Quiz08Quiz = () => SourceQuiz({ title: "Intro to Classification", questions: quiz08 })
+const Quiz09Quiz = () => SourceQuiz({ title: "Classification Models", questions: quiz09 })
+const Quiz10Quiz = () => SourceQuiz({ title: "Model Selection & Tuning", questions: quiz10 })
+const Quiz12Quiz = () => SourceQuiz({ title: "Intro to Regression", questions: quiz12 })
+const Quiz13Quiz = () => SourceQuiz({ title: "Regression Modeling", questions: quiz13 })
+const Quiz14Quiz = () => SourceQuiz({ title: "Model Diagnostics", questions: quiz14 })
+const Quiz15Quiz = () => SourceQuiz({ title: "Time-Series Forecasting", questions: quiz15 })
 import { CLCommonClassificationModels, CLIntroKNN, CLKNNExamples, CLCaseKNN, CLIntroNaiveBayes, CLNaiveBayesFrequencyTables, CLNaiveBayesConditionalProbability, CLCaseNaiveBayes } from '../chapters/ClassificationNeighborsBayes'
 import { LogisticIntro, LogisticExample, LogisticErrors, LogisticEquation, LogisticLikelihood, LogisticMultivariate, LogisticCase } from '../chapters/ClassificationLogistic'
 import { CLIntroDecisionTrees, CLEntropy101, CLEntropyInformationGain, CLDecisionTreeExamples, CLRandomForests, CLDecisionTreeCaseStudy } from '../chapters/ClassificationTrees'
@@ -109,6 +129,8 @@ export const chapters: readonly Chapter[] = [
     { id: "case-study-correlation", title: "CASE STUDY Correlation", content: MVCorrelationCase },
     { id: "best-practices-multivariate-profiling", title: "BEST PRACTICES Multivariate Profiling", content: MVBestPractices },
     { id: "looking-ahead-to-part-2", title: "Looking Ahead to Part 2", content: MVLookingAhead },
+    { id: 'quiz-univariate-profiling', title: 'Quiz · Univariate Profiling', content: Quiz05Quiz },
+    { id: 'quiz-multivariate-profiling', title: 'Quiz · Multivariate Profiling', content: Quiz06Quiz },
   ] },
   { id: 'chapter-07', number: '07', title: "PART 2 Classification Modeling", subtitle: 'From data foundations to category predictions', subchapters: [
     { id: "part-2-classification-modeling", title: "Part 2 Classification Modeling", content: ChapterSeven },
@@ -122,6 +144,7 @@ export const chapters: readonly Chapter[] = [
     { id: "feature-engineering", title: "Feature Engineering", content: CLFeatureEngineering },
     { id: "data-splitting", title: "Data Splitting", content: CLDataSplitting },
     { id: "overfitting", title: "Overfitting", content: CLOverfitting },
+    { id: 'quiz-intro-classification', title: 'Quiz · Intro to Classification', content: Quiz08Quiz },
   ] },
   { id: 'chapter-09', number: '09', title: "Classification Models", subtitle: 'Neighbors, rules & probabilities', subchapters: [
     { id: "common-classification-models", title: "Common Classification Models", content: CLCommonClassificationModels },
@@ -149,6 +172,7 @@ export const chapters: readonly Chapter[] = [
     { id: "cleaning-text-data", title: "Cleaning Text Data", content: CLTextCleaning },
     { id: "bag-of-words-analysis", title: "Bag of Words Analysis", content: CLBagOfWords },
     { id: "case-study-sentiment-analysis", title: "CASE STUDY Sentiment Analysis", content: CLSentimentCaseStudy },
+    { id: 'quiz-classification-models', title: 'Quiz · Classification Models', content: Quiz09Quiz },
   ] },
   { id: 'chapter-10', number: '10', title: "Model Selection & Tuning", subtitle: 'Tune, evaluate & monitor classifiers', subchapters: [
     { id: "intro-to-selection-tuning", title: "Intro to Selection & Tuning", content: MSIntroSelectionTuning },
@@ -161,6 +185,7 @@ export const chapters: readonly Chapter[] = [
     { id: "model-selection", title: "Model Selection", content: MSModelSelection },
     { id: "model-drift", title: "Model Drift", content: MSModelDrift },
     { id: "looking-ahead-to-part-3", title: "Looking ahead to Part 3", content: MSLookingAhead },
+    { id: 'quiz-model-selection-tuning', title: 'Quiz · Model Selection & Tuning', content: Quiz10Quiz },
   ] },
   { id: 'chapter-11', number: '11', title: "PART 3 Regression & Forecasting", subtitle: 'From categories to numeric estimates', subchapters: [
     { id: 'part-3-regression-forecasting', title: 'Part 3 Regression & Forecasting', content: ChapterEleven },
@@ -171,6 +196,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'regression-101', title: 'Regression 101', content: RIRegression101 },
     { id: 'feature-engineering-for-regression', title: 'Feature Engineering for Regression', content: RIFeatureEngineering },
     { id: 'prediction-vs-root-cause-analysis', title: 'Prediction vs. Root-Cause Analysis', content: RIPredictionRootCause },
+    { id: 'quiz-intro-regression', title: 'Quiz · Intro to Regression', content: Quiz12Quiz },
   ] },
   { id: 'chapter-13', number: '13', title: 'Regression Modeling 101', subtitle: 'Fit lines, residuals & transformed relationships', subchapters: [
     { id: 'intro-to-regression-modeling', title: 'Intro to Regression Modeling', content: RMIntro },
@@ -181,6 +207,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'multiple-linear-regression', title: 'Multiple Linear Regression', content: RMMultiple },
     { id: 'non-linear-regression', title: 'Non-Linear Regression', content: RMNonLinear },
     { id: 'case-study-non-linear-regression', title: 'CASE STUDY Non-Linear Regression', content: RMNonLinearCase },
+    { id: 'quiz-regression-modeling', title: 'Quiz · Regression Modeling', content: Quiz13Quiz },
   ] },
   { id: 'chapter-14', number: '14', title: 'Model Diagnostics', subtitle: 'Check fit, errors & feature stability', subchapters: [
     { id: 'intro-to-model-diagnostics', title: 'Intro to Model Diagnostics', content: RDIntro },
@@ -194,6 +221,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'multicollinearity', title: 'Multicollinearity', content: RDMulticollinearity },
     { id: 'variance-inflation-factor', title: 'Variance Inflation Factor', content: RDVIF },
     { id: 'recap-sample-model-output', title: 'RECAP Sample Model Output', content: RDRecap },
+    { id: 'quiz-model-diagnostics', title: 'Quiz · Model Diagnostics', content: Quiz14Quiz },
   ] },
   { id: 'chapter-15', number: '15', title: 'Time-Series Forecasting', subtitle: 'Seasonality, trends & interventions', subchapters: [
     { id: 'intro-to-forecasting', title: 'Intro to Forecasting', content: TSIntro },
@@ -211,6 +239,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'intervention-analysis', title: 'Intervention Analysis', content: TSIntervention },
     { id: 'case-study-intervention-analysis', title: 'CASE STUDY Intervention Analysis', content: TSInterventionCase },
     { id: 'looking-ahead-to-part-4', title: 'Looking Ahead to Part 4', content: TSLookingAhead },
+    { id: 'quiz-time-series-forecasting', title: 'Quiz · Time-Series Forecasting', content: Quiz15Quiz },
   ] },
   { id: 'chapter-16', number: '16', title: 'Part 4: Unsupervised Learning', subtitle: 'Find patterns without a target label', content: ChapterSixteen },
   { id: 'chapter-17', number: '17', title: 'Intro to Unsupervised ML', subtitle: 'Explore patterns and useful structure', subchapters: [

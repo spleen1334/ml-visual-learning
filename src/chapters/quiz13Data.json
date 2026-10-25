@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "question": "Which of the following is NOT part of a linear equation?",
+    "options": [
+      "Y-Intercept",
+      "Slope",
+      "X",
+      "Curve"
+    ],
+    "answer": 3,
+    "explanation": "Curves are non-linear"
+  },
+  {
+    "id": "2",
+    "question": "In a Least Squared Error calculation, why are the errors squared?",
+    "options": [
+      "To make all values positive",
+      "To fit exponential lines",
+      "To fit cubic lines",
+      "For intuition"
+    ],
+    "answer": 0,
+    "explanation": "Making the values positive ensures we don't cancel out when the line is above and below the points"
+  },
+  {
+    "id": "3",
+    "question": "Univariate linear regression is like a linear equation plus which additional term?",
+    "options": [
+      "Curve",
+      "Error",
+      "Skew",
+      "Slope"
+    ],
+    "answer": 1,
+    "explanation": "Because we know the error term is necessary with data with variance it is included in the formula"
+  },
+  {
+    "id": "4",
+    "question": "Multiple linear regression includes more than one...",
+    "options": [
+      "Y-intercept",
+      "X-intercept",
+      "Independent Variable",
+      "Dependent Variable"
+    ],
+    "answer": 2,
+    "explanation": "By definition, multiple linear regression includes more than 1 independent variable"
+  },
+  {
+    "id": "5",
+    "question": "Non-linear regression involves transforming the IVs or DV to make the relationship...",
+    "options": [
+      "Curvi-linear",
+      "Exponential",
+      "Cubic",
+      "Linear"
+    ],
+    "answer": 3,
+    "explanation": "Turning a non-linear relationship into a linear relationship is what allows the linear regression to run"
+  },
+  {
+    "id": "6",
+    "question": "What's another common term for the error in least squared error?",
+    "options": [
+      "Residual",
+      "Intercept",
+      "Slope",
+      "Z"
+    ],
+    "answer": 0,
+    "explanation": "Residual means the same thing in this context"
+  },
+  {
+    "id": "7",
+    "question": "A multiple regression, intuitively, forms what kind of shape to fit through data in 3 dimensions?",
+    "options": [
+      "Ball",
+      "Cluster",
+      "Plane",
+      "Curve"
+    ],
+    "answer": 2,
+    "explanation": "One dependent variable linearly dependent on two independent variables means the shape is a plane"
+  },
+  {
+    "id": "8",
+    "question": "If you visualize a linear regression on a scatter plot, which of the following represents the error, or residual?",
+    "options": [
+      "The slope of the line",
+      "The intercept of the line",
+      "Distance between the line and the observation",
+      "The distance from the line to the X axis"
+    ],
+    "answer": 2,
+    "explanation": "The residual is the distance between each observation and the line"
+  }
+]

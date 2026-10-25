@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "question": "Which type of machine learning is used for prediction of a labeled data set?",
+    "options": [
+      "Unsupervised ML",
+      "Deep Learning",
+      "Supervised ML",
+      "Machine Translation"
+    ],
+    "answer": 2,
+    "explanation": "Supervised learning uses labeled examples to learn how to predict a target."
+  },
+  {
+    "id": "2",
+    "question": "Regression focuses on predicting which type of variable?",
+    "options": [
+      "Numeric",
+      "Categorical",
+      "Image",
+      "Language"
+    ],
+    "answer": 0,
+    "explanation": "Regression is the only set of techniques that has a numeric dependent variable"
+  },
+  {
+    "id": "3",
+    "question": "Classification focuses on predicting which type of variable?",
+    "options": [
+      "Integer",
+      "Class or Category",
+      "Percentage",
+      "Numeric"
+    ],
+    "answer": 1,
+    "explanation": "Classifications, by design, are built around predicting a class or categorical value"
+  },
+  {
+    "id": "4",
+    "question": "Dependent variables are sometimes also called what?",
+    "options": [
+      "Target Variable",
+      "Independent Variable",
+      "Explanatory Variable",
+      "Dimension"
+    ],
+    "answer": 0,
+    "explanation": "The dependent variable is commonly referred to as Y, predicted, output, or target variable"
+  },
+  {
+    "id": "5",
+    "question": "Independent variables are sometimes also called what?",
+    "options": [
+      "Dependent Variable",
+      "Target Variable",
+      "X Variables",
+      "Predicted Variable"
+    ],
+    "answer": 2,
+    "explanation": "Independent variables are commonly referred to as X’s, predictors, features, dimensions, explanatory variables, or covariates"
+  },
+  {
+    "id": "6",
+    "question": "In which stage of the ML process are new, supplemental variables created based on existing variables?",
+    "options": [
+      "Data Splitting",
+      "Model Training",
+      "Model Tuning",
+      "Feature Engineering"
+    ],
+    "answer": 3,
+    "explanation": "Feature Engineering is where you add new calculated variables to a dataset based on existing fields."
+  },
+  {
+    "id": "7",
+    "question": "Splitting your data helps to evaluate if your model is doing what?",
+    "options": [
+      "Running fast enough",
+      "Using enough variables",
+      "Overfitting",
+      "Optimizing"
+    ],
+    "answer": 2,
+    "explanation": "Splitting is primarily used to avoid overfitting , which is when a model predicts known (Training) data very well but unknown (Test) data poorly"
+  },
+  {
+    "id": "8",
+    "question": "Overfitting is important to be aware of because an overfit model won't do what?",
+    "options": [
+      "Generalize",
+      "Fit the training data",
+      "Run fast enough",
+      "Tune effectively"
+    ],
+    "answer": 0,
+    "explanation": "Overfit models model the training data too well and don't generalize well to test data (high variance, low bias)"
+  },
+  {
+    "id": "9",
+    "question": "Which of the following is NOT a feature engineering technique?",
+    "options": [
+      "One-hot encoding",
+      "Supervised ML",
+      "Log Transformation",
+      "Discretization"
+    ],
+    "answer": 1,
+    "explanation": "Supervised ML is a type of machine learning, not a feature engineering technique"
+  },
+  {
+    "id": "10",
+    "question": "Predicting which of the variables below is an example of classification modeling?",
+    "options": [
+      "House price",
+      "Product purchase",
+      "Temperature",
+      "Population"
+    ],
+    "answer": 1,
+    "explanation": "Product Purchase is a categorical variable, which is used in classification models; the rest are numeric variables"
+  }
+]

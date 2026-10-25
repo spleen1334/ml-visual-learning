@@ -22,6 +22,8 @@ Requested on 2026-10-23. Record these for later; do not implement them now.
 Requested on 2026-10-23: implement Chapter 04 as the first trial; defer the remaining quizzes until its interaction is reviewed.
 
 - [x] Adapt Chapter 04’s HTML quiz to the teal/cream style as the final optional lesson, with explanations and retries.
-- [ ] After feedback on Chapter 04, add an optional final quiz to each chapter with a source quiz HTML file. Inspect chapters 05, 06, 08, 09, 10, 12–15, and 17–21; some quiz files omit QUIZ in their filenames. Preserve source topics/order, correct ambiguous wording, and document changes. Do not invent quizzes for chapters without sources or gate navigation.
+- [x] Add optional final quizzes to published chapters with source HTML quizzes; preserve source topics/order, correct ambiguous wording, and keep navigation ungated.
 
 Progress: Chapter 17's five-question source quiz and Chapter 18's twelve-question source quiz are implemented as optional final lessons. Chapter 17's source issue (feedback stored under a property the source UI does not read) is corrected with course-based explanations; its final question no longer claims that clustering is required. Chapter 18 retains source order and answers with source-based explanations.
+
+Chapters 05, 06, 08–10, and 12–15 now also have optional final quizzes adapted from their local HTML quiz files. The quiz controls follow Chapter 04 (question map, check/retry, explanation, score, reset); ambiguous source questions are clarified and each correct answer has an explanation. Chapter 17–18 quizzes were already present. Chapters 19–21 have no published lessons in the current manifest and were left untouched.

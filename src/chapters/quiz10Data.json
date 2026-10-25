@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "question": "What's the general name for levers you can pull to optimize model performance?",
+    "options": [
+      "Hyperparameters",
+      "Independent Variables",
+      "Features",
+      "Predictor Variables"
+    ],
+    "answer": 0,
+    "explanation": "Hyperparameters are inputs/settings you can control while training a model to optimize performance"
+  },
+  {
+    "id": "2",
+    "question": "Which of the following is NOT a valid way to correct for imbalanced classes?",
+    "options": [
+      "Upsampling",
+      "Downsampling",
+      "Minimization",
+      "Weighting"
+    ],
+    "answer": 2,
+    "explanation": "There are several ways to balance classes in your Training data: up-sampling , down-sampling and weighting"
+  },
+  {
+    "id": "3",
+    "question": "Which of the following would you find in a confusion matrix?",
+    "options": [
+      "False Positives",
+      "True Positives",
+      "True Negatives",
+      "All of the above"
+    ],
+    "answer": 3,
+    "explanation": "A confusion matrix includes true positives, true negatives, false positives, and false negatives"
+  },
+  {
+    "id": "4",
+    "question": "The formula for precision is:",
+    "options": [
+      "TP/(TP+FP)",
+      "TP/(TP+TN)",
+      "TP/(TP+FN)",
+      "TP/N"
+    ],
+    "answer": 0,
+    "explanation": "TP/(TP+FP) is correct; the rest are other metrics or just made up"
+  },
+  {
+    "id": "5",
+    "question": "Which term describes when a model's predictions become less accurate over time?",
+    "options": [
+      "Model Selection",
+      "Model Drift",
+      "Hyperparameter Optimization",
+      "Model Tuning"
+    ],
+    "answer": 1,
+    "explanation": "Drift is when a trained model gradually becomes less accurate over time, even when all variables and parameters remain the same"
+  },
+  {
+    "id": "6",
+    "question": "Model selection should be based on which of the following metrics?",
+    "options": [
+      "Accuracy",
+      "Precision",
+      "Recall",
+      "It depends on the model"
+    ],
+    "answer": 3,
+    "explanation": "Depending on your question, specific metrics will be more important to you"
+  },
+  {
+    "id": "7",
+    "question": "Which class balancing technique might you avoid if you have a small number of observations?",
+    "options": [
+      "Upsampling",
+      "Weighting",
+      "Downsampling",
+      "Normalization"
+    ],
+    "answer": 2,
+    "explanation": "Downsampling, because it will remove more rows"
+  },
+  {
+    "id": "8",
+    "question": "Which classification technique uses distance definition as a hyperparameter?",
+    "options": [
+      "Naïve Bayes",
+      "Decision Tree",
+      "Logistic Regression",
+      "K-NN"
+    ],
+    "answer": 3,
+    "explanation": "K-NN, no other technique allows for distance definitions to change or be important"
+  },
+  {
+    "id": "9",
+    "question": "What can you do to help identify and correct model drift?",
+    "options": [
+      "Benchmark your model performance",
+      "Monitor performance against benchmarks over time",
+      "Re-train the model using updated data and consider discarding old records",
+      "All of the above"
+    ],
+    "answer": 3,
+    "explanation": "These are all valid ways to identify and correct model drift"
+  }
+]

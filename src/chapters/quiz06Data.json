@@ -1,0 +1,146 @@
+[
+  {
+    "id": "1",
+    "question": "Which type of categorical distribution is created by dividing the values in a frequency table by the total observation count?",
+    "options": [
+      "Heat Map",
+      "Kernel Density",
+      "Violin Plot",
+      "Proportions Table"
+    ],
+    "answer": 3,
+    "explanation": "Proportions Table is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "2",
+    "question": "A common way to turn kernel densities, violin plots, or box plots into multivariate distributions is to segment the data by a:",
+    "options": [
+      "Numerical Variable",
+      "Categorical Variable",
+      "Interval Variable",
+      "Heat Map"
+    ],
+    "answer": 1,
+    "explanation": "Categorical Variable is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "3",
+    "question": "Which of the following profiling metrics is NOT included in a box plot?",
+    "options": [
+      "25th/75th percentiles",
+      "Median",
+      "Mode",
+      "Mix/Max"
+    ],
+    "answer": 2,
+    "explanation": "Mode is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "4",
+    "question": "Correlation is the multivariate version of which univariate profiling metric?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Variance"
+    ],
+    "answer": 3,
+    "explanation": "Correlation standardizes co-movement using each variable’s spread (standard deviation); it is not simply another name for variance."
+  },
+  {
+    "id": "5",
+    "question": "Which of the following does correlation imply?",
+    "options": [
+      "Co-movement in variables",
+      "Causation",
+      "Skewness",
+      "Variance"
+    ],
+    "answer": 0,
+    "explanation": "Co-movement in variables is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "6",
+    "question": "What does a high correlation between two variables imply?",
+    "options": [
+      "Strong positive or negative relationship",
+      "Causation between two variables",
+      "Weak relationship",
+      "None of the above"
+    ],
+    "answer": 0,
+    "explanation": "Strong positive or negative relationship is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "7",
+    "question": "In the formula for correlation, dividing by which of the following helps puts both variables on the same scale?",
+    "options": [
+      "Variance",
+      "Mean",
+      "Median",
+      "Standard Deviation"
+    ],
+    "answer": 3,
+    "explanation": "Standard Deviation is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "8",
+    "question": "Violin plots are essentially which type of visualization glued to itself and rotated?",
+    "options": [
+      "Histograms",
+      "Box Plots",
+      "Heat Maps",
+      "Kernel Densities"
+    ],
+    "answer": 3,
+    "explanation": "Kernel Densities is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "9",
+    "question": "Correlation compares each row's co-movement compared to the variable's own what?",
+    "options": [
+      "Mode",
+      "Variance",
+      "Mean",
+      "Standard Deviation"
+    ],
+    "answer": 2,
+    "explanation": "Mean is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "10",
+    "question": "Which of the following is another word for a multivariate distribution:",
+    "options": [
+      "Multiplot",
+      "Joint Distribution",
+      "Double Distribution",
+      "PolyPlot"
+    ],
+    "answer": 1,
+    "explanation": "Joint Distribution is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "11",
+    "question": "In a box plot, what do the vertical lines represent?",
+    "options": [
+      "Max/Min",
+      "Max/Min, excluding outliers",
+      "75th & 25th percentile",
+      "Standard Deviation"
+    ],
+    "answer": 1,
+    "explanation": "Max/Min, excluding outliers is the correct answer based on the course's explanation of this topic."
+  },
+  {
+    "id": "12",
+    "question": "Which type of visual is typically most appropriate for visualizing numerical-numerical distributions?",
+    "options": [
+      "Scatter Plot",
+      "Kernel Density",
+      "Histogram",
+      "Heat Map"
+    ],
+    "answer": 0,
+    "explanation": "Scatter Plot is the correct answer based on the course's explanation of this topic."
+  }
+]

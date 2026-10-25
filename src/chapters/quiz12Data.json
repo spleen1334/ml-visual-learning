@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "question": "Regression lives under which branch of Machine Learning?",
+    "options": [
+      "Supervised Machine Learning",
+      "Unsupervised Machine Learning",
+      "Natural Language Processing",
+      "Neural Networks"
+    ],
+    "answer": 0,
+    "explanation": "Regression has labeled data"
+  },
+  {
+    "id": "2",
+    "question": "Regression requires which type of dependent variable?",
+    "options": [
+      "True/False",
+      "Binary",
+      "Numeric",
+      "Categorical"
+    ],
+    "answer": 2,
+    "explanation": "Regressions need numeric DVs by definition"
+  },
+  {
+    "id": "3",
+    "question": "What's another name for a dependent variable?",
+    "options": [
+      "X",
+      "IV",
+      "Explanatory",
+      "Y"
+    ],
+    "answer": 3,
+    "explanation": "Y is interchangeable with dependent variable"
+  },
+  {
+    "id": "4",
+    "question": "What's another name for an independent variable?",
+    "options": [
+      "X",
+      "DV",
+      "Target",
+      "Y"
+    ],
+    "answer": 0,
+    "explanation": "X is interchangeable with independent variable"
+  },
+  {
+    "id": "5",
+    "question": "Feature engineering is commonly used for what purpose?",
+    "options": [
+      "Enriching a data set",
+      "Visualizing data",
+      "Summarizing data",
+      "Counting records"
+    ],
+    "answer": 0,
+    "explanation": "Feature engineering creates or transforms input features to make useful information available to a model; adding variables is not always beneficial."
+  },
+  {
+    "id": "6",
+    "question": "Which of the following is NOT an example of feature engineering?",
+    "options": [
+      "One-hot encoding",
+      "Boolean Logic",
+      "Mathematical operations",
+      "Overfitting"
+    ],
+    "answer": 3,
+    "explanation": "Overfitting is your model learning the idiosyncrasies of your data"
+  },
+  {
+    "id": "7",
+    "question": "In machine learning, regression is typically focused on what?",
+    "options": [
+      "Prediction",
+      "Causal Inference",
+      "Root-cause analysis",
+      "Impressing your friends"
+    ],
+    "answer": 0,
+    "explanation": "In this course, regression is used mainly for prediction. Root-cause analysis is a different goal and requires additional reasoning."
+  },
+  {
+    "id": "8",
+    "question": "Which of the following would NOT be an appropriate use of regression modeling?",
+    "options": [
+      "Predicting revenue",
+      "Predicting units sold",
+      "Predicting a class or category",
+      "Predicting website conversion rates"
+    ],
+    "answer": 2,
+    "explanation": "Classes are for classification modeling"
+  },
+  {
+    "id": "9",
+    "question": "Which of the following techniques is used in regression?",
+    "options": [
+      "K-NN",
+      "Least Squares",
+      "Decision Tree",
+      "Neural Networks"
+    ],
+    "answer": 1,
+    "explanation": "Least Squares is used to find the best line through a scatterplot"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "question": "R-squared is calculated as 1 minus SSE divided by...",
+    "options": [
+      "Beta",
+      "Alpha",
+      "P-Value",
+      "TSS"
+    ],
+    "answer": 3,
+    "explanation": "Total Sum of Squares as in the summed squared distance between the mean and each point"
+  },
+  {
+    "id": "2",
+    "question": "MAPE puts the Mean Absolute Error (MAE) into what terms?",
+    "options": [
+      "Log",
+      "Exponential",
+      "Beta",
+      "Percentage"
+    ],
+    "answer": 3,
+    "explanation": "Percentage because you divide each absolute error by the Yi"
+  },
+  {
+    "id": "3",
+    "question": "Which of the following metrics is helpful to use if you don't need to account for outliers?",
+    "options": [
+      "MAE",
+      "MSE",
+      "R-Squared",
+      "P-Value"
+    ],
+    "answer": 0,
+    "explanation": "MAE is less sensitive to large errors than squared-error metrics such as MSE; it does not remove or ignore outliers."
+  },
+  {
+    "id": "4",
+    "question": "Homoskedasticity means that residuals are expected to be around the same value no matter what value of...",
+    "options": [
+      "Y",
+      "X",
+      "Beta",
+      "Alpha"
+    ],
+    "answer": 1,
+    "explanation": "Homoskedasticity means residual spread stays roughly constant across fitted values or predictor values."
+  },
+  {
+    "id": "5",
+    "question": "Generally speaking, which of the following model outputs should you check first?",
+    "options": [
+      "R-Squared",
+      "P-Values",
+      "T-Statistics",
+      "F-Significance"
+    ],
+    "answer": 3,
+    "explanation": "The course recommends checking overall model significance first, then reviewing fit and individual coefficients in context."
+  },
+  {
+    "id": "6",
+    "question": "T-Statistics are used in calculating which other metrics?",
+    "options": [
+      "P-Values",
+      "X-Values",
+      "Y-Values",
+      "R-Squared"
+    ],
+    "answer": 0,
+    "explanation": "T-statistics help us understand the confidence in the coefficient, which is then used to see if it is materially different than 0"
+  },
+  {
+    "id": "7",
+    "question": "Multicollinearity can exist between which of the following?",
+    "options": [
+      "DVs",
+      "P-Values",
+      "T-Statistics",
+      "IVs"
+    ],
+    "answer": 3,
+    "explanation": "High linear-dependency between IVs with each other is known as multicollinearity"
+  },
+  {
+    "id": "8",
+    "question": "What does Variance Inflation Factor measure?",
+    "options": [
+      "Multicollinearity",
+      "Residual Distribution",
+      "Homoskedasticity",
+      "Mean Error"
+    ],
+    "answer": 0,
+    "explanation": "It is designed specifically to test for multicollinearity"
+  },
+  {
+    "id": "9",
+    "question": "Adjusted R-Squared penalizes for which of the following?",
+    "options": [
+      "Additional Y's",
+      "Additional X's",
+      "Residuals",
+      "Outliers"
+    ],
+    "answer": 1,
+    "explanation": "It is a slight penalty for having too many IVs which may cause spurious correlations"
+  },
+  {
+    "id": "10",
+    "question": "In the context of regression, the Null hypothesis can be summarized as the hypothesis that...",
+    "options": [
+      "Your model has residuals",
+      "Your model is not useful for prediction",
+      "Your model is perfect",
+      "Your model is highly predictive"
+    ],
+    "answer": 1,
+    "explanation": "The null hypothesis here is that the model provides no predictive relationship; failing to reject it is not proof that no relationship exists."
+  }
+]
