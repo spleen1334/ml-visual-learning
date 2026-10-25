@@ -57,6 +57,9 @@ import { UVHistograms, UVHistogramCase, UVNormalDistribution, UVNormalCase } fro
 import { UVProfiling, UVMode, UVMean, UVMedian, UVPercentile, UVVariance, UVStandardDeviation, UVSkewness } from '../chapters/UnivariateMetrics'
 import { MSIntroSelectionTuning, MSHyperparameters, MSImbalancedClasses } from '../chapters/ModelSelectionBasics'
 import { MSConfusionMatrix, MSAccuracyPrecisionRecall, MSMulticlassConfusionMatrix, MSMulticlassScoring, MSModelSelection, MSModelDrift, MSLookingAhead } from '../chapters/ModelEvaluation'
+import { DRIntroduction, DRBasics, DRPCAIntro, DRPCAExample, DRInterpretComponents, DRScreePlot, DRAdvancedTechniques, DRTakeaways, DRQuiz } from '../chapters/DimensionalityReduction'
+import { AssociationIntroduction, AssociationBasics, AprioriBasics, BasketAnalysisExample, MinimumSupport, InfrequentItemsets, MultipleItemSets, AprioriCaseStudy, MarkovChains, MarkovCaseStudy, AssociationTakeaways, AssociationQuiz } from '../chapters/AssociationMining'
+import { OutlierIntroduction, OutlierBasics, CrossSectionalOutliers, CrossSectionalExample, CrossSectionalCase, TimeSeriesOutliers, TimeSeriesExample, OutlierTakeaways, OutlierQuiz } from '../chapters/OutlierDetection'
 
 export type Subchapter = {
   id: string
@@ -262,6 +265,42 @@ export const chapters: readonly Chapter[] = [
     { id: 'hierarchical-clustering-faqs', title: 'Hierarchical Clustering FAQs', content: HierarchicalClusteringFaqs },
     { id: 'key-takeaways-clustering-segmentation', title: 'KEY TAKEAWAYS Clustering & Segmentation', content: ClusteringTakeaways },
     { id: 'quiz-clustering-segmentation', title: 'Quiz · Clustering & Segmentation', content: ClusteringQuiz },
+  ] },
+  { id: 'chapter-19', number: '19', title: 'Association Mining & Basket Analysis', subtitle: 'Find co-occurring items and state transitions', subchapters: [
+    { id: 'introduction', title: 'Introduction', content: AssociationIntroduction },
+    { id: 'association-mining-basics', title: 'Association Mining Basics', content: AssociationBasics },
+    { id: 'apriori-algorithm', title: 'The Apriori Algorithm', content: AprioriBasics },
+    { id: 'basket-analysis-examples', title: 'Basket Analysis Examples', content: BasketAnalysisExample },
+    { id: 'minimum-support-thresholds', title: 'Minimum Support Thresholds', content: MinimumSupport },
+    { id: 'infrequent-itemsets', title: 'Infrequent Itemsets', content: InfrequentItemsets },
+    { id: 'multiple-item-sets', title: 'Multiple Item Sets', content: MultipleItemSets },
+    { id: 'case-study-apriori', title: 'CASE STUDY Apriori', content: AprioriCaseStudy },
+    { id: 'markov-chains', title: 'Markov Chains', content: MarkovChains },
+    { id: 'case-study-markov-chains', title: 'CASE STUDY Markov Chains', content: MarkovCaseStudy },
+    { id: 'key-takeaways-association-mining', title: 'KEY TAKEAWAYS Association Mining', content: AssociationTakeaways },
+    { id: 'quiz-association-mining', title: 'Quiz · Association Mining', content: AssociationQuiz },
+  ] },
+  { id: 'chapter-20', number: '20', title: 'Outlier Detection', subtitle: 'Find unusual observations in context', subchapters: [
+    { id: 'introduction', title: 'Introduction', content: OutlierIntroduction },
+    { id: 'outlier-detection-basics', title: 'Outlier Detection Basics', content: OutlierBasics },
+    { id: 'cross-sectional-outliers', title: 'Cross-Sectional Outliers', content: CrossSectionalOutliers },
+    { id: 'cross-sectional-outlier-example', title: 'Cross-Sectional Outlier Example', content: CrossSectionalExample },
+    { id: 'case-study-cross-sectional-outlier', title: 'CASE STUDY Cross-Sectional Outlier', content: CrossSectionalCase },
+    { id: 'time-series-outliers', title: 'Time-Series Outliers', content: TimeSeriesOutliers },
+    { id: 'time-series-outlier-example', title: 'Time-Series Outlier Example', content: TimeSeriesExample },
+    { id: 'key-takeaways-outlier-detection', title: 'KEY TAKEAWAYS Outlier Detection', content: OutlierTakeaways },
+    { id: 'quiz-outlier-detection', title: 'Quiz · Outlier Detection', content: OutlierQuiz },
+  ] },
+  { id: 'chapter-21', number: '21', title: 'Dimensionality Reduction', subtitle: 'Summarize many features into fewer dimensions', subchapters: [
+    { id: 'introduction', title: 'Introduction', content: DRIntroduction },
+    { id: 'dimensionality-reduction-basics', title: 'Dimensionality Reduction Basics', content: DRBasics },
+    { id: 'principal-component-analysis', title: 'Principal Component Analysis', content: DRPCAIntro },
+    { id: 'pca-example', title: 'PCA Example', content: DRPCAExample },
+    { id: 'interpreting-components', title: 'Interpreting Components', content: DRInterpretComponents },
+    { id: 'scree-plots', title: 'Scree Plots', content: DRScreePlot },
+    { id: 'advanced-techniques', title: 'Advanced Techniques', content: DRAdvancedTechniques },
+    { id: 'key-takeaways-dimensionality-reduction', title: 'KEY TAKEAWAYS Dimensionality Reduction', content: DRTakeaways },
+    { id: 'quiz-dimensionality-reduction', title: 'Quiz · Dimensionality Reduction', content: DRQuiz },
   ] },
 ]
 
