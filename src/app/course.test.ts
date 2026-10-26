@@ -58,7 +58,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(17)
@@ -73,7 +73,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('quiz-multivariate-profiling')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -95,7 +95,7 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('quiz-intro-classification')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -104,7 +104,7 @@ describe('chapter sixteen publication', () => {
     const lessons = publishedLessons()
     expect(lessons.find(item => item.chapter.id === 'chapter-16')?.href).toBe('#chapter-16')
     expect(resolveLesson('#chapter-16').Content).toBe(chapters.find(item => item.id === 'chapter-16')?.content)
-    expect(lessons.some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -117,7 +117,7 @@ describe('chapter seventeen publication', () => {
     ])
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.href).toBe('#chapter-17/17.6-quiz-intro-unsupervised-ml')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -130,7 +130,7 @@ describe('chapter eighteen publication', () => {
     ])
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.href).toBe('#chapter-18/18.11-quiz-clustering-segmentation')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -147,7 +147,7 @@ describe('chapters nineteen through twenty-one publication', () => {
       for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
       expect(lessons.at(-1)?.href).toContain('quiz-')
     }
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21)).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && item.chapter.id !== 'chapter-99')).toBe(false)
   })
 })
 
@@ -236,5 +236,19 @@ describe('chapter four quiz', () => {
     expect(lessons[index - 1].section?.id).toBe('inventory-case')
     expect(lessons[index + 1].chapter.id).toBe('chapter-05')
     expect(resolveLesson(lessons[index].href).section?.id).toBe('quiz')
+  })
+})
+
+describe('chapter ninety-nine gradual publication', () => {
+  it('publishes only 99.1, while keeping all thirteen future lessons as outlines', () => {
+    const chapter = chapters.find(item => item.id === 'chapter-99')!
+    expect(chapter.subchapters).toHaveLength(14)
+    const lessons = publishedLessons().filter(item => item.chapter.id === chapter.id)
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict'])
+    expect(chapter.subchapters?.slice(1).every(item => !item.content)).toBe(true)
+    expect(resolveLesson(lessons[0].href).section?.id).toBe('what-does-an-llm-predict')
+    const all = publishedLessons()
+    expect(all.at(-2)?.chapter.id).toBe('chapter-21')
+    expect(all.at(-1)?.href).toBe(lessons[0].href)
   })
 })

@@ -1,0 +1,47 @@
+.llm-lesson { max-width: 1080px; margin: 0 auto; padding: 34px 30px 48px; color: var(--ink); line-height: 1.55; }
+.llm-header { margin-bottom: 25px; }
+.llm-eyebrow { margin: 0 0 8px; color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.llm-header h1 { margin: 0 0 16px; font-size: clamp(29px,3vw,40px); line-height: 1.15; letter-spacing: -.025em; }
+.llm-header .llm-definition { max-width: 900px; margin: 0 0 12px; font-size: clamp(24px,2.3vw,29px); line-height: 1.4; }
+.llm-definition strong { color: var(--teal-dark); text-decoration: underline; text-decoration-color: #9bc4b6; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+.llm-header>p:last-child { margin: 0; color: #4e645e; font-size: 16px; }
+.llm-demo { padding: 23px 25px 18px; border: 1px solid var(--line); border-radius: 15px; background: #fffefa; }
+.llm-demo-heading { display: flex; flex-wrap: wrap; gap: 5px 18px; align-items: baseline; justify-content: space-between; }
+.llm-demo-heading h2 { margin: 0; font-size: 22px; }
+.llm-demo-heading p { margin: 0; color: #67746d; font-size: 12px; }
+.llm-loop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 19px 0; padding: 0; list-style: none; color: #355b52; font-size: 13px; }
+.llm-loop li { display: flex; gap: 7px; align-items: center; }
+.llm-loop li>span:first-child { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: #e1ede6; font-size: 11px; font-weight: 800; }
+.llm-loop li[aria-hidden] { font-size: 20px; color: #719b8c; }
+.llm-context { padding: 15px 19px 18px; border: 1px solid #d8e4db; border-radius: 10px; background: #f2f6ef; }
+.llm-context-label { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; justify-content: space-between; font-size: 12px; }
+.llm-context-label span { color: #65756d; font-size: 11px; }
+.llm-text { min-height: 46px; margin: 13px 0 0; font-size: clamp(24px,2.3vw,30px); line-height: 1.5; white-space: pre-wrap; }
+.llm-prompt { color: #607269; }
+.llm-token { color: var(--teal-dark); border-bottom: 2px solid #b0cbb9; }
+.llm-end { display: inline-block; margin-left: 13px; padding: 1px 7px; border: 1px solid #c3d8c9; border-radius: 5px; color: #48685a; font-size: 13px; vertical-align: middle; }
+.llm-distribution { margin: 22px 0 16px; }
+.llm-distribution figcaption { display: grid; gap: 4px; margin-bottom: 17px; }
+.llm-distribution figcaption strong { font-size: 17px; }
+.llm-distribution figcaption span { color: #546b60; font-size: 13px; }
+.llm-chart-axis { display: flex; justify-content: space-between; margin: 0 58px 6px 111px; color: #728177; font-size: 11px; }
+.llm-chart { min-height: 160px; display: flex; flex-direction: column; gap: 9px; }
+.llm-bar-row { display: grid; grid-template-columns: 90px minmax(0,1fr) 43px; gap: 12px; align-items: center; width: 100%; margin: 0; padding: 7px 8px; border: 1px solid transparent; border-radius: 7px; color: #25483b; background: transparent; text-align: left; font: inherit; cursor: pointer; }
+.llm-bar-label { font-size: 14px; font-weight: 650; }
+.llm-bar-track { display: block; height: 27px; border-left: 1px solid #adbfaf; background: repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 1px), #dce5db calc(25% - 1px), #dce5db 25%), #f0f3ec; }
+.llm-bar { display: block; height: 100%; border-radius: 0 4px 4px 0; background: #428b79; transition: width 220ms ease; }
+.llm-bar-row strong { color: #37604e; font-size: 13px; font-variant-numeric: tabular-nums; }
+.llm-bar-row:hover:not(:disabled) { border-color: #bfd5c7; background: #eef5ee; }
+.llm-bar-row:hover:not(:disabled) .llm-bar { background: #146e5c; }
+.llm-bar-row:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.llm-bar-row:disabled { opacity: 1; cursor: default; }
+.llm-chart-note { margin: 5px 0 0; color: #65776b; font-size: 12px; }
+.llm-playback { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; padding-top: 15px; border-top: 1px solid #e0e6dc; }
+.llm-playback>span { margin-left: 7px; color: #4d6659; font-size: 12px; }
+.llm-playback-note { margin: 9px 0 0; color: #6a786e; font-size: 12px; }
+.llm-clarifications { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 21px 2px 0; }
+.llm-clarifications p { margin: 0; color: #586b60; font-size: 13px; }
+.llm-clarifications strong { color: #315747; }
+.llm-clarifications code { font-size: 12px; }
+@media (max-width: 850px) { .llm-lesson { padding: 26px 18px 35px; } .llm-demo { padding: 19px 17px 16px; } .llm-clarifications { grid-template-columns: 1fr; gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .llm-bar { transition: none; } }

@@ -60,6 +60,7 @@ import { MSConfusionMatrix, MSAccuracyPrecisionRecall, MSMulticlassConfusionMatr
 import { DRIntroduction, DRBasics, DRPCAIntro, DRPCAExample, DRInterpretComponents, DRScreePlot, DRAdvancedTechniques, DRTakeaways, DRQuiz } from '../chapters/DimensionalityReduction'
 import { AssociationIntroduction, AssociationBasics, AprioriBasics, BasketAnalysisExample, MinimumSupport, InfrequentItemsets, MultipleItemSets, AprioriCaseStudy, MarkovChains, MarkovCaseStudy, AssociationTakeaways, AssociationQuiz } from '../chapters/AssociationMining'
 import { OutlierIntroduction, OutlierBasics, CrossSectionalOutliers, CrossSectionalExample, CrossSectionalCase, TimeSeriesOutliers, TimeSeriesExample, OutlierTakeaways, OutlierQuiz } from '../chapters/OutlierDetection'
+import { LLMNextToken } from '../chapters/LargeLanguageModels'
 
 export type Subchapter = {
   id: string
@@ -301,6 +302,22 @@ export const chapters: readonly Chapter[] = [
     { id: 'advanced-techniques', title: 'Advanced Techniques', content: DRAdvancedTechniques },
     { id: 'key-takeaways-dimensionality-reduction', title: 'KEY TAKEAWAYS Dimensionality Reduction', content: DRTakeaways },
     { id: 'quiz-dimensionality-reduction', title: 'Quiz · Dimensionality Reduction', content: DRQuiz },
+  ] },
+  { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
+    { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },
+    { id: 'tokenization', title: 'Tokenization: text into token IDs' },
+    { id: 'embeddings-and-position', title: 'Embeddings and position' },
+    { id: 'neural-network', title: 'The neural network inside' },
+    { id: 'attention-qkv', title: 'Attention: queries, keys, and values' },
+    { id: 'masking-and-heads', title: 'Causal masking and multiple heads' },
+    { id: 'transformer-block', title: 'A Transformer block' },
+    { id: 'logits-and-softmax', title: 'Logits and softmax' },
+    { id: 'sampling-and-temperature', title: 'Sampling and temperature' },
+    { id: 'training-loss-and-gradients', title: 'Training: loss and gradients' },
+    { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences' },
+    { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools' },
+    { id: 'limitations-and-evaluation', title: 'Limitations and evaluation' },
+    { id: 'full-pipeline', title: 'The full LLM pipeline' },
   ] },
 ]
 
