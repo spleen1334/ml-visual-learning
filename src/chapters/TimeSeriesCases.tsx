@@ -84,10 +84,10 @@ export function TSOneHotCase() {
      <section className="ts-case__conclusion" aria-labelledby="ts-case-one-hot-conclusion">
        <h2 id="ts-case-one-hot-conclusion">Case study conclusion</h2>
        <p>The seasonal regression <strong>matches the observed temperatures closely through October 2019</strong>, then extends the <strong>forecast through the rest of 2019 and into 2020</strong>.</p>
-       <p className="ts-case__note">Monthly one-hot indicators capture the seasonal pattern. The close match to observed data does not establish the accuracy of the future forecast.</p>
+       <p className="ts-case__note">Future forecast accuracy is not yet known.</p>
      </section>
      <div className="ts-case__one-hot-tables">
-       <Grid sheet="oneHotEncoding" range="B3:P75" indicatorHeaders caption="Brazil average temperature (°C) · monthly indicators and forecasts"/>
+       <div><Grid sheet="oneHotEncoding" range="B3:P75" indicatorHeaders caption="Brazil average temperature (°C) · monthly indicators and forecasts"/><p className="ts-case__encoding-footnote">January’s indicator is omitted on purpose: it is the reference month, represented by all zeros. January observations remain in the data.</p></div>
        <Coefficients rows={s.coefficients} baseline="January is the reference month. Forecast = intercept + the month’s coefficient."/>
      </div>
      <FullSheet sheet="oneHotEncoding"/>

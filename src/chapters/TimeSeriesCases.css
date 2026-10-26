@@ -21,3 +21,6 @@
 .ts-case__indicator-grid .ts-case__column-groups th{position:static;text-align:center;font-size:12px;background:#e1ede6;height:32px;padding:6px 9px}
 .ts-case__indicator-grid .ts-case__column-groups .ts-case__indicator-heading,.ts-case__indicator-grid tbody tr:first-child .ts-case__indicator-heading{background:#f2e2b7;color:#644b16}
 .ts-case__indicator-grid tbody tr:first-child th{top:0}
+
+.ts-case__one-hot-tables>div{min-width:0}
+.ts-case__encoding-footnote{font-size:13px;line-height:1.5;color:#597873;margin:10px 0 0}
