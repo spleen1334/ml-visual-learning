@@ -212,8 +212,24 @@ export function TSOneHot() {
 
 export function TSLinearTrend() {
   return <Lesson number="15.7" title="Linear trending" lead={<span className="tsf__definition"><strong>Trend</strong> is the overall direction of a time series, apart from its seasonal pattern.</span>}>
-    <p>A linear trend can be represented by a <strong>time step</strong>: an index starting at 1 and increasing by one for each time period. If the model also needs to represent seasonality, combine that input with one-hot period indicators.</p>
-    <SourceFigure src={seasonalTrendMatrix} alt="The source table lists monthly revenue, time steps 1 to 12, and January through November indicator columns; December has all zero indicators." caption="The December row is the reference month: the model includes January–November indicators with an intercept." />
+    <div className="tsf__text-block">
+      <ul>
+        <li>Trends are often <strong>linear (up or down)</strong>, but can be non-linear as well.</li>
+        <li>To account for linear trending in a regression, include a <strong>time step as an independent variable</strong>: an index value that starts at 1 and increases by 1 with each time period.</li>
+        <li>It is common for time-series models to include <strong>both trend and seasonality</strong>. Use one-hot month indicators for seasonality and the time-step variable for the linear trend.</li>
+      </ul>
+    </div>
+    <SourceFigure src={seasonalTrendMatrix} alt="The source table lists monthly revenue, time steps 1 to 12, and January through November indicator columns; December has all zero indicators." caption="T-Step counts successive months. January–November indicators identify the season; December is the reference month." />
+    <section className="tsf__lag-example" aria-labelledby="tsf-time-step">
+      <h2 id="tsf-time-step">T-Step = time step: how far along are we?</h2>
+      <p>In this monthly revenue example, <strong>one step is one month</strong>. T-Step is simply a numbered position in time, not revenue and not a lag.</p>
+      <div className="tsf__lag-table"><table><thead><tr><th scope="col">Month</th><th scope="col">First January</th><th scope="col">February</th><th scope="col">…</th><th scope="col">December</th><th scope="col">Next January</th><th scope="col">Next February</th></tr></thead><tbody><tr><th scope="row">T-Step</th><td>1</td><td>2</td><td>…</td><td>12</td><td>13</td><td>14</td></tr></tbody></table></div>
+      <p><strong>Keep counting across years.</strong> Both Januaries have the January indicator set to 1, but their time steps are 1 and 13. The month indicator captures the repeating January pattern; T-Step lets the overall revenue level change over time.</p>
+      <p className="tsf__equation">Predicted revenue = intercept + month effect + <strong>time-step coefficient × T-Step</strong></p>
+      <p>The time-step coefficient is the model’s <strong>change in revenue per month</strong>, after accounting for the month effects. For example, a coefficient of <strong>+$10,000</strong> adds $10,000 per step: +$10,000 at step 1 and +$130,000 at step 13. The two Januaries are therefore $120,000 apart in the model. This coefficient is an illustration, not a fitted result from the table.</p>
+      <p>A positive coefficient describes an upward linear trend; a negative one describes a downward trend. If it is not statistically significant, the model does not provide sufficient evidence of a linear trend—it does not prove that no trend exists.</p>
+      <p className="tsf__lag-context">The table above shows the column structure for one year. With an intercept and all eleven month indicators, more than one year is needed to estimate the time trend separately from the month effects.</p>
+    </section>
   </Lesson>
 }
 
