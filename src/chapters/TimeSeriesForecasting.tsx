@@ -307,13 +307,23 @@ export function TSNonLinear() {
 }
 
 export function TSIntervention() {
-  return <Lesson number="15.13" title="Intervention analysis" lead="Intervention analysis estimates the impact of a specific change on an outcome over time.">
-    <p>It asks what might have happened if the change had not occurred. Fit a regression model using only the pre-intervention observations, extend its forecast into the later period, then compare the forecast baseline with actual values.</p>
+  return <Lesson number="15.13" title="Intervention analysis" lead={<span className="tsf__definition"><strong>Intervention analysis</strong> is a technique used to estimate the impact of a specific change (or “intervention”) on the dependent variable.</span>}>
+    <div className="tsf__text-block"><ul>
+      <li>Simply put, intervention analysis is about predicting what <strong><em>would have happened</em></strong> if the change or intervention never took place.</li>
+      <li>By fitting a model to the “pre-intervention” data (up to the date of the change), you can compare predicted vs. actual values after that date to estimate the impact of the intervention.</li>
+    </ul></div>
+    <section className="tsf__text-block" aria-labelledby="tsf-intervention-examples">
+      <h2 id="tsf-intervention-examples">Common examples</h2>
+      <ul>
+        <li>Measuring the impact of a new website or check-out page on conversion rates.</li>
+        <li>Quantifying the impact of a new HR program to reduce employee churn.</li>
+      </ul>
+    </section>
     <SourceSequence label="Course intervention analysis from the intervention point through pre-period fitting and post-period comparison" items={[
       { src: intervention1, alt: 'A daily conversion-rate chart marks the date of a website intervention.', caption: 'Mark the intervention date in the observed series.' },
-      { src: intervention2, alt: 'The chart highlights the pre-intervention period used to fit the regression model.', caption: 'Fit the model using only observations before the change.' },
-      { src: intervention3, alt: 'The fitted regression line follows the pre-intervention conversion-rate observations; later observations are faded.', caption: 'Extend that same pre-intervention fit into a baseline.' },
-      { src: intervention4, alt: 'The post-intervention chart compares actual conversion rates with the projected baseline and highlights daily differences.', caption: 'The source spans Jan 1–Mar 31. For each post-period day, residual = actual CVR − baseline CVR; sum these daily differences to estimate the change.' },
+      { src: intervention2, alt: 'The chart highlights the pre-intervention period used to fit the regression model.', caption: 'Step 1: Fit a regression model to the data, using only observations from the pre-intervention period.' },
+      { src: intervention3, alt: 'The fitted regression line follows the pre-intervention conversion-rate observations; later observations are faded.', caption: 'The fitted regression model follows the pre-intervention data. Forecast it into the post-intervention period.' },
+      { src: intervention4, alt: 'The post-intervention chart compares actual conversion rates with the projected baseline and highlights daily differences.', caption: 'Step 2: Compare the predicted and observed values in the post-intervention period, and sum the daily residuals to estimate the impact of the change. Daily residual = actual conversion rate − predicted conversion rate.' },
     ]} />
     <p className="tsf__note">The estimate depends on the pre-period model and on other conditions staying comparable. A difference after the change alone does not prove the intervention caused it.</p>
   </Lesson>

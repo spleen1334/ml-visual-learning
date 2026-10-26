@@ -84,3 +84,7 @@ Final generation prompt:
 ## 15.9 worked smoothing examples (2026-10-26)
 
 At the user's request, preserve PDF 258–259 / video 9's introduction and chart, then add an illustrative six-week guest-rating series (3, 5, 4, 2, 5, 4), related to the next case study's scenario but not its source observations. Show a trailing three-week mean, a weighted trailing mean with chosen weights 0.2/0.3/0.5, and an additional simple exponential smoother with chosen alpha 0.5 initialized to the first observation. Selectable weeks link highlighted inputs, arithmetic, and graph outputs. No fitted weights or future accuracy is claimed; distinguish smoothing from forecasting and centered from trailing windows.
+
+## 15.13 source wording and structure restored (2026-10-26)
+
+Compared rendered PDF p. 267, text pp. 269–271 and video 13 transcript. Restore the definition verbatim apart from punctuation, followed by both explanatory bullets and the two Common examples in the source order. Retain the four existing chart images; restore explicit Step 1 (pre-period regression only) and Step 2 (post-period predicted/observed comparison and residual sum) captions. Keep the model/comparability qualification separate after the source sequence. No data or model changes.
