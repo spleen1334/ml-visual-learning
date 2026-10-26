@@ -58,3 +58,9 @@
 .ts-case__intervention-tables .ts-case__coefficients p { margin-top:0; }
 .ts-case__intervention-tables .ts-case__coefficients th,.ts-case__intervention-tables .ts-case__coefficients td { padding:7px 6px; font-size:12px; }
 @media(max-width:700px) { .ts-case__intervention-tables { grid-template-columns:minmax(0,1fr); } }
+
+.ts-case__indicator-grid .ts-case__column-groups .ts-case__weekday-heading,.ts-case__indicator-grid tbody tr:first-child .ts-case__weekday-heading { background:#c6dfb5; color:#315522; }
+.ts-case__indicator-grid .ts-case__column-groups .ts-case__forecast-cell,.ts-case__indicator-grid tbody tr:first-child .ts-case__forecast-cell { background:#ffe699; color:#665015; }
+.ts-case__indicator-grid tbody tr td.ts-case__forecast-cell { background:#fff2cc; color:#665015; }
+.ts-case__indicator-grid .ts-case__column-groups .ts-case__sales-cell,.ts-case__indicator-grid tbody tr:first-child .ts-case__sales-cell { background:#c6dfb5; color:#315522; }
+.ts-case__indicator-grid tbody tr td.ts-case__sales-cell,.ts-case__indicator-grid tbody tr td.ts-case__post-change { background:#e2efda; color:#315522; }

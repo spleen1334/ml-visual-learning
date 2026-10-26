@@ -88,3 +88,7 @@ At the user's request, preserve PDF 258–259 / video 9's introduction and chart
 ## 15.13 source wording and structure restored (2026-10-26)
 
 Compared rendered PDF p. 267, text pp. 269–271 and video 13 transcript. Restore the definition verbatim apart from punctuation, followed by both explanatory bullets and the two Common examples in the source order. Retain the four existing chart images; restore explicit Step 1 (pre-period regression only) and Step 2 (post-period predicted/observed comparison and residual sum) captions. Keep the model/comparability qualification separate after the source sequence. No data or model changes.
+
+## 15.14 semantic table colors and notes (2026-10-26)
+
+Checked workbook Intervention Analysis cells B:O, rows 3/4/70 and video 14 at 01:48–02:03, 03:18–04:09, 06:38–07:29. Label F:K as weekday one-hot indicators (Saturday reference); tint their headers only. L T-Step blue, M Forecast yellow, N:O estimated sales green, and C:E post-change observations light green based on Landing Page = New. B dates and encoded values remain neutral for selective emphasis. Preserve numeric values/formulas; short footnotes explain the reference day and incremental versus cumulative sales.

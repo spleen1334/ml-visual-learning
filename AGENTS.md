@@ -41,6 +41,8 @@ Default to faithful reproduction of the course sources. Section 9 (Classificatio
 
 ## Visual design and readability
 
+- In source-backed case-study tables, preserve meaningful Excel color cues selectively: group one-hot encoded columns under an explicit spanning header and tint their column names; name the omitted reference category in a short footnote. Match source T-Step blue, forecast yellow, and post-intervention observations or incremental/cumulative results green where applicable. Do not blanket-color all encoded values. Keep column names and units visible, and explain unfamiliar calculated columns briefly below the table.
+
 - Lesson animation playback controls use the shared icon-only `PlaybackButton` for Previous, Play/Replay, Pause/Stop, and Next. Give every icon a descriptive hover tooltip and accessible name, retaining disabled states and keyboard focus. Keep lesson navigation and unrelated action buttons distinct from animation playback.
 - Make existing case-study conclusions visually identifiable with a labeled conclusion subsection and bold the main finding. Preserve source claims and values; do not turn instructions, limitations, or tentative observations into conclusions or add routine summaries where none are needed.
 
