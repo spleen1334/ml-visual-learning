@@ -38,3 +38,6 @@
 .ts-case__indicator-grid .ts-case__column-groups .ts-case__time-step,.ts-case__indicator-grid tbody tr:first-child th.ts-case__time-step{background:#4472c4;color:#fff}
 .ts-case__indicator-grid tbody tr td.ts-case__time-step{background:#dce6f5;color:#24466f}
 .ts-case__indicator-grid tbody tr:nth-child(odd) td.ts-case__time-step{background:#cfdbef}
+
+.ts-case__residual-source figure{margin:0;background:white;border:1px solid #c7d9d0;border-radius:7px;padding:8px;overflow:hidden}
+.ts-case__residual-source img{display:block;width:100%;height:auto}
