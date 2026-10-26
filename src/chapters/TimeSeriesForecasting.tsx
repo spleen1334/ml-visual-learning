@@ -211,7 +211,7 @@ export function TSOneHot() {
 }
 
 export function TSLinearTrend() {
-  return <Lesson number="15.7" title="Linear trending" lead="A trend is the overall direction of a time series, apart from its seasonal pattern.">
+  return <Lesson number="15.7" title="Linear trending" lead={<span className="tsf__definition"><strong>Trend</strong> is the overall direction of a time series, apart from its seasonal pattern.</span>}>
     <p>A linear trend can be represented by a <strong>time step</strong>: an index starting at 1 and increasing by one for each time period. If the model also needs to represent seasonality, combine that input with one-hot period indicators.</p>
     <SourceFigure src={seasonalTrendMatrix} alt="The source table lists monthly revenue, time steps 1 to 12, and January through November indicator columns; December has all zero indicators." caption="The December row is the reference month: the model includes January–November indicators with an intercept." />
   </Lesson>

@@ -154,3 +154,11 @@
 }
 
 .tsf__intro-scene{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;align-items:center;margin:30px 0}.tsf__intro-scene>img{display:block;width:100%;height:auto;border-radius:14px}.tsf__intro-scene>div>p{font-size:18px;line-height:1.7}.tsf__intro-scene .tsf__text-block{margin-bottom:0}@media(max-width:850px){.tsf__intro-scene{grid-template-columns:1fr}.tsf__intro-scene>img{max-width:480px;margin-inline:auto}}
+
+.tsf__definition {
+  display: block;
+  padding: 16px 20px;
+  border-left: 4px solid #187d76;
+  border-radius: 0 9px 9px 0;
+  background: #edf5f0;
+}
