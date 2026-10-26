@@ -24,3 +24,11 @@
 
 .ts-case__one-hot-tables>div{min-width:0}
 .ts-case__encoding-footnote{font-size:13px;line-height:1.5;color:#597873;margin:10px 0 0}
+
+.ts-case__trend-tables{display:grid;grid-template-columns:minmax(0,1fr) 170px 170px;gap:16px;align-items:start}
+.ts-case__trend-tables>div{min-width:0}
+.ts-case__trend-tables .ts-case__coefficients{margin-top:0}
+.ts-case__trend-tables .ts-case__coefficients p{margin-top:0}
+.ts-case__trend-tables .ts-case__coefficients th,.ts-case__trend-tables .ts-case__coefficients td{padding:7px 6px;font-size:12px}
+@media(max-width:900px){.ts-case__trend-tables{grid-template-columns:minmax(0,1fr) 150px 150px;gap:12px}}
+@media(max-width:700px){.ts-case__trend-tables{grid-template-columns:repeat(2,minmax(0,1fr))}.ts-case__trend-tables>.ts-case__data{grid-column:1 / -1}}
