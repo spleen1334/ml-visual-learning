@@ -17,6 +17,13 @@ Requested on 2026-10-23. Record these for later; do not implement them now.
 - [ ] Add brief hover/click/focus definitions for technical terms in earlier chapters where appropriate, following the Chapter 14 reminders. Use simple language and a tiny example when useful. Consider linking the first occurrence of a term to its definition.
 - [ ] Review earlier chapters against the approved teaching approach in Chapters 9–14: reproduce PDF/course graphs, datasets, tables, labels, and calculation sequences closely; keep source explanations first, with short, clear supporting explanations and examples. Preserve working, approved content and revise only where the comparison reveals a useful improvement.
 
+## Case-study conclusions across the course
+
+Requested on 2026-10-26.
+
+- [ ] Audit every case study outside Chapter 15 and add any missing small **Case study conclusion** section, using Chapter 15’s highlighted style. Keep it to one or two simple sentences, with the main finding in bold. Check the PDF, workbook and matching video walkthrough; preserve source findings and values, and do not invent results or imply causation or future accuracy. Keep conclusions valid when interactive controls change. Preserve existing conclusions that already meet this standard and record coverage by chapter as the audit proceeds.
+- [x] Chapter 15: all six case studies (15.4, 15.6, 15.8, 15.10, 15.12, 15.14) have labeled conclusion sections.
+
 ## Chapter-end quizzes
 
 Requested on 2026-10-23: implement Chapter 04 as the first trial; defer the remaining quizzes until its interaction is reviewed.
