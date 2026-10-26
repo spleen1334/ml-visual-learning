@@ -27,6 +27,34 @@ The table has five month observations and eleven columns: six original and five 
 
 The transcript describes possible binary flags for competitive activity high/medium/low, a flag when promotions exceed 10 and social posts exceed 25, and logging marketing spend. The slide shows the specific results above. It does not name the logarithm base, currency convention for the log, or exact transform formula. Do not claim a precise formula or silently recompute its displayed values without checking the source artifact; if demonstrating a transform, state the chosen convention and preserve the source values as shown.
 
+## Restored unsupervised-family map (p. 279)
+
+The source slide groups the methods into four families beneath **Unsupervised Learning**, with an example question aligned beside each family. The 17.1 landscape lesson now retains its existing three-part course landscape and appends this connected family map; 17.2 uses the same map in place of the previous flat technique cards. Preserve the family-to-method grouping and question wording:
+
+| Family | Methods shown in the source | Example question shown in the source |
+| --- | --- | --- |
+| Clustering / Segmentation | K-Means Clustering; Hierarchical Clustering | Are there specific groups or “clusters” of customers who behave in similar ways? |
+| Association Mining / Basket Analysis | Markov Chains; Apriori | When customers purchase a particular item, which other items tend to be purchased as well? |
+| Outlier Detection | Cross-sectional Outlier Detection; Time-series Outlier Detection | Are there any anomalies in the data that we wouldn’t expect to see under normal conditions? |
+| Dimensionality Reduction | Dimensionality Reduction | Can we combine or reduce the number of dimensions in our data to better understand it? |
+
+The reproduced map keeps a visible connector from the Unsupervised Learning root through the grouped families and their methods. It is an orientation visual; do not imply that the questions uniquely determine a method or replace the dedicated later lessons.
+
+## Unsupervised learning workflow (p. 280; `3. Unsupervised ML Workflow.vtt`)
+
+The slide title is **Unsupervised Learning Workflow**. The top foundation group contains three distinct steps—**Business Objective**, **Preliminary QA**, and **Data Profiling**—with the reminder “Remember, these steps ALWAYS come first.” Its source explanation is: “Before building a model, you should have a clear understanding of the business objective (identifying clusters, detecting anomalies, etc.) and the data at hand (variable types, table structure, data quality, profiling metrics, etc.).” The lesson keeps those three steps grouped and before the modeling workflow.
+
+Below the foundation, preserve the four source stages and descriptions in order:
+
+1. **Feature Engineering** — “Add new, calculated variables (or ‘features’) to the data set based on existing fields.”
+2. **Model Application** — “Apply relevant unsupervised ML techniques, based on the objective (you will typically test multiple models).”
+3. **Hyperparameter Tuning** — “Adjust and tune model parameters (this is typically an iterative process).”
+4. **Model Selection** — “Select the model that yields the most useful or insightful results, based on the objective at hand.”
+
+The PDF shows forward arrows between these four stages. It also shows feedback from tuning to both feature engineering and model application (running the model again on the same data). Keep both return paths directional. The source conclusion is reproduced verbatim: “There often are no strict rules to determine which model is best; it’s about which one helps you best answer the question at hand”. This statement guides model selection by usefulness; it does not say that evaluation measures are unavailable.
+
+The customer-group / missing-spend / duplicate-ID / variable-type / table-structure / spend-distribution examples are a short illustrative addition requested for this restoration; they are not values or a dataset from the source. They are labeled as an example and do not add a worked calculation.
+
 ## Quiz source and answer key
 
 The source quiz title is “QUIZ: Intro to Unsupervised ML.” It has five multiple-choice items in this order:

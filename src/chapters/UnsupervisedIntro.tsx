@@ -2,11 +2,25 @@ import { useState } from 'react'
 import './UnsupervisedIntro.css'
 
 const TECHNIQUES = [
-  { title: 'Clustering', methods: 'K-Means · Hierarchical', question: 'Which customers form useful groups?' },
-  { title: 'Association mining', methods: 'Apriori · Markov chains', question: 'Which items are often purchased together?' },
-  { title: 'Outlier detection', methods: 'Cross-sectional · Time series', question: 'Which observations are unusual in this context?' },
-  { title: 'Dimensionality reduction', methods: 'Reduce or combine dimensions', question: 'Can fewer dimensions make patterns easier to understand?' },
+  { family: 'Clustering / Segmentation', methods: ['K-Means Clustering', 'Hierarchical Clustering'], question: 'Are there specific groups or “clusters” of customers who behave in similar ways?' },
+  { family: 'Association Mining / Basket Analysis', methods: ['Markov Chains', 'Apriori'], question: 'When customers purchase a particular item, which other items tend to be purchased as well?' },
+  { family: 'Outlier Detection', methods: ['Cross-sectional Outlier Detection', 'Time-series Outlier Detection'], question: 'Are there any anomalies in the data that we wouldn’t expect to see under normal conditions?' },
+  { family: 'Dimensionality Reduction', methods: ['Dimensionality Reduction'], question: 'Can we combine or reduce the number of dimensions in our data to better understand it?' },
 ] as const
+
+function UnsupervisedFamilyMap() {
+  return <section className="unsup-family-map" aria-label="Unsupervised learning families, methods, and example questions">
+    <div className="unsup-map-root">Unsupervised learning</div>
+    <div className="unsup-map-columns" aria-hidden="true"><span /><span /><strong>Unsupervised examples</strong></div>
+    <div className="unsup-map-groups">
+      {TECHNIQUES.map((item) => <div className="unsup-map-row" key={item.family}>
+        <h2 className="unsup-map-family">{item.family}</h2>
+        <ul className="unsup-map-methods">{item.methods.map((method) => <li key={method}>{method}</li>)}</ul>
+        <p className="unsup-map-question">{item.question}</p>
+      </div>)}
+    </div>
+  </section>
+}
 
 const FEATURE_ROWS = [
   ['1', '30', 'High', '$130,000', '12', '$1,300,050', '1', '0', '0', '1', '11.7'],
@@ -24,6 +38,8 @@ export function UISupervisedVsUnsupervised() {
       <div className="is-current"><span>Part 4 · now</span><h2>Unsupervised learning</h2><p>Explore and organize observed values when there is no supplied target label to predict.</p><strong>Observed values → find patterns</strong></div>
       <div className="is-muted"><span>Advanced topics</span><h2>Beyond this course</h2><p>The course diagram includes advanced areas that this part does not cover.</p><strong>Not in the current course path</strong></div>
     </section>
+    <h2 className="unsup-map-heading">Questions explored by unsupervised learning</h2>
+    <UnsupervisedFamilyMap />
     <p className="unsup-note"><strong>Keep the distinction practical:</strong> classification and regression learn from known outcomes. Unsupervised methods usually help describe or organize the data; the business question determines whether a pattern is useful.</p>
   </article>
 }
@@ -31,26 +47,41 @@ export function UISupervisedVsUnsupervised() {
 export function UICommonTechniques() {
   return <article className="unsup-lesson" aria-labelledby="unsup-techniques-title">
     <header><p className="unsup-eyebrow">17.2 · Common techniques</p><h1 id="unsup-techniques-title">Match the technique to the pattern you want to inspect</h1><p>The course groups several methods by the kind of structure they help explore.</p></header>
-    <div className="unsup-techniques">{TECHNIQUES.map((item, index) => <section key={item.title}>
-      <span className="unsup-index">0{index + 1}</span><div><h2>{item.title}</h2><p className="unsup-methods">{item.methods}</p><p>{item.question}</p></div>
-    </section>)}</div>
+    <UnsupervisedFamilyMap />
     <p className="unsup-note">These are examples of questions, not a rule that only one method can answer each one. Start with the business objective, then choose a technique that makes its patterns easier to examine.</p>
   </article>
 }
 
 export function UIUnsupervisedWorkflow() {
   return <article className="unsup-lesson" aria-labelledby="unsup-workflow-title">
-    <header><p className="unsup-eyebrow">17.3 · Unsupervised ML workflow</p><h1 id="unsup-workflow-title">Start with the question, then refine the analysis</h1><p>Data QA and profiling come first. The modeling steps that follow can loop as you learn more about the problem.</p></header>
-    <ol className="unsup-workflow" aria-label="Unsupervised learning workflow">
-      <li><span>First</span><strong>Business objective</strong><p>What decision or question should the analysis support?</p></li>
-      <li><span>Before modeling</span><strong>QA &amp; data profiling</strong><p>Check and understand the data before using a technique.</p></li>
-      <li><span>Prepare</span><strong>Feature engineering</strong><p>Add calculated variables that can help reveal useful structure.</p></li>
-      <li><span>Explore</span><strong>Apply a relevant technique</strong><p>Choose a method that fits the question at hand.</p></li>
-      <li><span>Refine</span><strong>Tune hyperparameters</strong><p>Adjust settings and revisit features or model runs as needed.</p></li>
-      <li><span>Choose</span><strong>Select the useful result</strong><p>Keep the result that gives the most relevant insight for the objective.</p></li>
-    </ol>
-    <div className="unsup-iteration" aria-label="Iteration can return from tuning to feature engineering, model application, or another model run"><span>Feature engineering</span><b aria-hidden="true">↔</b><span>Technique / model run</span><b aria-hidden="true">↔</b><span>Hyperparameter tuning</span></div>
-    <p className="unsup-note"><strong>How do we pick a “best” model?</strong> There may be no single target-label score that settles an unsupervised analysis. Judge the result by whether it helps answer the business question.</p>
+    <header><p className="unsup-eyebrow">17.3 · Unsupervised ML workflow</p><h1 id="unsup-workflow-title">Unsupervised learning workflow</h1></header>
+    <section className="unsup-foundation" aria-labelledby="unsup-foundation-title">
+      <ol className="unsup-foundation-steps" aria-label="Three foundation steps, always first">
+        <li>Business Objective</li><li>Preliminary QA</li><li>Data Profiling</li>
+      </ol>
+      <div className="unsup-foundation-copy">
+        <h2 id="unsup-foundation-title">Remember, these steps ALWAYS come first</h2>
+        <p>Before building a model, you should have a clear understanding of the <strong>business objective</strong> (identifying clusters, detecting anomalies, etc.) and the <strong>data at hand</strong> (variable types, table structure, data quality, profiling metrics, etc.).</p>
+      </div>
+      <div className="unsup-foundation-example"><strong>Example</strong><p><b>Business objective:</b> identify similar customer groups. <b>Preliminary QA:</b> check missing spend values and duplicate customer IDs. <b>Data profiling:</b> inspect variable types, table structure, and the spend distribution.</p></div>
+    </section>
+    <div className="unsup-flow-down" aria-hidden="true">↓</div>
+    <section className="unsup-workflow-section" aria-label="Unsupervised modeling workflow">
+      <ol className="unsup-workflow" aria-label="Feature engineering, model application, hyperparameter tuning, and model selection">
+        <li><h2>Feature Engineering</h2><p>Add new, calculated variables (or “features”) to the data set based on existing fields.</p></li>
+        <li><h2>Model Application</h2><p>Apply relevant unsupervised ML techniques, based on the objective (you will typically test multiple models).</p></li>
+        <li><h2>Hyperparameter Tuning</h2><p>Adjust and tune model parameters (this is typically an iterative process).</p></li>
+        <li><h2>Model Selection</h2><p>Select the model that yields the most useful or insightful results, based on the objective at hand.</p></li>
+      </ol>
+      <svg className="unsup-feedback-arrows" viewBox="0 0 1000 84" preserveAspectRatio="none" role="img" aria-label="From hyperparameter tuning, the workflow can return to feature engineering or model application">
+        <title>Iteration returns from hyperparameter tuning to feature engineering or model application.</title>
+        <defs><marker id="unsup-feedback-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor" /></marker></defs>
+        <path d="M625 0 V54 H125 V12" markerEnd="url(#unsup-feedback-arrow)" />
+        <path d="M625 0 V70 H375 V12" markerEnd="url(#unsup-feedback-arrow)" />
+      </svg>
+      <p className="unsup-feedback-caption">Tuning can lead to more feature engineering or another model run.</p>
+    </section>
+    <aside className="unsup-workflow-conclusion"><strong>There often are no strict rules to determine which model is best; it’s about which one helps you best answer the question at hand</strong></aside>
   </article>
 }
 
