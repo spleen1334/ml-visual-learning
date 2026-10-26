@@ -39,6 +39,9 @@ Default to faithful reproduction of the course sources. Section 9 (Classificatio
 
 ## Visual design and readability
 
+- Lesson animation playback controls use the shared icon-only `PlaybackButton` for Previous, Play/Replay, Pause/Stop, and Next. Give every icon a descriptive hover tooltip and accessible name, retaining disabled states and keyboard focus. Keep lesson navigation and unrelated action buttons distinct from animation playback.
+- Make existing case-study conclusions visually identifiable with a labeled conclusion subsection and bold the main finding. Preserve source claims and values; do not turn instructions, limitations, or tentative observations into conclusions or add routine summaries where none are needed.
+
 - Generated and reproduced images may be raster graphics (such as PNG or WebP); they do not have to be SVG. Prefer raster images when they give clearer, more faithful results. Choose the format for visual quality, readable labels at the displayed size, and any interaction needs, not a blanket preference for SVG.
 
 - Desktop is the primary target. Do not spend effort on phone-specific polish unless asked.

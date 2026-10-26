@@ -57,6 +57,51 @@
   margin: 6px 0;
 }
 
+.tsf__forecasting-basics {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.tsf__forecasting-basics li + li {
+  margin-top: 18px;
+}
+
+.tsf__seasonality-acf {
+  padding: 20px 24px;
+  border-left: 4px solid #187d76;
+  border-radius: 0 10px 10px 0;
+  background: #edf5f0;
+}
+
+.tsf__seasonality-acf p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.55;
+}
+
+.tsf__acf-animation { margin-top: 24px; }
+.tsf__acf-animation h2 { color: #17645f; margin-bottom: 8px; }
+.tsf__acf-animation > p { margin-top: 0; }
+.tsf__acf-controls, .tsf__acf-lags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+.tsf__acf-controls button, .tsf__acf-lags button { padding: 8px 14px; border: 1px solid #9ebdb3; border-radius: 7px; background: #fffefa; color: #17645f; font: inherit; cursor: pointer; }
+.tsf__acf-controls button:disabled { opacity: .45; cursor: default; }
+.tsf__acf-controls span { margin-left: 12px; }
+.tsf__acf-lags button[aria-pressed=true] { color: white; background: #17645f; }
+.tsf__acf-controls button:focus-visible, .tsf__acf-lags button:focus-visible { outline: 3px solid #bd8c2f; outline-offset: 3px; }
+.tsf__acf-frame figcaption { min-height: 54px; font-size: 18px; color: #263b3b; }
+.tsf__lag-example { padding: 22px; margin: 26px 0; border: 1px solid #c7d9d0; border-radius: 10px; background: #fffefa; }
+.tsf__lag-example h2 { margin: 0; color: #17645f; font-size: 26px; }
+.tsf__lag-example p { margin: 12px 0; }
+.tsf__lag-context { color: #587476; font-size: 14px; }
+.tsf__lag-table { overflow: auto; }
+.tsf__lag-table table { width: 100%; border-collapse: collapse; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tsf__lag-table th, .tsf__lag-table td { padding: 12px 9px; border: 1px solid #d7e1dc; text-align: center; }
+.tsf__lag-table th { background: #edf5f0; font-size: 14px; }
+.tsf__lag-table .is-current { background: #17645f; color: white; font-weight: 750; }
+.tsf__lag-table .is-earlier { background: #f9e8bb; color: #61470f; font-weight: 750; box-shadow: inset 0 0 0 2px #b98b2e; }
+.tsf__lag-pair { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; padding: 15px; background: #edf5f0; border-radius: 7px; }
+.tsf__lag-pair strong { display: block; font-size: 20px; }
+
 .tsf__source {
   margin: 22px 0 30px;
   padding: 12px;

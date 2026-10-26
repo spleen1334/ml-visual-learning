@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import { PlaybackButton } from '../components/PlaybackButton'
 import equation from '../assets/regression-modeling-205.png'
 import patterns from '../assets/regression-modeling-206.png'
 import perfectLine from '../assets/regression-modeling-207.png'
@@ -108,7 +109,7 @@ export function RMLeastSquares() {
     <section className="rm-panel rf-walkthrough">
       <h2>Least squares, step by step</h2>
       <ol className="rf-step-strip" aria-label="Five steps of least squares">{steps.map((item, index) => <li key={item.title} aria-current={step === index ? 'step' : undefined}><button onClick={() => navigate(index)}><span>Step {index + 1}</span>{item.title}</button></li>)}</ol>
-      <div className="rm-choice rf-playback"><button onClick={() => navigate(Math.max(0, step - 1))} disabled={step === 0}>Previous step</button><button disabled={reducedMotion} onClick={() => { if (step === 4) setStep(0); setPlaying(!playing) }}>{playing ? 'Pause' : step === 4 ? 'Replay five steps' : 'Play'}</button><button onClick={() => navigate(Math.min(4, step + 1))} disabled={step === 4}>Next step</button></div>
+      <div className="rm-choice rf-playback"><PlaybackButton action="previous" label="Previous step" onClick={() => navigate(Math.max(0, step - 1))} disabled={step === 0}/><PlaybackButton action={playing ? 'pause' : step === 4 ? 'replay' : 'play'} label={playing ? 'Pause' : step === 4 ? 'Replay five steps' : 'Play'} disabled={reducedMotion} onClick={() => { if (step === 4) setStep(0); setPlaying(!playing) }}/><PlaybackButton action="next" label="Next step" onClick={() => navigate(Math.min(4, step + 1))} disabled={step === 4}/></div>
       <div className="rf-step-caption"><h3>Step {step + 1}: {steps[step].title}</h3><p>{steps[step].description}</p></div>
       <div className="rf-slide-layout">
         <figure className="rf-step-graph"><img src={steps[step].image} alt={step === 0 ? 'Ten observed points on a scatterplot, with x from 10 to 80 and y from 10 to 50.' : `${candidates[candidate].label} drawn through the same ten points${step >= 2 ? ', with dashed vertical residuals' : ''}${step === 4 ? '; the first line remains faintly visible for comparison' : ''}.`} /></figure>

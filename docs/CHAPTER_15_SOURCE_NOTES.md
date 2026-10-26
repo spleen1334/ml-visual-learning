@@ -6,7 +6,7 @@ Reviewed the chapter folder's numbered VTT subtitles, the matching pages in `../
 
 | Order | VTT | PDF pages | Source flow and visuals |
 | --- | --- | --- | --- |
-| 1 | Intro to Forecasting | 245 | Chapter map; forecast one numeric dependent variable over time using regression ideas, seasonality and trends. |
+| 1 | Intro to Forecasting | 245–246 | Chapter map and Forecasting 101: forecast one numeric dependent variable; regression requires multiple observations over time (time-series data), and uses seasonality or linear/non-linear trends. Preserve the three common examples. |
 | 2 | Seasonality | 247 | Definition and examples: website traffic by hour, seasonal sales, airline prices around holidays. |
 | 3 | Auto Correlation Function | 248–251 | Daily repeating series and progressively revealed lag overlays (248–250), then ACF bars. Peaks at lags 7, 14, 21 and 28 are labeled a weekly cycle (251). |
 | 4 | CASE STUDY Seasonality with ACF | 252 | Accucorp Accounting tax-keyword-search assignment; identify whether searches are seasonal. |
@@ -50,6 +50,16 @@ Keep each chart beside its connected data/model in the case-study composition. T
 - The six assignment briefs (pp.252, 254, 257, 260, 267, 272) are concise prompts, not substitute datasets. Workbook sheets are required for their complete calculations and chart behavior.
 
 ## Correction and interpretation boundaries
+
+- Lesson 15.5 expands PDF p253 / One-Hot Encoding VTT 00:34–01:32: emphasize omitting one indicator with an intercept, preserve the A+B=5 analogy, and explain the redundant identity Q1+Q2+Q3+Q4=1. A separate two-season, 20/30-unit example illustrates nonunique coefficients. The interactive reference-quarter table uses the exact four PDF revenues (1,300,050; 11,233,310; 1,112,050; 1,582,077), with intercept equal to the reference and coefficients equal to differences. All four reference choices preserve predictions. Explain that observations remain, and that this saturated four-row illustration does not establish forecast accuracy. Multiple seasonal dimensions and the no-intercept exception are explicit.
+
+- User-requested lag clarification in 15.3 adds a separate, explicitly illustrative eight-day website-visits table. Toggle lag 1/7 to trace a prior observation into its comparison date. Amber marks the reused earlier observation; teal marks the current observation. Missing earlier observations are dashes, never zeros. This is a pairing explanation, not a second calculated ACF or source dataset; the source plots still carry the correlation demonstration.
+
+- Lesson 15.3 animates the original video plots through lags 0–7, with manual steps and autoplay. Source frames: 00:46, 00:58, 01:05, 01:09.8, 01:11.8, 01:14.2, 01:15.5 and 01:23; crop x365/y345/820×340 preserves both the series overlay and ACF axes. PDF pp248–250 only reach lag 2; the missing seven-day overlay comes from the video at 01:23. Retain p251's completed ACF below the animation. Correlation descriptions are approximate source readings, not recomputed values or invented data. Reduced motion starts at lag 7, disables autoplay and preserves manual selection.
+
+- Lesson 15.2 presents page 247's ACF explanation as a prominent section before the examples and plot, rather than a small closing note. Preserve the source sequence: identify seasonal patterns with ACF, then apply seasonality using one-hot encoding or moving averages. The Seasonality VTT emphasizes ACF at 00:55–01:20.
+
+- Lesson 15.1 restores page 246's Forecasting 101 definition and two explanatory bullets, keeping the source wording close. Expand “DV” to “dependent variable,” correct the example's “an new” typo, and omit “accurately” so the introduction does not promise forecast accuracy. The matching intro VTT explains the same distinction at 01:11–01:46. Preserve the existing supporting illustration and three source examples.
 
 - ACF correlates a series with lagged versions of itself; the repeated peaks suggest a period in this example. Do not describe ACF as causal evidence or imply every seasonal pattern must be calendar-based. Keep the page-251 conclusion specific: strong correlation every seventh lag indicates a weekly cycle in the illustrated daily data.
 - One-hot regression needs a reference category when an intercept is present; PDF's “exclude one” note is essential. In the workbook the absent month is January (one-hot temperature) or December (Maven Muscles), and the coefficient for another month is relative to that reference, not an independent absolute temperature/revenue.

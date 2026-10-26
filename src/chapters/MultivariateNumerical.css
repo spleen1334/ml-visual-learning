@@ -115,6 +115,9 @@
 .mvn__tool-map { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 19px 0; }
 .mvn__tool-map div { display: grid; gap: 6px; padding: 15px; border-radius: 9px; background: #eef4ef; }.mvn__tool-map strong { color: var(--teal-dark); font-size: 17px; }.mvn__tool-map span { color: #516158; font-size: 15px; line-height: 1.5; }
 .mvn__summary { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: start; margin: 27px 0 16px; padding: 22px 24px; border: 1px solid #d2e1d6; border-radius: 12px; background: #e3eee6; }
+.mvn__case-conclusion { grid-template-columns: 1fr; gap: 10px; border-left: 4px solid #187d76; }
+.mvn__case-conclusion h2 { margin: 0; color: #17645f; font-size: 21px; }
+.mvn__summary.mvn__case-conclusion p { font-weight: 400; }
 .mvn__summary > span { color: var(--teal-dark); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }.mvn__summary p { margin: 0; color: #31483b; font-size: 18px; font-weight: 650; line-height: 1.65; }
 .mvn__bridge { display: grid; grid-template-columns: 1fr 64px 1fr; gap: 15px; align-items: center; margin: 27px 0 18px; }
 .mvn__bridge > div { min-height: 155px; padding: 21px; border: 1px solid #dce4db; border-radius: 12px; background: #f8faf6; }.mvn__bridge > div:last-child { background: #f7f1df; }

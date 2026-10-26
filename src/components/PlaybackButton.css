@@ -1,0 +1,45 @@
+button.playback-button.playback-button {
+  display: inline-flex;
+  flex: 0 0 40px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: 1px solid #9ebdb3;
+  border-radius: 7px;
+  background: #fffefa;
+  color: #17645f;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+button.playback-button.playback-button svg {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+button.playback-button.playback-button:hover:not(:disabled) {
+  background: #e7f1eb;
+  border-color: #17645f;
+}
+
+button.playback-button.playback-button:focus-visible {
+  outline: 3px solid #bd8c2f;
+  outline-offset: 3px;
+}
+
+button.playback-button.playback-button:disabled {
+  opacity: .45;
+  cursor: default;
+}

@@ -41,6 +41,9 @@
 .mvc-reading-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
 .mvc-reading-notes p { margin: 0; padding: 13px 15px; border-radius: 8px; color: #536458; background: #f4f4ec; font-size: 15px; line-height: 1.65; }
 .mvc-reading-notes strong { color: #28594d; }
+.mvc-case-conclusion { margin-top: 22px; padding: 20px; border-left: 4px solid #187d76; border-radius: 0 10px 10px 0; background: #edf5f0; }
+.mvc-case-conclusion h2 { margin: 0; color: #17645f; font-size: 21px; }
+.mvc-case-conclusion .mvc-reading-notes p { padding: 0; background: transparent; font-size: 17px; }
 .mvc-case-brief { display: grid; grid-template-columns: 78px minmax(0,1fr); align-items: center; gap: 18px; padding: 18px; border-radius: 10px; background: #f2f5ee; }
 .mvc-case-mark { display: grid; width: 72px; height: 72px; place-content: center; border-radius: 50%; color: #fffefa; background: #173f3b; font-size: 15px; font-weight: 850; line-height: 1.2; text-align: center; }
 .mvc-case-brief .mvc-eyebrow { margin-bottom: 4px; }

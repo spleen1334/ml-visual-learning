@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import { PlaybackButton } from '../components/PlaybackButton'
 import {
   pdfBayesConditional, pdfBayesCount, pdfBayesCountSteps, pdfBayesCustomers,
   pdfBayesFeatures, pdfBayesLookups, pdfBayesQuery, pdfBayesScore,
@@ -39,11 +40,11 @@ function LessonHeader({ number, title, children }: { number: number; title: stri
 
 function Playback({ animation }: { animation: ReturnType<typeof useSourceAnimation> }) {
   return <div className="bpdf__playback" aria-label="Animation controls">
-    <button type="button" onClick={animation.previous} disabled={animation.step === 0} aria-label="Previous animation step">Previous</button>
+    <PlaybackButton action="previous" label="Previous animation step" onClick={animation.previous} disabled={animation.step === 0} />
     <span className="bpdf__step" aria-live="polite">Step {animation.step + 1} / {animation.lastStep + 1}</span>
-    <button type="button" onClick={animation.next} disabled={animation.complete} aria-label="Next animation step">Next</button>
-    <button type="button" onClick={animation.paused || animation.complete ? animation.play : animation.pause}>{animation.paused || animation.complete ? 'Autoplay' : 'Pause'}</button>
-    <button type="button" onClick={animation.replay}>Replay</button>
+    <PlaybackButton action="next" label="Next animation step" onClick={animation.next} disabled={animation.complete} />
+    <PlaybackButton action={animation.paused || animation.complete ? 'play' : 'pause'} label={animation.paused || animation.complete ? 'Autoplay' : 'Pause'} onClick={animation.paused || animation.complete ? animation.play : animation.pause} />
+    <PlaybackButton action="replay" label="Replay" onClick={animation.replay} />
   </div>
 }
 

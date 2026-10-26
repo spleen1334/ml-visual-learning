@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
+import { PlaybackButton } from '../components/PlaybackButton'
 import { binaryEntropy } from './ClassificationTreesMath'
 import gender from '../assets/tree-page-123.png'
 import entropy from '../assets/tree-page-125.png'
@@ -137,7 +138,7 @@ export function CLDecisionTreeExamples() {
     <dl className="tree-pdf__node-terms" aria-label="Standard decision-tree terms"><div><dt>Root node</dt><dd>The starting node: all training customers.</dd></div><div><dt>Decision node</dt><dd>A node split by a feature-based rule.</dd></div><div><dt>Leaf node</dt><dd>A final group whose labels determine the prediction.</dd></div></dl>
     <div className="tree-pdf__example-tabs" role="group" aria-label="Choose customer example">{examples.map((_, index) => <button key={index} aria-pressed={exampleIndex === index} onClick={() => chooseExample(index)}>Example {index + 1}</button>)}</div>
     <header className="tree-pdf__customer-header"><h2>Example {exampleIndex + 1}</h2><dl>{example.features.map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl></header>
-    <div className="tree-pdf__playback" aria-label="Customer path animation"><button disabled={position === 0} onClick={() => move(-1)}>Previous</button><span>Path step {phase + 1} / {example.frames.length}</span><button disabled={atEnd} onClick={() => move(1)}>Next</button><button onClick={() => { if (atEnd) { setPosition(0); setPlaying(true) } else setPlaying(!playing) }}>{playing && !atEnd ? 'Pause' : 'Autoplay'}</button><button onClick={() => { setPosition(customerFrames.findIndex(item => item.exampleIndex === exampleIndex)); setPlaying(true) }}>Replay example</button></div>
+    <div className="tree-pdf__playback" aria-label="Customer path animation"><PlaybackButton action="previous" label="Previous customer path step" disabled={position === 0} onClick={() => move(-1)}/><span>Path step {phase + 1} / {example.frames.length}</span><PlaybackButton action="next" label="Next customer path step" disabled={atEnd} onClick={() => move(1)}/><PlaybackButton action={playing && !atEnd ? 'pause' : atEnd ? 'replay' : 'play'} label={playing && !atEnd ? 'Pause customer path animation' : atEnd ? 'Replay customer path animation' : 'Autoplay customer path animation'} onClick={() => { if (atEnd) { setPosition(0); setPlaying(true) } else setPlaying(!playing) }}/><PlaybackButton action="replay" label="Replay example" onClick={() => { setPosition(customerFrames.findIndex(item => item.exampleIndex === exampleIndex)); setPlaying(true) }}/></div>
     <p className="tree-pdf__path-caption" aria-live="polite">{frame.label}</p>
     <div className="tree-pdf__animated-tree" data-example={exampleIndex + 1} data-phase={phase}>
       <Slide src={example.src} alt={example.alt} />

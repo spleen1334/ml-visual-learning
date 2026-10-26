@@ -70,6 +70,9 @@
 .od-result-strip>div span,.od-result-strip small { color: #66756a; font-size: 12px; }
 .od-result-strip strong { font-size: 27px; font-variant-numeric: tabular-nums; }
 .od-result-strip p { margin: 0; color: #3c5b56; }
+.od-case-conclusion { padding-left: 18px; border-left: 4px solid #187d76; }
+.od-case-conclusion h2 { margin: 0 0 8px; color: #17645f; font-size: 21px; }
+.od-case-conclusion strong { font-size: inherit; }
 .od-formula-note { display: grid; grid-template-columns: 230px 1fr; gap: 4px 14px; align-items: center; margin: 12px 0; padding: 14px 16px; border: 1px solid var(--od-line); border-radius: 12px; background: #f4f7f2; }
 .od-formula-note>span { font-family: Georgia,serif; font-size: 18px; font-weight: 700; }
 .od-formula-note p { grid-column: 2; margin: 0; color: #536a65; font-size: 13px; }

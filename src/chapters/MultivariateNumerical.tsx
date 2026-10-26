@@ -3,14 +3,14 @@ import './MultivariateNumerical.css'
 import { pearsonCorrelation } from './multivariateMath'
 import { correlationWorkbookRows } from './multivariateNumericalData'
 
-type Props = { number: string; title: string; definition: React.ReactNode; summary: string }
+type Props = { number: string; title: string; definition: React.ReactNode; summary: React.ReactNode; summaryLabel?: string }
 
-function Page({ number, title, definition, summary, children }: Props & { children: React.ReactNode }) {
+function Page({ number, title, definition, summary, summaryLabel, children }: Props & { children: React.ReactNode }) {
   const id = useId()
   return <article className="mvn" aria-labelledby={id}>
     <header className="mvn__intro"><p className="mvn__eyebrow">Chapter 6.{number} · Multivariate profiling</p><h1 id={id}>{title}</h1><p className="mvn__definition">{definition}</p></header>
     {children}
-    <aside className="mvn__summary"><span>Keep in mind</span><p>{summary}</p></aside>
+    {summaryLabel ? <section className="mvn__summary mvn__case-conclusion" aria-labelledby={`${id}-conclusion`}><h2 id={`${id}-conclusion`}>{summaryLabel}</h2><p>{summary}</p></section> : <aside className="mvn__summary"><span>Keep in mind</span><p>{summary}</p></aside>}
   </article>
 }
 
@@ -189,7 +189,7 @@ export function MVCorrelationCase() {
   const [metric, setMetric] = useState<CaseMetric>('traffic'); const [step, setStep] = useState(1)
   const config = CASE_METRICS[metric]
   const r = pearsonCorrelation(correlationWorkbookRows.map(row => row[1]), correlationWorkbookRows.map(row => row[config.column]))
-  return <Page number="13" title="Explore the weekly marketing relationships" definition={<>At Loud &amp; Clear, your client wants to understand how <strong>weekly digital media spend relates to traffic, offline spend, sales, and site load time.</strong> Compare each measure against digital spend and describe the patterns before making a claim.</>} summary="The workbook suggests strong positive linear association with site traffic, strong negative association with offline spend, strong positive association with sales that visibly bends, and almost no linear association with load time. These are associations in the recorded weeks, not causal effects.">
+  return <Page number="13" title="Explore the weekly marketing relationships" definition={<>At Loud &amp; Clear, your client wants to understand how <strong>weekly digital media spend relates to traffic, offline spend, sales, and site load time.</strong> Compare each measure against digital spend and describe the patterns before making a claim.</>} summaryLabel="Case study conclusion" summary={<>The workbook suggests <strong>strong positive linear association with site traffic</strong>, <strong>strong negative association with offline spend</strong>, <strong>strong positive association with sales that visibly bends</strong>, and <strong>almost no linear association with load time</strong>. These are associations in the recorded weeks, not causal effects.</>}>
     <Section label="Marketing analyst assignment" title="Compare digital spend with one measure at a time">
       <p className="mvn__lead">The case workbook contains 1,000 weekly observations. Select the Y variable to keep Digital_Media_Spend on the horizontal axis and inspect another relationship. The chart and Pearson r use all rows, not just a sample.</p>
       <div className="mvn__button-row mvn__case-controls" role="group" aria-label="Choose the variable compared with digital media spend">{(Object.keys(CASE_METRICS) as CaseMetric[]).map(key=><button type="button" key={key} aria-pressed={metric===key} className={metric===key?'is-selected':''} onClick={()=>setMetric(key)}>{CASE_METRICS[key].label}</button>)}</div>

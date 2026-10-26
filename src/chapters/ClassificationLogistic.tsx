@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import { PlaybackButton } from '../components/PlaybackButton'
 import './ClassificationLogistic.css'
 import { LogisticSurface } from './LogisticSurface'
 import { LogisticMultipleInputs } from './LogisticMultipleInputs'
@@ -89,10 +90,10 @@ function SourceSequence({ slides, label, autoplay = false }: { slides: SourceSli
       <figcaption><span>Step {position + 1} of {slides.length}</span>{slide.caption}</figcaption>
     </figure>
     <div className="logistic-sequence__controls" aria-label={`${label} controls`}>
-      <button type="button" onClick={() => move(-1)} disabled={position === 0}>Previous</button>
+      <PlaybackButton action="previous" label="Previous" onClick={() => move(-1)} disabled={position === 0} />
       <span aria-live="polite">Step {position + 1} of {slides.length}</span>
-      <button type="button" onClick={() => move(1)} disabled={atEnd}>Next</button>
-      {slides.length > 1 && <button type="button" onClick={() => playing ? setPlaying(false) : replay()}>{playing && !atEnd ? 'Pause' : atEnd ? 'Replay' : 'Autoplay'}</button>}
+      <PlaybackButton action="next" label="Next" onClick={() => move(1)} disabled={atEnd} />
+      {slides.length > 1 && <PlaybackButton action={playing && !atEnd ? 'pause' : atEnd ? 'replay' : 'play'} label={playing && !atEnd ? 'Pause' : atEnd ? 'Replay' : 'Autoplay'} onClick={() => playing && !atEnd ? setPlaying(false) : replay()} />}
     </div>
   </div>
 }

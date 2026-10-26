@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { PlaybackButton } from '../components/PlaybackButton'
 import './OutlierDetection.css'
 import { OUTLIER_STORE_SALES, type StoreSale } from './outlierWorkbookData'
 import pdfCross334 from '../assets/outlier-pdf-cross-334.png'
@@ -89,9 +90,9 @@ function PlaybackControls({
 }) {
   const playLabel = reducedMotion ? 'Autoplay disabled: reduced motion is preferred' : isPlaying ? `Pause ${ariaLabel}` : step === stepCount - 1 ? `Play ${ariaLabel} from the beginning` : `Play ${ariaLabel}`
   return <div className="od-playback" role="group" aria-label={`${ariaLabel} playback controls`}>
-    <button type="button" className="od-playback__toggle" aria-label={playLabel} aria-pressed={isPlaying} disabled={reducedMotion} onClick={onToggle}>{isPlaying ? 'Pause' : step === stepCount - 1 && !reducedMotion ? 'Play from start' : 'Play'}</button>
-    <button type="button" aria-label={`Previous ${ariaLabel} step`} disabled={step === 0} onClick={onPrevious}>← Previous</button>
-    <button type="button" aria-label={`Next ${ariaLabel} step`} disabled={step === stepCount - 1} onClick={onNext}>Next →</button>
+    <PlaybackButton action={isPlaying ? 'pause' : step === stepCount - 1 && !reducedMotion ? 'replay' : 'play'} label={playLabel} className="od-playback__toggle" aria-pressed={isPlaying} disabled={reducedMotion} onClick={onToggle}/>
+    <PlaybackButton action="previous" label={`Previous ${ariaLabel} step`} disabled={step === 0} onClick={onPrevious}/>
+    <PlaybackButton action="next" label={`Next ${ariaLabel} step`} disabled={step === stepCount - 1} onClick={onNext}/>
     <span className="od-playback__status" role="status" aria-live="polite">{reducedMotion ? 'Reduced motion: showing the completed view.' : isPlaying ? `Playing step ${step + 1} of ${stepCount}.` : `Paused on step ${step + 1} of ${stepCount}.`}</span>
   </div>
 }
@@ -217,7 +218,7 @@ export function CrossSectionalCase() {
   const table=(matrix:boolean)=><div className={`od-table-scroll${matrix?' od-table-scroll--matrix':''}`}><table className="od-data-table"><caption>{matrix?'Complete pairwise Euclidean distance matrix · row store to column store':'All 100 stores · source revenue values and nearest neighbor'}</caption><thead><tr>{matrix?<><th scope="col">Store</th>{OUTLIER_STORE_SALES.map(row=><th scope="col" key={row.store}>{row.store}</th>)}</>:<><th scope="col">Store</th><th scope="col">Toys</th><th scope="col">Board Games</th><th scope="col">Puzzles</th><th scope="col">Nearest store</th><th scope="col">Distance</th></>}</tr></thead><tbody>{ordered.map(({store,nearestStore,distance})=><tr key={store.store} className={store.store===selectedStore?'is-selected':undefined} onClick={matrix?undefined:()=>setSelectedStore(store.store)}>{matrix?<><th scope="row">{store.store}</th>{OUTLIER_STORE_SALES.map(target=><td key={target.store} className={store.store===target.store?'is-diagonal':undefined}>{store.store===target.store?'—':euclidean(store,target).toFixed(1)}</td>)}</>:<><th scope="row"><button type="button" className="od-row-button" aria-pressed={store.store===selectedStore} onClick={()=>setSelectedStore(store.store)}>Store {store.store}</button></th><td>{store.toys.toLocaleString()}</td><td>{store.boardGames.toLocaleString()}</td><td>{store.puzzles.toLocaleString()}</td><td>{nearestStore}</td><td>{distance.toFixed(2)}</td></>}</tr>)}</tbody></table></div>
   return <article className={BASE_CLASS}>
     <Header eyebrow="20.5 · Case study: cross-sectional outlier" title="Find the store with an unusual sales mix" intro="Brain Games compares Toys, Board Games, and Puzzles revenue across 100 stores. Explore the full source table and the distance to each store’s nearest neighbor." />
-    <div className="od-result-strip"><div><span>Selected nearest-neighbor distance</span><strong>{selected.distance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Store {selected.store.store} · nearest store {selected.nearestStore}</small></div><p>Store 57 is far from every other store in this three-category revenue space. Its row is highlighted in the source table and distance plots.</p></div>
+    <div className="od-result-strip"><div><span>Selected nearest-neighbor distance</span><strong>{selected.distance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Store {selected.store.store} · nearest store {selected.nearestStore}</small></div><section className="od-case-conclusion" aria-labelledby="od-store-conclusion"><h2 id="od-store-conclusion">Case study conclusion</h2><p><strong>Store 57 is far from every other store</strong> in this three-category revenue space. Its row is highlighted in the source table and distance plots.</p></section></div>
     <section className="od-scatter-grid" aria-label="Pairwise scatterplots">{PAIRS.map(pair=><StoreScatter key={pair.label} {...pair} selectedStore={selectedStore} onSelectStore={setSelectedStore}/>)}</section>
     <NeighborDistribution onChooseStore={()=>setSelectedStore(57)} />
     <div className="od-formula-note"><strong>Distance from Store i to Store j</strong><span>√[(Toysᵢ−Toysⱼ)² + (Board Gamesᵢ−Board Gamesⱼ)² + (Puzzlesᵢ−Puzzlesⱼ)²]</span><p>The workbook uses the three category amounts as supplied; because they share a revenue scale, no separate normalization is applied in this case.</p></div>
