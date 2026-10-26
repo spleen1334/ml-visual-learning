@@ -41,3 +41,13 @@
 
 .ts-case__residual-source figure{margin:0;background:white;border:1px solid #c7d9d0;border-radius:7px;padding:8px;overflow:hidden}
 .ts-case__residual-source img{display:block;width:100%;height:auto}
+
+/* Keep the three curve parameters together; use mathematical typesetting for the nested powers. */
+.ts-case__curve-parameters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; gap:12px; }
+.ts-case__curve-parameters label { flex-direction:column; align-items:flex-start; gap:8px; line-height:1.4; }
+.ts-case__curve-parameters input[type=number] { width:100%; min-width:0; box-sizing:border-box; }
+.ts-case__curve-equation { padding:24px 14px 14px; }
+.ts-case__written-formula { display:block; font-family:"Cambria Math",Georgia,serif; font-size:clamp(27px,3vw,38px); margin:0 auto 18px; }
+.ts-case__curve-equation p { margin:0; font-family:inherit; font-size:14px; line-height:1.6; color:#456468; }
+
+.ts-case__written-formula sup { font-size:.7em; vertical-align:super; line-height:0; }
