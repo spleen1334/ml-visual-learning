@@ -11,3 +11,13 @@
 .ts-case__conclusion .ts-case__note{font-size:15px;margin-top:10px}
 @media(max-width:800px){.ts-case__acf-tables{grid-template-columns:minmax(0,1fr) 210px;gap:14px}}
 @media(max-width:650px){.ts-case__acf-tables{grid-template-columns:minmax(0,1fr)}}
+
+.ts-case__one-hot-tables{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:start}
+.ts-case__one-hot-tables .ts-case__coefficients{margin-top:0;min-width:0}
+.ts-case__one-hot-tables .ts-case__coefficients p{margin-top:0}
+@media(max-width:800px){.ts-case__one-hot-tables{grid-template-columns:minmax(0,1fr) 220px;gap:14px}}
+@media(max-width:650px){.ts-case__one-hot-tables{grid-template-columns:minmax(0,1fr)}}
+
+.ts-case__indicator-grid .ts-case__column-groups th{position:static;text-align:center;font-size:12px;background:#e1ede6;height:32px;padding:6px 9px}
+.ts-case__indicator-grid .ts-case__column-groups .ts-case__indicator-heading,.ts-case__indicator-grid tbody tr:first-child .ts-case__indicator-heading{background:#f2e2b7;color:#644b16}
+.ts-case__indicator-grid tbody tr:first-child th{top:0}

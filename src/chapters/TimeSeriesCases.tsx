@@ -12,7 +12,7 @@ function Lesson({ number, title, lead, children }: { number: number; title: stri
 }
 function col(n: number): string { return n > 26 ? col(Math.floor((n - 1) / 26)) + String.fromCharCode(65 + (n - 1) % 26) : String.fromCharCode(64 + n) }
 function colNumber(s: string) { return [...s].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) }
-function Grid({ sheet, range, caption, overrides = {} }: { sheet: CaseKey; range: string; caption: string; overrides?: Record<string, number | string | null> }) {
+function Grid({ sheet, range, caption, indicatorHeaders = false, overrides = {} }: { sheet: CaseKey; range: string; caption: string; indicatorHeaders?: boolean; overrides?: Record<string, number | string | null> }) {
   const source = grids[sheet]
   const cells = source.cells as Record<string, string | number>
   const formulas = source.formulas as Record<string, string>
@@ -27,9 +27,9 @@ function Grid({ sheet, range, caption, overrides = {} }: { sheet: CaseKey; range
     if (v !== 0 && Math.abs(v) < .00001) return v.toExponential(3)
     return fmt(v, 5)
   }
-  return <div className="ts-case__data"><p className="ts-case__table-title">{caption}</p><div className="ts-case__table" tabIndex={0} role="region" aria-label={caption}><table><tbody>{Array.from({ length: end.r - start.r + 1 }, (_, ri) => {
+  return <div className="ts-case__data"><p className="ts-case__table-title">{caption}</p><div className="ts-case__table" tabIndex={0} role="region" aria-label={caption}><table className={indicatorHeaders ? 'ts-case__indicator-grid' : undefined}>{indicatorHeaders && <thead><tr className="ts-case__column-groups"><th colSpan={2} scope="colgroup">Observations</th><th colSpan={11} scope="colgroup" className="ts-case__indicator-heading">One-hot encoded columns</th><th colSpan={2} scope="colgroup">Temperature &amp; forecast</th></tr></thead>}<tbody>{Array.from({ length: end.r - start.r + 1 }, (_, ri) => {
     const r = start.r + ri
-    return <tr key={r}>{Array.from({ length: end.c - start.c + 1 }, (_, ci) => { const ref = col(start.c + ci) + r; const value = cellValue(ref); return ri === 0 ? <th scope="col" key={ref}>{value}</th> : <td key={ref} title={formulas[ref] ? `${ref}: =${formulas[ref]}` : undefined} className={Object.hasOwn(overrides, ref) ? 'ts-case__changed' : undefined}>{value}</td> })}</tr>
+    return <tr key={r}>{Array.from({ length: end.c - start.c + 1 }, (_, ci) => { const ref = col(start.c + ci) + r; const value = cellValue(ref); return ri === 0 ? <th scope="col" key={ref} className={indicatorHeaders && ci >= 2 && ci <= 12 ? 'ts-case__indicator-heading' : undefined}>{value}</th> : <td key={ref} title={formulas[ref] ? `${ref}: =${formulas[ref]}` : undefined} className={Object.hasOwn(overrides, ref) ? 'ts-case__changed' : undefined}>{value}</td> })}</tr>
   })}</tbody></table></div></div>
 }
 function FullSheet({ sheet }: { sheet: CaseKey }) { return <details className="ts-case__details"><summary>All worksheet calculations and regression output</summary><Grid sheet={sheet} range={grids[sheet].range} caption="Complete worksheet values · Hover a formula cell to inspect its calculation" /></details> }
@@ -77,7 +77,22 @@ export function TSACFCase() {
 }
 export function TSOneHotCase() {
  const s=data.oneHotEncoding, [show,setShow]=useState(true)
- return <Lesson number={6} title="Case study: seasonality with one-hot encoding" lead="Weather Trends uses monthly temperatures in Rio de Janeiro to forecast the following year."><section className="ts-case__sheet"><div className="ts-case__layout"><Grid sheet="oneHotEncoding" range="B3:P75" caption="Brazil average temperature (°C) · monthly indicators and forecasts"/><div><label className="ts-case__toggle"><input type="checkbox" checked={show} onChange={e=>setShow(e.target.checked)}/>Show forecast</label><Chart title="Brazil average temperature" labels={s.observations.map(r=>r.year+' '+r.month)} series={[{name:'Temp',values:s.observations.map(r=>r.temperatureC),color:cyan},...(show?[{name:'Forecast',values:s.observations.map(r=>r.predictionC),color:yellow,dashed:true}]:[])]} min={15} max={35} step={5} yLabel="Temperature (°C)"/><Coefficients rows={s.coefficients} baseline="January is the reference month. Forecast = intercept + the month’s coefficient."/></div></div><FullSheet sheet="oneHotEncoding"/></section></Lesson>
+ return <Lesson number={6} title="Case study: seasonality with one-hot encoding" lead="Weather Trends uses monthly temperatures in Rio de Janeiro to forecast the following year.">
+   <section className="ts-case__sheet">
+     <label className="ts-case__toggle"><input type="checkbox" checked={show} onChange={e=>setShow(e.target.checked)}/>Show forecast</label>
+     <Chart title="Brazil average temperature" labels={s.observations.map(r=>r.year+' '+r.month)} series={[{name:'Temp',values:s.observations.map(r=>r.temperatureC),color:cyan},...(show?[{name:'Forecast',values:s.observations.map(r=>r.predictionC),color:yellow,dashed:true}]:[])]} min={15} max={35} step={5} yLabel="Temperature (°C)"/>
+     <section className="ts-case__conclusion" aria-labelledby="ts-case-one-hot-conclusion">
+       <h2 id="ts-case-one-hot-conclusion">Case study conclusion</h2>
+       <p>The seasonal regression <strong>matches the observed temperatures closely through October 2019</strong>, then extends the <strong>forecast through the rest of 2019 and into 2020</strong>.</p>
+       <p className="ts-case__note">Monthly one-hot indicators capture the seasonal pattern. The close match to observed data does not establish the accuracy of the future forecast.</p>
+     </section>
+     <div className="ts-case__one-hot-tables">
+       <Grid sheet="oneHotEncoding" range="B3:P75" indicatorHeaders caption="Brazil average temperature (°C) · monthly indicators and forecasts"/>
+       <Coefficients rows={s.coefficients} baseline="January is the reference month. Forecast = intercept + the month’s coefficient."/>
+     </div>
+     <FullSheet sheet="oneHotEncoding"/>
+   </section>
+ </Lesson>
 }
 export function TSLinearTrendCase() {
  const s=data.seasonalityTrend, [noTrend,setNoTrend]=useState(true),[trend,setTrend]=useState(true)
