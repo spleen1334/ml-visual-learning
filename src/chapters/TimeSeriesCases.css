@@ -34,3 +34,7 @@
 @media(max-width:700px){.ts-case__trend-tables{grid-template-columns:repeat(2,minmax(0,1fr))}.ts-case__trend-tables>.ts-case__data{grid-column:1 / -1}}
 
 .ts-case__chart figcaption .ts-case__legend-symbol{display:inline-block;width:24px;height:16px;flex:none;overflow:visible}
+
+.ts-case__indicator-grid .ts-case__column-groups .ts-case__time-step,.ts-case__indicator-grid tbody tr:first-child th.ts-case__time-step{background:#4472c4;color:#fff}
+.ts-case__indicator-grid tbody tr td.ts-case__time-step{background:#dce6f5;color:#24466f}
+.ts-case__indicator-grid tbody tr:nth-child(odd) td.ts-case__time-step{background:#cfdbef}
