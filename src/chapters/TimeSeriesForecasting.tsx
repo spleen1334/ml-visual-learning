@@ -234,10 +234,15 @@ export function TSLinearTrend() {
 }
 
 export function TSSmoothing() {
-  return <Lesson number="15.9" title="Smoothing" lead="Smoothing can make a volatile series easier to read by revealing its broader pattern.">
-    <p>Moving averages and weighted smoothing combine nearby values to reduce short-term variation. The source example overlays a moving average on the observed series.</p>
-    <SourceFigure src={smoothingChart} alt="A noisy cyan time series is shown with a smoother yellow moving-average line." caption="The yellow line makes the broader pattern easier to see beside the original observations." />
-    <p className="tsf__note">A smoother line can also hide a real change or lag behind a turning point. Use it to inspect the series, not as proof that every variation is noise or that forecasts will improve.</p>
+  return <Lesson number="15.9" title="Smoothing" lead="What if my data is so noisy that I can’t tell if a trend exists?">
+    <p className="tsf__definition">If your data is highly volatile, <strong>smoothing techniques</strong> can be used to reveal underlying patterns or trends.</p>
+    <div className="tsf__text-block"><ul>
+      <li>Common techniques like <strong>moving averages</strong> or <strong>weighted smoothing</strong> reduce random variation and “noise” in the data to help expose seasonality or trends.</li>
+      <li>If the volatility is truly just noise (and something we want our model to ignore), <strong>averaging or weighting the values around each time step</strong> can help us “smooth” the data and produce more accurate forecasts.</li>
+    </ul></div>
+    <SourceFigure src={smoothingChart} alt="A noisy cyan time series is shown with a smoother yellow moving-average line." caption="The yellow line makes the underlying pattern easier to see beside the original observations." />
+    <p><strong>Profiling tip:</strong> Smoothing is a great way to expose patterns and trends that otherwise might be tough to see; make this part of your data profiling process.</p>
+    <p className="tsf__note">Smoothing can also hide real changes. A clearer pattern does not guarantee a more accurate forecast.</p>
   </Lesson>
 }
 

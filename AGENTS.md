@@ -12,6 +12,8 @@ Build a visual, interactive learning companion to the local **Visual Guide to Ma
 
 ## Teaching approach
 
+- Preserve the PDF’s opening question, definitions, technique descriptions, and practical tips when introducing a concept. Inspect the matching PDF and transcript before editing; do not substitute an original definition or omit explanatory bullets just to shorten the lesson. Keep wording close, highlight the new definition, and put any necessary accuracy qualification separately and briefly.
+
 Default to faithful reproduction of the course sources. Section 9 (Classification Models) is the user-approved reference for how chapters and subchapters should look, and for creating, editing, updating, and reviewing them. The approved Naive Bayes lessons 9.5–9.8 demonstrate the preferred visual style and amount of text. For quality passes on an already liked chapter, preserve its working examples, visuals, and controls; focus on concise framing and concrete clarity or correctness fixes.
 
 1. Inspect the relevant PDF pages visually, the matching subtitles, and any Excel worksheet, including its charts and formulas. Original course files remain read-only.
