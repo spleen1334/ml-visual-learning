@@ -51,3 +51,10 @@
 .ts-case__curve-equation p { margin:0; font-family:inherit; font-size:14px; line-height:1.6; color:#456468; }
 
 .ts-case__written-formula sup { font-size:.7em; vertical-align:super; line-height:0; }
+
+.ts-case__intervention-tables { display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:22px; align-items:start; margin:22px 0; }
+.ts-case__intervention-tables > div { min-width:0; }
+.ts-case__intervention-tables .ts-case__coefficients { margin-top:0; }
+.ts-case__intervention-tables .ts-case__coefficients p { margin-top:0; }
+.ts-case__intervention-tables .ts-case__coefficients th,.ts-case__intervention-tables .ts-case__coefficients td { padding:7px 6px; font-size:12px; }
+@media(max-width:700px) { .ts-case__intervention-tables { grid-template-columns:minmax(0,1fr); } }
