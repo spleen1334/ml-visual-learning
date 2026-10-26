@@ -233,6 +233,51 @@ export function TSLinearTrend() {
   </Lesson>
 }
 
+function SmoothingExample() {
+  const [method, setMethod] = useState<'average' | 'weighted' | 'exponential'>('average')
+  const [week, setWeek] = useState(2)
+  const values = [3, 5, 4, 2, 5, 4]
+  const exponential = values.reduce<number[]>((result, value, i) => [...result, i === 0 ? value : 0.5 * value + 0.5 * result[i - 1]], [])
+  const smoothed = values.map((value, i) => method === 'exponential' ? exponential[i] : i < 2 ? null : method === 'average' ? (values[i - 2] + values[i - 1] + value) / 3 : values[i - 2] * 0.2 + values[i - 1] * 0.3 + value * 0.5)
+  const format = (value: number) => Number(value.toFixed(3)).toString()
+  const names = { average: '3-week moving average', weighted: 'Weighted moving average', exponential: 'Exponential smoothing' }
+  const points = (data: (number | null)[]) => data.flatMap((value, i) => value === null ? [] : [`${65 + i * 110},${240 - value * 38}`]).join(' ')
+  const used = (i: number) => method === 'exponential' ? i <= week : i >= week - 2 && i <= week
+  return <section className="tsf__smoothing-example" aria-labelledby="smoothing-example-title">
+    <h2 id="smoothing-example-title">See the calculation, one week at a time</h2>
+    <p>A small illustrative example: six weekly guest ratings, on a 1–5 scale. Choose a technique, then a week. <strong>Highlighted ratings feed the selected result.</strong></p>
+    <div className="tsf__smoothing-controls" aria-label="Smoothing technique">{(Object.keys(names) as (keyof typeof names)[]).map(key => <button key={key} type="button" aria-pressed={method === key} onClick={() => setMethod(key)}>{names[key]}</button>)}</div>
+    <div className="tsf__lag-table"><table><thead><tr><th scope="col">Week</th>{values.map((_, i) => <th scope="col" key={i}>{i + 1}</th>)}</tr></thead><tbody>
+      <tr><th scope="row">Observed rating</th>{values.map((value, i) => <td key={i} className={used(i) ? 'tsf__smoothing-used' : ''}>{value}</td>)}</tr>
+      <tr><th scope="row">Smoothed rating</th>{smoothed.map((value, i) => <td key={i}>{value === null ? '—' : i < 2 ? format(value) : <button type="button" aria-label={`Show week ${i + 1} calculation`} aria-pressed={week === i} onClick={() => setWeek(i)}>{format(value)}</button>}</td>)}</tr>
+    </tbody></table></div>
+    <svg className="tsf__smoothing-chart" viewBox="0 0 670 280" role="img" aria-label={`${names[method]} compared with the six observed weekly ratings. Selected week ${week + 1}, smoothed rating ${format(smoothed[week]!)}.`}>
+      {[1, 2, 3, 4, 5].map(value => <g key={value}><line x1="50" x2="635" y1={240 - value * 38} y2={240 - value * 38} stroke="#dce5de" /><text x="32" y={245 - value * 38}>{value}</text></g>)}
+      <polyline points={points(values)} fill="none" stroke="#889eaa" strokeWidth="2" strokeDasharray="6 4" />
+      <polyline points={points(smoothed)} fill="none" stroke="#187d76" strokeWidth="4" />
+      {values.map((value, i) => <g key={i}><circle cx={65 + i * 110} cy={240 - value * 38} r="5" fill={used(i) ? '#b87625' : '#889eaa'} /><text x={65 + i * 110} y="265" textAnchor="middle">Week {i + 1}</text></g>)}
+      <circle cx={65 + week * 110} cy={240 - smoothed[week]! * 38} r="8" fill="#187d76" stroke="white" strokeWidth="2" />
+    </svg>
+    <p className="tsf__smoothing-legend"><span>– – Observed ratings</span><strong>━ Smoothed ratings</strong></p>
+    <h3>{names[method]} · Week {week + 1}</h3>
+    {method === 'average' ? <>
+      <p>Take this week and the previous two weeks. <strong>Give all three the same weight.</strong></p>
+      <p className="tsf__equation">({values[week - 2]} + {values[week - 1]} + {values[week]}) ÷ 3 = <strong>{format(smoothed[week]!)}</strong></p>
+      <p>Move forward one week: drop the oldest rating and include the newest. The first two weeks have no result because three observations are needed.</p>
+    </> : method === 'weighted' ? <>
+      <p>Use the same three weeks, but <strong>give newer ratings more influence</strong>: oldest 20%, middle 30%, newest 50%.</p>
+      <p className="tsf__equation">({values[week - 2]} × 0.2) + ({values[week - 1]} × 0.3) + ({values[week]} × 0.5) = <strong>{format(smoothed[week]!)}</strong></p>
+      <p>The weights add to 1 (100%). These example weights are chosen for the demonstration; they are not fitted by a model.</p>
+    </> : <>
+      <p><strong>Blend the newest rating with the previous smoothed rating.</strong> Here, each gets 50% of the weight. Start week 1 at its observed rating, 3.</p>
+      <p className="tsf__equation">({values[week]} × 0.5) + ({format(exponential[week - 1])} × 0.5) = <strong>{format(exponential[week])}</strong></p>
+      <p>The previous smoothed rating already contains older weeks. Their influence fades with each update, rather than dropping out after three weeks. A larger newest-value weight reacts faster; a smaller one smooths more.</p>
+    </>}
+    <div className="tsf__smoothing-controls" aria-label="Calculation week">{[2, 3, 4, 5].map(i => <button key={i} type="button" aria-pressed={week === i} onClick={() => setWeek(i)}>Week {i + 1}</button>)}</div>
+    <p className="tsf__note">These examples use only the current and earlier weeks: a trailing smoother. The point sits at the current week and summarizes recent ratings; it is not a prediction of an unseen future rating. A centered smoother would also use later weeks, so it cannot be used at the live edge of a forecast.</p>
+  </section>
+}
+
 export function TSSmoothing() {
   return <Lesson number="15.9" title="Smoothing" lead="What if my data is so noisy that I can’t tell if a trend exists?">
     <p className="tsf__definition">If your data is highly volatile, <strong>smoothing techniques</strong> can be used to reveal underlying patterns or trends.</p>
@@ -243,6 +288,7 @@ export function TSSmoothing() {
     <SourceFigure src={smoothingChart} alt="A noisy cyan time series is shown with a smoother yellow moving-average line." caption="The yellow line makes the underlying pattern easier to see beside the original observations." />
     <p><strong>Profiling tip:</strong> Smoothing is a great way to expose patterns and trends that otherwise might be tough to see; make this part of your data profiling process.</p>
     <p className="tsf__note">Smoothing can also hide real changes. A clearer pattern does not guarantee a more accurate forecast.</p>
+    <SmoothingExample />
   </Lesson>
 }
 

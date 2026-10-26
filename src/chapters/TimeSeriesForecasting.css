@@ -164,3 +164,13 @@
 }
 
 .tsf__equation{padding:14px;background:#edf5f0;border-radius:7px;font-family:Georgia,serif;font-size:20px;line-height:1.6}
+
+.tsf__smoothing-example { margin-top: 36px; padding-top: 24px; border-top: 1px solid #cbd9d1; }
+.tsf__smoothing-controls { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+.tsf__smoothing-controls button, .tsf__smoothing-example td button { border:1px solid #95b4aa; border-radius:7px; padding:9px 13px; color:#214b46; background:#fffdf7; cursor:pointer; font:inherit; }
+.tsf__smoothing-example button[aria-pressed="true"] { background:#187d76; color:white; border-color:#187d76; }
+.tsf__smoothing-example button:focus-visible { outline:3px solid #b87625; outline-offset:3px; }
+.tsf__smoothing-example .tsf__smoothing-used { background:#fae9c8; color:#68461b; font-weight:700; }
+.tsf__smoothing-chart { display:block; width:100%; max-width:850px; margin:20px auto 0; font-size:14px; fill:#456468; }
+.tsf__smoothing-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:24px; font-size:15px!important; color:#526e7b; }
+.tsf__smoothing-legend strong { color:#187d76; }
