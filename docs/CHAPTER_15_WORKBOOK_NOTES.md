@@ -37,3 +37,5 @@ The workbook's plotted series use the same visual encoding where applicable: act
 - Lesson 15.8 uses a full-width revenue graph above a wider data table and two compact coefficient tables. Jan–Nov indicator headers share the amber one-hot group treatment from 15.6. Residual plots, controls, source data and calculations remain unchanged.
 
 - Lesson 15.8 restores forecast headers from source Q2/R2 into displayed Q3/R3 header positions; all numeric values remain unchanged. Labeled conclusion follows VTT 05:25–05:50 and 07:20–08:21: seasonal-only model misses growth; adding T-Step follows observed revenue more closely with smaller residuals. Keep future accuracy distinct from in-sample fit.
+
+- Lesson 15.8 residual legends now reflect the actual diamond scatter markers and dashed fitted line. Residuals retain each model’s yellow/magenta color; their fitted trend uses a thicker white dashed line to distinguish it. Names and a short explanation clarify that residual = actual minus predicted and the line is fitted through errors, not another revenue forecast. Calculations are unchanged.

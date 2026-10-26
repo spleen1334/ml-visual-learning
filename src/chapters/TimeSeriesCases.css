@@ -32,3 +32,5 @@
 .ts-case__trend-tables .ts-case__coefficients th,.ts-case__trend-tables .ts-case__coefficients td{padding:7px 6px;font-size:12px}
 @media(max-width:900px){.ts-case__trend-tables{grid-template-columns:minmax(0,1fr) 150px 150px;gap:12px}}
 @media(max-width:700px){.ts-case__trend-tables{grid-template-columns:repeat(2,minmax(0,1fr))}.ts-case__trend-tables>.ts-case__data{grid-column:1 / -1}}
+
+.ts-case__chart figcaption .ts-case__legend-symbol{display:inline-block;width:24px;height:16px;flex:none;overflow:visible}
