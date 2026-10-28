@@ -26,6 +26,8 @@ Requested on 2026-10-26.
 
 ## Chapter-end quizzes
 
+- [ ] Decide the preferred quiz style: compare the earlier question-map/check/retry format with Chapter 19.12’s all-questions-visible format. The user tentatively prefers 19.12 because every question is readable from the start and the full set can be scanned for learning, but has not settled on the design. Leave 19.12 in place and do not roll its format out to other chapters until explicitly approved.
+
 Requested on 2026-10-23: implement Chapter 04 as the first trial; defer the remaining quizzes until its interaction is reviewed.
 
 - [x] Adapt Chapter 04’s HTML quiz to the teal/cream style as the final optional lesson, with explanations and retries.

@@ -36,6 +36,7 @@ Default to faithful reproduction of the course sources. Section 9 (Classificatio
 - Keep worked calculations visible. Prefer annotated formulas, arrows, source-cell highlights, and clear links between input values and calculation terms over hidden “show calculation” panels. Let learners trace representative records or feature values through intermediate calculations to the final result. Introduce unfamiliar notation before using an aggregate score.
 - Clearly distinguish hand-chosen rules/weights, supplied fitted models, and models actually trained in the demonstration. When a workflow claims to train a model, show its labeled inputs, fitting step, resulting rules/parameters, and separate prediction inputs. Live training is not required for every lesson.
 - Optional chapter-end quizzes may adapt the source HTML quizzes, with explanations and retries. Keep lessons and navigation ungated. No “About this chapter” sections. Add a short takeaway only when it contributes something the source visual does not already show; do not append a routine summary to a source reproduction.
+- Quiz presentation remains undecided: preserve Chapter 19.12’s all-questions-visible trial, which lets learners scan the full question set from the start. Do not apply that format to other chapters without explicit approval; the comparison with the earlier quiz style is deferred in `todo.md`.
 - Emphasize data preparation, QA, and profiling as the foundation: “garbage in, garbage out.” Attribute the course’s rough 80% effort estimate rather than stating it as a universal fact.
 - Preserve conceptual distinctions: record counts within a category versus distinct labels; unknown values versus genuine zero; ordered categories can be task-defined numeric buckets; truncated survey samples versus actual censoring.
 
@@ -136,11 +137,15 @@ The user explicitly requests that this file evolve with the project.
 
 - Put the original course explanation, diagrams and complete worked calculations first. Place added visual reference points, simple examples, and why/when guidance together at the bottom of the lesson. Do not interleave added teaching panels with the source calculation sequence.
 
+- For source step-by-step lessons, retain the original step numbers, order, explanatory text and matching diagrams together. Do not replace good source wording with shortened paraphrases or invent a different step sequence. Put any added explanations separately. Chapter 19.6 follows the source's Steps 1–4 rather than renumbering the initial itemset inventory as a new first step.
+
 - Chapter 14’s approved added explanation uses a small concrete scenario, a labelled table or diagram distinguishing observed values from our model’s predictions, visible arithmetic, and a plain interpretation. Preserve approved delivery examples where they already work; when a source lesson uses Airbnb, explain that same Airbnb example rather than switching scenarios. Keep illustrative numbers explicit and source content first.
 
 - Use bold, underline and italics confidently in definitions and headers to highlight the key action and concept. In Chapter 14, emphasize “predicts” for error metrics and “explains variance” for R². Keep surrounding text plain so the distinction is easy to scan.
 
 - Chapter 14 formulas use the approved PDF-style presentation: stacked fractions, clear mathematical typography, and smaller interpretation captions below. In the MSE/MAE/MAPE captions, bold only “squared,” “absolute,” and “percentage” respectively. Preserve the larger practical explanation separately and retain original source visuals. Apply this formula style consistently across diagnostic lessons.
+
+- Across lessons, present nontrivial formulas as mathematical notation with stacked fractions and aligned calculation rows, not long slash-separated text. Very short expressions may stay inline. For basket analysis, follow the source's product icons and separate support rows for each item and their joint occurrence; keep confidence and lift arranged like the source equations. Add a small lift interpretation (>1 positive association, 1 independence reference, <1 negative association), with sparse evidence cautions kept beside examples such as water.
 
 - For Chapter 14 why/when guidance, prefer the PDF’s short, direct wording and practical method-selection advice. Keep only necessary accuracy corrections; do not replace simple course language with denser statistical commentary.
 

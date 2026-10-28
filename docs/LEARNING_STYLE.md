@@ -67,6 +67,10 @@ Use the source scenario to show the method’s purpose; a short sentence or anno
 
 - Chapter 14 formulas use the approved PDF-style presentation: stacked fractions, clear mathematical typography, and smaller interpretation captions below. In the MSE/MAE/MAPE captions, bold only “squared,” “absolute,” and “percentage” respectively. Preserve the larger practical explanation separately and retain original source visuals. Apply this formula style consistently across diagnostic lessons.
 
+- Use this mathematical presentation across lessons: stacked fractions and aligned calculation rows for nontrivial formulas, with inline notation reserved for very short expressions. Basket-analysis examples retain source product icons, separate support rows for each item and both, and source-style confidence/lift equations. Keep a small lift interpretation beside the comparison; lift above 1 indicates positive association, not automatically strong or reliable evidence. The water example must retain its one-transaction warning and transition to minimum support.
+
+- Preserve a source walkthrough's actual step numbering, order, explanation and corresponding diagram. Keep good source text rather than deliberately shortening or replacing it; added clarification belongs separately. Do not turn an opening inventory into an invented numbered step, as happened in the earlier 19.6 adaptation.
+
 - For Chapter 14 why/when guidance, prefer the PDF’s short, direct wording and practical method-selection advice. Keep only necessary accuracy corrections; do not replace simple course language with denser statistical commentary.
 
 - In Chapter 14, give unfamiliar recurring statistical terms a short inline reminder on hover, keyboard focus, or click. Use plain definitions (for example, residuals are actual minus predicted values: prediction errors), with a tiny concrete example where helpful.

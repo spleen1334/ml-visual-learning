@@ -1,0 +1,88 @@
+.association-case-sheet { --sheet-cyan: #26e2f6; --sheet-ink: #3c4140; --sheet-yellow: #ffe59b; }
+.association-sheet-overflow { max-width: 100%; overflow-x: auto; padding-bottom: 8px; }
+.association-sheet-apriori { display: grid; grid-template-columns: minmax(580px, 2.3fr) minmax(260px, 1fr); gap: 24px 20px; align-items: start; min-width: 920px; }
+.association-sheet-apriori .association-sheet-analysis { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(350px, 1fr) minmax(550px, 1.7fr); gap: 0 20px; align-items: start; }
+.association-sheet-apriori .association-sheet-pair-top { grid-template-columns: minmax(130px, .85fr) minmax(195px, 1.3fr); gap: 16px; padding-top: 12px; }
+.association-sheet-apriori .association-sheet-denominator { grid-column: 1 / -1; }
+.association-sheet-markov { display: grid; grid-template-columns: minmax(255px, .8fr) minmax(640px, 1.9fr); gap: 25px; align-items: start; min-width: 930px; }
+.association-sheet-records, .association-sheet-frequencies, .association-sheet-analysis, .association-sheet-markov-results { min-width: 0; }
+.assoc-lesson .association-sheet-title { margin: 0; padding: 8px 10px; background: var(--sheet-ink); color: #fff; text-align: center; font-size: 11px; font-weight: 750; line-height: 1.3; letter-spacing: .025em; text-transform: uppercase; }
+.assoc-lesson .association-sheet-title-yellow { background: var(--sheet-yellow); color: #303e3b; }
+.assoc-lesson .association-sheet-small { margin: 8px 0; color: #617270; font-size: 11px; line-height: 1.6; }
+.association-sheet-table-scroll { overflow: auto; max-width: 100%; background: #fffefa; border: 1px solid #d5dcd7; scrollbar-width: thin; scrollbar-color: #abc6be #f3f6f0; }
+.association-sheet-table-scroll:focus-visible, .association-sheet-chart-scroll:focus-visible { outline: 3px solid #e4aa43; outline-offset: 2px; }
+.assoc-lesson .association-sheet-table-scroll table { font-size: 10px; }
+.assoc-lesson .association-sheet-table-scroll caption { padding: 7px 8px; background: #f6f7f0; color: #64736e; font-size: 10px; font-weight: 500; }
+.assoc-lesson .association-sheet-table-scroll th, .assoc-lesson .association-sheet-table-scroll td { height: 25px; padding: 4px 6px; border: 1px solid #d5dcd7; color: #253c38; line-height: 1.35; font-weight: 400; }
+.assoc-lesson .association-sheet-table-scroll thead th { position: sticky; top: 0; z-index: 1; background: #e6eeeb; color: #2f4743; font-size: 10px; font-weight: 700; text-align: center; }
+.assoc-lesson .association-sheet-table-scroll tbody th { text-align: left; }
+.association-sheet-apriori-records { max-height: 340px; }
+.association-sheet-markov-records { max-height: 1040px; }
+.assoc-lesson .association-sheet-apriori-records table { min-width: 785px; }
+.assoc-lesson .association-sheet-apriori-records td { text-align: left; }
+.assoc-lesson .association-sheet-apriori-records tbody th { position: sticky; left: 0; background: #fffefa; z-index: 1; }
+.assoc-lesson .association-sheet-apriori-records tr.is-excluded td, .assoc-lesson .association-sheet-apriori-records tr.is-excluded th { color: #919a96; background: #f0f1ed; }
+.assoc-lesson .association-sheet-apriori-records tr.is-excluded b { font-weight: 400; }
+.assoc-lesson .association-sheet-apriori-records tr.is-joint td, .assoc-lesson .association-sheet-apriori-records tr.is-joint th { background: #def4eb; }
+/* Keep absolute screen-reader labels inside this contained table, not the document. */
+.association-sheet-frequency-scroll { position: relative; max-height: 372px; }
+.assoc-lesson .association-sheet-frequency-scroll th, .assoc-lesson .association-sheet-frequency-scroll td { font-size: 9px; padding: 4px; }
+.assoc-lesson .association-sheet-frequency-scroll thead th { background: var(--sheet-yellow); }
+.assoc-lesson .association-sheet-frequency-scroll tbody th { max-width: 115px; white-space: normal; overflow-wrap: anywhere; }
+.assoc-lesson .association-sheet-frequency-scroll tr.is-selected-item th, .assoc-lesson .association-sheet-frequency-scroll tr.is-selected-item td { background: #e3f3e9; font-weight: 700; }
+.assoc-lesson .association-sheet-frequency-scroll tr.is-excluded th, .assoc-lesson .association-sheet-frequency-scroll tr.is-excluded td { color: #919a96; background: #f0f1ed; font-weight: 400; }
+.association-sheet-pagination { display: flex; align-items: center; justify-content: space-between; gap: 5px; margin: 8px 0; color: #5c716b; font-size: 10px; }
+.assoc-lesson .association-sheet-pagination button { padding: 3px 8px; border-radius: 3px; font-size: 13px; }
+.association-sheet-pagination button:disabled { opacity: .35; cursor: default; }
+.association-sheet-pagination label { display: flex; gap: 4px; align-items: center; white-space: nowrap; }
+.association-sheet-pagination input { width: 47px; padding: 3px 2px 3px 5px; border: 1px solid #c8d7cd; border-radius: 3px; background: #fffefa; color: #365d53; font: inherit; }
+.association-sheet-pair-top { display: grid; grid-template-columns: minmax(145px, .85fr) minmax(225px, 1.3fr); gap: 20px; padding: 0 2px 17px; }
+.association-sheet-inputs { text-align: center; }
+.association-sheet-inputs label { display: grid; gap: 5px; margin: 0 0 17px; color: #4e5b55; font-size: 11px; font-style: italic; }
+.association-sheet-inputs select, .association-sheet-inputs input { width: 100%; min-width: 0; border: 1px solid #434c46; border-radius: 1px; background: var(--sheet-ink); color: #fff; text-align: center; font: inherit; font-style: normal; font-weight: 700; padding: 5px 6px; }
+.association-sheet-inputs .association-sheet-threshold { margin-bottom: 0; }
+.association-sheet-threshold input { padding: 7px 5px; color: #f5e986; font-size: 23px; }
+.assoc-lesson .association-sheet-retained { margin: 3px 0 21px; color: #708075; font-size: 10px; font-style: italic; }
+.association-sheet-calculations dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 9px; align-items: center; margin: 12px 5px 0; font-size: 10px; font-variant-numeric: tabular-nums; }
+.association-sheet-calculations dt { text-align: right; font-style: italic; }
+.association-sheet-calculations dd { margin: 0; min-width: 49px; text-align: center; }
+.association-sheet-calculations dl.association-sheet-pair-result { margin-top: 23px; gap: 0 7px; font-size: 12px; }
+.association-sheet-pair-result dt { font-style: normal; font-weight: 700; text-transform: uppercase; }
+.association-sheet-pair-result dd { background: #fff1bf; padding: 9px 6px; font-size: 18px; font-weight: 650; }
+.association-sheet-pair-result dd:last-child { border: 1px solid #1d8370; }
+.association-sheet-support { margin: 0; padding: 11px 0 0; background: #fffefa; border: 1px solid #e1e5dc; }
+.association-sheet-support figcaption { color: #48534b; font-size: 12px; text-align: center; }
+.association-sheet-chart-scroll { overflow-x: auto; scrollbar-width: thin; }
+.association-sheet-support svg { display: block; width: 100%; }
+.association-sheet-axis { fill: #64726b; font: 11px sans-serif; }
+.association-sheet-category { fill: #4d5a53; font: 10px sans-serif; }
+.assoc-lesson .association-sheet-chart-key { display: flex; justify-content: center; gap: 15px; margin: 0 0 12px; color: #64736b; font-size: 10px; }
+.association-sheet-chart-key span { display: inline-flex; align-items: center; gap: 5px; }
+.association-sheet-chart-key i { width: 8px; height: 8px; background: var(--sheet-cyan); }
+.association-sheet-chart-key span:last-child i { background: #353837; }
+.assoc-lesson .association-sheet-denominator { padding: 8px 0; }
+.association-sheet-matrix + .association-sheet-matrix { margin-top: 20px; }
+.association-sheet-matrix .association-sheet-table-scroll { border: 0; background: transparent; }
+.assoc-lesson .association-sheet-matrix table { table-layout: fixed; }
+.assoc-lesson .association-sheet-matrix caption { background: transparent; padding: 5px 0 2px; font-size: 9px; }
+.assoc-lesson .association-sheet-matrix thead th { position: static; border: 0; background: transparent; padding: 3px 1px; font-size: 9px; white-space: normal; }
+.assoc-lesson .association-sheet-matrix th:first-child { width: 80px; }
+.assoc-lesson .association-sheet-matrix tbody th { padding: 3px 4px 3px 0; border: 0; text-align: right; font-weight: 600; font-size: 10px; }
+.assoc-lesson .association-sheet-matrix td { height: 24px; padding: 3px 1px; text-align: center; font-size: 10px; }
+.assoc-lesson .association-sheet-matrix .association-sheet-none { border-left: 10px solid #fcfcf6; font-weight: 650; }
+.assoc-lesson .association-sheet-matrix .is-selected-state th { color: #137864; text-decoration: underline; text-underline-offset: 3px; }
+.assoc-lesson .association-sheet-matrix .is-selected-state td { box-shadow: inset 0 2px #238776, inset 0 -2px #238776; }
+.assoc-lesson .association-sheet-heat-key { margin: 7px 0 18px; font-size: 10px; }
+.association-sheet-markov-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding-left: 35px; }
+.association-sheet-markov-selector label, .association-sheet-markov-selector > div { display: grid; grid-template-columns: auto minmax(100px, 1fr); align-items: center; gap: 8px; color: #40574d; font-size: 11px; font-style: italic; font-weight: 600; }
+.association-sheet-markov-selector select, .association-sheet-markov-selector output { display: block; width: 100%; min-width: 0; padding: 9px 6px; border: 1px solid #404742; border-radius: 1px; background: var(--sheet-ink); color: #f5e986; text-align: center; font: inherit; font-size: 12px; font-style: normal; }
+.assoc-lesson .association-sheet-prediction-note { margin: 9px 0 15px; }
+.assoc-lesson .association-sheet-markov-records table { font-size: 11px; }
+.assoc-lesson .association-sheet-markov-records th, .assoc-lesson .association-sheet-markov-records td { height: 25px; padding: 4px; text-align: center; font-size: 10px; }
+.assoc-lesson .association-sheet-markov-records thead th { font-size: 9px; }
+.assoc-lesson .association-sheet-markov-records tr.is-selected-customer th, .assoc-lesson .association-sheet-markov-records tr.is-selected-customer td { background: #e4f2e9; }
+.association-sheet-radial { margin: 0; background: #3e3e3e; }
+.association-sheet-radial img { display: block; width: 100%; }
+.association-sheet-radial figcaption { padding: 10px 12px; background: #f3f5ed; color: #617269; font-size: 11px; line-height: 1.5; }
+.association-sheet-radial figcaption strong { display: block; margin-bottom: 3px; color: #3e5d52; font-size: 12px; }
+.association-sheet-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

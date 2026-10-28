@@ -58,7 +58,10 @@ import { UVProfiling, UVMode, UVMean, UVMedian, UVPercentile, UVVariance, UVStan
 import { MSIntroSelectionTuning, MSHyperparameters, MSImbalancedClasses } from '../chapters/ModelSelectionBasics'
 import { MSConfusionMatrix, MSAccuracyPrecisionRecall, MSMulticlassConfusionMatrix, MSMulticlassScoring, MSModelSelection, MSModelDrift, MSLookingAhead } from '../chapters/ModelEvaluation'
 import { DRIntroduction, DRBasics, DRPCAIntro, DRPCAExample, DRInterpretComponents, DRScreePlot, DRAdvancedTechniques, DRTakeaways, DRQuiz } from '../chapters/DimensionalityReduction'
-import { AssociationIntroduction, AssociationBasics, AprioriBasics, BasketAnalysisExample, MinimumSupport, InfrequentItemsets, MultipleItemSets, AprioriCaseStudy, MarkovChains, MarkovCaseStudy, AssociationTakeaways, AssociationQuiz } from '../chapters/AssociationMining'
+import { AssociationIntroduction, AssociationBasics, AprioriBasics, BasketAnalysisExample, MultipleItemSets, MarkovChains, AssociationTakeaways, AssociationQuiz } from '../chapters/AssociationMining'
+import { MinimumSupport } from '../chapters/MinimumSupport'
+import { InfrequentItemsets } from '../chapters/InfrequentItemsets'
+import { AprioriCaseStudy, MarkovCaseStudy } from '../chapters/AssociationCaseStudies'
 import { OutlierIntroduction, OutlierBasics, CrossSectionalOutliers, CrossSectionalExample, CrossSectionalCase, TimeSeriesOutliers, TimeSeriesExample, OutlierTakeaways, OutlierQuiz } from '../chapters/OutlierDetection'
 import { LLMNextToken } from '../chapters/LargeLanguageModels'
 
