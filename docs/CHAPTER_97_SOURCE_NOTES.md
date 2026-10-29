@@ -1,6 +1,6 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1 implemented and reviewed; 97.2–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.2 implemented and reviewed; 97.3–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
 
 ## Supplementary source boundary
 
@@ -46,3 +46,13 @@ Search uses a **separate authored FAQ ranking**, not a computed score: FAQ1 Miss
 - Parent inspected component, data, exact-span test, stylesheet and manifest/routing changes. The same input leads to four distinct output shapes; definitions and authored/computed boundaries are visible. Mechanical CSS formatting was reviewed and invalid pseudo-selector spacing repaired before final checks; a status role was added to playback. No remaining must-fix findings.
 - `rtk npm run check`:37 files/184 tests passed, TypeScript and production build passed (existing bundle warning). Tests verify frozen corpus split, exact offsets, canonical/legacy routes,97-before99 sequencing, ten unpublished outlines and stable Chapter99 routes. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: extraction highlights matchAcme/Friday, search shows three supplied FAQ results, summary remains labeled authored, autoplay completes, manual/keyboard task navigation and reduced-motion completed/manual view work. No document overflow/browser errors. Evidence:`previews/chapter-97.1-extraction.png`, `previews/chapter-97.1-generation-reduced.png`. Desktop only.
+
+## 97.2 boundary/token conventions and review · 2026-10-29
+
+Primary references inspected: [spaCy non-destructive tokenization/alignment](https://spacy.io/usage/linguistic-features#tokenization), [Span API](https://spacy.io/api/span), [Hugging Face tokenizers](https://huggingface.co/learn/llm-course/en/chapter2/4). The lesson runs neither spaCy nor a production tokenizer. Its explicitly authored English rules accept exact presets CS11, CS06, CS04 plus empty text; unsupported strings throw.
+
+Sentence rule retains consecutive`[.!?]+` endings and any remainder; following spaces belong to the next span, so concatenation reconstructs the entire source. CS11 spans`[0,10)`, `[10,36)`, `[36,64)`; CS04 has one span`Great service!!` while word-token punctuation is two separate`!` pieces. Internal apostrophes stay with letters (`I'm` one word), spaces are separate reconstruction pieces without IDs, and punctuation is separate. Subword mode splits only`working` into`work [16,20)` and`ing [20,23)` in CS06. Whole-word/subword vocabularies are independently sorted unique nonspace piece strings across the three fixed presets; they are unrelated to97.1's sentiment labels or99.2's vocabulary. For CS06, whole-word`working`ID19 versus subword`work`ID20/`ing`ID11; IDs are labels, not meaning. ASCII fixture offsets coincide with UTF-16 offsets; no general Unicode parser claim.
+
+- Parent inspected helper/tests/component/CSS/routing. Full character coverage, exact offsets, contraction handling, whole-word/subword boundaries and preset limits are coherent. Playback received an accessible group/status label. No remaining must-fix findings.
+- `rtk npm run check`:38 files/188 tests passed; TypeScript/build passed with existing bundle warning. Tests check sentence/token reconstruction, contiguous offsets, punctuation, lookup stability, explicit subword split and empty/unsupported input. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: autoplay completes, CS06 subword/whole-word views and selected`work`highlight/ID20/[16,20) match, CS11 sentence spans preserve spaces, keyboard/manual and reduced-motion completed/manual views passed. No document overflow/browser errors. Evidence:`previews/chapter-97.2-subwords.png`, `previews/chapter-97.2-sentences.png`. Desktop only.
