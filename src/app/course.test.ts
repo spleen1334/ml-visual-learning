@@ -240,12 +240,12 @@ describe('chapter four quiz', () => {
 })
 
 describe('chapter ninety-nine gradual publication', () => {
-  it('publishes 99.1 through 99.6, while keeping future lessons as outlines', () => {
+  it('publishes 99.1 through 99.7, while keeping future lessons as outlines', () => {
     const chapter = chapters.find(item => item.id === 'chapter-99')!
     expect(chapter.subchapters).toHaveLength(14)
     const lessons = publishedLessons().filter(item => item.chapter.id === chapter.id)
-    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization', '#chapter-99/99.3-embeddings-and-position', '#chapter-99/99.4-neural-network', '#chapter-99/99.5-attention-qkv', '#chapter-99/99.6-masking-and-heads'])
-    expect(chapter.subchapters?.slice(6).every(item => !item.content)).toBe(true)
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization', '#chapter-99/99.3-embeddings-and-position', '#chapter-99/99.4-neural-network', '#chapter-99/99.5-attention-qkv', '#chapter-99/99.6-masking-and-heads', '#chapter-99/99.7-transformer-block'])
+    expect(chapter.subchapters?.slice(7).every(item => !item.content)).toBe(true)
     expect(resolveLesson(lessons[0].href).section?.id).toBe('what-does-an-llm-predict')
     const all = publishedLessons()
     expect(resolveLesson(lessons[1].href).section?.id).toBe('tokenization')
@@ -257,7 +257,9 @@ describe('chapter ninety-nine gradual publication', () => {
     expect(resolveLesson('#chapter-99/attention-qkv').section?.id).toBe('attention-qkv')
     expect(resolveLesson(lessons[5].href).section?.id).toBe('masking-and-heads')
     expect(resolveLesson('#chapter-99/masking-and-heads').section?.id).toBe('masking-and-heads')
-    expect(all.at(-7)?.chapter.id).toBe('chapter-21')
-    expect(all.at(-1)?.href).toBe(lessons[5].href)
+    expect(resolveLesson(lessons[6].href).section?.id).toBe('transformer-block')
+    expect(resolveLesson('#chapter-99/transformer-block').section?.id).toBe('transformer-block')
+    expect(all.at(-8)?.chapter.id).toBe('chapter-21')
+    expect(all.at(-1)?.href).toBe(lessons[6].href)
   })
 })

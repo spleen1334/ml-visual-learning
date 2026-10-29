@@ -1,0 +1,29 @@
+.block-demo > p { line-height: 1.5; }
+.block-selector { border: 1px solid #d1e4d7; border-radius: 8px; margin: 1rem 0; padding: .7rem 1rem; background: #fffdf8; }
+.block-selector legend { font-weight: 700; color: #245d51; }
+.block-selector label { display: inline-flex; align-items: center; gap: .3rem; margin-right: 1rem; cursor: pointer; }
+.block-selector input { accent-color: #22705f; }
+.block-diagram { max-width: 950px; margin: 1rem auto; }
+.block-stage { background: #fffdf8; border: 1px solid #d0e3d5; border-radius: 9px; padding: .85rem 1rem; overflow-wrap: anywhere; }
+.block-stage.is-active { border-color: #358872; box-shadow: 0 0 0 3px #d5ede0; background: #f5fbf4; }
+.block-stage > span { font-size: .7rem; font-weight: 800; color: #598475; letter-spacing: .07em; }
+.block-stage h3 { color: #235d51; margin: .25rem 0 .4rem; font-size: 1.03rem; }
+.block-stage code { color: #1b584b; font-weight: 700; font-size: .92rem; }
+.block-stage p { margin: .4rem 0 0; line-height: 1.4; }
+.block-add, .block-result { background: #eaf5e9; }
+.block-arrow { text-align: center; line-height: 1.25; color: #73a28f; font-size: 1.4rem; }
+.block-residual-path { display: grid; grid-template-columns: 125px 1fr; gap: .6rem; }
+.block-bypass { display: flex; flex-direction: column; justify-content: space-between; align-items: center; border-left: 2px solid #70a68d; border-top: 2px solid #70a68d; border-bottom: 2px solid #70a68d; border-radius: 8px 0 0 8px; color: #42775f; margin: 1.1rem 0 1.1rem .4rem; padding: .5rem; font-size: .75rem; text-align: center; }
+.block-bypass b { font-size: 1.3rem; }
+.block-stage summary { color: #216b5b; cursor: pointer; font-weight: 700; margin-top: .7rem; }
+.block-table-scroll { overflow-x: auto; }
+.block-table-scroll h4 { margin: .9rem 0 .3rem; }
+.block-table-scroll table { border-collapse: collapse; font-size: .8rem; }
+.block-table-scroll th, .block-table-scroll td { padding: .4rem .6rem; border-bottom: 1px solid #e0e9e0; white-space: nowrap; text-align: left; }
+.block-normalization { background: #f0f7ee; border-radius: 9px; padding: 1rem; margin-top: 1rem; }
+.block-normalization h3 { color: #235d51; margin: 0; }
+.block-normalization p { line-height: 1.5; }
+.block-fraction { display: inline-grid; text-align: center; vertical-align: middle; line-height: 1.3; margin: 0 .3rem; }
+.block-fraction span:first-child { border-bottom: 1px solid currentColor; padding: 0 .25rem; }
+.block-boundary { line-height: 1.6; margin: 1.5rem 0; }
+@media (max-width: 800px) { .block-residual-path { grid-template-columns: 82px 1fr; } }
