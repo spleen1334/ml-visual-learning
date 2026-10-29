@@ -1,4 +1,5 @@
 import QAQuiz from '../chapters/QAQuiz'
+import { LLMTraining } from '../chapters/LLMTraining'
 import SourceQuiz from '../chapters/SourceQuiz'
 import quiz05 from '../chapters/quiz05Data.json'
 import quiz06 from '../chapters/quiz06Data.json'
@@ -324,7 +325,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'transformer-block', title: 'A Transformer block', content: LLMTransformerBlock },
     { id: 'logits-and-softmax', title: 'Logits and softmax', content: LLMLogits },
     { id: 'sampling-and-temperature', title: 'Sampling and temperature', content: LLMSampling },
-    { id: 'training-loss-and-gradients', title: 'Training: loss and gradients' },
+    { id: 'training-loss-and-gradients', title: 'Training: loss and gradients', content: LLMTraining },
     { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences' },
     { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools' },
     { id: 'limitations-and-evaluation', title: 'Limitations and evaluation' },

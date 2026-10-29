@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.9 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.10–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.10 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.11–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -26,7 +26,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 7. **99.7 A Transformer block** — published: connected post-norm block with residual bypasses and inspectable numerical stages.
 8. **99.8 Logits and softmax** — published: separate three-score calculation, then actual frozen decoder logits/probabilities.
 9. **99.9 Sampling and temperature** — published: fixed decoder logits ÷ temperature → probabilities → seeded draw/interval selection.
-10. **99.10 Training: loss and gradients** — outline.
+10. **99.10 Training: loss and gradients** — published: separate classifier with real batch-gradient updates, loss, reset and new-input predictions.
 11. **99.11 Pretraining, instructions, and preferences** — outline.
 12. **99.12 Context, memory, retrieval, and tools** — outline.
 13. **99.13 Limitations and evaluation** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.9 enter published pagination while 5 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.10 enter published pagination while 4 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -180,3 +180,15 @@ Teaching PRNG: unsigned32-bit LCG, `next = (1664525 × state + 1013904223) mod 2
 - Parent inspected helper/tests/UI/CSS/routing. Interval widths and probabilities agree; selected row and draw marker are linked, temperature changes the distribution without changing frozen parameters. No remaining must-fix findings.
 - `rtk npm run check`:32 files/165 tests passed, TypeScript/build passed with existing bundle warning. Tests cover temperature domain/sharpening/flattening, normalization, golden seeded sequence, reset reproducibility, interval boundaries/zero probabilities and greedy ties. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: autoplay completes, Next draw/reset reproduce0.088125/0.252345, temperature2 flattens bars, manual/keyboard stepping and reduced-motion completed/manual views work. No document overflow/browser errors. Evidence:`previews/chapter-99.9-sampling.png`, `previews/chapter-99.9-temperature.png`. Desktop only.
+
+## 99.10 actual classifier training and review · 2026-10-29
+
+Sources inspected: Google ML Crash Course [sigmoid](https://developers.google.com/machine-learning/crash-course/logistic-regression/sigmoid-function), [log loss](https://developers.google.com/machine-learning/crash-course/logistic-regression/loss-regularization), [gradient descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent); Hugging Face [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) supports the brief next-token-learning connection. This logistic classifier has two weights and one bias and genuinely fits them; it neither trains nor modifies the supplied decoder.
+
+Authored quiz records `(study hours, practice hours, passed)` are A`(0,0,0)`, B`(1,0,1)`, C`(0,1,0)`, D`(1,1,1)`. Inputs are bounded0–1 hours. Initial `(w1,w2,b)=[0,0,0]`; all probabilities0.5, all losses ln2≈0.693147180560. Average gradient`[-0.25,0,0]`; learning rate0.5 gives first parameters`[0.125,0,0]`. Batch-average binary cross-entropy uses stable softplus; sigmoid uses sign-aware exponentiation. Eight updates maximum, deterministic reset/recomputed Previous, final loss≈0.513563. Current parameters and all records remain visible; the unexecuted next-update preview is explicitly labeled at the eight-update cap.
+
+Separate new-student controls offer0.25/0.5/0.75 hours for each feature; they change prediction only, never fitting data or parameters. No observed outcome is supplied, so this prediction is explicitly not an evaluation. Training-set improvement is not evidence of generalization.
+
+- Parent read helper/tests/component/styles/routing and corrected completed-state preview wording. Forward pass, one-target loss, average loss, gradient contributions and all parameter updates are visible with mathematical fractions. No remaining must-fix findings.
+- `rtk npm run check`:33 files/170 tests passed, TypeScript/build passed (existing bundle warning). Tests include hand initial loss/gradient/update, finite-difference gradients for all3 parameters, deterministic decreasing loss, prediction isolation, extreme scores and invalid domains. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: first update changes B/D probabilities to0.5312, autoplay stops at8, reset restores all-zero parameters, held-out study change alters prediction without parameters, keyboard/manual stepping and reduced-motion completed/manual views passed. No document overflow/browser errors. Evidence:`previews/chapter-99.10-training-first-update.png`, `previews/chapter-99.10-training-calculations.png`. Desktop only.
