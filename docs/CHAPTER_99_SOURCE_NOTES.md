@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.2 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.3–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.3 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.4–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -19,7 +19,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 
 1. **99.1 What does an LLM predict?** — published: definition → repeated read/choose/append loop → one interactive next-token probability chart → token and inference reminders.
 2. **99.2 Tokenization: text into token IDs** — published: text → colored pieces → lookup IDs, then vocabulary, decoding, and unknown/special-token boundaries.
-3. **99.3 Embeddings and position** — outline.
+3. **99.3 Embeddings and position** — published: four-number lookup rows → position addition → repeated-token comparison.
 4. **99.4 The neural network inside** — outline.
 5. **99.5 Attention: queries, keys, and values** — outline.
 6. **99.6 Causal masking and multiple heads** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.2 enter published pagination while 12 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.3 enter published pagination while 11 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -102,3 +102,19 @@ The authored, deterministic **tiny lookup tokenizer** uses longest matching ordi
 - `rtk npm run check`: 25 test files / 140 tests passed, then TypeScript and production build. The existing large-bundle warning remains. `rtk git diff --check` passed.
 - Parent desktop browser review: 1440×1000 and 1100×850, readable pieces/IDs and vocabulary, no horizontal overflow. Manual Next, keyboard Enter, Previous/pause, Replay/autoplay completion, final disabled Next, and reduced-motion completed view with manual stepping passed. No browser errors were reported.
 - Review evidence: `previews/chapter-99.2-tokenization-desktop.png`, `previews/chapter-99.2-tokenization-explanation.png`, and `previews/chapter-99.2-tokenization-reduced.png`. Desktop only; phone-specific behavior was not reviewed.
+
+## Frozen decoder fixture · introduced in 99.3
+
+Primary references checked on 2026-10-29: [Attention Is All You Need §3.4–3.5](https://arxiv.org/html/1706.03762v7) for learned embeddings and additive position information, and [Hugging Face glossary](https://huggingface.co/docs/transformers/glossary) for input/position IDs. This toy is decoder-only, not a reproduction of the paper's encoder–decoder architecture. It uses supplied, untrained embedding rows, **no √width embedding scaling**, and an authored absolute-position lookup rather than the paper's sinusoidal encoding. Production position methods vary.
+
+`src/chapters/llmEmbeddings.ts` is the canonical frozen data source for 99.3–99.14. Its separate vocabulary has ID/embedding pairs: `0: The → [1,0,1,0]`; `1: ␠cat → [0,1,1,0]`; `2: ␠sat → [1,1,0,0]`; `3: . → [0,0,1,1]`; `4: <end> → [1,0,0,1]`. The space marker denotes an actual leading space. Unsupported IDs are rejected; this vocabulary has no unknown-token row. The end token has an embedding if explicitly supplied as context, but later generation must stop when it is selected and omit its marker from visible text. These IDs must not be interpreted using 99.2's independent tokenizer.
+
+Hidden width is 4; context limit is 4 tokens. Positions are zero-based. Position rows 0–3 are `[0,0,0,0]`, `[1,0,0,0]`, `[0,1,0,0]`, `[0,0,1,0]`. Addition is elementwise with no extra scaling. The displayed ID 1 at position 1 gives `[0,1,1,0] + [1,0,0,0] = [1,1,1,0]`; at position 0 it gives `[0,1,1,0]`. `embedContext([1,1,2])` gives `[[0,1,1,0],[1,1,1,0],[1,2,0,0]]`. Positions outside 0–3, contexts over four tokens, invalid IDs and nonfinite/wrong-width vector inputs are rejected.
+
+Future weights are frozen without implementing later stages: matrix entry at input row i/output column j is `(((3i + 2j + seed) mod 7) − 3) / 4`, with zero-based indices and row-vector × input-by-output matrix orientation. Two heads have Q/K/V shape 4×2 with seeds 1/2/3 and 4/5/6, zero biases, causal attention and score division by √2. Concatenate heads in order 0,1; output projection 4×4 uses seed 7. Post-residual layer normalization: `LN(x + attention(x))`, then `LN(x + FF(x))`, population variance, epsilon 0.00001, gamma all ones, beta all zeros. FF uses 4×8 seed 8 → ReLU → 8×4 seed 9. Independent untied logits projection 4×5 uses seed 10. Every bias is zero. This deterministic formula defines supplied parameters, not a training algorithm or a useful language model.
+
+## 99.3 review record · 2026-10-29
+
+- Parent inspected pure data/math, tests, component, CSS and routing diff. Lookup and addition match exact displayed values; repeated-token example separates token identity from position. The untrained provenance and position-method adaptation are visible. No remaining must-fix finding.
+- `rtk npm run check`: 26 test files / 144 tests passed, TypeScript and production build passed (existing bundle-size warning). Tests cover exact rows, addition, repetition, bounds, dimensions and parameter conventions. `rtk git diff --check` passed.
+- Desktop browser review at 1440×1000 and 1100×850: tables and arithmetic readable, no horizontal document overflow; keyboard Next, Previous pausing, replay/autoplay stopping, completed disabled Next and reduced-motion completed/manual stepping passed. No browser errors reported. Evidence: `previews/chapter-99.3-embeddings-desktop.png`, `previews/chapter-99.3-embeddings-reduced.png`. Phone-specific polish not reviewed.

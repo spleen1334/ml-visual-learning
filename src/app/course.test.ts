@@ -240,16 +240,18 @@ describe('chapter four quiz', () => {
 })
 
 describe('chapter ninety-nine gradual publication', () => {
-  it('publishes 99.1 and 99.2, while keeping future lessons as outlines', () => {
+  it('publishes 99.1 through 99.3, while keeping future lessons as outlines', () => {
     const chapter = chapters.find(item => item.id === 'chapter-99')!
     expect(chapter.subchapters).toHaveLength(14)
     const lessons = publishedLessons().filter(item => item.chapter.id === chapter.id)
-    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization'])
-    expect(chapter.subchapters?.slice(2).every(item => !item.content)).toBe(true)
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization', '#chapter-99/99.3-embeddings-and-position'])
+    expect(chapter.subchapters?.slice(3).every(item => !item.content)).toBe(true)
     expect(resolveLesson(lessons[0].href).section?.id).toBe('what-does-an-llm-predict')
     const all = publishedLessons()
     expect(resolveLesson(lessons[1].href).section?.id).toBe('tokenization')
-    expect(all.at(-3)?.chapter.id).toBe('chapter-21')
-    expect(all.at(-1)?.href).toBe(lessons[1].href)
+    expect(resolveLesson(lessons[2].href).section?.id).toBe('embeddings-and-position')
+    expect(resolveLesson('#chapter-99/embeddings-and-position').section?.id).toBe('embeddings-and-position')
+    expect(all.at(-4)?.chapter.id).toBe('chapter-21')
+    expect(all.at(-1)?.href).toBe(lessons[2].href)
   })
 })

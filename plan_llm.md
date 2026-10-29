@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models (LLMs)
 
-Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.2 are implemented now; 99.3–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
+Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.3 are implemented now; 99.4–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
 
 ## Teaching direction
 
@@ -45,7 +45,7 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | --- | --- | --- | --- |
 | 99.1 Next-token prediction | [x] Implemented and reviewed | [x] 130 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.2 Tokenization | [x] Tiny lookup tokenizer and lesson | [x] 140 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
-| 99.3 Embeddings/position | [ ] | [ ] | [ ] |
+| 99.3 Embeddings/position | [x] Frozen decoder fixture and lesson | [x] 144 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.4 Neural network | [ ] | [ ] | [ ] |
 | 99.5 Q/K/V attention | [ ] | [ ] | [ ] |
 | 99.6 Masking/heads | [ ] | [ ] | [ ] |
@@ -59,6 +59,8 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | 99.14 Full pipeline | [ ] | [ ] | [ ] |
 
 After the first lesson's review and commit, proceed to the next lesson within the user's one-at-a-time workflow. Do not batch implementations or commits across lesson boundaries.
+
+Standing authorization (2026-10-29): continue to each subsequent lesson automatically after the current lesson's implementation, checks, desktop review, and scoped commit. Do not request permission between lessons; compact context and resume when needed.
 
 ## Sources and limitations
 

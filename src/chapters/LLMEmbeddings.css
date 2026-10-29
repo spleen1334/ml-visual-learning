@@ -1,0 +1,26 @@
+.embedding-demo { padding-bottom: 1.5rem; }
+.embedding-flow { display: grid; gap: 1.3rem; }
+.embedding-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.embedding-tables > div, .embedding-worked { background: #fffdf7; border: 1px solid #d8e4da; border-radius: 12px; padding: 1.2rem; }
+.embedding-lesson h3 { margin: 0 0 .35rem; color: #235d55; }
+.embedding-lesson p { line-height: 1.5; }
+.embedding-tables p { margin: .3rem 0 .8rem; }
+.embedding-lesson table { width: 100%; border-collapse: collapse; text-align: left; font-size: .95rem; }
+.embedding-lesson th, .embedding-lesson td { padding: .55rem .65rem; border-bottom: 1px solid #e2e9df; white-space: nowrap; }
+.embedding-lesson th { color: #52766c; font-size: .8rem; }
+.embedding-lesson code { font-size: .95em; }
+.embedding-selected { background: #d9eee4; color: #14594e; font-weight: 700; }
+.embedding-small { font-size: .88rem; color: #566c62; }
+.embedding-worked { background: #f1f7ed; }
+.embedding-worked > p { margin: .3rem 0 .9rem; }
+.embedding-equation { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.embedding-equation > div { display: grid; gap: .3rem; padding: .75rem 1rem; border: 1px solid #c9ded0; border-radius: 8px; background: white; }
+.embedding-equation span { color: #55766b; font-size: .8rem; font-weight: 700; }
+.embedding-equation code { color: #174e46; font-size: 1.08rem; font-weight: 700; }
+.embedding-equation b { font-size: 1.5rem; color: #749286; }
+.embedding-equation .embedding-result { background: #dcefe3; }
+.embedding-arithmetic { margin: .8rem 0 0 !important; font-size: .9rem; }
+.embedding-repeat { margin-top: 2rem; overflow-x: auto; }
+.embedding-repeat h2 { margin-bottom: .3rem; }
+.embedding-repeat table { background: #fffdf7; margin: 1rem 0; }
+@media (max-width: 800px) { .embedding-tables { grid-template-columns: 1fr; } }
