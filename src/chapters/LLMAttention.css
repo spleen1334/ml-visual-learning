@@ -1,0 +1,26 @@
+.attention-intro { line-height: 1.55; margin-bottom: 1.2rem; }
+.attention-section { background: #fffdf8; border: 1px solid #d4e5d9; border-radius: 10px; padding: 1rem 1.2rem; }
+.attention-section h3 { color: #235e52; margin: 0 0 .4rem; }
+.attention-section p { line-height: 1.5; margin: .4rem 0 .8rem; }
+.attention-scroll { overflow-x: auto; }
+.attention-section table { width: 100%; border-collapse: collapse; text-align: left; font-size: .88rem; }
+.attention-section th, .attention-section td { border-bottom: 1px solid #e2eae1; padding: .55rem; white-space: nowrap; }
+.attention-section th { color: #507469; }
+.attention-current { background: #ddf0e4; }
+.attention-section details { margin-top: .8rem; }
+.attention-section summary { color: #216b5b; font-weight: 700; cursor: pointer; }
+.attention-matrices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.attention-arrow { text-align: center; font-size: 1.5rem; color: #78a192; line-height: 1.2; }
+.attention-query { color: #175e50; font-weight: 700; }
+.attention-score-grid, .attention-weights { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.attention-score-grid > div, .attention-weights > div { display: grid; gap: .45rem; padding: .8rem; background: #eef6ef; border-radius: 7px; font-size: .88rem; }
+.attention-fraction { display: inline-grid; vertical-align: middle; text-align: center; margin: 0 .2rem; line-height: 1.2; }
+.attention-fraction > span:first-child { border-bottom: 1px solid currentColor; padding: 0 .2rem; }
+.attention-bar { background: #d4e4da; border-radius: 5px; height: 8px; overflow: hidden; }
+.attention-bar span { display: block; background: #328772; height: 100%; }
+.attention-small { color: #557168; font-size: .85rem; }
+.attention-output { background: #edf7ee; }
+.attention-worked { font-size: .94rem; }
+.attention-result { font-weight: 800; color: #17614f; font-size: 1.2rem; }
+.attention-boundary { line-height: 1.6; margin: 1.5rem 0; }
+@media (max-width: 800px) { .attention-score-grid, .attention-weights, .attention-matrices { grid-template-columns: 1fr; } }

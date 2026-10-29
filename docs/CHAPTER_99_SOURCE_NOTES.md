@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.4 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.5–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.5 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.6–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -21,7 +21,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 2. **99.2 Tokenization: text into token IDs** — published: text → colored pieces → lookup IDs, then vocabulary, decoding, and unknown/special-token boundaries.
 3. **99.3 Embeddings and position** — published: four-number lookup rows → position addition → repeated-token comparison.
 4. **99.4 The neural network inside** — published: input → four weighted products → sum and bias → ReLU; compare two input positions.
-5. **99.5 Attention: queries, keys, and values** — outline.
+5. **99.5 Attention: queries, keys, and values** — published: head-0 Q/K/V projections → scaled dot products → normalized weights → value mixture.
 6. **99.6 Causal masking and multiple heads** — outline.
 7. **99.7 A Transformer block** — outline.
 8. **99.8 Logits and softmax** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.4 enter published pagination while 10 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.5 enter published pagination while 9 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -128,3 +128,13 @@ Sources inspected: [Attention Is All You Need §3.3](https://arxiv.org/html/1706
 - Parent read pure helper/tests, component, CSS and routing diff. Displayed arithmetic agrees with hand calculation; weight/bias/parameter/dot-product/activation definitions precede their use. Supplied, untrained provenance is explicit. No remaining must-fix findings.
 - `rtk npm run check`: 27 files / 147 tests passed; TypeScript and production build passed, with the existing large-bundle warning. Tests include signed/zero activation, bias placement, changed input, bad shapes, nonfinite inputs and overflow. `rtk git diff --check` passed.
 - Browser at 1440×1000 and 1100×850: autoplay completion, input positions changing output 0 → 0.25, Previous/Next and keyboard Enter, reduced-motion completed/manual views, and no horizontal overflow/browser errors. Evidence: `previews/chapter-99.4-neuron-desktop.png`, `previews/chapter-99.4-neuron-reduced.png`. Desktop review only.
+
+## 99.5 attention fixture and review · 2026-10-29
+
+Source inspected: [Attention Is All You Need §3.2.1](https://arxiv.org/html/1706.03762v7), scaled dot-product attention. Frozen head 0 is used unchanged. Current query is the last token in context `[0,1,2]`, so every shown key is causally available; future-position masking and the second head are deferred to 99.6. Softmax is computed stably with max subtraction but taught here only as the labeled conversion; 99.8 opens its arithmetic.
+
+Inputs: `[[1,0,1,0],[1,1,1,0],[1,2,0,0]]`. Current Q: `[0,1.5]`. K rows: `[[-0.75,0.25],[-0.25,-0.5],[0.75,-1.25]]`. V rows: `[[-0.25,0.75],[0.5,0.25],[1.5,-0.5]]`. Dot products: `[0.375,-0.75,-1.875]`, divided by √2 → approximately `[0.265165,-0.530330,-1.325825]`. Softmax → `[0.604199863765,0.272710260472,0.123089875763]`; weighted value sum → `[0.169939977939,0.459782525060]`. The UI rounds to four decimals and labels that approximation. This is one head's output, not the full model prediction or evidence of reasoning/causation.
+
+- Parent inspected math/tests, UI/CSS and routing. Exact QKV rows, visible dot products/stacked score fractions, optional weight tables and weighted-sum arithmetic match the frozen data. No remaining must-fix findings.
+- `rtk npm run check`: 28 files / 150 tests passed; TypeScript/build passed (existing bundle warning). Fixture tests check projections, scale, normalized weights and output, stable softmax and malformed inputs. `rtk git diff --check` passed.
+- Browser at 1440×1000 and 1100×850: autoplay completes, final Next disables, keyboard/manual stepping and reduced-motion completed/manual views work. Weight details open and tables scroll within their container; no document overflow/browser errors. Screenshots: `previews/chapter-99.5-attention-desktop.png`, `previews/chapter-99.5-attention-projections.png`. Desktop review only.

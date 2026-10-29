@@ -240,12 +240,12 @@ describe('chapter four quiz', () => {
 })
 
 describe('chapter ninety-nine gradual publication', () => {
-  it('publishes 99.1 through 99.4, while keeping future lessons as outlines', () => {
+  it('publishes 99.1 through 99.5, while keeping future lessons as outlines', () => {
     const chapter = chapters.find(item => item.id === 'chapter-99')!
     expect(chapter.subchapters).toHaveLength(14)
     const lessons = publishedLessons().filter(item => item.chapter.id === chapter.id)
-    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization', '#chapter-99/99.3-embeddings-and-position', '#chapter-99/99.4-neural-network'])
-    expect(chapter.subchapters?.slice(4).every(item => !item.content)).toBe(true)
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-99/99.1-what-does-an-llm-predict', '#chapter-99/99.2-tokenization', '#chapter-99/99.3-embeddings-and-position', '#chapter-99/99.4-neural-network', '#chapter-99/99.5-attention-qkv'])
+    expect(chapter.subchapters?.slice(5).every(item => !item.content)).toBe(true)
     expect(resolveLesson(lessons[0].href).section?.id).toBe('what-does-an-llm-predict')
     const all = publishedLessons()
     expect(resolveLesson(lessons[1].href).section?.id).toBe('tokenization')
@@ -253,7 +253,9 @@ describe('chapter ninety-nine gradual publication', () => {
     expect(resolveLesson('#chapter-99/embeddings-and-position').section?.id).toBe('embeddings-and-position')
     expect(resolveLesson(lessons[3].href).section?.id).toBe('neural-network')
     expect(resolveLesson('#chapter-99/neural-network').section?.id).toBe('neural-network')
-    expect(all.at(-5)?.chapter.id).toBe('chapter-21')
-    expect(all.at(-1)?.href).toBe(lessons[3].href)
+    expect(resolveLesson(lessons[4].href).section?.id).toBe('attention-qkv')
+    expect(resolveLesson('#chapter-99/attention-qkv').section?.id).toBe('attention-qkv')
+    expect(all.at(-6)?.chapter.id).toBe('chapter-21')
+    expect(all.at(-1)?.href).toBe(lessons[4].href)
   })
 })
