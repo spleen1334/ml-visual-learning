@@ -1,0 +1,239 @@
+.nlp-lesson {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0 64px;
+  color: #173e3b
+}
+
+.nlp-header {
+  max-width: 900px;
+  margin-bottom: 30px
+}
+
+.nlp-eyebrow,.nlp-kicker {
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: #668d7c
+}
+
+.nlp-header h1 {
+  font-family: Georgia,serif;
+  font-size: clamp(2.5rem,4vw,3.8rem);
+  line-height: 1.05;
+  margin: 12px 0 20px
+}
+
+.nlp-definition {
+  font-size: 1.65rem;
+  line-height: 1.35;
+  margin: 0 0 12px
+}
+
+.nlp-header>p:last-child {
+  font-size: 1.05rem;
+  color: #506e67
+}
+
+.nlp-map {
+  border: 1px solid #d4e1d6;
+  border-radius: 18px;
+  padding: 28px;
+  background: #fafbf5;
+  box-shadow: 0 12px 35px #1e554010
+}
+
+.nlp-map-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px
+}
+
+.nlp-map-heading h2 {
+  font-family: Georgia,serif;
+  font-size: 1.8rem;
+  margin: 4px 0
+}
+
+.nlp-map-heading>p,.nlp-input>p:last-child,.nlp-output>p {
+  color: #587169
+}
+
+.nlp-terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  border-block: 1px solid #dce7dc;
+  padding: 15px 0;
+  margin: 20px 0;
+  font-size: .9rem
+}
+
+.nlp-tasks {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px
+}
+
+.nlp-tasks button {
+  text-align: left;
+  border: 1px solid #c9d9cd;
+  border-radius: 10px;
+  background: white;
+  color: #234b42;
+  padding: 14px;
+  cursor: pointer
+}
+
+.nlp-tasks button[aria-pressed=true] {
+  background: #17675c;
+  border-color: #17675c;
+  color: white;
+  box-shadow: 0 5px 12px #17675c30
+}
+
+.nlp-tasks span,.nlp-tasks strong,.nlp-tasks small {
+  display: block
+}
+
+.nlp-tasks span {
+  font-size: .7rem;
+  opacity: .7
+}
+
+.nlp-tasks strong {
+  font-size: 1rem;
+  margin: 7px 0 3px
+}
+
+.nlp-tasks small {
+  opacity: .8
+}
+
+.nlp-flow {
+  display: grid;
+  grid-template-columns: 1fr 42px 1fr;
+  align-items: stretch;
+  margin: 22px 0
+}
+
+.nlp-input,.nlp-output {
+  border-radius: 12px;
+  padding: 24px;
+  background: #edf3e8
+}
+
+.nlp-output {
+  background: #fff;
+  border: 1px solid #dce8dc
+}
+
+.nlp-arrow {
+  align-self: center;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #5f9e86
+}
+
+.nlp-message {
+  font-family: Georgia,serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #214c43
+}
+
+.nlp-message mark {
+  background: #f5d98b;
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px
+}
+
+.nlp-output h3 {
+  font-family: Georgia,serif;
+  font-size: 1.6rem;
+  margin: 12px 0
+}
+
+.nlp-output p,.nlp-input>p:last-child {
+  line-height: 1.5
+}
+
+.nlp-spans,.nlp-results {
+  padding-left: 22px
+}
+
+.nlp-spans li,.nlp-results li {
+  padding: 4px 0
+}
+
+.nlp-spans span,.nlp-results span {
+  display: block;
+  font-size: .85rem;
+  color: #647b71
+}
+
+.nlp-output blockquote {
+  font-family: Georgia,serif;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 0;
+  border-left: 3px solid #d7b45c;
+  padding-left: 14px
+}
+
+.nlp-playback {
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
+
+.nlp-playback span {
+  font-size: .85rem;
+  color: #587169;
+  margin-left: 8px
+}
+
+.nlp-beyond {
+  color: #587169;
+  margin: 25px 0
+}
+
+.nlp-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  border-top: 1px solid #d8e4d9;
+  padding-top: 20px
+}
+
+.nlp-links a {
+  color: #17675c
+}
+
+.nlp-links b {
+  width: 100%
+}
+
+@media(max-width: 700px) {
+  .nlp-map {
+    padding: 18px
+  }
+  .nlp-map-heading {
+    display: block
+  }
+  .nlp-tasks {
+    grid-template-columns: repeat(2,1fr)
+  }
+  .nlp-flow {
+    grid-template-columns: 1fr
+  }
+  .nlp-arrow {
+    transform: rotate(90deg);
+    padding: 6px
+  }
+  .nlp-definition {
+    font-size: 1.35rem
+  }
+}

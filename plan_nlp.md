@@ -1,8 +1,8 @@
 # Natural Language Processing (NLP) · visual chapter plan
 
-Status: planning only. No lessons or routes are implemented by this document.
+Status: 97.1 implemented, verified and committed; later lessons remain unpublished outlines. Exact original corpus and source boundaries are frozen in `docs/CHAPTER_97_SOURCE_NOTES.md`.
 
-Proposed placement: **Chapter 97 — Natural Language Processing, NLP**, in the bonus chapters before Chapter 98 (Computer Vision) and the existing Chapter 99 (LLMs). Numbers are provisional until implementation; keep existing Chapter 99 URLs stable. NLP is the broader field of working with language; LLMs are one family of models used for language tasks.
+Placement: **Chapter 97 — Natural Language Processing, NLP**, in the bonus chapters before planned Chapter 98 (Computer Vision) and existing Chapter 99 (LLMs). Keep existing Chapter 99 URLs stable. NLP is the broader field of working with language; LLMs are one family of models used for language tasks.
 
 ## Learning goal and scope
 
@@ -39,7 +39,7 @@ Use 11 short lessons, one main visual each, with concise definitions and termino
 
 ## Implementation and acceptance
 
-Create one lesson at a time after implementation is requested. For each: inspect the relevant source, update source notes, implement its required data/math and visual, run meaningful numerical tests plus `rtk npm run check` and `rtk git diff --check`, review desktop output/keyboard controls/reduced motion, fix must-fix findings, and make a scoped lesson commit when authorized. Do not publish empty routes; register only implemented content. Preserve unrelated files.
+Standing authorization (2026-10-29): continue automatically one lesson at a time after each implementation, check, desktop review and scoped commit; do not request permission between units. For each: inspect the relevant source, update source notes, implement its required data/math and visual, run meaningful numerical tests plus `rtk npm run check` and `rtk git diff --check`, review desktop output/keyboard controls/reduced motion and fix must-fix findings. Do not publish empty routes; register only implemented content. Preserve unrelated files and never push/deploy without authorization.
 
 | Lessons | Deliverable | Required focused checks |
 | --- | --- | --- |
@@ -49,7 +49,21 @@ Create one lesson at a time after implementation is requested. For each: inspect
 | 97.7–97.9, individually | Lexical search, embedding comparison, extraction | Hand-checked cosine, zero-vector behavior, ranking ties, supplied-vector labels, valid span offsets, preset/annotation consistency and grammatical arrows. |
 | 97.10–97.11, individually | Evaluation and connected workflow | Trace every metric to records; span matching rules; correct live/supplied/authored boundaries; no unimplemented pagination; complete/manual/reduced-motion states. |
 
-All lessons remain **[ ] implementation · [ ] verification · [ ] commit**. The grouped rows above organize dependencies, not permission to batch lessons into one implementation or commit. Optional quizzes can be considered after the visual lessons are reviewed; they are not required for this plan.
+| Lesson | Implementation | Verification | Scoped commit |
+| --- | --- | --- | --- |
+| 97.1 Task map | [x] | [x] 184 tests, build, diff and desktop review | [x] |
+| 97.2 Sentence/token boundaries | [ ] | [ ] | [ ] |
+| 97.3 Cleaning | [ ] | [ ] | [ ] |
+| 97.4 Count table | [ ] | [ ] | [ ] |
+| 97.5 TF–IDF | [ ] | [ ] | [ ] |
+| 97.6 Classifier | [ ] | [ ] | [ ] |
+| 97.7 Lexical search | [ ] | [ ] | [ ] |
+| 97.8 Dense search | [ ] | [ ] | [ ] |
+| 97.9 Extraction | [ ] | [ ] | [ ] |
+| 97.10 Evaluation | [ ] | [ ] | [ ] |
+| 97.11 Workflow | [ ] | [ ] | [ ] |
+
+The grouped rows above organize dependencies, not permission to batch lessons into one implementation or commit. Optional quizzes can be considered after the visual lessons are reviewed; they are not required for this plan.
 
 ## Primary references and source boundaries
 

@@ -77,6 +77,7 @@ import { LLMTransformerBlock } from '../chapters/LLMTransformerBlock'
 import { LLMLogits } from '../chapters/LLMLogits'
 import { LLMSampling } from '../chapters/LLMSampling'
 import { LLMPipeline } from '../chapters/LLMPipeline'
+import { NLPIntroduction } from '../chapters/NLPIntroduction'
 
 export type Subchapter = {
   id: string
@@ -318,6 +319,19 @@ export const chapters: readonly Chapter[] = [
     { id: 'advanced-techniques', title: 'Advanced Techniques', content: DRAdvancedTechniques },
     { id: 'key-takeaways-dimensionality-reduction', title: 'KEY TAKEAWAYS Dimensionality Reduction', content: DRTakeaways },
     { id: 'quiz-dimensionality-reduction', title: 'Quiz · Dimensionality Reduction', content: DRQuiz },
+  ] },
+  { id: 'chapter-97', number: '97', title: 'Natural Language Processing, NLP', subtitle: 'From text to useful outputs', subchapters: [
+    { id: 'what-can-we-do-with-language', title: 'What can we do with language?', content: NLPIntroduction },
+    { id: 'sentence-and-token-boundaries', title: 'Where does a sentence begin and a token end?' },
+    { id: 'cleaning-can-remove-meaning', title: 'Cleaning can remove meaning' },
+    { id: 'from-messages-to-a-count-table', title: 'From messages to a count table' },
+    { id: 'which-words-distinguish-a-document', title: 'Which words distinguish a document?' },
+    { id: 'a-small-text-classifier', title: 'A small text classifier' },
+    { id: 'search-by-words', title: 'Search by words' },
+    { id: 'search-beyond-exact-words', title: 'Search beyond exact words' },
+    { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record' },
+    { id: 'how-do-we-know-it-works', title: 'How do we know it works?' },
+    { id: 'follow-the-complete-nlp-workflow', title: 'Follow the complete NLP workflow' },
   ] },
   { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },
