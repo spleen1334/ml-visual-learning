@@ -1,0 +1,166 @@
+.nlp-eval-definition,
+.nlp-eval-legend,
+.nlp-eval-note,
+.nlp-eval-secondary p {
+  color: #587169;
+  line-height: 1.55;
+}
+
+.nlp-eval-definition {
+  border-block: 1px solid #dce7dc;
+  padding: 15px 0;
+  margin: 20px 0;
+}
+
+.nlp-eval-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+}
+
+.nlp-eval-matrix,
+.nlp-eval-cases {
+  padding: 16px;
+  border-radius: 10px;
+  background: #edf3e8;
+}
+
+.nlp-eval-matrix table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.nlp-eval-matrix th,
+.nlp-eval-matrix td {
+  padding: 5px;
+  text-align: center;
+}
+
+.nlp-eval-matrix button {
+  display: flex;
+  width: 100%;
+  min-height: 84px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid #bdd4c4;
+  border-radius: 8px;
+  background: white;
+  color: #234b42;
+  cursor: pointer;
+}
+
+.nlp-eval-matrix button[aria-pressed='true'] {
+  background: #17675c;
+  color: white;
+}
+
+.nlp-eval-matrix button strong {
+  font: 700 1.5rem Georgia, serif;
+}
+
+.nlp-eval-matrix > p:last-child {
+  font-size: .9rem;
+}
+
+.nlp-eval-cases > div {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 5px 8px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.nlp-eval-cases > div small {
+  grid-column: 2;
+  color: #587169;
+  line-height: 1.45;
+}
+
+.nlp-eval-cases .nlp-eval-case-active {
+  background: #fff4d4;
+  outline: 1px solid #d7b45c;
+}
+
+.nlp-eval-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.nlp-eval-metrics > div {
+  padding: 16px;
+  border: 1px solid #d8e5d8;
+  border-radius: 9px;
+  background: white;
+}
+
+.nlp-eval-metrics small {
+  display: block;
+  margin-top: 6px;
+  color: #587169;
+  line-height: 1.4;
+}
+
+.nlp-eval-metrics p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font: 1rem Georgia, serif;
+}
+
+.nlp-eval-note {
+  font-size: .9rem;
+}
+
+.nlp-eval-secondary {
+  padding: 22px 28px;
+  margin-top: 26px;
+  background: #f4f7ef;
+  border: 1px solid #d8e5d8;
+  border-radius: 12px;
+}
+
+.nlp-eval-secondary h2,
+.nlp-eval-secondary h3 {
+  font-family: Georgia, serif;
+}
+
+.nlp-eval-secondary h2 {
+  font-size: 1.6rem;
+  margin: 4px 0;
+}
+
+.nlp-eval-entities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.nlp-eval-entities > div {
+  padding: 12px 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+.nlp-eval-entities h3 {
+  margin: 0;
+}
+
+.nlp-eval-entities li {
+  padding: 4px 0;
+}
+
+.nlp-eval-lesson .nlp-links {
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .nlp-eval-main,
+  .nlp-eval-metrics,
+  .nlp-eval-entities {
+    grid-template-columns: 1fr;
+  }
+}

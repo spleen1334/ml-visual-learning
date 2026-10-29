@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.9 implemented and reviewed; 97.10–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.10 implemented and reviewed; 97.11 remains an unpublished outline. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.10 task-specific evaluation and review · 2026-10-29
+
+References inspected: scikit-learn [precision/recall/F-score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html), [confusion matrix](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html), [leakage](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage), and [spaCy span scoring](https://spacy.io/api/scorer). No external evaluator runs. The model is the actual97.6 fit, not supplied binary predictions; entity candidates below are deliberately supplied examples, not live NER outputs.
+
+Positive class=positive sentiment; actual/reference above in columns, predicted at left in rows. Exact CS09–11 outputs produce TP1(CS10), FP1(CS09), FN0, TN1(CS11). Precision1/2=0.5, recall1/1=1, harmonic F1=2/3. Zero denominators return null/display “not defined”; this lesson also leaves harmonic F1 undefined when either input metric is undefined or P+R=0. This explicit convention differs from libraries that substitute zero. CS12 is excluded from fit/binary metrics. Separate unlabeled domain probe “The book was not helpful.” predicts positive, ignores`book`, and is not included in these three-message counts. Cases used repeatedly for design are not an untouched final test; three examples do not establish general performance.
+
+Entity fixture is97.9's “Maya contacted Acme on Friday.” References: Maya/person[0,4), Acme/organization[15,19), Friday/date expression[23,29). Supplied candidates: exact Maya/person, spurious contacted/organization[5,14), wrong-boundary Acm/organization[15,18), wrong-type Friday/person[23,29). Exact start/end/type keys yield TP1, FP3, FN2; precision1/4, recall1/3, F1=2/7. Wrong boundaries/types leave their reference unmatched. Duplicate exact keys and invalid source offsets/substrings are rejected. Entity and classifier denominators remain separate; ranking quality instead needs relevance judgments.
+
+- Parent inspected helpers/tests/UI/CSS/routing and corrected a global CSS class-name collision by isolating NLP evaluation selectors under `nlp-eval-`. Verified renamed classes and corresponding component references. No remaining must-fix findings.
+- `rtk npm run check`:46 files/222 tests passed; TypeScript/build passed with existing bundle warning. Tests verify actual classifier outputs, matrix contributing IDs, exact metrics/undefined conventions, exclusions, entity mismatch categories and duplicate rejection. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: FP highlights CS09, empty FN clears highlights and explains no messages, keyboardEnter TP selects CS10; classification fractions and separate entity counts match fixtures. Reduced-motion retains complete manual controls. Spot-checked99.13 still exposes five case buttons without overflow after selector isolation. No document overflow/browser errors. Evidence:`previews/chapter-97.10-confusion.png`, `previews/chapter-97.10-entities.png`. Desktop only.
 
 ## 97.9 authored spans to computed records · 2026-10-29
 
