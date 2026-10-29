@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models (LLMs)
 
-Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.11 are implemented now; 99.12–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
+Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.12 are implemented now; 99.13–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
 
 ## Teaching direction
 
@@ -54,7 +54,7 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | 99.9 Sampling/temperature | [x] Temperature and seeded interval selection | [x] 165 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.10 Loss/gradients | [x] Real two-feature classifier training | [x] 170 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.11 Training stages | [x] Source-checked stages and preference alternatives | [x] 170 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
-| 99.12 Context/memory/retrieval/tools | [ ] | [ ] | [ ] |
+| 99.12 Context/memory/retrieval/tools | [x] Inspectable local request trace and budget | [x] 174 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.13 Limitations/evaluation | [ ] | [ ] | [ ] |
 | 99.14 Full pipeline | [ ] | [ ] | [ ] |
 

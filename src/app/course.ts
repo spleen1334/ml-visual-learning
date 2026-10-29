@@ -1,4 +1,5 @@
 import QAQuiz from '../chapters/QAQuiz'
+import { LLMContext } from '../chapters/LLMContext'
 import { LLMTrainingStages } from '../chapters/LLMTrainingStages'
 import { LLMTraining } from '../chapters/LLMTraining'
 import SourceQuiz from '../chapters/SourceQuiz'
@@ -328,7 +329,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'sampling-and-temperature', title: 'Sampling and temperature', content: LLMSampling },
     { id: 'training-loss-and-gradients', title: 'Training: loss and gradients', content: LLMTraining },
     { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences', content: LLMTrainingStages },
-    { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools' },
+    { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools', content: LLMContext },
     { id: 'limitations-and-evaluation', title: 'Limitations and evaluation' },
     { id: 'full-pipeline', title: 'The full LLM pipeline' },
   ] },

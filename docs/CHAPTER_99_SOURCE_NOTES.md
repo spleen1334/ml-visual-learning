@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.11 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.12–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.12 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.13–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -28,7 +28,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 9. **99.9 Sampling and temperature** — published: fixed decoder logits ÷ temperature → probabilities → seeded draw/interval selection.
 10. **99.10 Training: loss and gradients** — published: separate classifier with real batch-gradient updates, loss, reset and new-input predictions.
 11. **99.11 Pretraining, instructions, and preferences** — published: data/objectives with a shared scenario and alternative reward/RL versus DPO paths.
-12. **99.12 Context, memory, retrieval, and tools** — outline.
+12. **99.12 Context, memory, retrieval, and tools** — published: exact context assembly, outside storage/parameters, tool request/execution and budget failure.
 13. **99.13 Limitations and evaluation** — outline.
 14. **99.14 The full LLM pipeline** — outline.
 
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.11 enter published pagination while 3 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.12 enter published pagination while 2 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -202,3 +202,15 @@ Authored common scenario: text “The sky looks blue because air scatters sunlig
 - Parent inspected full component/styles/routing and reviewed data/objective distinctions, arrows and beginner wording. All stages remain visible during highlighting. No remaining must-fix finding.
 - `rtk npm run check`:33 files/170 tests passed, TypeScript/build passed (existing bundle warning). Routing tests cover publication and canonical/legacy routes; no trivial markup tests added. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: readable examples/branch connectors, autoplay stopping, disabled final Next, keyboard/manual highlights and reduced-motion final/manual view passed; no document overflow/browser errors. Evidence:`previews/chapter-99.11-preference-paths.png`, `previews/chapter-99.11-training-data.png`. Desktop only.
+
+## 99.12 runtime context fixture and review · 2026-10-29
+
+Sources inspected: [Lewis et al., RAG](https://arxiv.org/abs/2005.11401), abstract for parametric versus retrieved memory; OpenAI [function-calling flow](https://developers.openai.com/api/docs/guides/function-calling) and [conversation state/window management](https://developers.openai.com/api/docs/guides/conversation-state). Storage is not parameter learning, retrieved content is not automatically correct, a tool request is not execution, and real model windows/tokenization differ.
+
+Authored local fixture: user “What time does the North library close on Thursday?”; optional note “Preferred branch: North”; optional retrieved passage “North branch guide: Thursday hours 9 AM–8 PM.” Tool request `lookup_hours(branch: North, day: Thursday)` is authored output retained for a subsequent request; the application fixture supplies “North branch, Thursday: closes at 8 PM.” A labeled authored response preview repeats8PM; no model/search/external service runs. Missing retrieval inserts no passage and does not suppress a separately executed tool result.
+
+Budget deliberately uses **one whole-message teaching unit**, including role/text, not words or real tokens. Windows6/4, one reserved output unit. Default first request has3 messages; after tool request+result,5 input units+1 reserved=6. Window4 permits the first request but stops the next generation after application execution because6>4; no messages are silently discarded. At step1 the retained tool request is a draft for the next request, not input to the generation that produced it. The exact messages and their boundary labels are visible.
+
+- Parent inspected helper/tests/UI/CSS/routing. Stored-note/retrieval insertion, tool sequencing, next-request boundary and authored-preview limits are explicit. No remaining must-fix findings.
+- `rtk npm run check`:34 files/174 tests passed, TypeScript/build passed with existing bundle warning. Tests verify exact assembly, optional omission, requested-versus-executed distinction, budget/reserve failure and invalid options. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: autoplay completion, missing passage removed from context, request stage contains no execution result, window4 stops/disabled Next, keyboard/manual stepping, reduced-motion completed/manual view passed. No document overflow/browser errors. Evidence:`previews/chapter-99.12-request-context.png`, `previews/chapter-99.12-context-limit.png`. Desktop only.
