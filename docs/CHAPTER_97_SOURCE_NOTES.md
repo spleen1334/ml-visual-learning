@@ -1,6 +1,6 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.2 implemented and reviewed; 97.3–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.3 implemented and reviewed; 97.4–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
 
 ## Supplementary source boundary
 
@@ -56,3 +56,15 @@ Sentence rule retains consecutive`[.!?]+` endings and any remainder; following s
 - Parent inspected helper/tests/component/CSS/routing. Full character coverage, exact offsets, contraction handling, whole-word/subword boundaries and preset limits are coherent. Playback received an accessible group/status label. No remaining must-fix findings.
 - `rtk npm run check`:38 files/188 tests passed; TypeScript/build passed with existing bundle warning. Tests check sentence/token reconstruction, contiguous offsets, punctuation, lookup stability, explicit subword split and empty/unsupported input. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: autoplay completes, CS06 subword/whole-word views and selected`work`highlight/ID20/[16,20) match, CS11 sentence spans preserve spaces, keyboard/manual and reduced-motion completed/manual views passed. No document overflow/browser errors. Evidence:`previews/chapter-97.2-subwords.png`, `previews/chapter-97.2-sentences.png`. Desktop only.
+
+## 97.3 reversible cleaning and review · 2026-10-29
+
+Primary checks: [scikit-learn stop-word cautions](https://scikit-learn.org/stable/modules/feature_extraction.html#using-stop-words), [spaCy lemmatization](https://spacy.io/usage/linguistic-features#lemmatization), [NLTK stemming](https://www.nltk.org/api/nltk.stem.html). Preprocessing is task-dependent; the bounded authored lookups do not execute these libraries or implement their general linguistic algorithms.
+
+PresetsCS09/CS06/CS07/CS01/CS02 retain exact source text/labels. Operation order: optional lowercase → case-insensitive removal of authored stop list`at,the,is,not` → one optional case-insensitive stem or lemma lookup, returning lowercase dictionary entries. Stem table:`waited→wait, working→work, fixed→fix`; lemma table additionally`was→be`. Stemming and lemmatization toggles are mutually exclusive. Words/internal apostrophes, individual punctuation and spaces use a separate bounded helper;97.2 vocabularies are unchanged. Original source offsets remain attached to every piece; spaces/punctuation are preserved and spaces do not count as tokens.
+
+CS09 with lowercase/removal: `Not helpful at all!`→` helpful  all!`, removing`Not[0,3)` and`at[12,14)`, token counts5→3. CS07stem:`I wait and wait for help.`; CS01lemma:`Thanks, the setup be easy.`. These are representations, not rewritten grammatical prose or new sentiment predictions. The helpful/not-helpful comparison concerns the remaining word ignoring case/spaces; full outputs are not falsely claimed character-identical. Turning options off restores original text exactly.
+
+- Parent read helper/tests/UI/CSS/routing and corrected the comparison's whitespace/case qualification. Definitions, exact stop/lookup tables, changes/removals, source offsets and token counts are visible; no universal cleanup recommendation. No remaining must-fix findings.
+- `rtk npm run check`:39 files/192 tests passed; TypeScript/build passed with existing bundle warning. Tests cover reconstruction/offsets, exact negation/count loss, repeated replacements, distinct lemma behavior, unchanged reference labels and unsupported input. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: stop-word removal shows5→3, selectingNot shows[0,3), toggles revert, repeatedwaited→wait, was→be and mutually exclusive stem/lemma controls passed. KeyboardSpace operates checkboxes. This is a static reversible-control lesson with no timed animation; reduced motion retains the same complete/manual view. No document overflow/browser errors. Evidence:`previews/chapter-97.3-negation.png`, `previews/chapter-97.3-lemma.png`. Desktop only.
