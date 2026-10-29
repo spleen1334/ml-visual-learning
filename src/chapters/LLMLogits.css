@@ -1,0 +1,30 @@
+.logits-example, .logits-decoder { border: 1px solid #d3e4d7; background: #fffdf8; border-radius: 10px; padding: 1.1rem; }
+.logits-example h3, .logits-decoder h3 { margin: 0 0 .4rem; color: #235d51; }
+.logits-example p, .logits-decoder p { line-height: 1.5; }
+.logits-example-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.logits-example-grid > div { display: grid; gap: .4rem; background: #edf6ed; padding: .8rem; border-radius: 7px; }
+.logits-example-grid span { font-size: .85rem; color: #4b7162; }
+.logits-fraction { display: inline-grid; vertical-align: middle; text-align: center; line-height: 1.25; margin: 0 .25rem; }
+.logits-fraction span:first-child { border-bottom: 1px solid currentColor; padding: 0 .3rem; }
+.logits-equation { font-size: 1.05rem; }
+.logits-small { color: #5b7266; font-size: .87rem; }
+.logits-arrow { text-align: center; font-size: 1.6rem; color: #75a28f; }
+.logits-flow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
+.logits-flow > div { display: grid; gap: .4rem; background: #edf6ed; border-radius: 7px; padding: .8rem; }
+.logits-flow span { color: #52786a; font-size: .8rem; }
+.logits-flow code { font-size: .9rem; }
+.logits-flow b { color: #74a190; }
+.logits-decoder details { margin: 1rem 0; }
+.logits-decoder summary { cursor: pointer; color: #216b5b; font-weight: 700; }
+.logits-scroll { overflow-x: auto; }
+.logits-scroll table { border-collapse: collapse; font-size: .85rem; }
+.logits-scroll th, .logits-scroll td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid #dce9de; white-space: nowrap; }
+.logits-bars { margin-top: 1rem; }
+.logits-bars-heading, .logits-bar-row { display: grid; grid-template-columns: 100px 90px 1fr; align-items: center; gap: .7rem; padding: .5rem; }
+.logits-bars-heading { color: #587b6c; font-size: .78rem; font-weight: 700; }
+.logits-bar-row { border-top: 1px solid #e2eae0; }
+.logits-bar-cell { display: flex; align-items: center; gap: .7rem; }
+.logits-track { background: #e6eee5; height: 18px; flex: 1; border-radius: 3px; overflow: hidden; }
+.logits-track > div { height: 100%; background: #378a75; }
+.logits-bar-cell span { width: 65px; text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 800px) { .logits-example-grid { grid-template-columns: 1fr; } .logits-bars-heading, .logits-bar-row { grid-template-columns: 70px 70px 1fr; } }

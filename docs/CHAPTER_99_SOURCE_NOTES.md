@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.7 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.8–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.8 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.9–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -24,7 +24,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 5. **99.5 Attention: queries, keys, and values** — published: head-0 Q/K/V projections → scaled dot products → normalized weights → value mixture.
 6. **99.6 Causal masking and multiple heads** — published: two causal grids → selected-row mixtures → concatenation/output projection.
 7. **99.7 A Transformer block** — published: connected post-norm block with residual bypasses and inspectable numerical stages.
-8. **99.8 Logits and softmax** — outline.
+8. **99.8 Logits and softmax** — published: separate three-score calculation, then actual frozen decoder logits/probabilities.
 9. **99.9 Sampling and temperature** — outline.
 10. **99.10 Training: loss and gradients** — outline.
 11. **99.11 Pretraining, instructions, and preferences** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.7 enter published pagination while 7 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.8 enter published pagination while 6 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -158,3 +158,15 @@ Context `[0,1,2]`, position0: input `[1,0,1,0]`; attention `[1.4375,-0.5,-1.5625
 - Parent reviewed math/tests, diagram/CSS and publication diff; normalization now returns an explicit width-4 tuple without an unchecked double cast. Sequential arrows and two residual bypass paths match the documented order; definitions, dimensions, selected-row values and normalization arithmetic are readable. No remaining must-fix findings.
 - `rtk npm run check`: 30 files / 158 tests passed, TypeScript/build passed (existing bundle warning). Tests cover full fixture, population variance/epsilon, constant row, ReLU dimensions, finite results, causal invariance and invalid inputs. `rtk git diff --check` passed.
 - Browser at 1440×1000 and 1100×850: autoplay completes, final Next disables, manual/keyboard stepping and reduced-motion completed/manual views work; hidden-row/weight details open, no document overflow/browser errors. Evidence: `previews/chapter-99.7-block-path.png`, `previews/chapter-99.7-normalization.png`. Desktop only.
+
+## 99.8 logits/softmax fixture and review · 2026-10-29
+
+Sources inspected: [Attention Is All You Need §3.4](https://arxiv.org/html/1706.03762v7), [SciPy softmax documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.softmax.html) for normalized exponentials and stable shifting. No SciPy dependency is used. `llmLogits.ts` reuses the existing block, generic linear row helper and stable softmax; no extra normalization or changed weights.
+
+Separate arithmetic example `[0,1,2]` has exponentials `[1,e,e²]`, sum ≈11.107337927390, probabilities ≈`[0.090030573170,0.244728471055,0.665240955775]`. Max subtraction gives `[-2,-1,0]` with the same probabilities. Displayed rounded arithmetic uses approximation signs, not false exact equalities.
+
+Actual last-token hidden row for `[0,1,2]` ≈`[-0.355100919479,1.662450893320,-0.296691870927,-1.010658102914]`; frozen4×5 projection gives logits ≈`[0.815682086265,-0.324955296946,0.296471312142,0.815682086265,-2.093606977045]`; probabilities ≈`[0.336800168341,0.107646466465,0.200392713360,0.336800168341,0.018360483493]` in canonical vocabulary order. Equal first/fourth logits are intentional consequences of the frozen fixture, not learned language ability.
+
+- Parent inspected helper/tests/UI/CSS/routing and fixed the rounded exponential-sum wording. Definitions distinguish scores/probabilities; the three-score example is clearly separate from five-token output. No remaining must-fix finding.
+- `rtk npm run check`: 31 files / 161 tests passed; TypeScript/build passed, existing bundle warning. Tests cover exact projection fixture, normalization, equal-score uniformity, common-shift invariance, ordering and extreme finite scores. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: readable fractions, probability bars on0–100% scale, inspectable projection, autoplay/manual/keyboard stepping, final disabled Next and reduced-motion completed/manual views passed. No document overflow/browser errors. Evidence: `previews/chapter-99.8-logits.png`, `previews/chapter-99.8-softmax.png`. Desktop only.
