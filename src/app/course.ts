@@ -1,4 +1,5 @@
 import QAQuiz from '../chapters/QAQuiz'
+import { LLMEvaluation } from '../chapters/LLMEvaluation'
 import { LLMContext } from '../chapters/LLMContext'
 import { LLMTrainingStages } from '../chapters/LLMTrainingStages'
 import { LLMTraining } from '../chapters/LLMTraining'
@@ -330,7 +331,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'training-loss-and-gradients', title: 'Training: loss and gradients', content: LLMTraining },
     { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences', content: LLMTrainingStages },
     { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools', content: LLMContext },
-    { id: 'limitations-and-evaluation', title: 'Limitations and evaluation' },
+    { id: 'limitations-and-evaluation', title: 'Limitations and evaluation', content: LLMEvaluation },
     { id: 'full-pipeline', title: 'The full LLM pipeline' },
   ] },
 ]

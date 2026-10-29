@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.12 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.13–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.13 implemented and reviewed; tests/build and desktop browser review passed. Lesson 99.14 remains an outline. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -29,7 +29,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 10. **99.10 Training: loss and gradients** — published: separate classifier with real batch-gradient updates, loss, reset and new-input predictions.
 11. **99.11 Pretraining, instructions, and preferences** — published: data/objectives with a shared scenario and alternative reward/RL versus DPO paths.
 12. **99.12 Context, memory, retrieval, and tools** — published: exact context assembly, outside storage/parameters, tool request/execution and budget failure.
-13. **99.13 Limitations and evaluation** — outline.
+13. **99.13 Limitations and evaluation** — published: five authored cases, criterion-specific judgments and explicit numerator/denominator rules.
 14. **99.14 The full LLM pipeline** — outline.
 
 ## Exact 99.1 example
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.12 enter published pagination while 2 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.13 enter published pagination while 99.14 remains an outline.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -214,3 +214,15 @@ Budget deliberately uses **one whole-message teaching unit**, including role/tex
 - Parent inspected helper/tests/UI/CSS/routing. Stored-note/retrieval insertion, tool sequencing, next-request boundary and authored-preview limits are explicit. No remaining must-fix findings.
 - `rtk npm run check`:34 files/174 tests passed, TypeScript/build passed with existing bundle warning. Tests verify exact assembly, optional omission, requested-versus-executed distinction, budget/reserve failure and invalid options. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: autoplay completion, missing passage removed from context, request stage contains no execution result, window4 stops/disabled Next, keyboard/manual stepping, reduced-motion completed/manual view passed. No document overflow/browser errors. Evidence:`previews/chapter-99.12-request-context.png`, `previews/chapter-99.12-context-limit.png`. Desktop only.
+
+## 99.13 evaluation cases and review · 2026-10-29
+
+Sources inspected: [TruthfulQA](https://arxiv.org/abs/2109.07958), abstract/benchmark methodology, and [HELM](https://arxiv.org/abs/2211.09110), abstract/evaluation framework. These support probing truthfulness and scenario-specific multidimensional evaluation with coverage limits. No historical benchmark numbers or broad current-model capability claims are repeated.
+
+Five authored outputs, not actual inference: A correctly answersNorthThursday8PM from supplied evidence; B rephrasesA but answers6PM; C guesses8PM correctly against an independent evaluator reference with no hours in runtime context; D asks which branch whenNorth8PM/South6PM are both possible; E incorrectly extends regular8PM hours to a holiday with unknown hours. Explicit human judgments are data in `llmEvaluation.ts`, not a general-purpose automatic grader.
+
+Supported factual accuracy=1/2(A/B only); groundedness=1/4(A/B/C/E claims, excludingD's question); uncertainty handling=1/3(C/D/E missing or ambiguous evidence); robust rephrasing=0/1(A/B must agree AND both match reference). C demonstrates correct≠grounded, excluded from supported-answer accuracy. D/E do not have a single known factual answer and are scored separately for uncertainty. Authored cases are distinct from99.10's fitting data, but do not establish measured held-out performance. A real held-out set must not be used to fit/tune the system.
+
+- Parent inspected case data/tests/UI/CSS/routing; checked every judgment, eligibility denominator and robustness rule. Task-specific rules and coverage caveat are visible. No remaining must-fix findings.
+- `rtk npm run check`:35 files/178 tests passed, TypeScript/build passed with existing bundle warning. Tests verify exact totals, exclusions, correct-but-unsupported distinction and consistency-plus-reference requirement. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: case selection shows matching evidence/output/verdicts, counts1/2,1/4,1/3,0/1; autoplay completes, keyboard/manual case navigation and reduced-motion final/manual view work. No document overflow/browser errors. Evidence:`previews/chapter-99.13-evaluation-guess.png`, `previews/chapter-99.13-evaluation-ambiguity.png`. Desktop only.
