@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.3 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.4–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.4 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.5–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -20,7 +20,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 1. **99.1 What does an LLM predict?** — published: definition → repeated read/choose/append loop → one interactive next-token probability chart → token and inference reminders.
 2. **99.2 Tokenization: text into token IDs** — published: text → colored pieces → lookup IDs, then vocabulary, decoding, and unknown/special-token boundaries.
 3. **99.3 Embeddings and position** — published: four-number lookup rows → position addition → repeated-token comparison.
-4. **99.4 The neural network inside** — outline.
+4. **99.4 The neural network inside** — published: input → four weighted products → sum and bias → ReLU; compare two input positions.
 5. **99.5 Attention: queries, keys, and values** — outline.
 6. **99.6 Causal masking and multiple heads** — outline.
 7. **99.7 A Transformer block** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.3 enter published pagination while 11 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.4 enter published pagination while 10 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -118,3 +118,13 @@ Future weights are frozen without implementing later stages: matrix entry at inp
 - Parent inspected pure data/math, tests, component, CSS and routing diff. Lookup and addition match exact displayed values; repeated-token example separates token identity from position. The untrained provenance and position-method adaptation are visible. No remaining must-fix finding.
 - `rtk npm run check`: 26 test files / 144 tests passed, TypeScript and production build passed (existing bundle-size warning). Tests cover exact rows, addition, repetition, bounds, dimensions and parameter conventions. `rtk git diff --check` passed.
 - Desktop browser review at 1440×1000 and 1100×850: tables and arithmetic readable, no horizontal document overflow; keyboard Next, Previous pausing, replay/autoplay stopping, completed disabled Next and reduced-motion completed/manual stepping passed. No browser errors reported. Evidence: `previews/chapter-99.3-embeddings-desktop.png`, `previews/chapter-99.3-embeddings-reduced.png`. Phone-specific polish not reviewed.
+
+## 99.4 neuron fixture and review · 2026-10-29
+
+Sources inspected: [Attention Is All You Need §3.3](https://arxiv.org/html/1706.03762v7), [PyTorch Linear](https://docs.pytorch.org/docs/2.15/generated/torch.nn.Linear.html), and [PyTorch ReLU](https://docs.pytorch.org/docs/2.15/generated/torch.nn.ReLU.html). These support an affine weighted sum followed by ReLU in the position-wise feed-forward network. PyTorch stores linear weights output-by-input; this project explicitly uses input-by-output matrices instead. No PyTorch dependency is used.
+
+`llmNeuron.ts` selects zero-based column 2 of the frozen 4×8 FF input matrix: weights `[0.5,-0.5,0.25,-0.75]`, bias `0`. For ID 1 at position 0, input `[0,1,1,0]` gives products `[0,-0.5,0.25,0]`, sum `-0.25`, ReLU output `0`. Position 1 changes only the input to `[1,1,1,0]`, giving products `[0.5,-0.5,0.25,0]`, sum/output `0.25`. Parameters do not change. This isolates one neuron using embedding-plus-position input; the full block's FF input will actually follow attention/residual/normalization. That distinction is visible in the lesson.
+
+- Parent read pure helper/tests, component, CSS and routing diff. Displayed arithmetic agrees with hand calculation; weight/bias/parameter/dot-product/activation definitions precede their use. Supplied, untrained provenance is explicit. No remaining must-fix findings.
+- `rtk npm run check`: 27 files / 147 tests passed; TypeScript and production build passed, with the existing large-bundle warning. Tests include signed/zero activation, bias placement, changed input, bad shapes, nonfinite inputs and overflow. `rtk git diff --check` passed.
+- Browser at 1440×1000 and 1100×850: autoplay completion, input positions changing output 0 → 0.25, Previous/Next and keyboard Enter, reduced-motion completed/manual views, and no horizontal overflow/browser errors. Evidence: `previews/chapter-99.4-neuron-desktop.png`, `previews/chapter-99.4-neuron-reduced.png`. Desktop review only.

@@ -1,0 +1,29 @@
+.neuron-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 1rem; }
+.neuron-intro p { margin: 0; line-height: 1.5; }
+.neuron-choice { border: 0; padding: 1rem; margin: 0 0 1.2rem; background: #f3f7ee; border-radius: 10px; }
+.neuron-choice legend { font-weight: 700; color: #245b51; padding: 0 .2rem; }
+.neuron-choice p { margin: 0 0 .6rem; }
+.neuron-choice label { display: inline-flex; gap: .4rem; align-items: center; background: white; border: 1px solid #b8d2c3; border-radius: 7px; padding: .5rem .8rem; margin-right: .5rem; cursor: pointer; }
+.neuron-choice label.is-selected { background: #dcefe3; border-color: #398270; }
+.neuron-choice input { accent-color: #22705f; }
+.neuron-trace { display: grid; }
+.neuron-input, .neuron-calc, .neuron-activation { border: 1px solid #d2e3d7; background: #fffdf8; border-radius: 10px; padding: 1rem 1.2rem; }
+.neuron-input { display: grid; justify-items: start; gap: .35rem; }
+.neuron-kicker { color: #538173; font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
+.neuron-input code, .neuron-calc code { font-size: 1rem; }
+.neuron-row { font-weight: 800; color: #176251; }
+.neuron-arrow { text-align: center; font-size: 1.55rem; color: #75a291; line-height: 1.2; }
+.neuron-calc h3, .neuron-activation h3 { margin: .25rem 0; color: #245b51; }
+.neuron-calc p, .neuron-activation p { margin: .4rem 0 .8rem; line-height: 1.5; }
+.neuron-products { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.neuron-products > div { display: grid; gap: .3rem; padding: .7rem; background: #edf6ef; border-radius: 7px; }
+.neuron-products span { font-size: .75rem; color: #55766b; }
+.neuron-products strong { color: #176251; }
+.neuron-sum { margin: .9rem 0 0 !important; }
+.neuron-activation { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; background: #f0f7ee; }
+.neuron-examples { font-size: .9rem; margin-bottom: 0 !important; }
+.neuron-output { display: grid; min-width: 135px; text-align: center; gap: .3rem; padding: 1rem; border-radius: 9px; background: #d7ecdf; color: #155a4e; }
+.neuron-output span { font-size: .7rem; font-weight: 800; }
+.neuron-output strong { font-size: 2rem; }
+.neuron-boundary { line-height: 1.6; max-width: 900px; margin: 1.5rem 0; }
+@media (max-width: 800px) { .neuron-intro { grid-template-columns: 1fr; gap: .5rem; } .neuron-products { grid-template-columns: repeat(2, 1fr); } .neuron-activation { grid-template-columns: 1fr; } }

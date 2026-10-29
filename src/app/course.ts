@@ -66,6 +66,7 @@ import { OutlierIntroduction, OutlierBasics, CrossSectionalOutliers, CrossSectio
 import { LLMNextToken } from '../chapters/LargeLanguageModels'
 import { LLMTokenization } from '../chapters/LLMTokenization'
 import { LLMEmbeddings } from '../chapters/LLMEmbeddings'
+import { LLMNeuralNetwork } from '../chapters/LLMNeuralNetwork'
 
 export type Subchapter = {
   id: string
@@ -312,7 +313,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },
     { id: 'tokenization', title: 'Tokenization: text into token IDs', content: LLMTokenization },
     { id: 'embeddings-and-position', title: 'Embeddings and position', content: LLMEmbeddings },
-    { id: 'neural-network', title: 'The neural network inside' },
+    { id: 'neural-network', title: 'The neural network inside', content: LLMNeuralNetwork },
     { id: 'attention-qkv', title: 'Attention: queries, keys, and values' },
     { id: 'masking-and-heads', title: 'Causal masking and multiple heads' },
     { id: 'transformer-block', title: 'A Transformer block' },
