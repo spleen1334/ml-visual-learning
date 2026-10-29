@@ -76,6 +76,7 @@ import { LLMCausalAttention } from '../chapters/LLMCausalAttention'
 import { LLMTransformerBlock } from '../chapters/LLMTransformerBlock'
 import { LLMLogits } from '../chapters/LLMLogits'
 import { LLMSampling } from '../chapters/LLMSampling'
+import { LLMPipeline } from '../chapters/LLMPipeline'
 
 export type Subchapter = {
   id: string
@@ -332,7 +333,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences', content: LLMTrainingStages },
     { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools', content: LLMContext },
     { id: 'limitations-and-evaluation', title: 'Limitations and evaluation', content: LLMEvaluation },
-    { id: 'full-pipeline', title: 'The full LLM pipeline' },
+    { id: 'full-pipeline', title: 'The full LLM pipeline', content: LLMPipeline },
   ] },
 ]
 

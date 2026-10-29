@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.13 implemented and reviewed; tests/build and desktop browser review passed. Lesson 99.14 remains an outline. Full implementation plan: `../plan_llm.md`.
+Status: all fourteen lessons implemented and reviewed in separate increments; tests/build and desktop browser review passed. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -30,7 +30,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 11. **99.11 Pretraining, instructions, and preferences** — published: data/objectives with a shared scenario and alternative reward/RL versus DPO paths.
 12. **99.12 Context, memory, retrieval, and tools** — published: exact context assembly, outside storage/parameters, tool request/execution and budget failure.
 13. **99.13 Limitations and evaluation** — published: five authored cases, criterion-specific judgments and explicit numerator/denominator rules.
-14. **99.14 The full LLM pipeline** — outline.
+14. **99.14 The full LLM pipeline** — published: same frozen decoder end-to-end, seeded end-token and greedy length-cap paths.
 
 ## Exact 99.1 example
 
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.13 enter published pagination while 99.14 remains an outline.
+- `course.test.ts` now checks all fourteen published lessons and their canonical/legacy routes.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -226,3 +226,14 @@ Supported factual accuracy=1/2(A/B only); groundedness=1/4(A/B/C/E claims, exclu
 - Parent inspected case data/tests/UI/CSS/routing; checked every judgment, eligibility denominator and robustness rule. Task-specific rules and coverage caveat are visible. No remaining must-fix findings.
 - `rtk npm run check`:35 files/178 tests passed, TypeScript/build passed with existing bundle warning. Tests verify exact totals, exclusions, correct-but-unsupported distinction and consistency-plus-reference requirement. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: case selection shows matching evidence/output/verdicts, counts1/2,1/4,1/3,0/1; autoplay completes, keyboard/manual case navigation and reduced-motion final/manual view work. No document overflow/browser errors. Evidence:`previews/chapter-99.13-evaluation-guess.png`, `previews/chapter-99.13-evaluation-ambiguity.png`. Desktop only.
+
+## 99.14 pipeline fixtures and chapter review · 2026-10-29
+
+Integration reuses the prior source-backed stages unchanged: strict decoder text lookup, fixed embedding/position rows, causal two-head post-norm block, frozen independent logits projection, stable softmax, seeded categorical selection or documented greedy near-tie handling. No API, downloaded model, dependency, learned parameter change, sliding window or shifted position convention is introduced. `llmPipeline.ts` is the bounded orchestrator, not a second math implementation.
+
+Sample fixture: prompt`The`/IDs`[0]`, temperature1, seed168, cap4. Draws≈`[0.3011767806,0.5167994560,0.8505235130,0.8866163706]` select`[1,2,3,4]` from contexts`[0]`, `[0,1]`, `[0,1,2]`, `[0,1,2,3]`; visible output`The cat sat.`, stop`end`. The special end is recorded but neither decoded as prose nor fed back. Greedy cap2 selects`[1,1]`, output`The cat cat`, stop`length-cap`. A non-end selected from four input tokens is retained in output but stops with`context-cap` before a fifth-token forward pass. The returned text/context may therefore hold five ordinary IDs at that terminal boundary; no subsequent embedding lookup is attempted. Literal`<end>`, empty/unsupported or overlong prompt text are rejected; decoder vocabulary is separate from99.2's toy lookup.
+
+- Parent read all new files and routing diff and reviewed the assembled lesson as a learner. The connected overview, token/stage selection, exact arrays/shapes and optional weight details reuse prior values. Training/parameters/retrieval/tools boundaries and practical Common use cases/Note are explicit. No remaining must-fix findings.
+- `rtk npm run check`:36 files/182 tests passed, TypeScript/build passed with existing bundle warning. End-to-end tests verify sampled IDs/draws/text, end and cap behavior, repeatability, strict tokenization, context bounds, prior-stage intermediate consistency and option errors. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: sampled completion shows`The cat sat.`/end, greedy completion shows`The cat cat`/length cap; stage/token selectors, expanded block details, keyboard transition from token1/stage8 to token2/stage1, autoplay stopping and reduced-motion completed/manual views passed. Tables scroll within the trace, no document overflow/browser errors. Evidence:`previews/chapter-99.14-pipeline-block.png`, `previews/chapter-99.14-pipeline-complete.png`, `previews/chapter-99.14-pipeline-embeddings.png`.
+- Chapter-level reconciliation: fourteen separate lesson increments now preserve the teaching order, frozen decoder fixture and three distinct demonstration boundaries (authored lookup tree, supplied decoder, genuinely trained classifier). Earlier per-lesson desktop evidence remains valid for unchanged lesson components. Phone-specific polish and real-world model performance are outside verification scope.

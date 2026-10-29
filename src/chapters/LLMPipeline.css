@@ -1,0 +1,28 @@
+.pipeline-choice { background: #fffdf8; border: 1px solid #d4e5d8; border-radius: 8px; padding: .8rem 1rem; margin: 0 0 1rem; }
+.pipeline-choice legend { color: #245d51; font-weight: 700; }
+.pipeline-choice label { display: inline-flex; align-items: center; gap: .35rem; margin: .2rem 1rem .2rem 0; cursor: pointer; }
+.pipeline-choice input { accent-color: #22705f; }
+.pipeline-choice p { margin: .5rem 0 0; font-size: .88rem; }
+.pipeline-map { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+.pipeline-map-item { display: inline-flex; align-items: center; gap: .45rem; }
+.pipeline-map-item button, .pipeline-token-select button { border: 1px solid #b9d8c8; border-radius: 7px; background: #fffdf8; color: #285e51; padding: .6rem .7rem; cursor: pointer; font-weight: 700; }
+.pipeline-map-item button span { color: #729586; margin-right: .4rem; }
+.pipeline-map-item button.is-active, .pipeline-token-select button[aria-pressed=true] { background: #cce9d8; border-color: #32856d; }
+.pipeline-map-item b { color: #83a898; }
+.pipeline-map button:focus-visible, .pipeline-token-select button:focus-visible { outline: 3px solid #40947b; outline-offset: 2px; }
+.pipeline-loop { color: #497767; font-size: .88rem; margin: .6rem 0 1rem; }
+.pipeline-trace { padding: 1.2rem; background: #fffdf8; border: 1px solid #d1e4d7; border-radius: 10px; min-height: 160px; overflow-x: auto; }
+.pipeline-trace-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.pipeline-trace-heading h3 { margin: 0; color: #235e52; }
+.pipeline-trace-heading span { color: #618071; font-size: .85rem; }
+.pipeline-trace p { line-height: 1.5; overflow-wrap: anywhere; }
+.pipeline-trace details { margin: .8rem 0; }
+.pipeline-trace summary { cursor: pointer; color: #216b5b; font-weight: 700; }
+.pipeline-large { font-size: 1.3rem; color: #175d50; }
+.pipeline-trace table { width: 100%; border-collapse: collapse; text-align: left; }
+.pipeline-trace th, .pipeline-trace td { padding: .4rem .6rem; border-bottom: 1px solid #e0eae0; white-space: nowrap; }
+.pipeline-stop { padding: .7rem; background: #e8f4e8; border-left: 3px solid #599b7f; }
+.pipeline-token-select { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.pipeline-boundary, .pipeline-outside p { line-height: 1.55; }
+.pipeline-boundary { color: #5b7468; font-size: .88rem; }
+.pipeline-outside { margin-top: 2rem; max-width: 900px; }
