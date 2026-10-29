@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models (LLMs)
 
-Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.8 are implemented now; 99.9–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
+Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.9 are implemented now; 99.10–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
 
 ## Teaching direction
 
@@ -51,7 +51,7 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | 99.6 Masking/heads | [x] Causal grids and two-head output | [x] 154 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.7 Transformer block | [x] Connected post-norm block and exact rows | [x] 158 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.8 Logits/softmax | [x] Worked softmax and decoder distribution | [x] 161 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
-| 99.9 Sampling/temperature | [ ] | [ ] | [ ] |
+| 99.9 Sampling/temperature | [x] Temperature and seeded interval selection | [x] 165 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.10 Loss/gradients | [ ] | [ ] | [ ] |
 | 99.11 Training stages | [ ] | [ ] | [ ] |
 | 99.12 Context/memory/retrieval/tools | [ ] | [ ] | [ ] |

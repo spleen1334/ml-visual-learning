@@ -1,0 +1,33 @@
+.sampling-temperature { border: 1px solid #d4e5d8; border-radius: 8px; background: #fffdf8; padding: .8rem 1rem; margin: 0 0 1rem; }
+.sampling-temperature legend { color: #245d51; font-weight: 700; }
+.sampling-temperature p { margin: 0 0 .6rem; }
+.sampling-temperature label { display: inline-flex; align-items: center; gap: .3rem; margin-right: 1rem; cursor: pointer; }
+.sampling-temperature input { accent-color: #22705f; }
+.sampling-panel { border: 1px solid #d4e5d8; background: #fffdf8; border-radius: 10px; padding: 1rem; }
+.sampling-panel h3 { margin: 0 0 .4rem; color: #235d51; }
+.sampling-panel p { line-height: 1.5; }
+.sampling-panel code { overflow-wrap: anywhere; }
+.sampling-heading, .sampling-row { display: grid; grid-template-columns: 100px 1fr; gap: .8rem; align-items: center; padding: .45rem; }
+.sampling-heading { font-size: .78rem; color: #587b6c; font-weight: 700; }
+.sampling-row { border-top: 1px solid #e0ebe0; }
+.sampling-row.is-selected, .sampling-panel tr.is-selected { background: #dcefe1; }
+.sampling-bar { display: flex; align-items: center; gap: .7rem; }
+.sampling-track { background: #e5eee4; height: 17px; flex: 1; border-radius: 3px; overflow: hidden; }
+.sampling-track div { background: #398a75; height: 100%; }
+.sampling-bar span { width: 65px; text-align: right; }
+.sampling-arrow { text-align: center; color: #75a28f; font-size: 1.6rem; }
+.sampling-band { display: flex; position: relative; height: 30px; border-radius: 5px; overflow: visible; margin: 1.5rem 0 .25rem; }
+.sampling-segment { height: 100%; }
+.sampling-color-0 { background: #267962; }.sampling-color-1 { background: #81ae91; }.sampling-color-2 { background: #d0b371; }.sampling-color-3 { background: #ad765f; }.sampling-color-4 { background: #8d8eaa; }
+.sampling-marker { position: absolute; top: -9px; bottom: -5px; width: 3px; background: #23372f; box-shadow: 0 0 0 1px white; }
+.sampling-marker:before { content: '▼'; position: absolute; top: -13px; left: -5px; font-size: 12px; }
+.sampling-endpoints { display: flex; justify-content: space-between; font-size: .8rem; }
+.sampling-draw { font-size: 1.05rem; }
+.sampling-scroll { overflow-x: auto; }
+.sampling-panel table { width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem; }
+.sampling-panel th, .sampling-panel td { padding: .45rem; border-bottom: 1px solid #dce9de; white-space: nowrap; }
+.sampling-dot { display: inline-block; width: .65rem; height: .65rem; border-radius: 50%; margin-right: .5rem; }
+.sampling-small { font-size: .85rem; color: #597368; }
+.sampling-actions { display: flex; gap: .6rem; }
+.sampling-actions button { border: 1px solid #7aa892; color: #1b6654; background: white; border-radius: 6px; padding: .5rem .8rem; cursor: pointer; font-weight: 700; }
+.sampling-actions button:focus-visible { outline: 3px solid #39947a; outline-offset: 2px; }

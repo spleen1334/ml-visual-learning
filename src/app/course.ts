@@ -71,6 +71,7 @@ import { LLMAttention } from '../chapters/LLMAttention'
 import { LLMCausalAttention } from '../chapters/LLMCausalAttention'
 import { LLMTransformerBlock } from '../chapters/LLMTransformerBlock'
 import { LLMLogits } from '../chapters/LLMLogits'
+import { LLMSampling } from '../chapters/LLMSampling'
 
 export type Subchapter = {
   id: string
@@ -322,7 +323,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'masking-and-heads', title: 'Causal masking and multiple heads', content: LLMCausalAttention },
     { id: 'transformer-block', title: 'A Transformer block', content: LLMTransformerBlock },
     { id: 'logits-and-softmax', title: 'Logits and softmax', content: LLMLogits },
-    { id: 'sampling-and-temperature', title: 'Sampling and temperature' },
+    { id: 'sampling-and-temperature', title: 'Sampling and temperature', content: LLMSampling },
     { id: 'training-loss-and-gradients', title: 'Training: loss and gradients' },
     { id: 'pretraining-and-post-training', title: 'Pretraining, instructions, and preferences' },
     { id: 'context-memory-retrieval-tools', title: 'Context, memory, retrieval, and tools' },
