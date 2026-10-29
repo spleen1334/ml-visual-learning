@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.10 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.11–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.11 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.12–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -27,7 +27,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 8. **99.8 Logits and softmax** — published: separate three-score calculation, then actual frozen decoder logits/probabilities.
 9. **99.9 Sampling and temperature** — published: fixed decoder logits ÷ temperature → probabilities → seeded draw/interval selection.
 10. **99.10 Training: loss and gradients** — published: separate classifier with real batch-gradient updates, loss, reset and new-input predictions.
-11. **99.11 Pretraining, instructions, and preferences** — outline.
+11. **99.11 Pretraining, instructions, and preferences** — published: data/objectives with a shared scenario and alternative reward/RL versus DPO paths.
 12. **99.12 Context, memory, retrieval, and tools** — outline.
 13. **99.13 Limitations and evaluation** — outline.
 14. **99.14 The full LLM pipeline** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.10 enter published pagination while 4 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.11 enter published pagination while 3 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -192,3 +192,13 @@ Separate new-student controls offer0.25/0.5/0.75 hours for each feature; they ch
 - Parent read helper/tests/component/styles/routing and corrected completed-state preview wording. Forward pass, one-target loss, average loss, gradient contributions and all parameter updates are visible with mathematical fractions. No remaining must-fix findings.
 - `rtk npm run check`:33 files/170 tests passed, TypeScript/build passed (existing bundle warning). Tests include hand initial loss/gradient/update, finite-difference gradients for all3 parameters, deterministic decreasing loss, prediction isolation, extreme scores and invalid domains. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: first update changes B/D probabilities to0.5312, autoplay stops at8, reset restores all-zero parameters, held-out study change alters prediction without parameters, keyboard/manual stepping and reduced-motion completed/manual views passed. No document overflow/browser errors. Evidence:`previews/chapter-99.10-training-first-update.png`, `previews/chapter-99.10-training-calculations.png`. Desktop only.
+
+## 99.11 training-stage sources and review · 2026-10-29
+
+Primary references: [Ouyang et al., InstructGPT](https://arxiv.org/html/2203.02155), §§1,3.1/Figure2,3.5 for demonstrations→SFT, ranked responses→reward model→PPO, and persistent mistakes; [Rafailov et al., DPO](https://arxiv.org/html/2305.18290), §§1,3–4 for direct preference-policy optimization without a separately fitted reward model or RL loop. These describe particular recipes, not universal stages required for every model.
+
+Authored common scenario: text “The sky looks blue because air scatters sunlight” with target `blue` after “The sky looks”; instruction “Explain why the sky looks blue in one sentence” with a scattering explanation; preferred scattering response versus rejected ocean-reflection explanation. The token target is illustrative, not a claim about production segmentation. Response-only SFT loss is described as common/configurable, not mandatory. Preference branches are alternatives, not DPO after reward-model/RL. The example illustrates comparison labels, not a training run or guarantee of truthfulness.
+
+- Parent inspected full component/styles/routing and reviewed data/objective distinctions, arrows and beginner wording. All stages remain visible during highlighting. No remaining must-fix finding.
+- `rtk npm run check`:33 files/170 tests passed, TypeScript/build passed (existing bundle warning). Routing tests cover publication and canonical/legacy routes; no trivial markup tests added. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: readable examples/branch connectors, autoplay stopping, disabled final Next, keyboard/manual highlights and reduced-motion final/manual view passed; no document overflow/browser errors. Evidence:`previews/chapter-99.11-preference-paths.png`, `previews/chapter-99.11-training-data.png`. Desktop only.
