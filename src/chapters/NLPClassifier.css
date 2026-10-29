@@ -1,0 +1,188 @@
+.classifier-definitions {
+  line-height: 1.6;
+  color: #506e67;
+  border-block: 1px solid #dce7dc;
+  padding: 16px 0;
+  margin: 20px 0;
+}
+
+.classifier-step {
+  padding: 20px;
+  border: 1px solid #d8e5d8;
+  border-radius: 12px;
+  background: white;
+}
+
+.classifier-step h3 {
+  font: 700 1.4rem Georgia, serif;
+  margin: 0;
+}
+
+.classifier-step h3 span {
+  color: #6e9a87;
+  font: 700 .85rem sans-serif;
+  margin-right: 8px;
+}
+
+.classifier-step > p,
+.classifier-log-rule {
+  color: #587169;
+  line-height: 1.55;
+}
+
+.classifier-training {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 14px;
+}
+
+.classifier-training > div {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 8px;
+  padding: 9px;
+  background: #f2f7ef;
+  border-radius: 6px;
+}
+
+.classifier-training strong {
+  font-size: .8rem;
+}
+
+.classifier-negative {
+  color: #a25d4a;
+}
+
+.classifier-positive {
+  color: #267760;
+}
+
+.classifier-arrow {
+  text-align: center;
+  font-size: 2rem;
+  color: #6e9a87;
+}
+
+.classifier-formula {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font: 1.1rem Georgia, serif;
+}
+
+.classifier-formula > span:last-child {
+  font: .9rem sans-serif;
+}
+
+.classifier-step details {
+  margin-top: 16px;
+}
+
+.classifier-step summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #17675c;
+  padding-bottom: 10px;
+}
+
+.classifier-choices {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.classifier-choices button {
+  border: 1px solid #b9d1c1;
+  border-radius: 8px;
+  background: white;
+  color: #234b42;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.classifier-choices button[aria-pressed='true'] {
+  background: #17675c;
+  color: white;
+}
+
+.classifier-query {
+  background: #edf3e8;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border-radius: 8px;
+}
+
+.classifier-query p {
+  font: 1.3rem Georgia, serif;
+  margin: 0 0 8px;
+}
+
+.classifier-query span,
+.classifier-review {
+  color: #587169;
+  font-size: .9rem;
+}
+
+.classifier-scores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.classifier-scores > div {
+  padding: 14px;
+  background: #f2f7ef;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.classifier-scores span {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.classifier-scores strong {
+  font: 700 1.5rem Georgia, serif;
+}
+
+.classifier-scores small {
+  color: #587169;
+}
+
+.classifier-prediction {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 18px;
+  margin-top: 16px;
+  padding: 15px;
+  border-left: 3px solid #d7b45c;
+  background: #fff8e4;
+}
+
+.classifier-prediction span {
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.classifier-prediction b {
+  font: 700 1.5rem Georgia, serif;
+}
+
+.classifier-review {
+  margin-top: 18px;
+  line-height: 1.5;
+}
+
+.classifier-lesson .nlp-links {
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .classifier-training,
+  .classifier-scores {
+    grid-template-columns: 1fr;
+  }
+}

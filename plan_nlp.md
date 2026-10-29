@@ -1,6 +1,6 @@
 # Natural Language Processing (NLP) · visual chapter plan
 
-Status: 97.1–97.5 implemented, verified and committed; later lessons remain unpublished outlines. Exact original corpus and source boundaries are frozen in `docs/CHAPTER_97_SOURCE_NOTES.md`.
+Status: 97.1–97.6 implemented, verified and committed; later lessons remain unpublished outlines. Exact original corpus and source boundaries are frozen in `docs/CHAPTER_97_SOURCE_NOTES.md`.
 
 Placement: **Chapter 97 — Natural Language Processing, NLP**, in the bonus chapters before planned Chapter 98 (Computer Vision) and existing Chapter 99 (LLMs). Keep existing Chapter 99 URLs stable. NLP is the broader field of working with language; LLMs are one family of models used for language tasks.
 
@@ -56,7 +56,7 @@ Standing authorization (2026-10-29): continue automatically one lesson at a time
 | 97.3 Cleaning | [x] | [x] 192 tests, build, diff and desktop review | [x] |
 | 97.4 Count table | [x] | [x] 196 tests, build, diff and desktop review | [x] |
 | 97.5 TF–IDF | [x] | [x] 200 tests, build, diff and desktop review | [x] |
-| 97.6 Classifier | [ ] | [ ] | [ ] |
+| 97.6 Classifier | [x] | [x] 204 tests, build, diff and desktop review | [x] |
 | 97.7 Lexical search | [ ] | [ ] | [ ] |
 | 97.8 Dense search | [ ] | [ ] | [ ] |
 | 97.9 Extraction | [ ] | [ ] | [ ] |

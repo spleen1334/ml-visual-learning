@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.5 implemented and reviewed; 97.6–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.6 implemented and reviewed; 97.7–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.6 actual multinomial Naive Bayes fit and review · 2026-10-29
+
+Reference inspected: [scikit-learn multinomial Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes). Browser helpers implement the fit/prediction locally, without scikit-learn or supplied fitted weights. Training is exactly CS01–CS08 with97.4's word-token convention, alphabetical training vocabulary V=30, priors4/8 each, negative20/positive16 word tokens. Additive smoothing α=1 gives denominators50/46. Example `waited` counts2/0 yield likelihoods3/50 and1/46. Neither the descriptive97.4/5 vocabulary nor any held-out text/labels fit these parameters.
+
+Prediction sums log prior plus query-count-weighted log likelihoods, then subtracts the maximum log score before exponentiating/normalizing. Unseen terms are ignored and listed; no represented terms yields the priors, explicitly flagged as no evidence. Exact ties use declared negative-first class order. Scores are model-relative, not calibrated confidence or guaranteed correctness. CS12 remains review-only and outside fitting/binary accuracy.
+
+Golden negative scores: CS09=0.4584055459272098 (predicts positive despite negative reference); CS10=0.2200499168053246 (positive); CS11=0.9197579087118724 (negative). CS09 uses `helpful`/`not`, unknown`all,at`; CS10 uses`thanks,the`, unknown`fix,worked`; CS11 uses`is,missing,my,order`, unknown`acme,by,friday,i'm,it,please,refund,upset`. Wrong CS09 prediction is intentionally preserved, showing the model does not compose negation rather than tuning the example to look successful.
+
+- Parent inspected helper/tests/UI/CSS/routing, all visible training records, class totals, exact likelihood fractions and log-score contributions. Complete vocabulary/counts remain inspectable; observed references stay separate from predictions. No remaining must-fix findings.
+- `rtk npm run check`:42 files/204 tests passed; TypeScript/build passed with existing bundle warning. Tests verify training totals/smoothing, frozen held-out scores/OOV lists, repeated query contributions, model immutability, no-evidence priors/tie handling and review-only exclusion. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: all three predictions/scores match fixtures, default wrong CS09 result is explicit, keyboardEnter changes query, full vocabulary expands to30 rows and eight training records remain visible. Static exploration has no timed animation; reduced-motion retains complete manual controls. No document overflow/browser errors. Evidence:`previews/chapter-97.6-heldout.png`, `previews/chapter-97.6-scores.png`, `previews/chapter-97.6-fitting.png`. Desktop only.
 
 ## 97.5 TF–IDF conventions and review · 2026-10-29
 

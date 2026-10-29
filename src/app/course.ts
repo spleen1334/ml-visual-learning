@@ -82,6 +82,7 @@ import { NLPTokenization } from '../chapters/NLPTokenization'
 import { NLPCleaning } from '../chapters/NLPCleaning'
 import { NLPCountTable } from '../chapters/NLPCountTable'
 import { NLPTfidf } from '../chapters/NLPTfidf'
+import { NLPClassifier } from '../chapters/NLPClassifier'
 
 export type Subchapter = {
   id: string
@@ -330,7 +331,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'cleaning-can-remove-meaning', title: 'Cleaning can remove meaning', content: NLPCleaning },
     { id: 'from-messages-to-a-count-table', title: 'From messages to a count table', content: NLPCountTable },
     { id: 'which-words-distinguish-a-document', title: 'Which words distinguish a document?', content: NLPTfidf },
-    { id: 'a-small-text-classifier', title: 'A small text classifier' },
+    { id: 'a-small-text-classifier', title: 'A small text classifier', content: NLPClassifier },
     { id: 'search-by-words', title: 'Search by words' },
     { id: 'search-beyond-exact-words', title: 'Search beyond exact words' },
     { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record' },
