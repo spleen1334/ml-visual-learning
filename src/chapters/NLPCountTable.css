@@ -1,0 +1,193 @@
+.count-definitions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 20px 0;
+  padding: 8px 0;
+  border-block: 1px solid #dce7dc;
+  line-height: 1.5;
+}
+
+.count-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.count-modes button {
+  border: 1px solid #b9d1c1;
+  border-radius: 8px;
+  padding: 10px 15px;
+  background: white;
+  color: #234b42;
+  cursor: pointer;
+}
+
+.count-modes button[aria-pressed='true'] {
+  color: white;
+  background: #17675c;
+  border-color: #17675c;
+}
+
+.count-convention,
+.count-boundary {
+  color: #587169;
+  font-size: .92rem;
+  line-height: 1.5;
+}
+
+.count-docs {
+  background: #edf3e8;
+  padding: 16px 18px;
+  border-radius: 12px;
+}
+
+.count-docs > p {
+  margin: 0 0 8px;
+}
+
+.count-docs > div {
+  display: grid;
+  grid-template-columns: 55px 1fr;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  line-height: 1.4;
+}
+
+.count-docs .count-doc-active {
+  background: #fff;
+}
+
+.count-docs mark {
+  color: inherit;
+  background: #f5d98b;
+  border-radius: 3px;
+}
+
+.count-matrix-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 20px;
+  margin-top: 20px;
+}
+
+.count-matrix-heading h3,
+.count-order h2,
+.count-order h3 {
+  font-family: Georgia, serif;
+}
+
+.count-matrix-heading h3 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.count-matrix-heading p {
+  color: #587169;
+}
+
+.count-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid #d5e3d7;
+  border-radius: 8px;
+  background: white;
+}
+
+.count-scroll table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  font-size: .88rem;
+}
+
+.count-scroll th,
+.count-scroll td {
+  text-align: center;
+  white-space: nowrap;
+  border-bottom: 1px solid #e5eee5;
+  padding: 9px 10px;
+}
+
+.count-scroll th {
+  background: #f2f7ef;
+  color: #315b4e;
+}
+
+.count-scroll td button {
+  min-width: 36px;
+  min-height: 36px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #315b4e;
+  background: transparent;
+  cursor: pointer;
+}
+
+.count-scroll td button[aria-pressed='true'] {
+  background: #17675c;
+  color: white;
+}
+
+.count-trace {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 14px;
+  padding: 13px 16px;
+  background: #fff8e4;
+  border-left: 3px solid #d7b45c;
+}
+
+.count-trace span {
+  color: #587169;
+}
+
+.count-order {
+  margin: 30px 0;
+  padding: 24px 28px;
+  background: #f4f7ef;
+  border: 1px solid #d5e3d7;
+  border-radius: 14px;
+}
+
+.count-order h2 {
+  margin: 8px 0;
+  font-size: 1.8rem;
+}
+
+.count-order > p:not(.nlp-eyebrow) {
+  color: #587169;
+}
+
+.count-order-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+}
+
+.count-order-docs b {
+  margin-right: 8px;
+  color: #17675c;
+}
+
+.count-order-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.count-order-grid h3 {
+  margin: 8px 0;
+}
+
+@media (max-width: 700px) {
+  .count-definitions,
+  .count-order-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

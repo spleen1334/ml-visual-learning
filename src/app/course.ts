@@ -80,6 +80,7 @@ import { LLMPipeline } from '../chapters/LLMPipeline'
 import { NLPIntroduction } from '../chapters/NLPIntroduction'
 import { NLPTokenization } from '../chapters/NLPTokenization'
 import { NLPCleaning } from '../chapters/NLPCleaning'
+import { NLPCountTable } from '../chapters/NLPCountTable'
 
 export type Subchapter = {
   id: string
@@ -326,7 +327,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'what-can-we-do-with-language', title: 'What can we do with language?', content: NLPIntroduction },
     { id: 'sentence-and-token-boundaries', title: 'Where does a sentence begin and a token end?', content: NLPTokenization },
     { id: 'cleaning-can-remove-meaning', title: 'Cleaning can remove meaning', content: NLPCleaning },
-    { id: 'from-messages-to-a-count-table', title: 'From messages to a count table' },
+    { id: 'from-messages-to-a-count-table', title: 'From messages to a count table', content: NLPCountTable },
     { id: 'which-words-distinguish-a-document', title: 'Which words distinguish a document?' },
     { id: 'a-small-text-classifier', title: 'A small text classifier' },
     { id: 'search-by-words', title: 'Search by words' },

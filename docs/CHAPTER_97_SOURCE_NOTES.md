@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.3 implemented and reviewed; 97.4–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.4 implemented and reviewed; 97.5–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.4 count features and review · 2026-10-29
+
+Primary reference inspected: [scikit-learn text feature extraction](https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction). The browser implements its own small count helper, not scikit-learn. `nlpCountFeatures.ts` defines the reusable feature convention: lowercase ASCII words with internal apostrophes, punctuation excluded, stop words retained, no stemming/lemmatization. Offsets refer to original source text. Bigrams join consecutive word tokens across punctuation/sentence endings within each document, never across documents. Vocabulary is alphabetical; fixed-vocabulary unknown features contribute zero.
+
+Descriptive subset CS03/CS06/CS07/CS09: unigram matrix4×16=64 cells with46 zeros; bigram matrix4×15=60 cells with45 zeros. CS07 has two `waited` occurrences at[2,8) and[13,19); CS09 `not helpful` contributes one bigram from[0,3) and[4,11). A selected zero highlights no text. CS09 is held out for the later classifier; this descriptive matrix explicitly does not supply that classifier's fitted vocabulary. Its vocabulary/statistics must instead be fit on training documents only.
+
+Separate authored order-loss pair `cat chased dog` / `dog chased cat`: sorted unigrams `[cat,chased,dog]` yield `[1,1,1]` for both; bigrams `[cat chased,chased cat,chased dog,dog chased]` yield `[1,0,1,0]` and `[0,1,0,1]`. These examples are not sentiment fitting records.
+
+- Parent inspected helper/tests/component/CSS/routing; confirmed exact counts, dimensions, sparsity, repeated contributions and separate order example. No new dependencies or external execution; no remaining must-fix findings.
+- `rtk npm run check`:40 files/196 tests passed; TypeScript/build passed with existing bundle warning. Tests cover exact vocabulary/count fixtures, repeated spans, bigram offsets, order loss, punctuation policy, empty documents and unknown terms. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: repeated `waited` highlights both occurrences, zero-cell selection clears highlights, bigram selection highlights both source words, keyboardEnter selects cells, and contained horizontal scrolling preserves all columns. Static exploration has no timed motion; reduced-motion mode retains full manual controls. No document overflow/browser errors. Evidence:`previews/chapter-97.4-counts.png`, `previews/chapter-97.4-bigrams.png`, `previews/chapter-97.4-order.png`. Desktop only.
 
 ## Supplementary source boundary
 
