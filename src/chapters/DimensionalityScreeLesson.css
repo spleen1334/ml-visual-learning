@@ -1,0 +1,16 @@
+.dr-scree-lesson-definition { font-size: 1.4rem; line-height: 1.5; }
+.dr-scree-lesson-stage { margin-top: 3.5rem; }
+.dr-scree-lesson-stage h2 { margin-bottom: 1.25rem; }
+.dr-scree-lesson-stage p { max-width: 68rem; line-height: 1.65; }
+.dr-scree-lesson-figure { margin: 1.75rem 0; }
+.dr-scree-lesson-figure img { display: block; max-width: 100%; height: auto; }
+.dr-scree-lesson-figure figcaption { color: #526961; font-size: .9rem; margin-top: .7rem; }
+.dr-scree-lesson-note { border-left: 3px solid #87a99b; padding-left: 1rem; color: #526961; font-size: .94rem; }
+.dr-scree-lesson-table-wrap { overflow-x: auto; }
+.dr-scree-lesson-table { border-collapse: collapse; text-align: center; font-size: 1rem; min-width: 100%; background: white; }
+.dr-scree-lesson-table th, .dr-scree-lesson-table td { border: 1px solid #b7c1bd; padding: .35rem .8rem; white-space: nowrap; }
+.dr-scree-lesson-table th { background: #dce4e5; color: #253e38; }
+.dr-scree-lesson-table th.dr-scree-lesson-component { background: #ffeb9d; }
+.dr-scree-lesson-cluster { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(380px, 1.2fr); align-items: start; gap: 2rem; }
+.dr-scree-lesson-cluster .dr-scree-lesson-figure { margin: 0; }
+@media (max-width: 800px) { .dr-scree-lesson-cluster { grid-template-columns: 1fr; } }

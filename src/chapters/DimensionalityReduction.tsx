@@ -1,4 +1,9 @@
-import type { CSSProperties } from 'react'
+import { Fragment } from 'react'
+import { ScreePlotLesson } from './DimensionalityScreeLesson'
+import { DimensionalityTakeawaysLesson } from './DimensionalityTakeawaysLesson'
+import pcaPairs from '../assets/pca-example-pairs.png'
+import pcaComponents from '../assets/pca-example-components.png'
+import pcaPositions from '../assets/pca-example-positions.png'
 import './DimensionalityReduction.css'
 import SourceQuiz from './SourceQuiz'
 import type { SourceQuizQuestion } from './SourceQuiz'
@@ -9,7 +14,6 @@ const students = [
 ] as const
 const componentScores = [[2.8, 7.8], [4.3, 8.7], [7.3, 3.2], [10.7, 4.9], [11.4, 2.6], [10.0, 11.5], [6.1, 11.6], [9.6, 11.3], [6.6, 13.6], [13.5, 12.0]] as const
 const subjects = ['Spelling', 'Vocabulary', 'Multiplication', 'Geometry'] as const
-const paired = [[0, 1], [1, 2], [0, 2], [2, 3]] as const
 
 function Header({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
   return <header className="dr-header"><p className="dr-eyebrow">{eyebrow}</p><h1>{title}</h1><p>{intro}</p></header>
@@ -19,94 +23,137 @@ function Table({ headers, rows, label }: { headers: string[]; rows: (string | nu
   return <div className="dr-table-scroll"><table className="dr-table"><caption>{label}</caption><thead><tr>{headers.map((header) => <th key={header} scope="col">{header}</th>)}</tr></thead><tbody>{rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody></table></div>
 }
 
+function PCAExampleTable() {
+  const headers = ['Student', ...subjects, 'Component 1', 'Component 2']
+  return <div className="dr-table-scroll"><table className="dr-table dr-trace-table"><caption>Student scores and component weightings</caption><thead><tr>{headers.map((header) => <th key={header} scope="col">{header}</th>)}</tr></thead><tbody>
+    {students.map((row, i) => {
+      const trace = row[0] === 3 ? 'two' : row[0] === 6 ? 'one' : null
+      const cells = [row[0], ...row.slice(1).map((value) => value.toFixed(1)), ...componentScores[i].map((value) => value.toFixed(1))]
+      const highlighted = trace === 'one' ? [1, 2, 5] : trace === 'two' ? [3, 4, 6] : []
+      return <Fragment key={row[0]}><tr>{cells.map((cell, j) => <td key={j} className={highlighted.includes(j) ? `dr-trace-cell dr-trace-${trace}` : undefined}>{cell}</td>)}</tr>
+        {trace && <tr className={`dr-trace-row dr-trace-${trace}`}><td colSpan={7}><span className="dr-trace-label">Student {row[0]} · Component {trace === 'one' ? '1' : '2'}</span><span>{trace === 'one' ? 'Spelling 8.3 and Vocabulary 5.6' : 'Multiplication 2.8 and Geometry 1.6'}</span><span className="dr-trace-arrow" aria-hidden="true">→</span><span>projection onto Component {trace === 'one' ? '1' : '2'}</span><span className="dr-trace-arrow" aria-hidden="true">→</span><strong>supplied position {trace === 'one' ? '10.0' : '3.2'}</strong></td></tr>}
+      </Fragment>
+    })}
+  </tbody></table></div>
+}
+
 export function DRIntroduction() {
-  return <article className="dr-lesson"><Header eyebrow="21.1 · Introduction" title="Reduce many columns to a smaller set of useful dimensions" intro="This chapter introduces dimensionality reduction, PCA, and the limits of interpreting its results." />
-    <div className="dr-chapter-map" aria-label="Chapter topics"><span>Dimensionality reduction basics</span><b aria-hidden="true">→</b><span>Principal component analysis</span><b aria-hidden="true">→</b><span>Advanced techniques</span><b aria-hidden="true">→</b><span>Key takeaways</span></div>
+  return <article className="dr-lesson"><header className="dr-header"><p className="dr-eyebrow">21.1 · Introduction</p><h1>Dimensionality reduction</h1><p>In this section we’ll review the fundamentals of <strong>dimensionality reduction</strong>, discuss common Machine Learning and business use cases, and introduce core techniques like <strong>Principal Component Analysis (PCA)</strong>.</p></header>
+    <div className="dr-intro-grid"><section><h2>Topics we’ll cover</h2><div className="dr-intro-topics"><span>Dimensionality Reduction Basics</span><span>Principal Component Analysis</span><span>Advanced Techniques</span><span>Key Takeaways</span></div></section><section><h2>Goals for this section</h2><ul><li>Understand how dimensionality reduction can be applied in <strong>business and Machine Learning</strong> contexts</li><li>Explore the intuition behind core <strong>linear</strong> dimensionality reduction techniques, including Principal Component Analysis (PCA)</li><li>Introduce more advanced models, including techniques for <strong>non-linear</strong> dimensionality reduction</li></ul></section></div>
   </article>
 }
 
 export function DRBasics() {
-  const business = ['Summarize item-level sales to compare groups or categories', 'Find broad trends across large surveys without inspecting every question', 'Describe customer traits from activity, transactions, or survey responses']
-  const machine = ['Reduce redundant or unnecessary dimensions; this can help a model, but does not guarantee better predictions', 'Visualize clusters in two or three dimensions to spot-check a segmentation', 'Reduce correlated inputs and multicollinearity for a more useful model']
-  return <article className="dr-lesson"><Header eyebrow="21.2 · Dimensionality reduction basics" title="Keep fewer columns while retaining useful information" intro="Dimensionality reduction summarizes a high-dimensional dataset in fewer dimensions for business understanding or machine learning." />
-    <div className="dr-use-cases"><section><p className="dr-eyebrow">Business intelligence</p><h2>Find the broad picture</h2><ul>{business.map((item) => <li key={item}>{item}</li>)}</ul></section><section><p className="dr-eyebrow">Machine learning</p><h2>Make data easier to work with</h2><ul>{machine.map((item) => <li key={item}>{item}</li>)}</ul></section></div>
+  const business = ['Summarizing item-level sales data to better understand group or category performance', 'Analyzing survey data to understand overarching trends and findings without parsing through individual question responses', 'Understanding the main traits or characteristics of your customers (website activity, transaction patterns, survey response data, etc.)']
+  const machine = ['Improving a model’s predictive power by reducing redundant or unnecessary dimensions in the data', 'Visualizing clusters in limited dimensions to spot-check cluster/segmentation outputs', 'Reducing trivial correlations and removing multicollinearity to build more accurate and meaningful models']
+  return <article className="dr-lesson"><header className="dr-header"><p className="dr-eyebrow">21.2 · Dimensionality reduction basics</p><h1>Dimensionality reduction</h1><p className="dr-definition"><strong>Dimensionality reduction</strong> involves reducing the number of columns (<em>i.e. dimensions</em>) in a dataset while <strong>losing as little information as possible</strong>.</p></header>
+    <p className="dr-source-intro">This can be used strictly as a ML optimization technique, or to help develop a better understanding of the data for business intelligence, market research, etc.</p>
+    <div className="dr-use-cases"><section><h2>Common business use cases</h2><ul>{business.map((item) => <li key={item}>{item}</li>)}</ul></section><section><h2>Common ML use cases</h2><ul>{machine.map((item) => <li key={item}>{item}</li>)}</ul></section></div><p className="dr-qualification">Improved predictions and reduced multicollinearity are possible benefits, not guarantees.</p>
   </article>
+}
+
+function PCAIntroGraph() {
+  // Symmetric coordinates have zero cross-covariance along the two directions.
+  const points = [[-80, -5], [-50, 8], [-20, 0], [20, 0], [50, -8], [80, 5]] as const
+  const center = { x: 170, y: 135 }
+  return <figure className="dr-pca-intro-graph">
+    <svg viewBox="0 0 700 260" role="img" aria-labelledby="pca-intro-title pca-intro-desc">
+      <title id="pca-intro-title">From two original dimensions to one component</title>
+      <desc id="pca-intro-desc">Six observations follow a diagonal direction through their center. Perpendicular dotted lines project them onto the first component. Their positions along that component are shown on a horizontal one-dimensional line.</desc>
+      <defs><marker id="dr-pca-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#527970" /></marker></defs>
+      <text className="dr-pca-heading" x="170" y="25" textAnchor="middle">Original dimensions</text>
+      <path className="dr-pca-axis" d="M65 205H280 M65 205V48" />
+      <text className="dr-pca-label" x="173" y="231" textAnchor="middle">Original dimension 1</text>
+      <text className="dr-pca-label" transform="translate(26 128) rotate(-90)" textAnchor="middle">Original dimension 2</text>
+      <path className="dr-pca-component" d="M90 195L250 75" markerEnd="url(#dr-pca-arrow)" />
+      {points.map(([t, n]) => {
+        const x = center.x + 0.8 * t, y = center.y - 0.6 * t
+        return <g key={t}><line className="dr-pca-projection" x1={x + 0.6 * n} y1={y + 0.8 * n} x2={x} y2={y} /><circle className="dr-pca-dot" cx={x + 0.6 * n} cy={y + 0.8 * n} r="5" /><circle className="dr-pca-projected-dot" cx={x} cy={y} r="2.5" /></g>
+      })}
+      <text className="dr-pca-label dr-pca-emphasis" x="212" y="64">First component</text>
+      <path className="dr-pca-transfer" d="M315 135H370" markerEnd="url(#dr-pca-arrow)" />
+      <text className="dr-pca-heading" x="515" y="75" textAnchor="middle">New dimension</text>
+      <path className="dr-pca-component" d="M405 135H625" markerEnd="url(#dr-pca-arrow)" />
+      {points.map(([t]) => <circle className="dr-pca-dot" key={t} cx={515 + t} cy="135" r="5" />)}
+      <text className="dr-pca-label" x="515" y="169" textAnchor="middle">Position on the first component</text>
+    </svg>
+    <figcaption>The first component follows the main variation. Each observation is projected straight onto it; its position becomes a value on the new dimension.</figcaption>
+  </figure>
 }
 
 export function DRPCAIntro() {
   const steps = [
-    ['Start with many columns', 'Choose data that could be represented more usefully in fewer dimensions.'],
-    ['Find components', 'Fit new lines through patterns in the original dimensions; these lines become candidate dimensions.'],
-    ['Read the loadings', 'Check how each component relates to the original columns, then use judgment to interpret it.'],
-    ['Choose principal components', 'Keep components that explain a material share of the variance; a scree plot can guide the choice.'],
-    ['Continue with fewer dimensions', 'Use the retained component scores for later analysis in place of the original columns.'],
+    <>Use <strong>high-dimensional data</strong> that could be more useful if it could be accurately represented with <strong>fewer dimensions</strong></>,
+    <>Find <strong>“components”</strong> or lines that fit through those dimensions, to potentially use as <strong>new dimensions</strong> to represent the data</>,
+    <>Interpret the <strong>weighting</strong> of each component on the <strong>original dimensions</strong> to build an intuition for what they represent</>,
+    <>Select the <strong>“principal” components</strong> which explain a <strong>material proportion of the variance</strong> in the data</>,
+    <>Use those principal components <strong>in place of existing dimensions</strong> for <strong>further analysis</strong></>,
   ]
-  return <article className="dr-lesson"><Header eyebrow="21.3 · Principal component analysis" title="PCA builds new dimensions from patterns in the old ones" intro="Principal component analysis (PCA) finds component directions through the observations and records each observation’s position on them." />
-    <ol className="dr-pca-steps">{steps.map(([title, detail], i) => <li key={title}><span>{i + 1}</span><div><h2>{title}</h2><p>{detail}</p></div></li>)}</ol>
-    <p className="dr-note">This is the course’s visual intuition for PCA. The slides do not derive the underlying calculations.</p>
+  return <article className="dr-lesson"><header className="dr-header"><p className="dr-eyebrow">21.3 · Principal component analysis</p><h1>Principal Component Analysis</h1><p className="dr-definition">One of the most common dimensionality reduction techniques is <strong>Principal Component Analysis (PCA)</strong>.</p></header>
+    <p className="dr-source-intro">In the simplest form, PCA finds lines that best fit through the observations in a data set, and uses those lines to create <em>new dimensions</em> to analyze.</p>
+    <PCAIntroGraph />
+    <ol className="dr-source-steps">{steps.map((detail, i) => <li key={i}><div className="dr-step-heading">Step {i + 1}</div><p>{detail}</p></li>)}</ol>
+    <p className="dr-qualification">The “best-fit lines” description is a simplified intuition. Components are new dimensions, not selected original columns.</p>
   </article>
 }
 
-function PairPlot({ xIndex, yIndex }: { xIndex: number; yIndex: number }) {
-  const left = 40, top = 15, width = 240, height = 150
-  const x = (v: number) => left + (v / 12) * width
-  const y = (v: number) => top + height - (v / 12) * height
-  return <svg viewBox="0 0 310 205" role="img" aria-label={`${subjects[xIndex]} plotted horizontally against ${subjects[yIndex]} vertically for the ten students`}>
-    {[0, 2, 4, 6, 8, 10, 12].map((tick) => <g key={`grid-${tick}`}><path className="dr-grid" d={`M${x(tick)} ${top}V${top + height} M${left} ${y(tick)}H${left + width}`} /><text className="dr-tick" x={x(tick)} y={top + height + 16} textAnchor="middle">{tick}</text><text className="dr-tick" x={left - 7} y={y(tick) + 3} textAnchor="end">{tick}</text></g>)}
-    {students.map((row) => <circle key={row[0]} cx={x(row[xIndex + 1])} cy={y(row[yIndex + 1])} r="3.5"><title>{`Student ${row[0]}: ${subjects[xIndex]} ${row[xIndex + 1]}, ${subjects[yIndex]} ${row[yIndex + 1]}`}</title></circle>)}
-    <text className="dr-axis-label" x={left + width / 2} y="198" textAnchor="middle">{subjects[xIndex]} (X)</text><text className="dr-axis-label" transform="translate(12 90) rotate(-90)" textAnchor="middle">{subjects[yIndex]} (Y)</text>
-  </svg>
-}
-
 export function DRPCAExample() {
-  return <article className="dr-lesson"><Header eyebrow="21.4 · PCA example" title="Ten students’ scores reveal two related subject pairs" intro="Compare the four course source plots, then see the exact student scores that PCA summarizes." />
-    <section className="dr-pairs" aria-label="Four source score relationships">{paired.map(([xIndex, yIndex]) => <figure key={`${xIndex}-${yIndex}`}><figcaption>{subjects[xIndex]} (X) / {subjects[yIndex]} (Y)</figcaption><PairPlot xIndex={xIndex} yIndex={yIndex} /></figure>)}</section>
-    <p className="dr-note"><strong>What the source points out:</strong> Spelling and Vocabulary move together, as do Multiplication and Geometry. The middle pair plots show weaker relationships. PCA looks for compact dimensions that capture shared variation.</p>
-    <Table label="PDF p. 353 · student test scores (n = 10)" headers={['Student', ...subjects]} rows={students.map((row) => [...row])} />
-    <Table label="PDF pp. 356–357 · source component scores" headers={['Student', 'Language component', 'Math component']} rows={componentScores.map((row, i) => [i + 1, row[0].toFixed(1), row[1].toFixed(1)])} />
-    <p className="dr-note">The course records each student’s position on the two new component lines as new columns. These are the source’s displayed scores, not values recalculated here.</p>
+  return <article className="dr-lesson dr-example"><Header eyebrow="21.4 · PCA example" title="Student test scores by subject" intro="Explore four test scores for ten students, then record their positions on two new dimensions." />
+    <section><h2>Plot pairs of dimensions</h2>
+      <Table label="Student test scores by subject (n = 10)" headers={['Student', ...subjects]} rows={students.map((row) => [row[0], ...row.slice(1).map((value) => value.toFixed(1))])} />
+      <p>Plotting pairs of dimensions reveals some correlation between <strong>Spelling / Vocabulary</strong> and <strong>Multiplication / Geometry</strong> test scores. The two middle plots do not show the same clear relationship.</p>
+      <figure className="dr-example-figure"><img src={pcaPairs} alt="Four scatterplots: spelling versus vocabulary, vocabulary versus multiplication, spelling versus multiplication, and multiplication versus geometry. The first and last pairs are outlined." /></figure>
+      <p>Linear dimensionality reduction techniques find lines that fit through <em>highly correlated</em> dimensions first.</p>
+    </section>
+    <section><h2>Find components and their weightings</h2>
+      <p>In dimensionality reduction, these lines are called <strong>components</strong> or <strong>factors</strong>. Observations are given a <strong>weighting</strong> for each component, measuring their position along the line.</p>
+      <figure className="dr-example-figure"><img src={pcaComponents} alt="Spelling versus vocabulary and multiplication versus geometry scatterplots with turquoise component lines. An orange weighting and projection illustrate a student's position on the first component." /></figure>
+    </section>
+    <section><h2>Record the new dimensions</h2>
+      <p>Plot the component weightings for each point and record them as <strong>new dimensions</strong> in the table.</p>
+      <PCAExampleTable />
+      <figure className="dr-example-figure"><img src={pcaPositions} alt="The first component plot marks spelling 8.3 and vocabulary 5.6 at weighting 10.0. The second marks multiplication 2.8 and geometry 1.6 at weighting 3.2. Orange lines show the positions and projections." /></figure>
+      <p className="dr-trace-key"><span className="dr-trace-one"><strong>Student 6 · Component 1:</strong> 10.0</span><br /><span className="dr-trace-two"><strong>Student 3 · Component 2:</strong> 3.2</span></p>
+      <p><strong>Note:</strong> We’re looking at only two new dimensions here, but PCA scales to <em>any number of dimensions</em>.</p>
+      <p className="dr-qualification">The example supplies these component scores; it does not specify the centering, scaling, or calculation used to obtain them.</p>
+    </section>
   </article>
 }
 
 export function DRInterpretComponents() {
-  const rows = students.map((row, i) => [...row, componentScores[i][0].toFixed(1), componentScores[i][1].toFixed(1)])
-  return <article className="dr-lesson"><Header eyebrow="21.5 · Interpreting components" title="Loadings help people name a component" intro="A component is a combination of original columns. Its loadings show how strongly each original dimension contributes in the course example." />
-    <div className="dr-loading-grid"><section><h2>Component 1 → “language”</h2><p>Large loadings sit on Spelling and Vocabulary.</p><div className="dr-equation">Y = <strong>0.72</strong> × Spelling + <strong>0.69</strong> × Vocabulary − 0.02 × Multiplication + 0.03 × Geometry</div><div className="dr-bars" aria-label="Language component loadings"><span style={{ '--loading': '72%' } as CSSProperties}>Spelling <b>0.72</b></span><span style={{ '--loading': '69%' } as CSSProperties}>Vocabulary <b>0.69</b></span><span style={{ '--loading': '2%' } as CSSProperties}>Multiplication <b>−0.02</b></span><span style={{ '--loading': '3%' } as CSSProperties}>Geometry <b>0.03</b></span></div></section>
-      <section><h2>Component 2 → “math”</h2><p>Large loadings sit on Multiplication and Geometry.</p><div className="dr-equation">Y = 0.004 × Spelling + 0.001 × Vocabulary + <strong>0.68</strong> × Multiplication + <strong>0.72</strong> × Geometry</div><div className="dr-bars" aria-label="Math component loadings"><span style={{ '--loading': '1%' } as CSSProperties}>Spelling <b>0.004</b></span><span style={{ '--loading': '1%' } as CSSProperties}>Vocabulary <b>0.001</b></span><span style={{ '--loading': '68%' } as CSSProperties}>Multiplication <b>0.68</b></span><span style={{ '--loading': '72%' } as CSSProperties}>Geometry <b>0.72</b></span></div></section></div>
-    <p className="dr-warning"><strong>Names are an interpretation.</strong> PCA supplies loadings and component scores; a person decides whether “language” and “math” are useful labels. The model does not explain what a component means.</p>
-    <Table label="The course joins original scores with its two named component scores" headers={['Student', ...subjects, 'Language', 'Math']} rows={rows} />
+  const stages = [
+    { name: 'language', number: 1, coefficients: ['0.72', '0.69', '−0.02', '0.03'], highlighted: [0, 1] },
+    { name: 'math', number: 2, coefficients: ['0.004', '0.001', '0.68', '0.72'], highlighted: [2, 3] },
+  ] as const
+  return <article className="dr-lesson dr-interpret"><Header eyebrow="21.5 · Interpreting components" title="What does each component mean?" intro="Use the loadings to interpret the two new student-score dimensions." />
+    <ul className="dr-interpret-intro"><li>PCA will generate many potential components, and it won’t be immediately clear what they actually represent.</li><li>In practice, PCA models calculate weights (or <strong>“loadings”</strong>) to help explain the relationship between each component and the original dimensions <em>(think of loadings like coefficients in a linear regression)</em>.</li></ul>
+    {stages.map((stage) => <section className="dr-interpret-stage" key={stage.number}><h2>Component {stage.number}: “{stage.name}”</h2>
+      <div className="dr-interpret-layout"><div className="dr-interpret-work"><div className="dr-table-scroll"><table className="dr-interpret-table"><caption>Original scores and component scores</caption><thead><tr><th scope="col">Student</th>{subjects.map((subject, i) => <th scope="col" key={subject}><span className="dr-interpret-variable">X<sub>{i + 1}</sub></span>{subject}</th>)}<th scope="col" className="dr-interpret-result">{stage.number === 1 && <span className="dr-interpret-variable dr-interpret-y">Y</span>}Language</th><th scope="col" className="dr-interpret-result">{stage.number === 2 && <span className="dr-interpret-variable dr-interpret-y">Y</span>}{stage.number === 1 ? 'Component 2' : 'Math'}</th></tr></thead><tbody>{students.map((row, i) => <tr key={row[0]}><td>{row[0]}</td>{row.slice(1).map((value, j) => <td key={j}>{value.toFixed(1)}</td>)}{componentScores[i].map((value, j) => <td key={j}>{value.toFixed(1)}</td>)}</tr>)}</tbody></table></div>
+      <div className="dr-interpret-formula" aria-label={`Component ${stage.number} loadings`}><span>Y = </span>{stage.coefficients.map((coefficient, i) => <span className={stage.highlighted.some((index) => index === i) ? 'dr-interpret-strong-term' : ''} key={i}>{i > 0 && ' + '}({coefficient}) X<sub>{i + 1}</sub></span>)}</div><p className="dr-interpret-formula-caption">Loadings multiply the original dimensions; Y represents the component.</p></div>
+      <aside className="dr-interpret-callout">High coefficients on {stage.number === 1 ? <>X<sub>1</sub> (<strong>spelling</strong>) and X<sub>2</sub> (<strong>vocabulary</strong>)</> : <>X<sub>3</sub> (<strong>multiplication</strong>) and X<sub>4</sub> (<strong>geometry</strong>)</>}, so we might interpret component {stage.number} as <strong>“{stage.name}”</strong>.</aside></div>
+    </section>)}
+    <p className="dr-warning"><strong>Note:</strong> This requires <strong>human intuition</strong>; your model won’t tell you what the components mean! Some components may not have a clear interpretation.</p>
+    <p className="dr-qualification">The table contains supplied component scores (student positions), not loadings. The example does not specify centering or scaling, and the displayed loadings do not exactly reproduce those scores.</p>
   </article>
 }
 
 export function DRScreePlot() {
-  const individual = [49, 40, 7, 2, 1, 1, 0]
-  const cumulative = [49, 89, 96, 98, 99, 100, 100]
-  const x = (i: number) => 64 + i * 66
-  const y = (v: number) => 205 - v * 1.65
-  return <article className="dr-lesson"><Header eyebrow="21.6 · Scree plots" title="Keep the components before the curve flattens" intro="A scree plot compares each component’s variance contribution with cumulative variance. The course uses the elbow as a practical guide." />
-    <figure className="dr-scree"><svg viewBox="0 0 560 260" role="img" aria-labelledby="scree-title scree-desc"><title id="scree-title">Course scree plot shape</title><desc id="scree-desc">Seven bars show component variance contributions of about 49, 40, 7, 2, 1, 1, and less than 1 percent. The cumulative line reaches about 89 percent by component two and then flattens.</desc>
-      {[0, 20, 40, 60, 80, 100].map((tick) => <g key={tick}><path className="dr-grid" d={`M54 ${y(tick)}H526`} /><text className="dr-tick" x="45" y={y(tick) + 4} textAnchor="end">{tick}%</text></g>)}
-      {individual.map((value, i) => <g key={i}><rect className="dr-bar" x={x(i) - 17} y={y(value)} width="34" height={205 - y(value)} /><text className="dr-tick" x={x(i)} y="225" textAnchor="middle">{i + 1}</text></g>)}
-      <path className="dr-cumulative" d={cumulative.map((value, i) => `${i ? 'L' : 'M'}${x(i)} ${y(value)}`).join(' ')} />{cumulative.map((value, i) => <circle className="dr-cumulative-dot" key={i} cx={x(i)} cy={y(value)} r="4"><title>{`After component ${i + 1}: approximately ${value}% cumulative in this simplified reading`}</title></circle>)}
-      <text className="dr-axis-label" x="286" y="251" textAnchor="middle">Component number</text><text className="dr-label" x="107" y="111">Individual contribution ▪</text><text className="dr-label" x="314" y="65">Cumulative variance —</text>
-      <path className="dr-elbow" d={`M${x(1)} ${y(89)}v14`} /><text className="dr-label" x={x(1)} y={y(89) + 30} textAnchor="middle">source elbow</text>
-    </svg><figcaption>Approximate readings from the source chart (PDF p. 358); the course keeps the first two components.</figcaption></figure>
-    <p className="dr-note">The first two components account for roughly 89% together in the chart. Later components add little, so the plotted curve flattens. An elbow is a heuristic: consider the analysis goal and the information you can afford to lose.</p>
-  </article>
+  return <ScreePlotLesson />
 }
 
 export function DRAdvancedTechniques() {
-  const methods = [['Kernel PCA', 'PCA extended to capture nonlinear relationships.'], ['t-SNE', 'A nonlinear method the course lists for specialized dimensionality reduction.'], ['UMAP', 'Uniform Manifold Approximation and Projection; the video describes it as similar in application to t-SNE.'], ['Self-Organizing Maps', 'Another specialized method listed by the course.']]
-  return <article className="dr-lesson"><Header eyebrow="21.7 · Advanced techniques" title="Nonlinear methods can reveal more complex structure" intro="PCA is a widely used linear approach. The course also introduces several more specialized nonlinear techniques." />
-    <div className="dr-method-list">{methods.map(([name, detail], i) => <section key={name}><span>0{i + 1}</span><div><h2>{name}</h2><p>{detail}</p></div></section>)}</div>
-    <p className="dr-note">Nonlinear methods can be harder to interpret. The course notes that UMAP is similar to t-SNE in application and says it runs faster; treat that as the course’s broad comparison, not a universal performance guarantee.</p>
+  return <article className="dr-lesson dr-advanced"><Header eyebrow="21.7 · Advanced techniques" title="What about nonlinear dimensionality reduction?" intro="PCA is one approach to reducing dimensions; other techniques can account for curved relationships." />
+    <ul className="dr-advanced-source"><li><strong>Linear dimensionality reduction</strong> is well researched and widely used, and can be applied across a broad range of business intelligence and machine learning use cases.</li><li>Other, <em>nonlinear</em> dimensionality reduction techniques exist, but are more <strong>specialized and complex</strong> in their underlying algorithms and math:
+      <ul><li>Kernel PCA</li><li>t-Distributed Stochastic Neighbor Embedding (t-SNE)</li><li>Uniform Manifold Approximation &amp; Projection (UMAP)</li><li>Self-Organizing Maps</li></ul></li></ul>
+    <figure className="dr-advanced-visual"><div><h2>Straight or curved?</h2><p>Linear PCA uses straight directions to create new dimensions. A nonlinear approach can account for a curved pattern instead.</p><p className="dr-advanced-caption">Think of tracing a bend and opening it out. This is an intuition, not the output of a fitted model; nonlinear methods work in different ways.</p></div>
+      <svg viewBox="0 0 500 190" role="img" aria-labelledby="dr-advanced-title dr-advanced-desc"><title id="dr-advanced-title">A curved pattern and an opened-out representation</title><desc id="dr-advanced-desc">Colored points follow a curved path, then appear in the same order along a straight path. This illustrates the intuition of opening out a curved pattern.</desc><path d="M35 139 C35 43 195 43 195 139" fill="none" stroke="#7ca89a" strokeWidth="5" strokeLinecap="round" /><path d="M273 97 H459" fill="none" stroke="#7ca89a" strokeWidth="5" strokeLinecap="round" /><path d="M216 96 H253 M246 89 L253 96 L246 103" fill="none" stroke="#466f66" strokeWidth="2" />{[[35,139],[48,88],[83,61],[115,56],[147,61],[182,88],[195,139]].map(([x,y], i) => <circle key={x} cx={x} cy={y} r="6" fill={i < 2 ? '#d49367' : i < 5 ? '#168f88' : '#526f83'} />)}{[285,311,337,363,389,415,441].map((x, i) => <circle key={x} cx={x} cy="97" r="6" fill={i < 2 ? '#d49367' : i < 5 ? '#168f88' : '#526f83'} />)}<text x="115" y="174" textAnchor="middle">Curved pattern</text><text x="363" y="133" textAnchor="middle">Opened-out view</text></svg>
+    </figure>
+    <p className="dr-note"><strong>Note:</strong> Nonlinear results can be harder to interpret, though they can still be visualized. The course describes UMAP and t-SNE as similar in application and notes that UMAP can run faster; actual speed depends on the data and settings.</p>
   </article>
 }
 
 export function DRTakeaways() {
-  return <article className="dr-lesson"><Header eyebrow="21.8 · Key takeaways" title="Reduce dimensions, then decide what they mean" intro="Use fewer columns when a compact representation helps answer the business question or supports a later analysis." />
-    <div className="dr-takeaways"><section><h2>Reduce</h2><p>Dimensionality reduction retains a smaller number of dimensions while trying to preserve useful information.</p></section><section><h2>Interpret</h2><p>PCA forms new component dimensions. Read loadings and use human judgment to interpret them.</p></section><section><h2>Continue</h2><p>Use retained component scores for analysis such as prediction, classification, or clustering, while keeping the original objective in view.</p></section></div>
-  </article>
+  return <DimensionalityTakeawaysLesson />
 }
 
 const quiz: SourceQuizQuestion[] = [

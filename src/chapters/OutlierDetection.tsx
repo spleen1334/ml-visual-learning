@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { PlaybackButton } from '../components/PlaybackButton'
 import './OutlierDetection.css'
 import { OUTLIER_STORE_SALES, type StoreSale } from './outlierWorkbookData'
@@ -15,9 +16,11 @@ import pdfTime344 from '../assets/outlier-pdf-time-344.png'
 import pdfTime345 from '../assets/outlier-pdf-time-345.png'
 import pdfTime346 from '../assets/outlier-pdf-time-346.png'
 import pdfTime347 from '../assets/outlier-pdf-time-347.png'
+import nearestNeighborDiagram from '../assets/outlier-nearest-neighbor.png'
+import outlierBasicsIllustration from '../assets/outlier-basics-observations.webp'
 
 const BASE_CLASS = 'outlier-lesson'
-function Header({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
+function Header({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: ReactNode }) {
   return <header className="od-header"><p className="od-eyebrow">{eyebrow}</p><h1>{title}</h1><p>{intro}</p></header>
 }
 
@@ -99,37 +102,29 @@ function PlaybackControls({
 
 export function OutlierIntroduction() {
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.1 · Introduction" title="Find observations that stand apart in context" intro="Outlier detection looks for observations that are unexpected or materially different from others. This chapter compares cross-sectional and time-series methods." />
-    <div className="od-intro-grid"><section><span>01</span><h2>Cross-sectional</h2><p>Compare locations or other observations across several features. A nearest-neighbor distance can reveal an unusual combination.</p></section><section><span>02</span><h2>Time series</h2><p>Account for trend and seasonality, then inspect how far each observation falls from the model’s prediction.</p></section></div>
-    <p className="od-note">“Outlier,” “anomaly,” and “rare event” are used for related ideas in this course. Context tells us whether an unusual value is an error or useful information.</p>
+    <Header eyebrow="20.1 · Introduction" title="Outlier detection" intro={<>Introduce <strong>statistical outliers</strong> and review common methods for detecting cross-sectional and time-series outliers and anomalies.</>} />
+    <div className="od-source-intro"><section><h2>Topics we’ll cover</h2><ul className="od-source-topics"><li>Outlier Detection Basics</li><li>Cross-sectional Outliers</li><li>Time-Series Outliers</li><li>Key Takeaways</li></ul></section><section><h2>Goals for this section</h2><ul className="od-source-list"><li>Understand different types of outliers, and how they can impact an analysis</li><li>Learn how to identify outliers in a cross-sectional dataset using a “nearest neighbors” approach</li><li>Learn how to use regression analysis to detect outliers in a time-series dataset</li></ul></section></div>
+    <p className="od-source-callout">The terms <strong>outlier detection, anomaly detection, and rare-event detection</strong> are often used interchangeably; they all focus on finding observations which are materially different than the others. Outliers are also sometimes called “pathological” data.</p>
   </article>
 }
 
 export function OutlierBasics() {
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.2 · Outlier detection basics" title="Check what an unusual value means before acting" intro="A statistical flag helps us investigate an observation. It does not tell us whether the observation is wrong." />
-    <div className="od-type-grid"><section className="od-type od-type--error"><p className="od-eyebrow">Recording issue</p><h2>Correct or exclude the bad record</h2><p>A typo, faulty sensor, or other recording problem can distort an analysis. Verify the source, then correct the value or exclude it from the analysis.</p></section><section className="od-type od-type--signal"><p className="od-eyebrow">Legitimate observation</p><h2>Investigate the real event</h2><p>A sales spike, unusual store pattern, web-traffic change, or suspicious transaction may be real. It can point to something the business should learn from.</p></section></div>
-    <p className="od-note"><strong>First flag it. Then check the source and context.</strong> Keep a legitimate value available for decisions unless the investigation shows it is invalid.</p>
+    <Header eyebrow="20.2 · Outlier detection basics" title="Outlier detection basics" intro="Identify unusual observations and understand what they mean in context." />
+    <div className="od-basics-layout"><div>
+      <p className="od-source-definition"><strong>Outlier detection</strong> is used to identify observations in a dataset which are either <strong>unexpected or statistically different</strong> from the others.</p>
+      <section className="od-source-section"><h2>Two general types of outliers</h2><ul className="od-source-list"><li><strong>Data/recording issues:</strong> Values which were captured or categorized incorrectly and must be corrected or excluded to avoid skewing the analysis.</li><li><strong>Business outliers:</strong> Legitimate values which provide real and meaningful information, such as a fraudulent transaction or an unexpected spike in sales.</li></ul></section>
+    </div><img className="od-basics-illustration" src={outlierBasicsIllustration} alt="A group of observations with one unusual observation apart from the others." /></div>
+    <section className="od-source-section"><h2>Common use cases</h2><ul className="od-source-list"><li>Identifying store locations which are behaving abnormally compared to others</li><li>Detecting web traffic anomalies which would be impossible to detect otherwise</li><li>Flagging potentially fraudulent credit card transactions</li></ul></section>
   </article>
 }
 
 export function CrossSectionalOutliers() {
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.3 · Cross-sectional outliers" title="Compare each observation with its nearest neighbor" intro="For three or more features, pairwise plots cannot show every relationship at once. Nearest-neighbor distance gives each observation one comparable score." />
-    <section className="od-neighbor-panel">
-      <svg viewBox="0 0 760 330" role="img" aria-labelledby="od-nn-title od-nn-desc">
-        <title id="od-nn-title">Distance from an observation to its nearest neighbor</title><desc id="od-nn-desc">A point outside the main group has a long arrow to its closest point. The arrow length is that observation’s nearest-neighbor distance.</desc>
-        <rect x="20" y="18" width="720" height="286" rx="18" fill="#f7f8f3" />
-        {[[180,110],[220,92],[250,145],[194,180],[280,110],[308,157],[235,220],[330,206],[153,157],[295,245],[370,125],[390,197]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="8" fill="#16918c" />)}
-        <circle cx="595" cy="72" r="11" fill="#d6a438" stroke="#6d5420" strokeWidth="2" />
-        <circle cx="370" cy="125" r="8" fill="#16918c" />
-        <path d="M587 80L378 121" stroke="#a76f12" strokeWidth="3" strokeDasharray="8 6" markerEnd="url(#od-arrow)" />
-        <defs><marker id="od-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6" fill="none" stroke="#a76f12" strokeWidth="1.5" /></marker></defs>
-        <text x="580" y="50" textAnchor="middle">observation</text><text x="406" y="103">nearest neighbor</text><text x="475" y="145" fill="#805b13">nearest-neighbor distance</text><text x="220" y="280" fill="#48625f">A short distance is common within this group</text>
-      </svg>
-      <div className="od-neighbor-caption"><strong>One distance per observation</strong><span>Calculate distances in the feature space, keep the smallest nonzero distance, then inspect the distribution for unusually large values.</span></div>
-    </section>
-    <div className="od-scale-note"><strong>Make distance fair.</strong><p>Scale features when their units or ranges differ. A feature measured in thousands could otherwise dominate one measured in single digits.</p></div>
+    <Header eyebrow="20.3 · Cross-sectional outliers" title="Cross-sectional outliers" intro="Compare observations across features at one point in time." />
+    <p className="od-source-definition"><strong>Cross-sectional outlier detection</strong> measures the similarity between observations in a dataset and identifies observations which are <strong>unusually different or dissimilar</strong>.</p>
+    <ul className="od-source-list"><li>Detecting outliers in one or two dimensions is often straightforward, using basic profiling metrics (such as interquartile range) or visual analysis (scatterplots, box plots, etc.).</li><li>Detecting outliers in <strong>3+ dimensions</strong> is trickier and often requires more sophisticated techniques; <strong>this is where machine learning comes in!</strong></li></ul>
+    <section className="od-source-neighbor"><img src={nearestNeighborDiagram} alt="Scatterplot with a circle around an observation and an arrow to its nearest neighbor."/><div><p>A common technique is to calculate the distance between each observation and its <strong>nearest neighbor</strong>, and plot those distances to reveal outliers.</p><p className="od-source-scale"><strong>Note:</strong> Scale raw data when feature units or ranges differ to produce consistent and meaningful distance calculations.</p><p className="od-source-clarification">Exclude the observation itself when finding its nearest neighbor; a distinct observation can have a distance of zero.</p></div></section>
   </article>
 }
 
@@ -167,6 +162,12 @@ const WORKBOOK_NEIGHBORS: readonly Neighbor[] = OUTLIER_STORE_SALES.map((store) 
   return { store, nearestStore: closest!.store, distance: smallest }
 })
 const NN_MAX = Math.max(...WORKBOOK_NEIGHBORS.map((item)=>item.distance))
+const NN_MIN = Math.min(...WORKBOOK_NEIGHBORS.map((item)=>item.distance))
+// Workbook DL8:DL107: minimum FFFCFCFF to maximum FFF8696B.
+const minDistanceColor = (distance: number) => {
+  const t = (distance - NN_MIN) / (NN_MAX - NN_MIN)
+  return `rgb(${[252, 252, 255].map((start, i) => Math.round(start + ([248, 105, 107][i] - start) * t)).join(', ')})`
+}
 const percentileExclusive = (values: number[], p: number) => {
   const sorted = [...values].sort((a,b)=>a-b), position=(sorted.length+1)*p-1, low=Math.floor(position), high=Math.ceil(position)
   return sorted[low] + (sorted[high]-sorted[low])*(position-low)
@@ -210,30 +211,65 @@ function NeighborDistribution({ onChooseStore }: { onChooseStore: () => void }) 
   </div>
 }
 
+function CalculatedHeaderHelp({ label, explanation }: { label: string; explanation: string }) {
+  const id = useId()
+  const [position, setPosition] = useState<{ left: number; top: number } | null>(null)
+  const show = (button: HTMLButtonElement) => {
+    const rect = button.getBoundingClientRect()
+    setPosition({ left: Math.max(8, Math.min(rect.left, window.innerWidth - 328)), top: Math.max(8, Math.min(rect.bottom + 8, window.innerHeight - 160)) })
+  }
+  useEffect(() => {
+    const close = () => setPosition(null)
+    window.addEventListener('scroll', close, true)
+    window.addEventListener('resize', close)
+    return () => { window.removeEventListener('scroll', close, true); window.removeEventListener('resize', close) }
+  }, [])
+  return <><button type="button" className="od-calculated-help" aria-describedby={position ? id : undefined} onMouseEnter={event => show(event.currentTarget)} onMouseLeave={event => { if (document.activeElement !== event.currentTarget) setPosition(null) }} onFocus={event => show(event.currentTarget)} onBlur={() => setPosition(null)} onClick={event => show(event.currentTarget)} onKeyDown={event => { if (event.key === 'Escape') setPosition(null) }}>{label}</button>{position && createPortal(<div id={id} role="tooltip" className="od-calculated-tooltip" style={position}><strong>{label}</strong><span>{explanation}</span></div>, document.body)}</>
+}
+
 export function CrossSectionalCase() {
   const [selectedStore,setSelectedStore]=useState(57)
   const [matrixOpen,setMatrixOpen]=useState(false)
   const ordered=useMemo(()=>[...WORKBOOK_NEIGHBORS].sort((a,b)=>a.store.store-b.store.store),[])
   const selected=WORKBOOK_NEIGHBORS.find(x=>x.store.store===selectedStore)!
-  const table=(matrix:boolean)=><div className={`od-table-scroll${matrix?' od-table-scroll--matrix':''}`}><table className="od-data-table"><caption>{matrix?'Complete pairwise Euclidean distance matrix · row store to column store':'All 100 stores · source revenue values and nearest neighbor'}</caption><thead><tr>{matrix?<><th scope="col">Store</th>{OUTLIER_STORE_SALES.map(row=><th scope="col" key={row.store}>{row.store}</th>)}</>:<><th scope="col">Store</th><th scope="col">Toys</th><th scope="col">Board Games</th><th scope="col">Puzzles</th><th scope="col">Nearest store</th><th scope="col">Distance</th></>}</tr></thead><tbody>{ordered.map(({store,nearestStore,distance})=><tr key={store.store} className={store.store===selectedStore?'is-selected':undefined} onClick={matrix?undefined:()=>setSelectedStore(store.store)}>{matrix?<><th scope="row">{store.store}</th>{OUTLIER_STORE_SALES.map(target=><td key={target.store} className={store.store===target.store?'is-diagonal':undefined}>{store.store===target.store?'—':euclidean(store,target).toFixed(1)}</td>)}</>:<><th scope="row"><button type="button" className="od-row-button" aria-pressed={store.store===selectedStore} onClick={()=>setSelectedStore(store.store)}>Store {store.store}</button></th><td>{store.toys.toLocaleString()}</td><td>{store.boardGames.toLocaleString()}</td><td>{store.puzzles.toLocaleString()}</td><td>{nearestStore}</td><td>{distance.toFixed(2)}</td></>}</tr>)}</tbody></table></div>
+  const table=(matrix:boolean)=><div className={`od-table-scroll${matrix?' od-table-scroll--matrix':''}`}><table className="od-data-table"><caption>{matrix?'Complete pairwise Euclidean distance matrix · row store to column store':'All 100 stores · source revenue values and nearest neighbor'}</caption><thead><tr>{matrix?<><th scope="col">Store</th>{OUTLIER_STORE_SALES.map(row=><th scope="col" key={row.store}>{row.store}</th>)}</>:<><th scope="col">Store</th><th scope="col">Toys</th><th scope="col">Board Games</th><th scope="col">Puzzles</th><th scope="col" className="od-nearest-header od-calculated-start"><CalculatedHeaderHelp label="Nearest store" explanation="A calculated store ID, not an original dataset column. We compare this row with every other store using Euclidean distance across Toys, Board Games and Puzzles revenue; this is the store with the smallest distance." /></th><th scope="col" className="od-min-header"><CalculatedHeaderHelp label="Min distance" explanation="The smallest calculated Euclidean distance to another store, also called the nearest-neighbor (NN) distance. A larger value means the store is farther away even from its closest neighbor. This is not an original dataset column." /></th></>}</tr></thead><tbody>{ordered.map(({store,nearestStore,distance})=><tr key={store.store} className={store.store===selectedStore?'is-selected':undefined} onClick={matrix?undefined:()=>setSelectedStore(store.store)}>{matrix?<><th scope="row">{store.store}</th>{OUTLIER_STORE_SALES.map(target=><td key={target.store} className={store.store===target.store?'is-diagonal':undefined}>{store.store===target.store?'—':euclidean(store,target).toFixed(1)}</td>)}</>:<><th scope="row"><button type="button" className="od-row-button" aria-pressed={store.store===selectedStore} onClick={()=>setSelectedStore(store.store)}>Store {store.store}</button></th><td>{store.toys.toLocaleString()}</td><td>{store.boardGames.toLocaleString()}</td><td>{store.puzzles.toLocaleString()}</td><td className="od-calculated-start">{nearestStore}</td><td style={{backgroundColor: minDistanceColor(distance)}}>{distance.toFixed(2)}</td></>}</tr>)}</tbody></table></div>
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.5 · Case study: cross-sectional outlier" title="Find the store with an unusual sales mix" intro="Brain Games compares Toys, Board Games, and Puzzles revenue across 100 stores. Explore the full source table and the distance to each store’s nearest neighbor." />
-    <div className="od-result-strip"><div><span>Selected nearest-neighbor distance</span><strong>{selected.distance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Store {selected.store.store} · nearest store {selected.nearestStore}</small></div><section className="od-case-conclusion" aria-labelledby="od-store-conclusion"><h2 id="od-store-conclusion">Case study conclusion</h2><p><strong>Store 57 is far from every other store</strong> in this three-category revenue space. Its row is highlighted in the source table and distance plots.</p></section></div>
+    <Header eyebrow="20.5 · Case study: cross-sectional outlier" title="Does any location show an unusual composition of revenue?" intro="Compare revenue from Toys, Board Games, and Puzzles across Brain Games’ 100 store locations to see whether any location has an unusual revenue mix." />
+    <h2 className="od-case-section-heading">Step 1 · Visual analysis</h2>
+    <p>These scatterplots compare two revenue categories at a time, but they do not clearly identify an outlier across all three categories together.</p>
     <section className="od-scatter-grid" aria-label="Pairwise scatterplots">{PAIRS.map(pair=><StoreScatter key={pair.label} {...pair} selectedStore={selectedStore} onSelectStore={setSelectedStore}/>)}</section>
-    <NeighborDistribution onChooseStore={()=>setSelectedStore(57)} />
-    <div className="od-formula-note"><strong>Distance from Store i to Store j</strong><span>√[(Toysᵢ−Toysⱼ)² + (Board Gamesᵢ−Board Gamesⱼ)² + (Puzzlesᵢ−Puzzlesⱼ)²]</span><p>The workbook uses the three category amounts as supplied; because they share a revenue scale, no separate normalization is applied in this case.</p></div>
+    <h2 className="od-case-section-heading">Step 2 · Calculate nearest-neighbor distances</h2>
+    <p>Because the scatterplots do not give a clear answer, calculate each store’s distance to its nearest neighbor using all three revenue categories. The Min distance values begin to reveal stores that are much farther from their neighbors.</p>
+    <div className="od-formula-note">
+      <strong>Distance from store to store</strong>
+      <div className="od-distance-equation">
+        <div className="od-distance-math" role="math" aria-label="Distance from store i to store j equals the square root of the squared difference in Toys, plus the squared difference in Board Games, plus the squared difference in Puzzles.">
+          <span><i>d</i><sub><i>ij</i></sub> = </span>
+          <span className="od-distance-root"><span className="od-distance-radical">√</span><span className="od-distance-radicand">
+            (Toys<sub><i>i</i></sub> − Toys<sub><i>j</i></sub>)<sup>2</sup> + (Board Games<sub><i>i</i></sub> − Board Games<sub><i>j</i></sub>)<sup>2</sup> + (Puzzles<sub><i>i</i></sub> − Puzzles<sub><i>j</i></sub>)<sup>2</sup>
+          </span></span>
+        </div>
+      </div>
+      <p><i>i</i> and <i>j</i> identify the two stores being compared.</p>
+      <p>The workbook uses the three category amounts as supplied; because they share a revenue scale, no separate normalization is applied in this case.</p>
+    </div>
     {table(false)}
+    <p className="od-min-note"><strong>Min</strong> is the minimum distance to another store. Darker red indicates a larger minimum distance.</p>
     <details className="od-matrix-details" onToggle={(event)=>setMatrixOpen((event.currentTarget as HTMLDetailsElement).open)}>
       <summary>Open the complete 100 × 100 distance matrix</summary>
       {matrixOpen&&table(true)}
     </details>
+    <h2 className="od-case-section-heading">Step 3 · Detect the outlier</h2>
+    <p>Plot the Min distances calculated in Step 2—not the original revenue values. The histogram and box plot make Store 57’s unusually large nearest-neighbor distance stand out.</p>
+    <NeighborDistribution onChooseStore={()=>setSelectedStore(57)} />
+    <div className="od-result-strip"><div><span>Selected nearest-neighbor distance</span><strong>{selected.distance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Store {selected.store.store} · nearest store {selected.nearestStore}</small></div><section className="od-case-conclusion" aria-labelledby="od-store-conclusion"><h2 id="od-store-conclusion">Case study conclusion</h2><p><strong>Store 57 is far from every other store</strong> in this three-category revenue space. Its row is highlighted in the source table and distance plots.</p></section></div>
   </article>
 }
 
 export function TimeSeriesOutliers() {
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.6 · Time-series outliers" title="Compare each value with its expected pattern" intro="Trend and seasonality change what is normal at a particular time. A regression model helps account for those patterns before we flag unusual residuals." />
-    <div className="od-time-flow" aria-label="Time-series outlier detection steps"><section><span>01</span><h2>Fit the expected pattern</h2><p>Use a time trend and seasonal indicators, such as hour-of-day categories.</p></section><b aria-hidden="true">→</b><section><span>02</span><h2>Calculate each residual</h2><p>Residual = observed sessions − predicted sessions.</p></section><b aria-hidden="true">→</b><section><span>03</span><h2>Inspect the residuals</h2><p>A very large positive or negative residual means that point fell far from its expected value.</p></section></div>
+    <Header eyebrow="20.6 · Time-series outliers" title="Time-series outliers" intro="Account for trend and seasonality." />
+    <div className="od-time-flow" aria-label="Time-series outlier detection steps"><section><span>01</span><h2>Fit the expected pattern</h2><p>Use a time trend and seasonal indicators, such as hour-of-day categories.</p></section><b aria-hidden="true">→</b><section><span>02</span><h2>Calculate each residual</h2><div className="od-time-equation"><div><i>e</i><sub>t</sub> = <i>y</i><sub>t</sub> − <i>ŷ</i><sub>t</sub></div><p><i>e</i><sub>t</sub> = residual<br/><i>y</i><sub>t</sub> = observed value<br/><i>ŷ</i><sub>t</sub> = predicted value at time <i>t</i></p></div></section><b aria-hidden="true">→</b><section><span>03</span><h2>Inspect the residuals</h2><p>A very large positive or negative residual means that point fell far from its expected value.</p></section></div>
     <figure className="od-source-figure"><img src={pdfTime343} alt="Three source panels show an observed seasonal series, a fitted regression and residuals, then a residual box plot with one unusual point highlighted."/><figcaption>First account for the expected time pattern; then inspect the remaining errors.</figcaption></figure>
     <p className="od-note">The detection task is unsupervised because the unusual observations have no supplied labels. Regression is an intermediate tool for estimating expected sessions.</p>
   </article>
@@ -252,15 +288,21 @@ export function TimeSeriesExample() {
   return <article className={BASE_CLASS}>
     <Header eyebrow="20.7 · Time-series outlier example" title="Seasonality can hide an unusual hour" intro="Follow the course’s 8,760-hour website-sessions example from the raw series to the residual box plot." />
     <section className="od-source-stepper od-source-stepper--time"><div className="od-source-stepper__copy"><p className="od-eyebrow">{String(step+1).padStart(2,'0')} / {PDF_TIME_STEPS.length}</p><h2>{current.title}</h2><p>{current.detail}</p><nav aria-label="Website sessions example steps">{PDF_TIME_STEPS.map((item,i)=><button key={item.title} type="button" aria-label={`Show step ${i+1}: ${item.title}`} aria-current={step===i?'step':undefined} onClick={()=>showStep(i)}>{i+1}</button>)}</nav><PlaybackControls ariaLabel="Website sessions example" step={step} stepCount={PDF_TIME_STEPS.length} isPlaying={isPlaying} reducedMotion={reducedMotion} onToggle={togglePlayback} onPrevious={()=>showStep(step-1)} onNext={()=>showStep(step+1)}/></div><figure><img src={current.src} alt={current.alt}/><figcaption>Website sessions · hourly observations</figcaption></figure></section>
-    <div className="od-residual-formula"><strong>residual = observed sessions − predicted sessions</strong><span>Positive means the model underpredicted. Negative means it overpredicted.</span></div>
+    <div className="od-residual-formula"><div className="od-residual-equation"><i>e</i><sub>t</sub> = <i>y</i><sub>t</sub> − <i>ŷ</i><sub>t</sub></div><p className="od-residual-labels"><i>e</i><sub>t</sub> = residual<br/><i>y</i><sub>t</sub> = observed sessions at hour <i>t</i><br/><i>ŷ</i><sub>t</sub> = predicted sessions at hour <i>t</i></p><p className="od-residual-interpretation">Positive means the model underpredicted. Negative means it overpredicted.</p></div>
     <p className="od-note">An unusual residual deserves investigation. The source reminds us that a real anomaly can be valuable information, not automatically a bad record.</p>
   </article>
 }
 
 export function OutlierTakeaways() {
   return <article className={BASE_CLASS}>
-    <Header eyebrow="20.8 · Key takeaways" title="Choose the comparison that fits the data" intro="A useful outlier check compares observations with the right reference: nearby observations across features, or the expected pattern at that time." />
-    <ul className="od-takeaways"><li><span>01</span><p>Check unusual values against their source and context. Separate recording errors from legitimate business events.</p></li><li><span>02</span><p>For cross-sectional data, plot each observation’s nearest-neighbor distance; this can help when there are many features.</p></li><li><span>03</span><p>For time series, account for trend and seasonality, then examine residuals to find observations far from their predictions.</p></li><li><span>04</span><p>Investigate a flag before acting. The value may reveal a data problem or a useful business signal.</p></li></ul>
+    <Header eyebrow="20.8 · Key takeaways" title="Key takeaways" intro={<><strong>Outlier detection</strong> is used to identify observations in a dataset which are either <strong>unexpected</strong> or <strong>statistically different</strong> from the others.</>} />
+    <section className="od-recap" aria-label="Key takeaways">
+      <div className="od-recap__item"><span aria-hidden="true">✓</span><div><h2>Common use cases</h2><p><em>Common use cases include detecting web traffic anomalies, flagging fraudulent credit card transactions, identifying unusually high or low-performing store locations, etc.</em></p></div></div>
+      <div className="od-recap__item"><span aria-hidden="true">✓</span><div><h2>Cross-sectional analysis</h2><p>For cross-sectional analysis, plotting <strong>“nearest neighbor” distances</strong> can help detect anomalies when visual profiling falls short.</p><p className="od-recap__detail"><em>This approach is ideal for exposing outliers in large, complex or highly-dimensional datasets.</em></p></div></div>
+      <div className="od-recap__item"><span aria-hidden="true">✓</span><div><h2>Time-series analysis</h2><p>For time-series analysis, you can fit a <strong>regression model</strong> to the data and plot the residuals to clearly identify outliers.</p><p className="od-recap__detail"><em>This allows you to quickly find outliers, while controlling for seasonality and trending.</em></p></div></div>
+    </section>
+    <section className="od-recap-workflow"><p className="od-eyebrow">Putting it into practice</p><h2>A practical order of checks</h2><ol><li><strong>Start with the data.</strong> Check unusual values against their source and context.</li><li><strong>Choose the comparison.</strong> For cross-sectional data, inspect plots and use nearest-neighbor distances when visual profiling falls short; scale features when their units or ranges differ. For a time series, model trend and seasonality and inspect residuals instead.</li><li><strong>Investigate before acting.</strong> Determine whether a flag is a recording error or a legitimate event.</li></ol></section>
+    <section className="od-recap-note"><h2>Note</h2><p>Correct or exclude a confirmed recording error. A genuine unusual observation may instead be a useful business signal, so investigate it before acting.</p></section>
   </article>
 }
 
