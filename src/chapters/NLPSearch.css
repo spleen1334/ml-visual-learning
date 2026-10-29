@@ -1,0 +1,158 @@
+.search-explain,
+.search-rule,
+.search-rounding {
+  color: #587169;
+  line-height: 1.55;
+}
+
+.search-explain {
+  border-block: 1px solid #dce7dc;
+  padding: 15px 0;
+  margin: 20px 0;
+}
+
+.search-rule,
+.search-rounding {
+  font-size: .9rem;
+}
+
+.search-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.search-presets button {
+  padding: 8px 12px;
+  border: 1px solid #b9d1c1;
+  border-radius: 8px;
+  background: white;
+  color: #234b42;
+  cursor: pointer;
+}
+
+.search-query-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.search-lesson textarea {
+  box-sizing: border-box;
+  width: 100%;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #b9d1c1;
+  border-radius: 8px;
+  color: #173e3b;
+  background: white;
+  font: inherit;
+}
+
+.search-query-vector {
+  padding: 16px 20px;
+  border-radius: 10px;
+  background: #edf3e8;
+  overflow-wrap: anywhere;
+}
+
+.search-query-vector p {
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+.search-lesson mark {
+  background: #f5d98b;
+  color: inherit;
+  border-radius: 3px;
+}
+
+.search-connector {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #6e9a87;
+  margin: 6px 0;
+}
+
+.search-results-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.search-results-head h3,
+.search-trace h3 {
+  font: 700 1.4rem Georgia, serif;
+  margin: 0;
+}
+
+.search-results-head span {
+  color: #587169;
+  font-size: .9rem;
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.search-results button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  text-align: left;
+  color: #234b42;
+  background: white;
+  border: 1px solid #c9d9cd;
+  border-radius: 9px;
+  padding: 14px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.search-results button[aria-pressed='true'] {
+  border: 2px solid #17675c;
+  background: #f3f8ef;
+}
+
+.search-results button strong {
+  font: 700 1.15rem Georgia, serif;
+}
+
+.search-results button > b {
+  margin-top: auto;
+}
+
+.search-rank {
+  color: #668d7c;
+  font-weight: 800;
+  font-size: .8rem;
+}
+
+.search-trace {
+  background: #fffaf0;
+  border: 1px solid #e8d9b1;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.search-trace > p:not(.tfidf-equation) {
+  color: #587169;
+  line-height: 1.5;
+}
+
+.search-lesson .nlp-links {
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .search-results {
+    grid-template-columns: 1fr;
+  }
+}

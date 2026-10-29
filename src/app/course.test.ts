@@ -240,13 +240,13 @@ describe('chapter four quiz', () => {
 })
 
 describe('chapter ninety-seven gradual publication', () => {
-  it('publishes the first six lessons, with five outlines and stable links before chapter 99', () => {
+  it('publishes the first seven lessons, with four outlines and stable links before chapter 99', () => {
     const chapter = chapters.find(item => item.id === 'chapter-97')!
     expect(chapter.subchapters).toHaveLength(11)
-    expect(chapter.subchapters?.slice(6).every(item => !item.content)).toBe(true)
+    expect(chapter.subchapters?.slice(7).every(item => !item.content)).toBe(true)
     const all = publishedLessons()
     const lessons = all.filter(item => item.chapter.id === chapter.id)
-    expect(lessons.map(item => item.href)).toEqual(['#chapter-97/97.1-what-can-we-do-with-language', '#chapter-97/97.2-sentence-and-token-boundaries', '#chapter-97/97.3-cleaning-can-remove-meaning', '#chapter-97/97.4-from-messages-to-a-count-table', '#chapter-97/97.5-which-words-distinguish-a-document', '#chapter-97/97.6-a-small-text-classifier'])
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-97/97.1-what-can-we-do-with-language', '#chapter-97/97.2-sentence-and-token-boundaries', '#chapter-97/97.3-cleaning-can-remove-meaning', '#chapter-97/97.4-from-messages-to-a-count-table', '#chapter-97/97.5-which-words-distinguish-a-document', '#chapter-97/97.6-a-small-text-classifier', '#chapter-97/97.7-search-by-words'])
     expect(resolveLesson(lessons[0].href).section).toBe(chapter.subchapters?.[0])
     expect(resolveLesson('#chapter-97/what-can-we-do-with-language').section).toBe(chapter.subchapters?.[0])
     expect(resolveLesson(lessons[1].href).section).toBe(chapter.subchapters?.[1])
@@ -259,9 +259,11 @@ describe('chapter ninety-seven gradual publication', () => {
     expect(resolveLesson('#chapter-97/which-words-distinguish-a-document').section).toBe(chapter.subchapters?.[4])
     expect(resolveLesson(lessons[5].href).section).toBe(chapter.subchapters?.[5])
     expect(resolveLesson('#chapter-97/a-small-text-classifier').section).toBe(chapter.subchapters?.[5])
+    expect(resolveLesson(lessons[6].href).section).toBe(chapter.subchapters?.[6])
+    expect(resolveLesson('#chapter-97/search-by-words').section).toBe(chapter.subchapters?.[6])
     const index = all.indexOf(lessons[0])
     expect(all[index - 1].chapter.id).toBe('chapter-21')
-    expect(all[index + 6].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
+    expect(all[index + 7].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
     expect(chapters.some(item => item.id === 'chapter-98')).toBe(false)
   })
 })

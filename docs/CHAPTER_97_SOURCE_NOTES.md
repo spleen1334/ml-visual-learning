@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.6 implemented and reviewed; 97.7–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.7 implemented and reviewed; 97.8–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.7 lexical FAQ search and review · 2026-10-29
+
+Primary references inspected: [scikit-learn cosine similarity](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html) and [TF–IDF weighting](https://scikit-learn.org/stable/modules/feature_extraction.html#tfidf-term-weighting). The three existing FAQ title/body strings are unchanged; indexed text is exactly title + one space + body. Vocabulary/IDF are fit only on those three FAQ documents (26 terms), reusing97.4 tokenization/97.5 smoothed count-based TF–IDF. Queries transform against frozen statistics, unrelated to classifier fitting. For `order`, df2 and idf=1+ln(4/3). This computed ranking is explicitly separate from97.1's supplied order.
+
+Raw-vector cosine uses dot/(query length×document length); per-term products and both norms are visible. Zero-length vectors receive score0 with no division; no represented query words yields an explicit no-ranking state. Exact ties sort by FAQ ID, full precision otherwise. Unknown query words are listed. `purchase` is unsupported lexically, not proof that all FAQs are irrelevant.
+
+Golden results: CS11→FAQ2 0.46053801409416684, FAQ1 0.29428763797053353, FAQ3 0; `missing order`→FAQ1 0.3761305927901108, FAQ2 0.13204130183910784, FAQ3 0; `refund order`→FAQ2 0.5886160813216482, FAQ1 0.13783185822837235, FAQ3 0. Default CS11 represented terms are`missing,order,refund`; FAQ2 counts refund twice (title and body). Empty, punctuation-only and`purchase` queries give zero vectors.
+
+- Parent inspected helpers/tests/UI/CSS/routing. Corrected TypeScript's overly narrow literal query-state inference to explicit string state before final validation. Shared-word highlights, exact index scope, contribution sums and zero-vector handling are coherent. No remaining must-fix findings.
+- `rtk npm run check`:43 files/210 tests passed; TypeScript/build passed with existing bundle warning. Tests cover hand cosine, golden rankings, frozen statistics, exact title/body indexing, source offsets, tie ordering and zero/unknown cases. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: default ranks/scores match fixtures, selecting FAQ2 shows dot7.3916/(2.7188×5.9034)≈0.4605, unknown synonym and punctuation-only inputs show no ranking, keyboardEnter selects results, reduced-motion retains manual controls. No document overflow/browser errors. Evidence:`previews/chapter-97.7-ranking.png`, `previews/chapter-97.7-cosine.png`, `previews/chapter-97.7-no-terms.png`. Desktop only.
 
 ## 97.6 actual multinomial Naive Bayes fit and review · 2026-10-29
 

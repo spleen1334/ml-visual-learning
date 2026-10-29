@@ -83,6 +83,7 @@ import { NLPCleaning } from '../chapters/NLPCleaning'
 import { NLPCountTable } from '../chapters/NLPCountTable'
 import { NLPTfidf } from '../chapters/NLPTfidf'
 import { NLPClassifier } from '../chapters/NLPClassifier'
+import { NLPSearch } from '../chapters/NLPSearch'
 
 export type Subchapter = {
   id: string
@@ -332,7 +333,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'from-messages-to-a-count-table', title: 'From messages to a count table', content: NLPCountTable },
     { id: 'which-words-distinguish-a-document', title: 'Which words distinguish a document?', content: NLPTfidf },
     { id: 'a-small-text-classifier', title: 'A small text classifier', content: NLPClassifier },
-    { id: 'search-by-words', title: 'Search by words' },
+    { id: 'search-by-words', title: 'Search by words', content: NLPSearch },
     { id: 'search-beyond-exact-words', title: 'Search beyond exact words' },
     { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record' },
     { id: 'how-do-we-know-it-works', title: 'How do we know it works?' },
