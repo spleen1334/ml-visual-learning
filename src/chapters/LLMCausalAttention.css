@@ -1,0 +1,33 @@
+.causal-demo > p { line-height: 1.5; }
+.causal-controls { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.causal-controls fieldset { border: 1px solid #d4e5d9; border-radius: 8px; background: #fffdf8; padding: .7rem 1rem; }
+.causal-controls legend { font-weight: 700; color: #245d51; }
+.causal-controls p { margin: 0 0 .5rem; font-size: .9rem; }
+.causal-controls label { display: inline-flex; align-items: center; margin: .2rem .8rem .2rem 0; gap: .3rem; cursor: pointer; }
+.causal-controls input { accent-color: #22705f; }
+.causal-note { background: #eef6ed; border-left: 3px solid #64a38c; padding: .8rem; }
+.causal-grids, .causal-details { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.causal-card, .causal-output { background: #fffdf8; border: 1px solid #d4e5d9; border-radius: 10px; padding: 1rem; min-width: 0; }
+.causal-card h3, .causal-card h4, .causal-output h3 { margin: 0 0 .4rem; color: #235e52; }
+.causal-card p, .causal-output p { margin: .4rem 0 .8rem; line-height: 1.45; }
+.causal-table-scroll { overflow-x: auto; }
+.causal-lesson table { width: 100%; border-collapse: collapse; text-align: left; font-size: .83rem; }
+.causal-lesson th, .causal-lesson td { padding: .5rem; border-bottom: 1px solid #dce9de; white-space: nowrap; }
+.causal-lesson th { color: #527368; }
+.causal-allowed { background: #e9f4ea; font-weight: 700; color: #1d6957; }
+.causal-blocked { background: #f0efeb; color: #726d65; }
+.causal-blocked small { font-size: .72rem; }
+.causal-selected th { color: #155f4f; font-weight: 800; }
+.causal-small { font-size: .8rem; color: #60766b; }
+.causal-arrow { text-align: center; font-size: 1.6rem; color: #78a192; }
+.causal-demo > h3 { color: #235e52; margin: .2rem 0 .7rem; }
+.causal-output { background: #edf7ee; }
+.causal-flow { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.causal-flow div { display: grid; gap: .3rem; background: white; border: 1px solid #d3e5d9; border-radius: 7px; padding: .7rem; }
+.causal-flow span { font-size: .72rem; color: #54796a; }
+.causal-flow strong { font-size: .84rem; color: #175d50; }
+.causal-flow b { color: #75a392; }
+.causal-output details { margin-top: 1rem; }
+.causal-output summary { cursor: pointer; color: #216b5b; font-weight: 700; }
+.causal-boundary { line-height: 1.6; margin: 1.5rem 0; }
+@media (max-width: 800px) { .causal-grids, .causal-details, .causal-controls { grid-template-columns: 1fr; } }

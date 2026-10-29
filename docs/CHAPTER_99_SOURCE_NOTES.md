@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1–99.5 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.6–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.6 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.7–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -22,7 +22,7 @@ Paraphrases only; no copied paper figures or long quotations. Generating/inferen
 3. **99.3 Embeddings and position** — published: four-number lookup rows → position addition → repeated-token comparison.
 4. **99.4 The neural network inside** — published: input → four weighted products → sum and bias → ReLU; compare two input positions.
 5. **99.5 Attention: queries, keys, and values** — published: head-0 Q/K/V projections → scaled dot products → normalized weights → value mixture.
-6. **99.6 Causal masking and multiple heads** — outline.
+6. **99.6 Causal masking and multiple heads** — published: two causal grids → selected-row mixtures → concatenation/output projection.
 7. **99.7 A Transformer block** — outline.
 8. **99.8 Logits and softmax** — outline.
 9. **99.9 Sampling and temperature** — outline.
@@ -68,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` now checks that only 99.1–99.5 enter published pagination while 9 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.6 enter published pagination while 8 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -138,3 +138,13 @@ Inputs: `[[1,0,1,0],[1,1,1,0],[1,2,0,0]]`. Current Q: `[0,1.5]`. K rows: `[[-0.7
 - Parent inspected math/tests, UI/CSS and routing. Exact QKV rows, visible dot products/stacked score fractions, optional weight tables and weighted-sum arithmetic match the frozen data. No remaining must-fix findings.
 - `rtk npm run check`: 28 files / 150 tests passed; TypeScript/build passed (existing bundle warning). Fixture tests check projections, scale, normalized weights and output, stable softmax and malformed inputs. `rtk git diff --check` passed.
 - Browser at 1440×1000 and 1100×850: autoplay completes, final Next disables, keyboard/manual stepping and reduced-motion completed/manual views work. Weight details open and tables scroll within their container; no document overflow/browser errors. Screenshots: `previews/chapter-99.5-attention-desktop.png`, `previews/chapter-99.5-attention-projections.png`. Desktop review only.
+
+## 99.6 causal two-head fixture and review · 2026-10-29
+
+Source inspected: [Attention Is All You Need §§3.1, 3.2.2–3.2.3](https://arxiv.org/html/1706.03762v7). Reuse both frozen heads, concatenate in head order and multiply by the frozen output projection. The implementation normalizes each allowed score prefix and pads future weights with exact zeros; this is equivalent to replacing future scores with −∞ **before** softmax, not zeroing an already-normalized full row. Each token may use its own value.
+
+For context `[0,1,2]` query position 0, both heads have weights `[1,0,0]`. Head outputs are `[-0.25,0.75]` and `[1.25,-1.25]`; concatenation `[-0.25,0.75,1.25,-1.25]` projects to `[1.4375,-0.5,-1.5625,0.875]`. Replacing the last ID with 3 changes neither earlier query's weights, mixtures, concatenation nor projected output. No weights were changed or trained.
+
+- Parent inspected helper/tests, UI/CSS and routing. Future cells have explicit blocked labels/zero weights; row/column roles, diagonal permission, concatenation versus addition, dimensions and output projection weights are visible. No remaining must-fix findings.
+- `rtk npm run check`: 29 files / 154 tests passed, TypeScript/build passed (existing bundle warning). Tests cover hand first-row fixture, future zeros, row sums, self-attention, earlier-output invariance, concat/projection and invalid context/shape. `rtk git diff --check` passed.
+- Desktop browser at 1440×1000 and 1100×850: two grids, query selection, last-token changes preserving the selected earlier output, autoplay/manual keyboard stepping, final disabled Next and reduced-motion completed/manual views passed; tables have contained scrolling, no document overflow or browser errors. Evidence: `previews/chapter-99.6-causal-grids.png`, `previews/chapter-99.6-causal-mask.png`. Desktop only.

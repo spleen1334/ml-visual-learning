@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models (LLMs)
 
-Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.5 are implemented now; 99.6–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
+Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.6 are implemented now; 99.7–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
 
 ## Teaching direction
 
@@ -48,7 +48,7 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | 99.3 Embeddings/position | [x] Frozen decoder fixture and lesson | [x] 144 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.4 Neural network | [x] Frozen neuron trace and input comparison | [x] 147 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.5 Q/K/V attention | [x] One-head projection and weighted mixture | [x] 150 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
-| 99.6 Masking/heads | [ ] | [ ] | [ ] |
+| 99.6 Masking/heads | [x] Causal grids and two-head output | [x] 154 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.7 Transformer block | [ ] | [ ] | [ ] |
 | 99.8 Logits/softmax | [ ] | [ ] | [ ] |
 | 99.9 Sampling/temperature | [ ] | [ ] | [ ] |

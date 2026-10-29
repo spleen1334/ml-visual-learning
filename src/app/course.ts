@@ -68,6 +68,7 @@ import { LLMTokenization } from '../chapters/LLMTokenization'
 import { LLMEmbeddings } from '../chapters/LLMEmbeddings'
 import { LLMNeuralNetwork } from '../chapters/LLMNeuralNetwork'
 import { LLMAttention } from '../chapters/LLMAttention'
+import { LLMCausalAttention } from '../chapters/LLMCausalAttention'
 
 export type Subchapter = {
   id: string
@@ -316,7 +317,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'embeddings-and-position', title: 'Embeddings and position', content: LLMEmbeddings },
     { id: 'neural-network', title: 'The neural network inside', content: LLMNeuralNetwork },
     { id: 'attention-qkv', title: 'Attention: queries, keys, and values', content: LLMAttention },
-    { id: 'masking-and-heads', title: 'Causal masking and multiple heads' },
+    { id: 'masking-and-heads', title: 'Causal masking and multiple heads', content: LLMCausalAttention },
     { id: 'transformer-block', title: 'A Transformer block' },
     { id: 'logits-and-softmax', title: 'Logits and softmax' },
     { id: 'sampling-and-temperature', title: 'Sampling and temperature' },
