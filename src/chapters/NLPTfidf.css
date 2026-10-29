@@ -1,0 +1,140 @@
+.tfidf-intro,
+.tfidf-note {
+  color: #506e67;
+  line-height: 1.6;
+}
+
+.tfidf-intro {
+  border-block: 1px solid #dce7dc;
+  padding: 15px 0;
+  margin: 20px 0;
+}
+
+.tfidf-doc-match {
+  color: #4f806d;
+}
+
+.tfidf-table-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin-top: 20px;
+}
+
+.tfidf-table-head h3,
+.tfidf-trace h3,
+.tfidf-normalization h4 {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.tfidf-table-head p,
+.tfidf-rounding {
+  font-size: .9rem;
+  color: #587169;
+}
+
+.tfidf-table-head label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #edf3e8;
+  font-weight: 700;
+}
+
+.tfidf-table-head input {
+  accent-color: #17675c;
+}
+
+.tfidf-trace {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e8d9b1;
+  background: #fffaf0;
+}
+
+.tfidf-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 25px;
+  margin-top: 15px;
+}
+
+.tfidf-steps > div {
+  padding: 12px 0;
+  border-top: 1px solid #eadfca;
+}
+
+.tfidf-steps > div > span {
+  color: #668d7c;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.tfidf-steps p {
+  margin: 8px 0;
+}
+
+.tfidf-steps small,
+.tfidf-squares {
+  color: #587169;
+  line-height: 1.5;
+}
+
+.tfidf-equation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.tfidf-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+
+.tfidf-fraction > span {
+  padding: 2px 5px;
+}
+
+.tfidf-fraction > span:first-child {
+  border-bottom: 1px solid currentColor;
+}
+
+.tfidf-normalization {
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #eadfca;
+}
+
+.tfidf-normalization p:not(.tfidf-equation) {
+  color: #587169;
+}
+
+.tfidf-squares {
+  font-size: .9rem;
+}
+
+.tfidf-lesson .nlp-links {
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .tfidf-steps {
+    grid-template-columns: 1fr;
+  }
+}

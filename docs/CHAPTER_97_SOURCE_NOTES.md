@@ -1,6 +1,16 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.4 implemented and reviewed; 97.5–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.5 implemented and reviewed; 97.6–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.5 TF–IDF conventions and review · 2026-10-29
+
+Reference inspected: [scikit-learn TfidfTransformer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html). Local helpers reuse97.4's unigram rule and descriptive CS03/CS06/CS07/CS09 collection, not a classifier training vocabulary. Convention: tf=count; N=4; df=documents containing term; idf=ln((1+N)/(1+df))+1; raw weight=tf×idf. No sublinear tf. Vocabulary alphabetical; full precision internally, three-decimal display.
+
+`helpful`/`not`:df2, idf=1.510825623766. `waited`:df1, idf=1.916290731874; CS07tf2 gives raw3.832581463748. CS07 has four other distinct words with the same idf, squared norm29.377361352534, length5.420088684933, normalized waited≈0.707106781187. Optional L2 normalization scales each nonzero document row to length1 and preserves the raw trace. Unknown terms are ignored against frozen fitted statistics; all-zero vectors remain zero with no division/NaN. Empty document collection fitting is rejected; a nonempty collection of empty documents has empty vocabulary. Query transformation never refits IDF.
+
+- Parent inspected helper/tests/component/CSS/routing. Counts and document frequency remain separate, selected terms highlight all contributing source documents, zero cells preserve their collection-level IDF, and normalization arithmetic is separate from text cleaning. No new dependencies or remaining must-fix findings.
+- `rtk npm run check`:41 files/200 tests passed; TypeScript/build passed with existing bundle warning. Tests verify hand IDF/count fixtures, frozen transformation, zero/unknown vectors, normalization and deterministic ordering. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: waited trace2→df1→idf1.916→raw3.833, optional norm5.420→0.707, zero-cell trace, shared-term document highlights, keyboardEnter selection and reduced-motion manual controls passed. All columns remain available through contained scrolling; no document overflow/browser errors. Evidence:`previews/chapter-97.5-weight.png`, `previews/chapter-97.5-normalization.png`. Desktop only.
 
 ## 97.4 count features and review · 2026-10-29
 
