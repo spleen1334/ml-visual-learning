@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: 99.1 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.2–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
+Status: 99.1–99.2 implemented and reviewed; tests/build and desktop browser review passed. Lessons 99.3–99.14 are outlines only. Full implementation plan: `../plan_llm.md`.
 
 ## Source boundary
 
@@ -11,13 +11,14 @@ This is a user-requested supplementary chapter, not a reproduction of a numbered
 | [Hugging Face: Causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) | Opening definition; inference and generation example | Supports predicting the next token using preceding tokens and continuing text. The lesson does not execute this guide's code or load its model. |
 | [Vaswani et al.: Attention Is All You Need](https://arxiv.org/html/1706.03762v7) | §3 opening autoregressive description; §3.1 decoder masking; §3.4 output projection and softmax | Supports consuming previously generated symbols on subsequent steps, causal restrictions, and next-token probabilities. The original paper describes an encoder–decoder translation Transformer; it is not evidence that every modern LLM has exactly that architecture. Decoder-only adaptations belong in later lessons. |
 | [Hugging Face: Tokenization algorithms](https://huggingface.co/docs/transformers/main/en/tokenizer_summary) | Opening subword explanation and examples | Supports tokens being smaller than words and depending on the tokenizer. The lesson's word/punctuation segmentation is an explicit teaching vocabulary, not a claim about GPT-2 or any production tokenizer. |
+| [Hugging Face course: Tokenizers](https://huggingface.co/learn/llm-course/en/chapter2/4) | Encoding, vocabulary lookup, and decoding | Inspected for 99.2 on 2026-10-29 alongside the tokenizer summary's word-level, subword, and whitespace discussions. Supports mapping pieces to IDs and decoding IDs to text; exact toy IDs and segmentation are authored, not taken from a pretrained tokenizer. Unknown-token replacement can lose information and is not a reversible encoding of unsupported text. |
 
 Paraphrases only; no copied paper figures or long quotations. Generating/inference versus training is explained briefly: ordinary generation changes the context, while learned parameters remain fixed. The probability tree itself has no learned parameters and does not train anything.
 
 ## Lesson order
 
 1. **99.1 What does an LLM predict?** — published: definition → repeated read/choose/append loop → one interactive next-token probability chart → token and inference reminders.
-2. **99.2 Tokenization: text into token IDs** — outline.
+2. **99.2 Tokenization: text into token IDs** — published: text → colored pieces → lookup IDs, then vocabulary, decoding, and unknown/special-token boundaries.
 3. **99.3 Embeddings and position** — outline.
 4. **99.4 The neural network inside** — outline.
 5. **99.5 Attention: queries, keys, and values** — outline.
@@ -67,7 +68,7 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - Reduced motion starts with the completed maximum-probability path. Timed playback is disabled; Previous, Next, Reset, and bar selection remain usable manually. No completion gate exists.
 - The bar scale remains 0–100% at every step. Percentages are also exposed as text and accessible button names.
 - `llmNextToken.test.ts` checks normalized distributions, valid transitions, branch-dependent choices, complete enumeration and probability mass, terminal stop behavior, exact text/space handling, greedy stepping, reversing a branch, and invalid choices.
-- `course.test.ts` checks that only 99.1 enters published pagination while 13 future sections remain outlines.
+- `course.test.ts` now checks that only 99.1–99.2 enter published pagination while 12 future sections remain outlines.
 - Parent integration owns desktop browser review and the separate lesson commit. No API, model download, network call, or neural forward pass is used by the lesson.
 
 ## 99.1 review record · 2026-10-26
@@ -76,3 +77,28 @@ Total output probability = 1.00. Every branch terminates in at most four selecte
 - `rtk npm run check`: 22 test files / 130 tests passed, followed by TypeScript and production build. `rtk git diff --check` passed. The existing large-bundle warning remains.
 - Parent desktop review: 1440×1000 and 1100×850, no horizontal overflow or header overlap. Alternate `slept` and `ran` branches, undo, autoplay stopping, disabled final Next, and reduced-motion completed/manual views passed.
 - Minor review fixes applied: exact requested chapter title and strict equality in the publication checks. No remaining must-fix finding was reported; final parent integration/commit remains separate.
+
+## Exact 99.2 lookup and adaptation
+
+The authored, deterministic **tiny lookup tokenizer** uses longest matching ordinary text pieces. It is not BPE, WordPiece, Unigram, or a reproduction of a pretrained tokenizer. No training, model call, or learned vocabulary is claimed. Its vocabulary is independent of 99.1's tree and does not freeze the decoder vocabulary planned for 99.3.
+
+| Piece or special marker | ID | Behavior |
+| --- | --- | --- |
+| `cat` | 1 | Whole-word piece in the displayed example |
+| `play` | 2 | First subword piece of `playing` |
+| `ing` | 3 | Second subword piece |
+| One literal space | 4 | Displayed as `␠`, decoded as a space |
+| `.` | 5 | Ordinary punctuation |
+| `!` | 6 | Ordinary punctuation |
+| `<end>` | 7 | Separate special ID; decodes to no text, not recognized as a literal input marker |
+| `<unknown>` | 8 | One ID per unsupported Unicode code point; decodes to `�`, losing the original character |
+
+`cat playing!` → `cat`, space, `play`, `ing`, `!` → `[1, 4, 2, 3, 6]` → `cat playing!`. Supported inputs round-trip exactly, including empty text and repeated spaces. `cat 🐈` → `[1, 4, 8]` → `cat �`; unsupported input is not reversible. Invalid IDs throw rather than silently disappear. Decoding the end marker removes that marker only; it does not implement generation stopping.
+
+## 99.2 review record · 2026-10-29
+
+- Source/process review: targeted Hugging Face references support subword pieces, vocabulary lookup, decoding, and unknown-token limits. Exact segmentation/IDs and layout are authored teaching adaptations. Later lessons remain outlines and do not enter pagination.
+- Parent read the component, styles, pure tokenizer, tests, and manifest diff. Beginner review found a prominent definition, a single connected three-stage visual, visible whitespace/punctuation, matched piece/ID colors, and explicit production-tokenizer limits; no must-fix findings remained.
+- `rtk npm run check`: 25 test files / 140 tests passed, then TypeScript and production build. The existing large-bundle warning remains. `rtk git diff --check` passed.
+- Parent desktop browser review: 1440×1000 and 1100×850, readable pieces/IDs and vocabulary, no horizontal overflow. Manual Next, keyboard Enter, Previous/pause, Replay/autoplay completion, final disabled Next, and reduced-motion completed view with manual stepping passed. No browser errors were reported.
+- Review evidence: `previews/chapter-99.2-tokenization-desktop.png`, `previews/chapter-99.2-tokenization-explanation.png`, and `previews/chapter-99.2-tokenization-reduced.png`. Desktop only; phone-specific behavior was not reviewed.

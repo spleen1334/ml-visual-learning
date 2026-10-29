@@ -64,6 +64,7 @@ import { InfrequentItemsets } from '../chapters/InfrequentItemsets'
 import { AprioriCaseStudy, MarkovCaseStudy } from '../chapters/AssociationCaseStudies'
 import { OutlierIntroduction, OutlierBasics, CrossSectionalOutliers, CrossSectionalExample, CrossSectionalCase, TimeSeriesOutliers, TimeSeriesExample, OutlierTakeaways, OutlierQuiz } from '../chapters/OutlierDetection'
 import { LLMNextToken } from '../chapters/LargeLanguageModels'
+import { LLMTokenization } from '../chapters/LLMTokenization'
 
 export type Subchapter = {
   id: string
@@ -308,7 +309,7 @@ export const chapters: readonly Chapter[] = [
   ] },
   { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },
-    { id: 'tokenization', title: 'Tokenization: text into token IDs' },
+    { id: 'tokenization', title: 'Tokenization: text into token IDs', content: LLMTokenization },
     { id: 'embeddings-and-position', title: 'Embeddings and position' },
     { id: 'neural-network', title: 'The neural network inside' },
     { id: 'attention-qkv', title: 'Attention: queries, keys, and values' },

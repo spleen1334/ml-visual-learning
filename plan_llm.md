@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models (LLMs)
 
-Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Only 99.1 is implemented now; 99.2–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
+Implement one reviewable lesson at a time and make a separate, scoped commit after its checks and browser review. Lessons 99.1–99.2 are implemented now; 99.3–99.14 remain unpublished outlines. Do not interpret this roadmap as permission to publish the whole chapter at once.
 
 ## Teaching direction
 
@@ -44,7 +44,7 @@ For each row: **Implement** means inspect relevant primary material, update sour
 | Lesson | Implement | Check | Separate commit |
 | --- | --- | --- | --- |
 | 99.1 Next-token prediction | [x] Implemented and reviewed | [x] 130 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
-| 99.2 Tokenization | [ ] | [ ] | [ ] |
+| 99.2 Tokenization | [x] Tiny lookup tokenizer and lesson | [x] 140 tests, build, diff and desktop review passed | [x] Scoped lesson commit |
 | 99.3 Embeddings/position | [ ] | [ ] | [ ] |
 | 99.4 Neural network | [ ] | [ ] | [ ] |
 | 99.5 Q/K/V attention | [ ] | [ ] | [ ] |

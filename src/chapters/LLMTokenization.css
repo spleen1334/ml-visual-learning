@@ -1,0 +1,21 @@
+.token-demo { margin-top: 2rem; }
+.token-stage { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: .9rem 1rem; background: #fffdf7; border: 1px solid #d8e7dd; border-radius: 12px; }
+.token-stage h3 { margin: 0 0 .5rem; font-size: 1rem; color: #245c54; }
+.token-stage p { margin: 0; }
+.token-stage-number { font-size: .8rem; font-weight: 700; color: #64867b; padding-top: .2rem; }
+.token-input { font-family: monospace; font-size: 1.45rem; font-weight: 700; }
+.token-arrow { color: #568d7e; margin: .15rem 0 .15rem 2.3rem; font-size: 1.3rem; }
+.token-pieces { display: flex; flex-wrap: wrap; gap: .35rem; }
+.token-piece { display: inline-flex; align-items: center; justify-content: center; min-width: 3rem; padding: .5rem .7rem; border-radius: 6px; font: 700 1.2rem monospace; background: #d3e9dc; color: #184d42; border: 1px solid #a2cbb5; }
+.token-color-1 { background: #f8e6c4; border-color: #e4c88f; color: #71501d; }
+.token-color-2 { background: #d7e9e9; border-color: #a4caca; color: #285b60; }
+.token-color-3 { background: #e7dff0; border-color: #cbb8dd; color: #5e4873; }
+.token-color-4 { background: #f3dcd1; border-color: #dfb7a4; color: #80513e; }
+.token-stage .token-caption { margin-top: .55rem; font-size: .85rem; color: #536d61; }
+.token-pending { opacity: .65; }
+.token-explain { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.token-explain > div { padding: 1.2rem 1.4rem; background: #fbfaf3; border: 1px solid #dce7dc; border-radius: 12px; }
+.token-explain h2 { margin: 0 0 .5rem; font-size: 1.15rem; color: #245c54; }
+.token-explain p { margin: .5rem 0; line-height: 1.6; }
+.token-vocab { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0; }
+.token-vocab span { background: #e8f1e8; border-radius: 5px; padding: .35rem .6rem; }
