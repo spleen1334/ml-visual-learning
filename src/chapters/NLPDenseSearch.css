@@ -1,0 +1,148 @@
+.dense-boundary,
+.dense-note {
+  color: #587169;
+  line-height: 1.55;
+}
+
+.dense-boundary {
+  border-block: 1px solid #dce7dc;
+  padding: 15px 0;
+  margin: 20px 0;
+}
+
+.dense-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.dense-tabs button,
+.dense-contexts button {
+  border: 1px solid #c9d9cd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: white;
+  color: #234b42;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dense-tabs button[aria-pressed='true'],
+.count-scroll th button[aria-pressed='true'] {
+  background: #17675c;
+  color: white;
+}
+
+.dense-ranking {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dense-ranking > div {
+  background: #edf3e8;
+  border-radius: 9px;
+  padding: 16px 20px;
+}
+
+.dense-ranking h3,
+.dense-calculation h3 {
+  font: 700 1.25rem Georgia, serif;
+  margin: 0;
+}
+
+.dense-ranking p {
+  color: #587169;
+  font-size: .9rem;
+}
+
+.dense-ranking ol {
+  padding-left: 23px;
+}
+
+.dense-ranking li {
+  padding: 5px 0;
+}
+
+.dense-ranking li strong {
+  float: right;
+}
+
+.dense-lesson .count-scroll th button {
+  padding: 7px 12px;
+  border: 1px solid #b9d1c1;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #234b42;
+  background: white;
+}
+
+.dense-lesson .count-scroll th button[aria-pressed='true'] {
+  color: white;
+  background: #17675c;
+}
+
+.dense-contexts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dense-contexts button {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.dense-contexts button[aria-pressed='true'] {
+  border: 2px solid #17675c;
+  background: #edf3e8;
+}
+
+.dense-calculation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 24px;
+  background: #fffaf0;
+  border: 1px solid #e8d9b1;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 22px;
+}
+
+.dense-calculation p {
+  line-height: 1.5;
+}
+
+.dense-plot {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  font: 12px sans-serif;
+}
+
+.dense-projection p {
+  color: #587169;
+  font-size: .85rem;
+}
+
+.dense-key-query {
+  color: #17675c;
+}
+
+.dense-key-document {
+  color: #a76c1e;
+}
+
+.dense-lesson .nlp-links {
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .dense-ranking,
+  .dense-contexts,
+  .dense-calculation {
+    grid-template-columns: 1fr;
+  }
+}

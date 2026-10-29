@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.7 implemented and reviewed; 97.8–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.8 implemented and reviewed; 97.9–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.8 supplied semantic vectors and review · 2026-10-29
+
+Primary references inspected: [Sentence-BERT](https://arxiv.org/abs/1908.10084) for semantic sentence representations/cosine and [BERT](https://arxiv.org/abs/1810.04805) for contextual representations. All vectors here are explicitly hand-chosen coordinates, not outputs of those models. No embedding service or training runs. Scores are computed, not supplied claims of actual model quality.
+
+Separate text collection: query`purchase`=[1,1,1]; D1`buy item`=[1,0.8,1], D2`purchase history`=[0.5,1,0.1], D3`river water`=[0.1,0.2,1]. Lexical TF–IDF fit on these documents yields D2=1/√2≈0.707107, D1/D3=0; supplied-vector cosine yields D1≈0.9949366763261821, D2≈0.8229511997978236, D3≈0.7324670207647144. This contrived ranking illustrates representation choice, not semantic-search superiority. Exact ties use ID order.
+
+`bank` fixtures: “The bank holds my savings.”=[1,0.2,0.2], “The bank borders the river.”=[0.2,1,0.2]; dot0.44, both squared lengths1.08, cosine≈0.40740740740740744. Context switching reverses the inspected pair, not a learned disambiguation process. The equal-scale plot drops x3 and shows x1/x2 only; full3D calculations remain authoritative. Coordinate axes carry no universal semantic meanings, and cosine is not plotted Euclidean distance.
+
+- Parent inspected fixtures/tests/UI/CSS/routing and numeric traces. Separate collections, supplied-versus-learned boundaries, context-sense distinction and projection limits are explicit. No remaining must-fix findings.
+- `rtk npm run check`:44 files/214 tests passed; TypeScript/build passed with existing bundle warning. Tests verify exact vectors, lexical/dense rankings, dot/norm fixtures, context pair, projection information loss, zero vectors and ID ties. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: rankings match fixtures, D2 selection shows full3D cosine0.823, context switching/keyboardEnter reverses financial/river pair with cosine0.407, equal-scale projection remains readable, reduced-motion retains complete manual controls. No document overflow/browser errors. Evidence:`previews/chapter-97.8-rankings.png`, `previews/chapter-97.8-vectors.png`, `previews/chapter-97.8-bank.png`. Desktop only.
 
 ## 97.7 lexical FAQ search and review · 2026-10-29
 
