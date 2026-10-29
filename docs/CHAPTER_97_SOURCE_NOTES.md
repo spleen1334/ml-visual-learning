@@ -1,6 +1,18 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.8 implemented and reviewed; 97.9–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.9 implemented and reviewed; 97.10–97.11 remain unpublished outlines. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.9 authored spans to computed records · 2026-10-29
+
+References inspected: [spaCy linguistic features](https://spacy.io/usage/linguistic-features), [Span API](https://spacy.io/api/span). No parser/NER model runs. All entity/POS/role annotations are authored; the computed rule copies the first supplied span of each type into person/organization/dateExpression fields. Missing annotations map to null, not zero or proof that the real information is absent. Date expressions are not resolved dates.
+
+CS11 reuses exact existing Acme[14,18), Friday[57,63), with person null. Separate fixture “Maya contacted Acme on Friday.” has Maya/person[0,4), Acme/organization[15,19), Friday/date expression[23,29). “Apple shipped the device.” has Apple/organization[0,5); “Maya ate an apple.” has Maya/person[0,4) and no organization annotation. These presets are not additions to the frozen sentiment corpus. Fixed source strings prevent stale annotations; validation checks type, integer bounds, sorted non-overlap and exact source substrings. ASCII fixture offsets use JavaScript character indices, coinciding here with code-point indices.
+
+Grammar is a separate authored explanation of the Maya sentence: Maya[0,4) proper noun/subject → contacted[5,14) verb/action → Acme[15,19) proper noun/object. Arrows read the event in order, not parser head/dependent orientation or a universal English pattern. POS categories and grammatical roles remain distinct from entity types. Company/fruit annotations show context dependence, not automatic spelling-based disambiguation.
+
+- Parent inspected fixtures/tests/component/CSS/routing. Source highlights and computed record-field selection stay aligned; copy-rule/null/date limitations are visible. No remaining must-fix findings.
+- `rtk npm run check`:45 files/218 tests passed; TypeScript/build passed with existing bundle warning. Tests verify all spans, record mapping, CS11 reuse, Apple contexts, invalid annotation rejection and grammatical span/arrow invariants. `rtk git diff --check` passed.
+- Browser1440×1000 and1100×850: all four preset records match fixtures, Friday selection shows[57,63), keyboardEnter selects Acme and matching field, grammar arrows/POS/roles readable. Static exploration has no timed animation; reduced-motion retains complete manual controls. No document overflow/browser errors. Evidence:`previews/chapter-97.9-record.png`, `previews/chapter-97.9-grammar.png`. Desktop only.
 
 ## 97.8 supplied semantic vectors and review · 2026-10-29
 

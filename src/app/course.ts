@@ -85,6 +85,7 @@ import { NLPTfidf } from '../chapters/NLPTfidf'
 import { NLPClassifier } from '../chapters/NLPClassifier'
 import { NLPSearch } from '../chapters/NLPSearch'
 import { NLPDenseSearch } from '../chapters/NLPDenseSearch'
+import { NLPExtraction } from '../chapters/NLPExtraction'
 
 export type Subchapter = {
   id: string
@@ -336,7 +337,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'a-small-text-classifier', title: 'A small text classifier', content: NLPClassifier },
     { id: 'search-by-words', title: 'Search by words', content: NLPSearch },
     { id: 'search-beyond-exact-words', title: 'Search beyond exact words', content: NLPDenseSearch },
-    { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record' },
+    { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record', content: NLPExtraction },
     { id: 'how-do-we-know-it-works', title: 'How do we know it works?' },
     { id: 'follow-the-complete-nlp-workflow', title: 'Follow the complete NLP workflow' },
   ] },
