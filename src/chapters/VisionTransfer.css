@@ -1,0 +1,42 @@
+.vtransfer-lesson { max-width: 1200px; margin: 0 auto; padding: 24px 0 64px; color: #173e3b; }
+.vtransfer-header { max-width: 1000px; margin-bottom: 30px; }
+.vtransfer-header h1 { font: 700 clamp(2.5rem, 4vw, 3.8rem)/1.05 Georgia, serif; margin: 12px 0 20px; }
+.vtransfer-header > p:last-child, .vtransfer-heading > p { color: #587169; line-height: 1.5; }
+.vtransfer-definition { font-size: 1.65rem; line-height: 1.35; }
+.vtransfer-eyebrow, .vtransfer-kicker { font-size: .75rem; font-weight: 800; letter-spacing: .12em; color: #668d7c; }
+.vtransfer-panel, .vtransfer-analogy { border: 1px solid #d4e1d6; border-radius: 18px; padding: 28px; background: #fafbf5; box-shadow: 0 12px 35px #1e554010; }
+.vtransfer-analogy { margin-top: 24px; background: #f4f7ef; }
+.vtransfer-heading { display: flex; justify-content: space-between; align-items: end; gap: 25px; }
+.vtransfer-heading h2, .vtransfer-analogy h2 { font: 700 1.8rem Georgia, serif; margin: 4px 0; }
+.vtransfer-heading > p { max-width: 400px; }
+.vtransfer-toggle { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+.vtransfer-toggle button { display: flex; flex-direction: column; gap: 5px; min-width: 205px; text-align: left; padding: 12px 15px; background: white; color: #234b42; border: 1px solid #c9d9cd; border-radius: 9px; cursor: pointer; }
+.vtransfer-toggle button span { font-size: .85rem; }
+.vtransfer-toggle button[aria-pressed='true'] { color: white; border-color: #17675c; background: #17675c; }
+.vtransfer-toggle button:focus-visible { outline: 3px solid #bd8a28; outline-offset: 2px; }
+.vtransfer-flow { display: grid; grid-template-columns: .8fr auto 1.2fr auto 1.2fr; gap: 14px; align-items: stretch; }
+.vtransfer-data, .vtransfer-node { border: 1px solid #d8e5d8; border-radius: 12px; padding: 18px; background: #f4f7ef; }
+.vtransfer-head { background: #fff8e7; border-color: #ebdfbd; }
+.vtransfer-data strong, .vtransfer-node h3 { font: 700 1.35rem Georgia, serif; margin: 8px 0; }
+.vtransfer-data p, .vtransfer-node p, .vtransfer-explain, .vtransfer-analogy > p, .vtransfer-examples p { line-height: 1.5; }
+.vtransfer-node p:not(.vtransfer-kicker), .vtransfer-data p:not(.vtransfer-kicker) { color: #587169; }
+.vtransfer-status { display: inline-block; padding: 6px 9px; border-radius: 6px; background: white; border: 1px solid #c9d9cd; font-size: .82rem; font-weight: 700; }
+.vtransfer-arrow { align-self: center; color: #86a99a; font-size: 1.7rem; }
+.vtransfer-gradient { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; padding: 12px 16px; border-left: 3px solid #d2aa52; background: #fff8e7; font-size: .9rem; }
+.vtransfer-explain { margin-bottom: 0; }
+.vtransfer-counts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+.vtransfer-counts > div { padding: 16px; background: white; border: 1px solid #d8e5d8; border-radius: 10px; }
+.vtransfer-counts strong { font: 700 1.6rem Georgia, serif; }
+.vtransfer-counts p:not(.vtransfer-kicker) { color: #587169; }
+.vtransfer-counts b { font-size: .85rem; }
+.vtransfer-examples { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; align-items: center; border-top: 1px solid #d8e5d8; padding-top: 16px; }
+.vtransfer-examples h3 { font: 700 1.3rem Georgia, serif; margin: 0; }
+.vtransfer-patterns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.vtransfer-patterns > div { display: flex; flex-direction: column; gap: 3px; }
+.vtransfer-patterns small { color: #587169; }
+.vtransfer-pixels { display: grid; grid-template-columns: repeat(6, 1fr); width: min(100%, 76px); aspect-ratio: 1; border: 1px solid #cad9cf; background: white; }
+.vtransfer-pixels span { border: 1px solid #e6e9e4; }
+.vtransfer-pixels .vtransfer-on { background: #262626; border-color: #555; }
+.vtransfer-note { color: #587169; margin-bottom: 0; }
+@media (max-width: 850px) { .vtransfer-heading { display: block; } .vtransfer-flow { grid-template-columns: 1fr; } .vtransfer-arrow { justify-self: center; transform: rotate(90deg); } .vtransfer-examples { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .vtransfer-panel, .vtransfer-analogy { padding: 18px; } .vtransfer-counts { grid-template-columns: 1fr; } }

@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.8 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.9 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.9 implementation and learner review
+
+The conceptual pretrained-backbone diagram is separate from the20/18parameter counting analogy, derived from the existing tiny architecture. Neither toggle performs fine-tuning. All263 tests, TypeScript/build and whitespace checks passed (`tmp/vision-989-check.log`); no trivial markup tests were added. Desktop1440×900 keyboard review verified38trainable/0frozen and18trainable/20frozen, gradient-status text and the frozen-backbone explanation. Inspected `tmp/vision-989-finetune.png`; frozen screenshot retained too.
+
+Source/process and learner reviews confirm pretraining versus authored filters, replacement head, qualitative small-data guidance and no invented speed/accuracy claims. No remaining must-fix finding. No animation dependency or downloaded model. Existing bundle warning remains.
 
 ## 98.8 implementation and learner review
 
@@ -95,6 +101,16 @@ Task output shapes: image classification one supplied label; detection two boxes
 For98.2, optional grayscale convention is rounded weighted byte intensity `round((299R+587G+114B)/1000)`; normalized RGB/intensity divides bytes by255, separate from mean/std standardization. Any pixel edit must be represented as an exploratory image edit, not silently reusing annotations as model predictions. For98.3, horizontal flip maps pixel column c→5−c and box edges x→6−x (new left=6−old right, new right=6−old left). Categorical masks use nearest-neighbor resampling; resize/crop/padding conventions must be frozen before implementation.
 
 ## Later mathematical contracts
+
+### Frozen 98.10 box/mask comparison
+
+Primary definition checked: [TorchVision box_iou](https://docs.pytorch.org/vision/stable/generated/torchvision.ops.box_iou.html) returns intersection-over-union (Jaccard index), with XYXY corner coordinates. Reuse the two square references from98.1. Box areas use continuous half-open edges: max(0,right−left)×max(0,bottom−top); intersection uses clamped overlapping width/height; union=A+B−intersection; no inclusive-pixel +1. For zero union return null/“not defined,” not fabricated perfect agreement. Degenerate versus nonempty box has intersection0 and IoU0.
+
+Author-supplied candidate1: class square, score0.8, box `[1,1,4,3]`; candidate2: class square, score0.6, box `[3,3,5,5]`. Compare candidate1 only with square1 reference `[1,1,3,3]`: areas6 and4, intersection4, union6, IoU2/3. Candidate2 matches square2 exactly. Scores are supplied display fixtures, not model inference or calibrated probabilities. Score threshold defaults0.5 and retains score≥threshold; threshold0.7 hides candidate2 only. Score filtering is not spatial-overlap measurement, matching or duplicate suppression. No NMS required.
+
+Provide keyboard-editable candidate1 edges0–6 in integer steps; clamp/order edges or clearly validate invalid input. Keep reference and candidate outlines distinct with text labels. Reset restores the supplied candidate. Show current intersection/union arithmetic visibly beside image.
+
+Separate instance-mask comparison: square1 reference four pixels; supplied candidate mask copies those four ones plus `(row2,column3)`, hence5 candidate pixels,4 intersection,5 union, IoU0.8. Toggle individual6×6 candidate-mask cells with accessible buttons; reference stays fixed. Mask IoU counts pixels, not continuous box area. Two empty masks have undefined IoU under this lesson's convention. Semantic masks group the square class; instance masks refer to one identified object. Editing either geometry or mask does not run a detector/segmenter. Box and mask controls are independent demonstrations, not a claim their shapes must always coincide.
 
 ### Frozen 98.9 transfer-learning boundaries
 
