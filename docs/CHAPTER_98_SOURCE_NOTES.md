@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.5 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.6 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.6 implementation and learner review
+
+Three focused tests check complete ReLU/pooled tensors, unused-border exclusion, the information-loss comparison and immutability. Initial full validation caught an overly narrow literal-array reduce type; explicitly typing the readonly comparison arrays as numeric arrays fixed the build without changing data. All 252 tests, TypeScript/build and whitespace checks subsequently passed (`tmp/vision-986-check.log`).
+
+Desktop review at 1440×900 exercised both channels, all four pooling windows and keyboard selection. Inspected `tmp/vision-986-y.png`: signed inputs remain visible, ReLU contributors are outlined, unused border is hatched, and the comparison retains visible averages and equal maxima. Source/process and learner reviews found no remaining must-fix issues. No animation dependency. Existing bundle warning remains. Future CNN source preparation below was independently recomputed before adoption; no future lesson is published by these notes.
 
 ## 98.5 implementation and learner review
 
@@ -78,6 +84,48 @@ For98.2, optional grayscale convention is rounded weighted byte intensity `round
 
 ## Later mathematical contracts
 
+### Frozen 98.7–98.8 CNN corpus and forward convention
+
+Separate authored binary grayscale corpus; never use the colored-square scene as horizontal/vertical training data. Label/class order is horizontal=0, vertical=1. Each slash separates one six-pixel row. The four held-out structures are excluded before any fitting. Distinct source groups name distinct authored structures, not random splits of transformed copies. This tiny corpus is inspectable teaching data, not a generalization benchmark.
+
+| ID | Source group | Split | Label | Rows |
+| --- | --- | --- | --- | --- |
+| H1 | solid-horizontal | train | horizontal | `000000/000000/111111/111111/000000/000000` |
+| V1 | solid-vertical | train | vertical | `000000/001100/001100/001100/001100/000000` |
+| H2 | paired-horizontal | train | horizontal | `000000/111111/000000/000000/111111/000000` |
+| V2 | paired-vertical | train | vertical | `010010/010010/010010/010010/010010/010010` |
+| H3 | broken-horizontal | test | horizontal | `000000/000000/101010/101010/000000/000000` |
+| V3 | broken-vertical | test | vertical | `000000/010010/010010/000000/010010/010010` |
+| H4 | triple-horizontal | test | horizontal | `000000/111111/000000/111111/000000/111111` |
+| V4 | triple-vertical | test | vertical | `101010/101010/101010/101010/101010/101010` |
+
+Fixed authored filters in channel order: horizontal-edge `[[-1,-1,-1],[0,0,0],[1,1,1]]`, vertical-edge `[[-1,0,1],[-1,0,1],[-1,0,1]]`. These are not the earlier Sobel kernels and are not pretrained. Both convolution biases0; unflipped cross-correlation, stride1/no padding. ReLU elementwise;2×2 max pooling stride2/no padding covers each4×4 map fully. Shapes6×6×1→4×4×2→4×4×2→2×2×2→8→2. Flatten channel-major then row-major within each map.
+
+Expected eight features, independently recomputed with Python built-ins:
+
+```text
+H1 [3,3,0,0,0,0,0,0]
+V1 [2,2,0,0,3,0,3,0]
+H2 [0,0,3,3,0,0,0,0]
+V2 [0,0,0,0,0,3,0,3]
+H3 [2,2,0,0,0,0,0,0]
+V3 [1,1,1,1,0,2,0,2]
+H4 [0,0,0,0,0,0,0,0]
+V4 [0,0,0,0,0,0,0,0]
+```
+
+H1 forward tensor: horizontal convolution `[[3,3,3,3],[3,3,3,3],[-3,-3,-3,-3],[-3,-3,-3,-3]]`; vertical convolution all0. Horizontal ReLU `[[3,3,3,3],[3,3,3,3],[0,0,0,0],[0,0,0,0]]`, pooled `[[3,3],[0,0]]`; vertical ReLU/pool all0.
+
+For98.7 only, use a clearly **hand-chosen, supplied head**, not a fitted one: horizontal weights `[.25,.25,.25,.25,-.25,-.25,-.25,-.25]`, vertical opposite, both biases0. H1 scores `[1.5,-1.5]`, softmax `[0.9525741268,0.0474258732]`; probabilities are normalized class scores, not calibrated certainty. Show all weights and one score calculation.98.8 replaces this illustrative head by actually fitting from zero; do not imply those hand-chosen weights came from training.
+
+### Frozen 98.8 deterministic fitting procedure
+
+Initialize16 head weights and2 biases to0. Full-batch softmax cross-entropy, average gradients over train records H1,V1,H2,V2 in that order; learning rate0.05,200 epochs. Log mean training/test losses at epoch0 and after every update. Only the18 head parameters update;18 filter weights and2 fixed filter biases do not. Held-out labels never enter gradients. Softmax subtracts max score before exponentiation; loss should use stable log-sum-exp.
+
+Independent Python verification: epoch0 train loss0.6931471805599453, epoch1 0.6099361438973124, epoch10 0.2711810589326533, epoch200 0.016605757428318088. Central differences epsilon1e-5 at initialization give weight-gradient max absolute error3.1e-12; implementation must check bias gradients too and preferably a nonzero-parameter point.
+
+Final horizontal weights `[0.3023263165000687,0.3023263165000687,0.3679856800623563,0.3679856800623563,-0.5358750280470677,-0.377114109678589,-0.5358750280470677,-0.377114109678589]`; vertical weights are opposite within floating-point tolerance. Biases `[0.03819095917827112,-0.03819095917827109]`. H1 final scores approximately `[1.852149,-1.852149]`. H3/V3 probabilities approximately `[.923790,.076210]`/`[.435540,.564460]`. H4/V4 both have zero features and the same near-even distribution `[.519086,.480914]`; argmax chooses horizontal so V4 is a visible error. Do not hide this limitation or claim natural-image performance. Earlier rejected drafts with a square labelled vertical, transformed cross-split bars or an incorrect initial loss are not fixtures.
+
 ### 98.2 numeric conventions
 
 Weighted grayscale bytes for background/teal/orange are 232/102/155 (unrounded 231.884/101.950/154.800). RGB has 108 scalar values; grayscale has 36. Channel views show the selected channel as neutral brightness, not as a re-colored RGB image. Edits copy one channel in one pixel without changing the frozen scene. Reset restores the source image. Displayed normalization divides the current byte by 255; it is not mean/std standardization. No annotations or model predictions are computed from exploratory edits.
@@ -134,4 +182,4 @@ Reuse the x/y 5×5 signed feature maps from 98.5, stride1/padding1. ReLU acts el
 
 Representative first x pooling window `[1,1;3,4]` retains maximum4 (average9/4=2.25). Information-loss comparison uses two separately authored windows A=`[[1,1],[3,4]]`, B=`[[0,0],[0,4]]`: both max-pool to4 despite different input values; their averages2.25 and1 differ. Pooling has no learned parameters here. It reduces spatial detail and does not guarantee invariance to every shift. The future6×6 CNN uses4×4 feature maps so its2×2 pooling windows cover the whole map; keep this distinction explicit in source notes.
 
-Do not fit the future classifier on this colored scene or pretend its task label is a horizontal/vertical training target. Before98.4, record exact separate5×5 grayscale values/kernels/biases and hand-calculated outputs. Before98.7–8, record every6×6 pattern/source group/label/split, channel/flatten order, fixed filters and head parameters; training/test examples cannot be copies differing only in imperceptible noise. Only the head trains. Claims and curves must come from the actual documented computations, never hand-picked accuracy/weights.
+Keep the three fixtures distinct: colored-square annotations, the5×5 filter arithmetic example and the6×6 horizontal/vertical corpus. Only the head trains in98.8;98.7's explicitly hand-chosen head is a separate forward-pass illustration. Training/test examples cannot be transformed copies of the same source group. Claims and fitting curves must come from the documented computations, never invented results.
