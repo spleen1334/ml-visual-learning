@@ -64,7 +64,8 @@ Standing authorization: continue through the remaining chapter plan, one lesson 
 | 98.8 Head fitting | [x] | [x] 263 tests, build, diff and desktop/keyboard review | [x] |
 | 98.9 Transfer learning | [x] | [x] 263 tests, build, diff and desktop/keyboard review | [x] |
 | 98.10 Boxes/masks | [x] | [x] 268 tests, build, diff and desktop/keyboard review | [x] |
-| 98.11–98.12, individually | [ ] | [ ] | [ ] |
+| 98.11 Robustness/evaluation | [x] | [x] 272 tests, build, diff and desktop/keyboard review | [x] |
+| 98.12 Full pipeline | [ ] | [ ] | [ ] |
 
 Grouped rows organize dependencies; each lesson gets its own review and commit. A modest first milestone is 98.1–98.4, reviewed individually, before implementing the complete network. Optional quizzes are deferred until the visuals work well.
 

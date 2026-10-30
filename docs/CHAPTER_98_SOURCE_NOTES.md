@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.10 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.11 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.11 implementation and learner review
+
+Four focused tests verify all16 transformed feature/probability references, exact confusion matrices/metrics, undefined denominators, source-group membership and preserved inputs/fitted head. All272 tests, TypeScript/build and whitespace checks passed (`tmp/vision-9811-check.log`). Desktop1440×900 review checked all presets (3/4,2/4,3/4,4/4), keyboard-selected shiftedH4's error cell and traced its ID/input/prediction, then inspected corner-noiseV4. Inspected `tmp/vision-9811-shift.png`.
+
+Review fixed gray0.5pixel-label contrast: browser verification confirms foregroundrgb(34,34,34) onrgb(128,128,128), while binary1 remains white-on-black. Source/process and learner reviews confirm observed/predicted orientation, record-linked metrics, unchanged fit, sample-size limitations and hypothetical shortcut-learning boundary. No remaining must-fix finding. Static controls have no playback dependency. Existing bundle warning remains.
 
 ## 98.10 implementation and learner review
 
@@ -107,6 +113,14 @@ Task output shapes: image classification one supplied label; detection two boxes
 For98.2, optional grayscale convention is rounded weighted byte intensity `round((299R+587G+114B)/1000)`; normalized RGB/intensity divides bytes by255, separate from mean/std standardization. Any pixel edit must be represented as an exploratory image edit, not silently reusing annotations as model predictions. For98.3, horizontal flip maps pixel column c→5−c and box edges x→6−x (new left=6−old right, new right=6−old left). Categorical masks use nearest-neighbor resampling; resize/crop/padding conventions must be frozen before implementation.
 
 ## Later mathematical contracts
+
+### Frozen 98.12 workflow and ViT comparison
+
+Reuse actual200epoch head fitting and the same CNN forward pass. Default separate prediction inputH3; allow other held-out IDs. Workflow: data/split and quality → preparation/dimensions → fixed representation → head fitting or fitted-model inference → scores/probabilities → held-out evaluation/error review. Labels enter only fitting/evaluation, not the prediction feature input. All workflow steps stay visible and selectable, with task/tools/output and practical next action. Common use cases should separately name image labels, object boxes and pixel masks; Note should emphasize task-specific checks and that every tool is not mandatory.
+
+ViT source: Dosovitskiy et al., [§3.1](https://arxiv.org/abs/2010.11929), readable [paper HTML](https://ar5iv.labs.arxiv.org/html/2010.11929#S3.SS1). It describes flattened non-overlapping patches, a trainable linear projection, added positional embeddings and a Transformer encoder. A prepended learnable class token provides an image representation to a classification head. Encoder patch attention is not the causal next-token decoder mask shown in Chapter99. No benchmark or current-ranking claim is needed.
+
+Toy arithmetic only: split the same6×6 single-channel input into nine non-overlapping2×2 patches, row-major order, four values per patch read row-major. Use a fixed authored projection `[[1,0,0,0],[0,1,0,0],[0,0,.5,.5]]`, zero bias, giving three-dimensional patch vectors. Position for patch grid(r,c), r/c0–2, is the authored vector`[r/2,c/2,0]`; add elementwise. For H1 patch4 (zero-based index3, patchrow1/col0), values`[1,1,1,1]`→projection`[1,1,1]`→positionadded`[1.5,1,1]`. For defaultH3's same patch: `[1,0,1,0]`→`[1,0,.5]`→`[1.5,0,.5]`. These positions are a small explicit teaching convention, not a claim about the paper's learned positional values. A schematic class token makes9patch tokens+1class token=10encoder inputs; no encoder/attention/classifier output is computed for this comparison. No second training system, checkpoint or pretrained output. Clearly distinguish computed patch arithmetic from the schematic Transformer encoder and original paper's learned embeddings.
 
 ### Frozen 98.11 robustness fixtures and metrics
 

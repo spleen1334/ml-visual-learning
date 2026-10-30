@@ -1,0 +1,49 @@
+.vr-lesson { max-width: 1200px; margin: 0 auto; padding: 24px 0 64px; color: #173e3b; }
+.vr-header { max-width: 1000px; margin-bottom: 30px; }
+.vr-header h1 { font: 700 clamp(2.5rem, 4vw, 3.8rem)/1.05 Georgia, serif; margin: 12px 0 20px; }
+.vr-header > p:last-child, .vr-heading > p { color: #587169; line-height: 1.5; }
+.vr-definition { font-size: 1.65rem; line-height: 1.35; }
+.vr-eyebrow, .vr-kicker { font-size: .75rem; font-weight: 800; letter-spacing: .12em; color: #668d7c; }
+.vr-panel, .vr-iou { border: 1px solid #d4e1d6; border-radius: 18px; padding: 28px; background: #fafbf5; box-shadow: 0 12px 35px #1e554010; }
+.vr-iou { margin-top: 24px; background: #f4f7ef; }
+.vr-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+.vr-heading h2, .vr-iou h2 { font: 700 1.8rem Georgia, serif; margin: 4px 0; }
+.vr-heading > p { max-width: 400px; }
+.vr-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 22px 0; }
+.vr-presets button { display: flex; flex-direction: column; gap: 5px; padding: 12px; border: 1px solid #c9d9cd; border-radius: 9px; background: white; color: #234b42; text-align: left; cursor: pointer; }
+.vr-presets button[aria-pressed='true'] { background: #17675c; color: white; border-color: #17675c; }
+.vr-presets button:focus-visible, .vr-results button:focus-visible, .vr-matrix button:focus-visible { outline: 3px solid #bd8a28; outline-offset: 2px; position: relative; }
+.vr-main, .vr-evaluation { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.vr-inspect, .vr-results, .vr-evaluation > div { padding: 18px; border: 1px solid #d8e5d8; border-radius: 12px; background: #f4f7ef; min-width: 0; }
+.vr-inspect { background: #fff8e7; border-color: #ebdfbd; }
+.vr-inspect p, .vr-results p, .vr-evaluation p, .vr-iou p { line-height: 1.5; }
+.vr-images { display: flex; gap: 18px; align-items: center; }
+.vr-images > span { color: #86a99a; font-size: 1.5rem; }
+.vr-images b { display: block; font-size: .85rem; margin-bottom: 6px; }
+.vr-pixels { display: grid; grid-template-columns: repeat(6, 1fr); width: 150px; max-width: 100%; aspect-ratio: 1; }
+.vr-pixels span { display: grid; place-items: center; font-size: .65rem; border: 1px solid #d9ded8; }
+.vr-small { color: #587169; font-size: .88rem; }
+.vr-error { color: #a03e2e; font-weight: 700; }
+.vr-table-wrap { overflow-x: auto; }
+.vr-results table, .vr-matrix { width: 100%; border-collapse: collapse; background: white; font-size: .9rem; }
+.vr-results th, .vr-results td, .vr-matrix th, .vr-matrix td { padding: 8px; border: 1px solid #d8e5d8; text-align: left; }
+.vr-results button { border: 1px solid #b7cdbf; background: white; color: #17675c; border-radius: 6px; padding: 5px 8px; cursor: pointer; font-weight: 700; }
+.vr-results button[aria-pressed='true'] { background: #17675c; color: white; }
+.vr-results .vr-contributing { background: #fff0ca; }
+.vr-results .vr-selected-row th { box-shadow: inset 3px 0 #17675c; }
+.vr-evaluation { margin-top: 18px; }
+.vr-evaluation h3 { font: 700 1.35rem Georgia, serif; margin: 3px 0; }
+.vr-matrix td { text-align: center; padding: 3px; }
+.vr-matrix button { width: 100%; padding: 10px; background: #fff; border: 1px solid #d8e5d8; color: #173e3b; font-weight: 700; cursor: pointer; }
+.vr-matrix button[aria-pressed='true'] { background: #17675c; color: white; }
+.vr-cell-result { background: #fff8e7; border-left: 3px solid #d2aa52; padding: 8px 12px; }
+.vr-metric { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 10px 0; border-top: 1px solid #d8e5d8; }
+.vr-metric > b { min-width: 80px; text-transform: capitalize; }
+.vr-metric > span:nth-last-child(-n+2) { display: inline-flex; align-items: center; gap: .3em; }
+.vr-fraction { display: inline-flex; flex-direction: column; align-items: stretch; text-align: center; line-height: 1.2; font-family: Georgia, serif; vertical-align: middle; }
+.vr-fraction span:first-child { border-bottom: 1px solid currentColor; padding: 0 .25em .1em; }
+.vr-fraction span:last-child { padding-top: .1em; }
+.vr-note { color: #587169; line-height: 1.5; margin-bottom: 0; }
+.vr-iou a { color: #17675c; }
+@media (max-width: 850px) { .vr-heading { display: block; } .vr-presets { grid-template-columns: repeat(2, 1fr); } .vr-main, .vr-evaluation { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .vr-panel, .vr-iou { padding: 18px; } .vr-pixels { width: 110px; } }
