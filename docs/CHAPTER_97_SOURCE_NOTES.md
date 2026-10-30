@@ -1,6 +1,10 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.10 implemented and reviewed; 97.11 remains an unpublished outline. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.11 implemented and reviewed. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+
+## 97.11 final workflow integration review
+
+Reuses CS11, the training-only classifier, independent FAQ index, supplied entity spans and separate evaluation fixtures. Three focused integration tests trace outputs to those existing computations. Clarified the positive class and corrected destination link labels. All 225 tests, TypeScript/build and diff whitespace checks passed. Desktop review at 1440×900 covered branches, manual/keyboard stepping, autoplay, and reduced-motion completed state; a final browser check observed natural autoplay completion at step 6 with Replay available. Screenshot: `tmp/nlp-workflow-review.png`. No new source examples or live NER/LLM claims were introduced. Existing bundle-size warning remains; no deployment performed.
 
 ## 97.10 task-specific evaluation and review · 2026-10-29
 

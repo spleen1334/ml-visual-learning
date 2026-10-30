@@ -87,6 +87,7 @@ import { NLPSearch } from '../chapters/NLPSearch'
 import { NLPDenseSearch } from '../chapters/NLPDenseSearch'
 import { NLPExtraction } from '../chapters/NLPExtraction'
 import { NLPEvaluation } from '../chapters/NLPEvaluation'
+import { NLPWorkflow } from '../chapters/NLPWorkflow'
 
 export type Subchapter = {
   id: string
@@ -340,7 +341,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'search-beyond-exact-words', title: 'Search beyond exact words', content: NLPDenseSearch },
     { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record', content: NLPExtraction },
     { id: 'how-do-we-know-it-works', title: 'How do we know it works?', content: NLPEvaluation },
-    { id: 'follow-the-complete-nlp-workflow', title: 'Follow the complete NLP workflow' },
+    { id: 'follow-the-complete-nlp-workflow', title: 'Follow the complete NLP workflow', content: NLPWorkflow },
   ] },
   { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },

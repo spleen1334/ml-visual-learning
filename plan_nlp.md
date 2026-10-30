@@ -61,7 +61,7 @@ Standing authorization (2026-10-29): continue automatically one lesson at a time
 | 97.8 Dense search | [x] | [x] 214 tests, build, diff and desktop review | [x] |
 | 97.9 Extraction | [x] | [x] 218 tests, build, diff and desktop review | [x] |
 | 97.10 Evaluation | [x] | [x] 222 tests, build, diff and desktop review | [x] |
-| 97.11 Workflow | [ ] | [ ] | [ ] |
+| 97.11 Workflow | [x] | [x] 225 tests, build, diff and desktop review | [x] |
 
 The grouped rows above organize dependencies, not permission to batch lessons into one implementation or commit. Optional quizzes can be considered after the visual lessons are reviewed; they are not required for this plan.
 
