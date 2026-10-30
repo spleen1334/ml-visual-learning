@@ -55,7 +55,8 @@ Standing authorization: continue through the remaining chapter plan, one lesson 
 | Lesson | Implementation | Verification | Scoped commit |
 | --- | --- | --- | --- |
 | 98.1 Task outputs | [x] | [x] 230 tests, build, diff and desktop/keyboard review | [x] |
-| 98.2–98.12, individually | [ ] | [ ] | [ ] |
+| 98.2 Pixel inspector | [x] | [x] 233 tests, build, diff and desktop/keyboard review | [x] |
+| 98.3–98.12, individually | [ ] | [ ] | [ ] |
 
 Grouped rows organize dependencies; each lesson gets its own review and commit. A modest first milestone is 98.1–98.4, reviewed individually, before implementing the complete network. Optional quizzes are deferred until the visuals work well.
 

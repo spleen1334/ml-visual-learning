@@ -89,6 +89,7 @@ import { NLPExtraction } from '../chapters/NLPExtraction'
 import { NLPEvaluation } from '../chapters/NLPEvaluation'
 import { NLPWorkflow } from '../chapters/NLPWorkflow'
 import { VisionTasks } from '../chapters/VisionTasks'
+import { VisionPixels } from '../chapters/VisionPixels'
 
 export type Subchapter = {
   id: string
@@ -346,7 +347,7 @@ export const chapters: readonly Chapter[] = [
   ] },
   { id: 'chapter-98', number: '98', title: 'Computer Vision', subtitle: 'From pixels to labels, boxes and masks', subchapters: [
     { id: 'what-can-a-computer-see', title: 'What can a computer see?', content: VisionTasks },
-    { id: 'an-image-is-a-grid-of-numbers', title: 'An image is a grid of numbers' },
+    { id: 'an-image-is-a-grid-of-numbers', title: 'An image is a grid of numbers', content: VisionPixels },
     { id: 'preparing-images-without-changing-the-task', title: 'Preparing images without changing the task' },
     { id: 'a-filter-slides-over-an-image', title: 'A filter slides over an image' },
     { id: 'stride-padding-and-feature-maps', title: 'Stride, padding and feature maps' },

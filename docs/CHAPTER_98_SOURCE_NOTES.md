@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.2 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.2 implementation and learner review
+
+`VisionPixels` exposes RGB/channel/grayscale views, zero-based coordinates, arrow-key pixel selection, bounded channel edits and reset. Three focused tests check grayscale rounding, normalization endpoints and immutable single-channel edits. Removed an unnecessary double type assertion during review; rendered RGB triples are typed explicitly. The grayscale arithmetic now uses a stacked fraction consistent with the project's formula convention.
+
+All 233 tests, TypeScript/build and whitespace checks passed. Desktop review at 1440×900 selected a pixel by keyboard, changed red 40→200, observed only the chosen pixel change and grayscale 102→150, then reset to 102. Screenshot inspected: `tmp/vision-982-fraction.png`. No remaining must-fix finding. No animation or external model; reduced-motion playback checks are not applicable. Existing bundle warning remains.
 
 ## 98.1 implementation and learner review
 
@@ -53,6 +59,23 @@ Task output shapes: image classification one supplied label; detection two boxes
 For98.2, optional grayscale convention is rounded weighted byte intensity `round((299R+587G+114B)/1000)`; normalized RGB/intensity divides bytes by255, separate from mean/std standardization. Any pixel edit must be represented as an exploratory image edit, not silently reusing annotations as model predictions. For98.3, horizontal flip maps pixel column c→5−c and box edges x→6−x (new left=6−old right, new right=6−old left). Categorical masks use nearest-neighbor resampling; resize/crop/padding conventions must be frozen before implementation.
 
 ## Later mathematical contracts
+
+### 98.2 numeric conventions
+
+Weighted grayscale bytes for background/teal/orange are 232/102/155 (unrounded 231.884/101.950/154.800). RGB has 108 scalar values; grayscale has 36. Channel views show the selected channel as neutral brightness, not as a re-colored RGB image. Edits copy one channel in one pixel without changing the frozen scene. Reset restores the source image. Displayed normalization divides the current byte by 255; it is not mean/std standardization. No annotations or model predictions are computed from exploratory edits.
+
+### Frozen 98.3 preparation conventions
+
+Reuse the original 6×6 scene. Transform image pixels, both binary masks and continuous XYXY boxes together. All resize demonstrations use nearest-neighbor sampling: destination pixel `(r,c)` takes source `(floor(r×H/Hout), floor(c×W/Wout))`. Categorical masks never interpolate class IDs. Coordinate transforms act on box edges, not pixel centers.
+
+- **Original:** 6×6, two objects, boxes `[1,1,3,3]` and `[3,3,5,5]`, four mask pixels each.
+- **Stretch to 12×6 (width×height):** double x edges, keep y. Boxes `[2,1,6,3]`, `[6,3,10,5]`; masks eight pixels each. Squares become rectangles: the aspect ratio changes.
+- **Fit inside 12×6:** preserve the 1:1 image aspect ratio; keep the 6×6 image and add three background columns on each side. Boxes `[4,1,6,3]`, `[6,3,8,5]`; four mask pixels each. Padding has semantic background and no instance membership.
+- **Pad by one:** output 8×8, add one background row/column on all sides. Boxes `[2,2,4,4]`, `[4,4,6,6]`, four mask pixels each.
+- **Crop top-left 3×3:** source rows/columns `[0,3)`. First box remains `[1,1,3,3]` with four pixels; second is fully removed and must be omitted, not retained as a zero-area annotation. Output 3×3. The supplied image-level label `two colored squares` no longer applies.
+- **Horizontal flip:** output 6×6; column c maps to 5−c, box edges use new left=6−old right and new right=6−old left. Boxes `[3,1,5,3]`, `[1,3,3,5]`; four pixels per object. The square class remains valid. A separate explicitly authored right-arrow/left-arrow comparison illustrates why a direction-sensitive label must change after a flip; it is not an annotation for the square scene.
+
+Operations are independent presets applied to the original, not a cumulative editing pipeline. Original is the reversible reset. Augmentation means making altered training examples while preserving or updating their labels for the task; cropping away an object does not preserve an image-level count label. These exact resizing/cropping rules and values are authored contracts, not claims about a particular library's default interpolation.
 
 ### Verified initial task definitions
 
