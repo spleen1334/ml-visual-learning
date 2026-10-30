@@ -1,8 +1,8 @@
 # Computer Vision · visual chapter plan
 
-Status: implementation authorized; proceeding one lesson at a time. Only completed, verified lessons enter published navigation.
+Status: all twelve lessons implemented, verified and committed individually. Optional quizzes and broader course polish remain deferred.
 
-Proposed placement: **Chapter 98 — Computer Vision**, between proposed Chapter 97 (NLP) and existing Chapter 99 (LLMs). Numbers are provisional until implementation. Preserve existing course and Chapter 99 URLs.
+Placement: **Chapter 98 — Computer Vision**, between Chapter 97 (NLP) and Chapter 99 (LLMs). Existing course and Chapter 99 URLs are preserved.
 
 ## Learning goal and scope
 
@@ -65,7 +65,7 @@ Standing authorization: continue through the remaining chapter plan, one lesson 
 | 98.9 Transfer learning | [x] | [x] 263 tests, build, diff and desktop/keyboard review | [x] |
 | 98.10 Boxes/masks | [x] | [x] 268 tests, build, diff and desktop/keyboard review | [x] |
 | 98.11 Robustness/evaluation | [x] | [x] 272 tests, build, diff and desktop/keyboard review | [x] |
-| 98.12 Full pipeline | [ ] | [ ] | [ ] |
+| 98.12 Full pipeline | [x] | [x] 277 tests, build, diff, desktop/keyboard and chapter-wide routing review | [x] |
 
 Grouped rows organize dependencies; each lesson gets its own review and commit. A modest first milestone is 98.1–98.4, reviewed individually, before implementing the complete network. Optional quizzes are deferred until the visuals work well.
 

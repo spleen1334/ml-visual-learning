@@ -99,6 +99,7 @@ import { VisionTraining } from '../chapters/VisionTraining'
 import { VisionTransfer } from '../chapters/VisionTransfer'
 import { VisionOverlap } from '../chapters/VisionOverlap'
 import { VisionRobustness } from '../chapters/VisionRobustness'
+import { VisionPipeline } from '../chapters/VisionPipeline'
 
 export type Subchapter = {
   id: string
@@ -366,7 +367,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'reusing-learned-features', title: 'Reusing learned features', content: VisionTransfer },
     { id: 'from-labels-to-boxes-and-masks', title: 'From labels to boxes and masks', content: VisionOverlap },
     { id: 'test-the-model-beyond-familiar-images', title: 'Test the model beyond familiar images', content: VisionRobustness },
-    { id: 'follow-the-full-vision-pipeline', title: 'Follow the full vision pipeline' },
+    { id: 'follow-the-full-vision-pipeline', title: 'Follow the full vision pipeline', content: VisionPipeline },
   ] },
   { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },

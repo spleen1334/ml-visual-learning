@@ -1,8 +1,12 @@
 # ML Visual Interactive
 
-A personal, interactive learning companion for the first eighteen chapters of the visual ML course. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
+A personal, interactive learning companion to the visual ML course, with supplementary NLP, Computer Vision and LLM chapters. This app and Git repository live entirely in this folder. Original videos, subtitles, PDF and workbooks remain outside the app as read-only sources.
 
 ## Current milestone
+
+The published outline now includes Chapters 01–21 and the completed supplementary chapters **97 NLP (11 lessons), 98 Computer Vision (12 lessons), and 99 LLMs (14 lessons)**. Computer Vision covers image tasks, pixels, preparation, filters, CNN inference, actual output-head fitting, transfer-learning concepts, boxes/masks, robustness and the complete pipeline with a brief Vision Transformer comparison. See its [source notes](docs/CHAPTER_98_SOURCE_NOTES.md), [completion review](docs/CHAPTER_98_REVIEW.md), and [chapter plan](plan_computer_vision.md). All 277 tests and the production build pass; the existing large-bundle warning remains. Broader polish and undecided quiz/navigation work stay in [todo.md](todo.md).
+
+## Earlier chapter milestones
 
 Chapters 01–18 are implemented. [Chapter 18 — Clustering & Segmentation](http://127.0.0.1:5173/#chapter-18) follows the source lessons with the complete 50-customer K-Means workbook case and an optional source-based quiz. [Chapter 17 — Intro to Unsupervised ML](http://127.0.0.1:5173/#chapter-17) includes its optional quiz, feature-engineering table, and inspectable workflow; [Chapter 16 — Part 4: Unsupervised Learning](http://127.0.0.1:5173/#chapter-16) introduces the five-topic sequence. See the [Chapter 18 source notes](docs/CHAPTER_18_SOURCE_NOTES.md), [Chapter 17 source notes](docs/CHAPTER_17_SOURCE_NOTES.md), [Chapter 16 source notes](docs/CHAPTER_16_SOURCE_NOTES.md), Chapter 15 [source notes](docs/CHAPTER_15_SOURCE_NOTES.md), [workbook notes](docs/CHAPTER_15_WORKBOOK_NOTES.md), and [verification review](docs/CHAPTER_15_REVIEW.md). Chapter 02 — The ML Landscape has four subchapters:
 

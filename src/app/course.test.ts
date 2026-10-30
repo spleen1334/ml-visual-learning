@@ -276,13 +276,13 @@ describe('chapter ninety-seven gradual publication', () => {
 })
 
 describe('chapter ninety-eight gradual publication', () => {
-  it('publishes the first eleven vision lessons between NLP and LLMs, with stable aliases', () => {
+  it('publishes all twelve vision lessons between NLP and LLMs, with stable aliases', () => {
     const chapter = chapters.find(item => item.id === 'chapter-98')!
     expect(chapter.subchapters).toHaveLength(12)
-    expect(chapter.subchapters?.slice(11).every(item => !item.content)).toBe(true)
+    expect(chapter.subchapters?.every(item => !!item.content)).toBe(true)
     const all = publishedLessons()
     const lessons = all.filter(item => item.chapter.id === chapter.id)
-    expect(lessons.map(item => item.href)).toEqual(['#chapter-98/98.1-what-can-a-computer-see', '#chapter-98/98.2-an-image-is-a-grid-of-numbers', '#chapter-98/98.3-preparing-images-without-changing-the-task', '#chapter-98/98.4-a-filter-slides-over-an-image', '#chapter-98/98.5-stride-padding-and-feature-maps', '#chapter-98/98.6-activations-and-pooling', '#chapter-98/98.7-inside-a-small-cnn', '#chapter-98/98.8-how-does-a-vision-model-learn', '#chapter-98/98.9-reusing-learned-features', '#chapter-98/98.10-from-labels-to-boxes-and-masks', '#chapter-98/98.11-test-the-model-beyond-familiar-images'])
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-98/98.1-what-can-a-computer-see', '#chapter-98/98.2-an-image-is-a-grid-of-numbers', '#chapter-98/98.3-preparing-images-without-changing-the-task', '#chapter-98/98.4-a-filter-slides-over-an-image', '#chapter-98/98.5-stride-padding-and-feature-maps', '#chapter-98/98.6-activations-and-pooling', '#chapter-98/98.7-inside-a-small-cnn', '#chapter-98/98.8-how-does-a-vision-model-learn', '#chapter-98/98.9-reusing-learned-features', '#chapter-98/98.10-from-labels-to-boxes-and-masks', '#chapter-98/98.11-test-the-model-beyond-familiar-images', '#chapter-98/98.12-follow-the-full-vision-pipeline'])
     expect(resolveLesson(lessons[0].href).section).toBe(chapter.subchapters?.[0])
     expect(resolveLesson('#chapter-98/what-can-a-computer-see').section).toBe(chapter.subchapters?.[0])
     expect(resolveLesson(lessons[1].href).section).toBe(chapter.subchapters?.[1])
@@ -305,9 +305,11 @@ describe('chapter ninety-eight gradual publication', () => {
     expect(resolveLesson('#chapter-98/from-labels-to-boxes-and-masks').section).toBe(chapter.subchapters?.[9])
     expect(resolveLesson(lessons[10].href).section).toBe(chapter.subchapters?.[10])
     expect(resolveLesson('#chapter-98/test-the-model-beyond-familiar-images').section).toBe(chapter.subchapters?.[10])
+    expect(resolveLesson(lessons[11].href).section).toBe(chapter.subchapters?.[11])
+    expect(resolveLesson('#chapter-98/follow-the-full-vision-pipeline').section).toBe(chapter.subchapters?.[11])
     const index = all.indexOf(lessons[0])
     expect(all[index - 1].href).toBe('#chapter-97/97.11-follow-the-complete-nlp-workflow')
-    expect(all[index + 11].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
+    expect(all[index + 12].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
   })
 })
 

@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.11 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: all twelve lessons implemented and reviewed, with one scoped commit per lesson. Chapter97's final workflow was completed first. Plan: `../plan_computer_vision.md`; final review: `CHAPTER_98_REVIEW.md`.
+
+## 98.12 implementation and learner review
+
+Five focused patch tests verify the fixed projection, complete reconstruction/order for H1/H3, vector dimensions, exact worked patch values and immutability. All277 tests, TypeScript/build and whitespace checks passed (`tmp/vision-9812-check.log`). Desktop1440×900 keyboard review covered workflow steps, V4 prediction/evaluation and patch selection. The final browser check reconfirmed H3 patch4 arithmetic `[1,0,.5]+[.5,0,0]=[1.5,0,.5]` and the next link to99.1. Inspected `tmp/vision-9812-final.png`; V4 screenshot retained too.
+
+Source/process and learner review confirm actual fitted-head outputs, label/fitting/inference boundaries, complete ungated workflow with Common use cases/Note, and a clearly schematic ViT encoder/head separate from computed toy patch arithmetic. Review added a labelled confusion table; no remaining must-fix finding. A chapter-wide desktop sweep rendered all12 canonical routes at1440px without page-level horizontal overflow and confirmed predecessor links (`tmp/vision-chapter-desktop-sweep.json`). Final browser error list was empty. Static workflow/patch controls have no playback dependency. Existing bundle warning remains.
 
 ## 98.11 implementation and learner review
 

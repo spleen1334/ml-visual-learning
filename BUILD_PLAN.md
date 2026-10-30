@@ -2,6 +2,10 @@
 
 # ML Visual Interactive — build plan
 
+## Current supplementary milestone
+
+NLP 97.1–97.11, Computer Vision 98.1–98.12 and LLMs 99.1–99.14 are implemented. Computer Vision was completed one verified, desktop-reviewed scoped commit per lesson, after finishing NLP's final workflow. See [the Computer Vision plan](plan_computer_vision.md) and [completion review](docs/CHAPTER_98_REVIEW.md) for current scope and evidence. The dated proposal below is historical; current teaching/layout conventions are in `AGENTS.md` and `docs/LEARNING_STYLE.md`, and deferred work remains in `todo.md`.
+
 Date: 2026-10-16. Original plan below; implementation has started. Chapter 01 has been reviewed. Chapter 02 is available for user review in four subchapters. See [README.md](README.md) for startup and [previews/CHAPTER_01_REVIEW.md](previews/CHAPTER_01_REVIEW.md) for verification. Chapter 03 is committed as a short inventory orientation. Chapter 04 is implemented in six subchapters and ready for review. Chapter 05 is implemented in 19 source-aligned lessons and awaiting user review. Chapter 06 is implemented in its 15-lesson sequence and ready for review; Chapter 07 is implemented as a short visual Part 2 orientation; Chapter 08 is implemented in eight classification-foundation lessons and ready for review; Chapter 09 is implemented in 25 classification-model lessons and ready for review; Chapter 10 is implemented in ten selection-and-evaluation lessons; Chapter 11 is implemented as a short visual Part 3 orientation.
 
 Build a small browser learning companion that follows the local course chapter order and lets the learner change data, predict what will happen, and explain the resulting charts. Start with chapters 01–05. Chapters 01–03 should be short orientation activities; most implementation effort belongs to Preliminary Data QA and Univariate Profiling.
