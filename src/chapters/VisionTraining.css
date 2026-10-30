@@ -1,0 +1,46 @@
+.vtrain-lesson { max-width: 1200px; margin: 0 auto; padding: 24px 0 64px; color: #173e3b; }
+.vtrain-header { max-width: 1000px; margin-bottom: 30px; }
+.vtrain-header h1 { font: 700 clamp(2.5rem, 4vw, 3.8rem)/1.05 Georgia, serif; margin: 12px 0 20px; }
+.vtrain-header p:not(.vtrain-definition):not(.vtrain-eyebrow) { color: #587169; line-height: 1.5; }
+.vtrain-header a { color: #17675c; }
+.vtrain-definition { font-size: 1.65rem; line-height: 1.35; }
+.vtrain-eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .12em; color: #668d7c; }
+.vtrain-panel { border: 1px solid #d4e1d6; border-radius: 18px; padding: 26px 28px; margin-bottom: 24px; background: #fafbf5; box-shadow: 0 12px 35px #1e554010; }
+.vtrain-panel h2 { font: 700 1.8rem Georgia, serif; margin: 5px 0 12px; }
+.vtrain-panel h3 { font: 700 1.2rem Georgia, serif; margin: 8px 0; }
+.vtrain-panel > p, .vtrain-progress p, .vtrain-update p, .vtrain-prediction p { line-height: 1.5; }
+.vtrain-datasets { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.vtrain-datasets > div { background: #f4f7ef; border: 1px solid #d8e5d8; border-radius: 10px; padding: 14px; }
+.vtrain-patterns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.vtrain-patterns > div { display: flex; flex-direction: column; gap: 4px; }
+.vtrain-patterns small { color: #587169; }
+.vtrain-pixels { display: grid; grid-template-columns: repeat(6, 1fr); width: min(100%, 76px); aspect-ratio: 1; border: 1px solid #cad9cf; background: white; }
+.vtrain-pixels span { border: 1px solid #e6e9e4; }
+.vtrain-pixels .vtrain-pixel-on { background: #262626; border-color: #555; }
+.vtrain-note { color: #587169; font-size: .9rem; }
+.vtrain-actions, .vtrain-predict-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0; }
+.vtrain-actions button, .vtrain-predict-controls button { padding: 9px 12px; color: #234b42; background: white; border: 1px solid #c9d9cd; border-radius: 8px; cursor: pointer; font-weight: 700; }
+.vtrain-actions button:disabled { opacity: .5; cursor: default; }
+.vtrain-predict-controls button[aria-pressed='true'] { background: #17675c; border-color: #17675c; color: white; }
+.vtrain-actions button:focus-visible, .vtrain-predict-controls button:focus-visible { outline: 3px solid #bd8a28; outline-offset: 2px; }
+.vtrain-actions > b { margin-left: 8px; }
+.vtrain-progress { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.vtrain-progress > div { padding: 16px; background: #f4f7ef; border: 1px solid #d8e5d8; border-radius: 10px; min-width: 0; }
+.vtrain-chart { width: 100%; max-width: 470px; display: block; background: white; }
+.vtrain-chart text { font-size: 11px; fill: #506e67; }
+.vtrain-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .85rem; color: #587169; }
+.vtrain-legend span:first-child { color: #17675c; }.vtrain-legend span:nth-child(2) { color: #a65418; }
+.vtrain-table-wrap { overflow-x: auto; }
+.vtrain-panel table { border-collapse: collapse; background: white; font-size: .85rem; }
+.vtrain-progress table { width: 100%; }
+.vtrain-panel th, .vtrain-panel td { border: 1px solid #d8e5d8; padding: 7px; text-align: center; white-space: nowrap; }
+.vtrain-update { background: #fff8e7; border-left: 3px solid #d2aa52; padding: 18px 20px; margin-top: 20px; }
+.vtrain-equation { display: flex; align-items: center; flex-wrap: wrap; gap: .4em; margin: 12px 0; }
+.vtrain-fraction { display: inline-flex; flex-direction: column; align-items: stretch; text-align: center; }
+.vtrain-fraction span:first-child { border-bottom: 1px solid currentColor; padding: 0 .2em .1em; }
+.vtrain-fraction span:last-child { padding-top: .1em; }
+.vtrain-prediction { display: flex; gap: 20px; align-items: start; padding: 18px; background: #f4f7ef; border: 1px solid #d8e5d8; border-radius: 10px; }
+.vtrain-prediction .vtrain-pixels { flex: 0 0 100px; width: 100px; }
+.vtrain-prediction p { margin: 0 0 8px; }
+@media (max-width: 850px) { .vtrain-datasets, .vtrain-progress { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .vtrain-panel { padding: 18px; } .vtrain-prediction { flex-direction: column; } }

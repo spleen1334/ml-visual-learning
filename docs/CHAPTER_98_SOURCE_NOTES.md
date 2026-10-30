@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.7 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.8 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.8 implementation and learner review
+
+Six focused tests establish exact loss history/final parameters, held-out predictions including V4's failure, all18 analytical gradients versus central differences at zero and nonzero parameters, deterministic reset, frozen filters, independent history snapshots and extreme-logit stability. A leakage check alters held-out data/labels and confirms fitted parameters/training loss stay unchanged. All263 tests, TypeScript/build and whitespace checks passed (`tmp/vision-988-check.log`).
+
+Desktop review at1440×900 keyboard-stepped epoch1 (train loss0.6099), fitted200epochs (train0.0166/test0.5097), inspected V4's zero features and wrong class, selected V3, and reset both losses to0.6931. All head parameter columns remain available. Inspected `tmp/vision-988-final.png`. Review clarified tie behavior and that the displayed next update after epoch200 is hypothetical, not applied. Source/process and learner review found no remaining must-fix issue: actual head-only fitting, complete data split, visible parameter arithmetic and computation-derived curves are explicit. No animation dependency. Existing bundle warning remains.
 
 ## 98.7 implementation and learner review
 
@@ -89,6 +95,14 @@ Task output shapes: image classification one supplied label; detection two boxes
 For98.2, optional grayscale convention is rounded weighted byte intensity `round((299R+587G+114B)/1000)`; normalized RGB/intensity divides bytes by255, separate from mean/std standardization. Any pixel edit must be represented as an exploratory image edit, not silently reusing annotations as model predictions. For98.3, horizontal flip maps pixel column c→5−c and box edges x→6−x (new left=6−old right, new right=6−old left). Categorical masks use nearest-neighbor resampling; resize/crop/padding conventions must be frozen before implementation.
 
 ## Later mathematical contracts
+
+### Frozen 98.9 transfer-learning boundaries
+
+Primary reference: [PyTorch transfer-learning tutorial](https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html), targeted review of fixed-feature-extractor and fine-tuning sections. Transfer learning reuses a model pretrained on another task. A fixed feature extractor freezes pretrained layers and fits a replacement task head; fine-tuning updates some or all pretrained parameters too. The tutorial uses `requires_grad=False` for frozen layers and optimizes only the new head; its full fine-tuning example optimizes all model parameters.
+
+Use a connected conceptual pretrained-backbone→new-head diagram. A clearly separate parameter-count analogy using our tiny architecture has20 filter parameters (18weights+2biases),18 head parameters (16weights+2biases). Frozen mode:20 frozen/18 trainable; full fine-tuning mode:0 frozen/38 trainable. Show which gradient updates would apply; neither switch executes pretrained-model training. Actual98.8 fitting always updates only18head parameters and uses authored, not pretrained, filters. Do not relabel it as transfer learning.
+
+Small-labelled-set guidance is qualitative: a frozen extractor trains fewer parameters and can be a starting point; adapting features may be useful when target data differ, but source/target relevance and held-out evaluation determine suitability. Compare labelled solid/paired pattern groups as a small target dataset only; no fabricated speed gains, accuracy gains, model outputs or training curves. A larger pretrained model would have different counts. No checkpoint or natural-image dataset is downloaded.
 
 ### Frozen 98.7–98.8 CNN corpus and forward convention
 

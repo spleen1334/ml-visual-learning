@@ -95,6 +95,7 @@ import { VisionFilters } from '../chapters/VisionFilters'
 import { VisionFeatureMaps } from '../chapters/VisionFeatureMaps'
 import { VisionPooling } from '../chapters/VisionPooling'
 import { VisionCNN } from '../chapters/VisionCNN'
+import { VisionTraining } from '../chapters/VisionTraining'
 
 export type Subchapter = {
   id: string
@@ -358,7 +359,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'stride-padding-and-feature-maps', title: 'Stride, padding and feature maps', content: VisionFeatureMaps },
     { id: 'activations-and-pooling', title: 'Activations and pooling', content: VisionPooling },
     { id: 'inside-a-small-cnn', title: 'Inside a small CNN', content: VisionCNN },
-    { id: 'how-does-a-vision-model-learn', title: 'How does a vision model learn?' },
+    { id: 'how-does-a-vision-model-learn', title: 'How does a vision model learn?', content: VisionTraining },
     { id: 'reusing-learned-features', title: 'Reusing learned features' },
     { id: 'from-labels-to-boxes-and-masks', title: 'From labels to boxes and masks' },
     { id: 'test-the-model-beyond-familiar-images', title: 'Test the model beyond familiar images' },
