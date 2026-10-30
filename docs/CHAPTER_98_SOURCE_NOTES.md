@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.6 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.7 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.7 implementation and learner review
+
+Five focused tests lock every corpus record/feature vector, the complete H1 tensors, supplied head scores/probabilities, fixed filters, immutability and large-logit softmax stability. All 257 tests, TypeScript/build and whitespace checks passed (`tmp/vision-987-check.log`). Desktop review at 1440×900 covered keyboard stage/held-out input selection, H1 scores1.5/−1.5 and probabilities95.26%/4.74%, and V3 equal supplied-head scores. Inspected `tmp/vision-987-score.png`; input screenshot also retained.
+
+Process/source and learner reviews confirm explicit hand-chosen filters/head, distinct observed labels versus network inputs, complete selectable intermediate arrays, all18 head parameters, connected stage shapes and one full score/softmax calculation. No remaining must-fix findings. Static selection has no playback dependency; this lesson does not train. Existing bundle warning remains.
 
 ## 98.6 implementation and learner review
 

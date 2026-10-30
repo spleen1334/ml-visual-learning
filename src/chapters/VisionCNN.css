@@ -1,0 +1,53 @@
+.vcnn-lesson { max-width: 1200px; margin: 0 auto; padding: 24px 0 64px; color: #173e3b; }
+.vcnn-header { max-width: 1000px; margin-bottom: 30px; }
+.vcnn-header h1 { font: 700 clamp(2.5rem, 4vw, 3.8rem)/1.05 Georgia, serif; margin: 12px 0 20px; }
+.vcnn-header > p:last-child, .vcnn-heading > p { color: #587169; line-height: 1.5; }
+.vcnn-definition { font-size: 1.65rem; line-height: 1.35; }
+.vcnn-eyebrow, .vcnn-kicker { font-size: .75rem; font-weight: 800; letter-spacing: .12em; color: #668d7c; }
+.vcnn-panel { border: 1px solid #d4e1d6; border-radius: 18px; padding: 28px; background: #fafbf5; box-shadow: 0 12px 35px #1e554010; }
+.vcnn-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+.vcnn-heading h2 { font: 700 1.8rem Georgia, serif; margin: 4px 0; }
+.vcnn-heading > p { max-width: 400px; }
+.vcnn-samples { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+.vcnn-samples button, .vcnn-node button { border: 1px solid #c9d9cd; border-radius: 9px; background: white; color: #234b42; cursor: pointer; text-align: left; }
+.vcnn-samples button { display: flex; flex-direction: column; gap: 3px; padding: 9px 12px; }
+.vcnn-samples button span { font-size: .75rem; }
+.vcnn-samples button[aria-pressed='true'], .vcnn-node button[aria-pressed='true'] { background: #17675c; color: white; border-color: #17675c; }
+.vcnn-samples button:focus-visible, .vcnn-node button:focus-visible { outline: 3px solid #bd8a28; outline-offset: 2px; }
+.vcnn-stages { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+.vcnn-node { display: flex; min-width: 0; align-items: center; }
+.vcnn-node button { display: flex; flex-direction: column; gap: 6px; width: 100%; align-self: stretch; min-height: 100px; padding: 10px 7px; }
+.vcnn-node button span { font-size: .7rem; color: #668d7c; font-weight: 800; }
+.vcnn-node button[aria-pressed='true'] span { color: #c8e2d1; }
+.vcnn-node button b { overflow-wrap: anywhere; }
+.vcnn-node button small { font-size: .75rem; }
+.vcnn-arrow { color: #86a99a; padding: 0 3px; }
+.vcnn-detail { margin-top: 20px; padding: 20px; background: #fff8e7; border-left: 3px solid #d2aa52; line-height: 1.5; }
+.vcnn-detail h3 { font: 700 1.5rem Georgia, serif; margin: 6px 0; }
+.vcnn-detail > p:not(.vcnn-kicker) { color: #506e67; }
+.vcnn-matrices { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; }
+.vcnn-matrix-wrap { min-width: 150px; }
+.vcnn-matrix-wrap > b { display: block; font-size: .85rem; margin-bottom: 8px; }
+.vcnn-matrix { display: grid; width: max-content; max-width: 100%; }
+.vcnn-matrix span { display: grid; place-items: center; min-width: 36px; height: 34px; background: white; border: 1px solid #d9e4dc; font-weight: 700; }
+.vcnn-matrix .vcnn-positive { background: #d5e9dc; }
+.vcnn-matrix .vcnn-negative { background: #f2d7ce; color: #7b2d20; }
+.vcnn-matrix .vcnn-pixel { background: #262626; color: white; }
+.vcnn-features { display: flex; flex-wrap: wrap; gap: 6px; }
+.vcnn-features div { display: flex; flex-direction: column; align-items: center; background: white; border: 1px solid #d9e4dc; padding: 8px; min-width: 76px; }
+.vcnn-features small { font-size: .68rem; color: #587169; }
+.vcnn-table-wrap { overflow-x: auto; }
+.vcnn-table { border-collapse: collapse; background: white; min-width: 600px; }
+.vcnn-table th, .vcnn-table td { border: 1px solid #d9e4dc; padding: 7px 9px; text-align: center; }
+.vcnn-arithmetic { overflow-wrap: anywhere; }
+.vcnn-probabilities { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.vcnn-probabilities div { display: flex; flex-direction: column; gap: 4px; padding: 14px; background: white; border: 1px solid #d9e4dc; min-width: 150px; }
+.vcnn-probabilities b { font: 700 1.5rem Georgia, serif; }
+.vcnn-probabilities small, .vcnn-small { color: #587169; }
+.vcnn-equation { display: flex; align-items: center; flex-wrap: wrap; gap: .5em; font: 1rem Georgia, serif; }
+.vcnn-fraction { display: inline-flex; flex-direction: column; align-items: stretch; text-align: center; }
+.vcnn-fraction span:first-child { border-bottom: 1px solid currentColor; padding: 0 .2em .15em; }
+.vcnn-fraction span:last-child { padding-top: .15em; }
+.vcnn-small a { color: #17675c; }
+@media (max-width: 850px) { .vcnn-heading { display: block; } .vcnn-stages { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 8px; } }
+@media (max-width: 520px) { .vcnn-panel { padding: 18px; } .vcnn-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
