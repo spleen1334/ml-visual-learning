@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.9 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.10 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.10 implementation and learner review
+
+Five focused tests cover supplied fixtures, identical/disjoint/touching/partial/contained/degenerate boxes, null empty unions, exact mask counts, inclusive score thresholds and immutability. All268 tests, TypeScript/build and whitespace checks passed (`tmp/vision-9810-check.log`). Desktop1440×900 review keyboard-edited the box to perfect agreement and reset, filtered candidate2 at0.7 and both candidates at0.9, toggled the extra mask pixel to reach IoU1 and reset. Inspected `tmp/vision-9810-box.png` and `tmp/vision-9810-mask.png`.
+
+Process/source and learner reviews confirm continuous box area versus discrete mask counts, visible intersection/union calculations, ordered bounded edge inputs, unchanged references, text/line-style/color legends, and an explicit independent-comparison notice when score filtering hides candidate1. No remaining must-fix findings. Candidate scores/geometry are supplied, not model outputs; no detection matching/NMS is executed. Static controls have no animation dependency. Existing bundle warning remains.
 
 ## 98.9 implementation and learner review
 
@@ -101,6 +107,16 @@ Task output shapes: image classification one supplied label; detection two boxes
 For98.2, optional grayscale convention is rounded weighted byte intensity `round((299R+587G+114B)/1000)`; normalized RGB/intensity divides bytes by255, separate from mean/std standardization. Any pixel edit must be represented as an exploratory image edit, not silently reusing annotations as model predictions. For98.3, horizontal flip maps pixel column c→5−c and box edges x→6−x (new left=6−old right, new right=6−old left). Categorical masks use nearest-neighbor resampling; resize/crop/padding conventions must be frozen before implementation.
 
 ## Later mathematical contracts
+
+### Frozen 98.11 robustness fixtures and metrics
+
+Use the actual200epoch fitted head from98.8 without refitting. Evaluate exactly the four held-out records H3,V3,H4,V4, observed classes H,V,H,V. Independent presets start from each original: original; right-shift1 (destination[r][c]=source[r][c−1] for c>0, else0, dropping the rightmost column); half contrast (all scalar values×0.5); corner noise (only[0][0] becomes1−old value). Labels remain horizontal/vertical. Transforms stay in their original held-out source groups; do not count16 variants as16 independent samples. Training data, filters and fitted head remain unchanged.
+
+Confusion matrices use observed rows H/V, predicted columns H/V. Original=`[[2,0],[1,1]]`, shifted=`[[1,1],[1,1]]`, halfcontrast=`[[2,0],[1,1]]`, cornernoise=`[[2,0],[0,2]]`. Predictions respectively `[H,V,H,H]`, `[H,V,V,H]`, `[H,V,H,H]`, `[H,V,H,V]`. Per-class TP=diagonal, FP=other row in its prediction column, FN=other column in its observed row; precision=TP/(TP+FP), recall=TP/(TP+FN), null when denominator0. Each confusion cell should reveal contributing record IDs.
+
+Original probabilities and features are in the fitting references. Changed references: shiftedV3 features`[1,1,1,1,2,2,2,2]`, probabilities`[.010495,.989505]`; shiftedH4 features`[0,0,0,0,2,0,2,0]`, probabilities`[.014620,.985380]`. HalfcontrastH3 `[1,1,0,0,0,0,0,0]`→`[.783416,.216584]`; halfcontrastV3 `[.5,.5,.5,.5,0,1,0,1]`→`[.477153,.522847]`. CornernoiseV4 `[1,0,0,0,1,0,0,0]`→`[.403545,.596455]`. Other records retain original features/probabilities. Values were recomputed with the adopted deterministic model.
+
+The single-pixel noise preset improving these four labels is not evidence of general robustness. Distribution shift means input conditions differ from fitting data; robustness describes behavior under specified changes, not universal invariance. Shortcut learning is relying on incidental cues rather than intended structure; describe it as a possible failure mode, not something established by this fixture. Test labels are used for display/evaluation only. Do not tune to this tiny test set or extrapolate to natural images. For box tasks retain a separate one-IoU reference: supplied candidate1 versus square1 has intersection4/union6=2/3 (98.10); it is not a classifier metric or a detection precision/recall calculation.
 
 ### Frozen 98.10 box/mask comparison
 
