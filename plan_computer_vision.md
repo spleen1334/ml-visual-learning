@@ -1,6 +1,6 @@
 # Computer Vision · visual chapter plan
 
-Status: planning only. No lessons or routes are implemented by this document.
+Status: implementation authorized; proceeding one lesson at a time. Only completed, verified lessons enter published navigation.
 
 Proposed placement: **Chapter 98 — Computer Vision**, between proposed Chapter 97 (NLP) and existing Chapter 99 (LLMs). Numbers are provisional until implementation. Preserve existing course and Chapter 99 URLs.
 
@@ -41,7 +41,7 @@ Match the existing teal/cream theme, large definitions, short text, shared playb
 
 ## Implementation and acceptance
 
-Implement one lesson at a time only when requested. For each: inspect the relevant primary source, update source notes, implement the focused visual and required pure math, run meaningful numerical tests plus `rtk npm run check` and `rtk git diff --check`, inspect desktop output and keyboard/manual/autoplay/reduced-motion behavior, resolve must-fix findings, then make a scoped commit when authorized. Publish only completed lesson content and preserve unrelated work.
+Standing authorization: continue through the remaining chapter plan, one lesson at a time, without permission gates. For each: inspect the relevant primary source, update source notes, implement the focused visual and required pure math, run meaningful numerical tests plus `rtk npm run check` and `rtk git diff --check`, inspect desktop output and keyboard/manual/autoplay/reduced-motion behavior where applicable, resolve must-fix findings, then make a scoped commit. Publish only completed lesson content and preserve unrelated work. Never push or deploy without authorization.
 
 | Lessons | Deliverable | Required focused checks |
 | --- | --- | --- |
@@ -52,7 +52,12 @@ Implement one lesson at a time only when requested. For each: inspect the releva
 | 98.10 | Boxes and masks | IoU for identical, disjoint, partly overlapping and degenerate boxes; exact mask counts; matching/threshold distinction; keyboard alternatives to dragging. |
 | 98.11–98.12, individually | Robustness and complete workflow/ViT bridge | Metrics trace to fixtures; perturbations match labels; no test leakage; source/computation labels; CNN/encoder/decoder distinctions; full manual and reduced-motion path. |
 
-All lessons remain **[ ] implementation · [ ] verification · [ ] commit**. Grouped rows organize dependencies; each lesson gets its own review and commit. A modest first milestone is 98.1–98.4, reviewed individually, before implementing the complete network. Optional quizzes are deferred until the visuals work well.
+| Lesson | Implementation | Verification | Scoped commit |
+| --- | --- | --- | --- |
+| 98.1 Task outputs | [x] | [x] 230 tests, build, diff and desktop/keyboard review | [x] |
+| 98.2–98.12, individually | [ ] | [ ] | [ ] |
+
+Grouped rows organize dependencies; each lesson gets its own review and commit. A modest first milestone is 98.1–98.4, reviewed individually, before implementing the complete network. Optional quizzes are deferred until the visuals work well.
 
 ## Primary references and source boundaries
 

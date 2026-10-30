@@ -88,6 +88,7 @@ import { NLPDenseSearch } from '../chapters/NLPDenseSearch'
 import { NLPExtraction } from '../chapters/NLPExtraction'
 import { NLPEvaluation } from '../chapters/NLPEvaluation'
 import { NLPWorkflow } from '../chapters/NLPWorkflow'
+import { VisionTasks } from '../chapters/VisionTasks'
 
 export type Subchapter = {
   id: string
@@ -342,6 +343,20 @@ export const chapters: readonly Chapter[] = [
     { id: 'turn-text-into-a-structured-record', title: 'Turn text into a structured record', content: NLPExtraction },
     { id: 'how-do-we-know-it-works', title: 'How do we know it works?', content: NLPEvaluation },
     { id: 'follow-the-complete-nlp-workflow', title: 'Follow the complete NLP workflow', content: NLPWorkflow },
+  ] },
+  { id: 'chapter-98', number: '98', title: 'Computer Vision', subtitle: 'From pixels to labels, boxes and masks', subchapters: [
+    { id: 'what-can-a-computer-see', title: 'What can a computer see?', content: VisionTasks },
+    { id: 'an-image-is-a-grid-of-numbers', title: 'An image is a grid of numbers' },
+    { id: 'preparing-images-without-changing-the-task', title: 'Preparing images without changing the task' },
+    { id: 'a-filter-slides-over-an-image', title: 'A filter slides over an image' },
+    { id: 'stride-padding-and-feature-maps', title: 'Stride, padding and feature maps' },
+    { id: 'activations-and-pooling', title: 'Activations and pooling' },
+    { id: 'inside-a-small-cnn', title: 'Inside a small CNN' },
+    { id: 'how-does-a-vision-model-learn', title: 'How does a vision model learn?' },
+    { id: 'reusing-learned-features', title: 'Reusing learned features' },
+    { id: 'from-labels-to-boxes-and-masks', title: 'From labels to boxes and masks' },
+    { id: 'test-the-model-beyond-familiar-images', title: 'Test the model beyond familiar images' },
+    { id: 'follow-the-full-vision-pipeline', title: 'Follow the full vision pipeline' },
   ] },
   { id: 'chapter-99', number: '99', title: 'Large Language Models, LLMs', subtitle: 'From next-token prediction to a complete pipeline', subchapters: [
     { id: 'what-does-an-llm-predict', title: 'What does an LLM predict?', content: LLMNextToken },

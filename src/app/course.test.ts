@@ -58,7 +58,7 @@ describe('chapter five publication', () => {
   it('publishes all 19 source lessons and keeps future outlines out of pagination', () => {
     const lessons = publishedLessons()
     expect(lessons.filter(item => item.chapter.id === 'chapter-05')).toHaveLength(19)
-    expect(lessons.some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
     expect(resolveLesson('#chapter-05').section?.id).toBe('introduction')
     expect(resolveLesson('#chapter-05/variance').section?.id).toBe('variance')
     expect(chapters.find(item => item.id === 'chapter-06')?.subchapters?.length).toBe(17)
@@ -73,7 +73,7 @@ describe('chapter six publication', () => {
     expect(resolveLesson('#chapter-06').section?.id).toBe('introduction')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('quiz-multivariate-profiling')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -95,7 +95,7 @@ describe('chapter eight publication', () => {
     expect(resolveLesson('#chapter-08').section?.id).toBe('supervised-vs-unsupervised-learning')
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.section?.id).toBe('quiz-intro-classification')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -104,7 +104,7 @@ describe('chapter sixteen publication', () => {
     const lessons = publishedLessons()
     expect(lessons.find(item => item.chapter.id === 'chapter-16')?.href).toBe('#chapter-16')
     expect(resolveLesson('#chapter-16').Content).toBe(chapters.find(item => item.id === 'chapter-16')?.content)
-    expect(lessons.some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(lessons.some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -117,7 +117,7 @@ describe('chapter seventeen publication', () => {
     ])
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.href).toBe('#chapter-17/17.6-quiz-intro-unsupervised-ml')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -130,7 +130,7 @@ describe('chapter eighteen publication', () => {
     ])
     for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
     expect(lessons.at(-1)?.href).toBe('#chapter-18/18.11-quiz-clustering-segmentation')
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -147,7 +147,7 @@ describe('chapters nineteen through twenty-one publication', () => {
       for (const lesson of lessons) expect(resolveLesson(lesson.href).Content).toBe(lesson.section?.content)
       expect(lessons.at(-1)?.href).toContain('quiz-')
     }
-    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-99'].includes(item.chapter.id))).toBe(false)
+    expect(publishedLessons().some(item => Number(item.chapter.number) > 21 && !['chapter-97', 'chapter-98', 'chapter-99'].includes(item.chapter.id))).toBe(false)
   })
 })
 
@@ -271,8 +271,23 @@ describe('chapter ninety-seven gradual publication', () => {
     expect(resolveLesson('#chapter-97/follow-the-complete-nlp-workflow').section).toBe(chapter.subchapters?.[10])
     const index = all.indexOf(lessons[0])
     expect(all[index - 1].chapter.id).toBe('chapter-21')
-    expect(all[index + 11].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
-    expect(chapters.some(item => item.id === 'chapter-98')).toBe(false)
+    expect(all[index + 11].href).toBe('#chapter-98/98.1-what-can-a-computer-see')
+  })
+})
+
+describe('chapter ninety-eight gradual publication', () => {
+  it('publishes only the task introduction between NLP and LLMs, with stable aliases', () => {
+    const chapter = chapters.find(item => item.id === 'chapter-98')!
+    expect(chapter.subchapters).toHaveLength(12)
+    expect(chapter.subchapters?.slice(1).every(item => !item.content)).toBe(true)
+    const all = publishedLessons()
+    const lessons = all.filter(item => item.chapter.id === chapter.id)
+    expect(lessons.map(item => item.href)).toEqual(['#chapter-98/98.1-what-can-a-computer-see'])
+    expect(resolveLesson(lessons[0].href).section).toBe(chapter.subchapters?.[0])
+    expect(resolveLesson('#chapter-98/what-can-a-computer-see').section).toBe(chapter.subchapters?.[0])
+    const index = all.indexOf(lessons[0])
+    expect(all[index - 1].href).toBe('#chapter-97/97.11-follow-the-complete-nlp-workflow')
+    expect(all[index + 1].href).toBe('#chapter-99/99.1-what-does-an-llm-predict')
   })
 })
 
@@ -310,7 +325,7 @@ describe('chapter ninety-nine gradual publication', () => {
     expect(resolveLesson('#chapter-99/limitations-and-evaluation').section?.id).toBe('limitations-and-evaluation')
     expect(resolveLesson(lessons[13].href).section?.id).toBe('full-pipeline')
     expect(resolveLesson('#chapter-99/full-pipeline').section?.id).toBe('full-pipeline')
-    expect(all.at(-15)?.chapter.id).toBe('chapter-97')
+    expect(all.at(-15)?.chapter.id).toBe('chapter-98')
     expect(all.at(-1)?.href).toBe(lessons[13].href)
   })
 })
