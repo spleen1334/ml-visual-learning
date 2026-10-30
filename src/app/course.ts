@@ -92,6 +92,7 @@ import { VisionTasks } from '../chapters/VisionTasks'
 import { VisionPixels } from '../chapters/VisionPixels'
 import { VisionPreparation } from '../chapters/VisionPreparation'
 import { VisionFilters } from '../chapters/VisionFilters'
+import { VisionFeatureMaps } from '../chapters/VisionFeatureMaps'
 
 export type Subchapter = {
   id: string
@@ -352,7 +353,7 @@ export const chapters: readonly Chapter[] = [
     { id: 'an-image-is-a-grid-of-numbers', title: 'An image is a grid of numbers', content: VisionPixels },
     { id: 'preparing-images-without-changing-the-task', title: 'Preparing images without changing the task', content: VisionPreparation },
     { id: 'a-filter-slides-over-an-image', title: 'A filter slides over an image', content: VisionFilters },
-    { id: 'stride-padding-and-feature-maps', title: 'Stride, padding and feature maps' },
+    { id: 'stride-padding-and-feature-maps', title: 'Stride, padding and feature maps', content: VisionFeatureMaps },
     { id: 'activations-and-pooling', title: 'Activations and pooling' },
     { id: 'inside-a-small-cnn', title: 'Inside a small CNN' },
     { id: 'how-does-a-vision-model-learn', title: 'How does a vision model learn?' },

@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.4 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.5 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.5 implementation and learner review
+
+Five focused tests verify all stride/padding combinations, complete x/y maps, border zeros, sampled coordinates and input immutability. All 249 tests, TypeScript/build and whitespace checks passed (`tmp/vision-985-check.log`). Desktop review at 1440×900 exercised the four configurations and keyboard selection in the y map. Inspected screenshot `tmp/vision-985-padding.png`; paired stride/padding screenshot also retained. Final copy clarifies floor notation and original-coordinate limits for padded cells.
+
+Source/process and learner reviews confirm two independent filters read one shared input, added zeros are visibly hatched, selected receptive fields stay aligned after toggles, and output dimensions match the arithmetic. No remaining must-fix findings. No playback or animation dependence. Existing bundle warning remains.
 
 ## 98.4 implementation and learner review
 
@@ -121,5 +127,11 @@ Output sizes: (padding0,stride1)→3×3×2; (0,2)→2×2×2; (1,1)→5×5×2; (1
 - p1,s2: `[[1,0,-1],[4,0,-4],[1,0,-1]]`.
 
 The y-gradient reference is the transpose of each corresponding x-gradient map because the image is symmetric and the y kernel is the x kernel's transpose. Explain stride as the jump between window starts, not between pixels within a window. Padded image dimensions are (5+2p)×(5+2p); keep zeros visibly distinct as padding without altering their numeric value.
+
+### Frozen 98.6 activation/pooling conventions
+
+Reuse the x/y 5×5 signed feature maps from 98.5, stride1/padding1. ReLU acts elementwise as max(0,x); keep the original signed maps visible. Apply unpadded 2×2 max pooling with stride2, producing a 2×2 map per channel. The final row and column are not covered by complete pooling windows and must be marked as unused, not silently pooled or padded. For the x map, ReLU output is `[[1,1,0,0,0],[3,4,0,0,0],[4,6,0,0,0],[3,4,0,0,0],[1,1,0,0,0]]`; pooled output `[[4,0],[6,0]]`. The y ReLU/pooled maps are corresponding transposes; pooled y=`[[4,6],[0,0]]`.
+
+Representative first x pooling window `[1,1;3,4]` retains maximum4 (average9/4=2.25). Information-loss comparison uses two separately authored windows A=`[[1,1],[3,4]]`, B=`[[0,0],[0,4]]`: both max-pool to4 despite different input values; their averages2.25 and1 differ. Pooling has no learned parameters here. It reduces spatial detail and does not guarantee invariance to every shift. The future6×6 CNN uses4×4 feature maps so its2×2 pooling windows cover the whole map; keep this distinction explicit in source notes.
 
 Do not fit the future classifier on this colored scene or pretend its task label is a horizontal/vertical training target. Before98.4, record exact separate5×5 grayscale values/kernels/biases and hand-calculated outputs. Before98.7–8, record every6×6 pattern/source group/label/split, channel/flatten order, fixed filters and head parameters; training/test examples cannot be copies differing only in imperceptible noise. Only the head trains. Claims and curves must come from the actual documented computations, never hand-picked accuracy/weights.
