@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.3 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.4 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.4 implementation and learner review
+
+Pure filter calculations preserve every signed output and the blur numerator/divisor convention; four focused tests compare full reference matrices, representative products/sums and input immutability. All 244 tests, TypeScript/build and whitespace checks passed (`tmp/vision-984-check.log`). The input window, kernel, feature map and nine products remain readable without playback.
+
+Desktop review at 1440×900 checked keyboard center selection, exact 10/9 blur calculation, both signed gradients, manual pause, natural autoplay completion at position9 with Replay, and reduced-motion completed position with autoplay disabled. Review clarified actual blur weights versus displayed numerators and fixed intermediate-response label contrast without changing data colors; measured minimum text contrast 4.83:1. Inspected screenshot `tmp/vision-984-contrast.png`; additional blur/x screenshots are in `tmp/`. No remaining must-fix findings. Synthetic intensities use an explicitly inverted display scale (white0/dark2); signed gradients retain a separate −6…+6 scale. Existing bundle warning remains.
 
 ## 98.3 implementation and learner review
 
@@ -102,5 +108,18 @@ Authored grayscale values (scalar intensity units, not RGB bytes):
 Use stride 1, no padding, zero bias, and unflipped kernels: cross-correlation, commonly called convolution in CNNs. The 3×3 averaging kernel has all nine weights `1/9`; show its integer sum before dividing by 9. Raw sums are `[[5,7,5],[7,10,7],[5,7,5]]` and average outputs divide every entry by 9.
 
 The x-gradient kernel `[[-1,0,1],[-2,0,2],[-1,0,1]]` measures left-to-right change (responding to vertical edges). Its output is `[[4,0,-4],[6,0,-6],[4,0,-4]]`. The y-gradient kernel `[[-1,-2,-1],[0,0,0],[1,2,1]]` measures top-to-bottom change (responding to horizontal edges); output `[[4,6,4],[0,0,0],[-4,-6,-4]]`. Keep signed responses visible; reversing a kernel reverses these signs. Products and sums were checked with Python built-in arithmetic. CS231n supports the local dot-product/shared-filter explanation; these exact matrices are authored, not copied from its examples.
+
+### Frozen 98.5 sampling conventions
+
+Reuse the 5×5 scalar image and x/y gradient filters from 98.4 (one input channel, two output channels). Each filter receives the same image and produces a separate feature map; filters do not operate successively on one another. Use zero-valued padding of 0 or 1 on all sides, stride 1 or 2, dilation 1, zero bias and unflipped kernels. Output index `(r,c)` samples original indices `(r×stride+dy−padding,c×stride+dx−padding)`; out-of-range values are zero. Formula per axis: floor((input + 2×padding − kernel)/stride)+1. Each selected output cell has a 3×3 receptive field in the padded input; padding positions are not observed image data.
+
+Output sizes: (padding0,stride1)→3×3×2; (0,2)→2×2×2; (1,1)→5×5×2; (1,2)→3×3×2. Reference x-gradient maps checked with Python integer sums:
+
+- p0,s1: `[[4,0,-4],[6,0,-6],[4,0,-4]]`.
+- p0,s2: `[[4,-4],[4,-4]]`.
+- p1,s1: `[[1,1,0,-1,-1],[3,4,0,-4,-3],[4,6,0,-6,-4],[3,4,0,-4,-3],[1,1,0,-1,-1]]`.
+- p1,s2: `[[1,0,-1],[4,0,-4],[1,0,-1]]`.
+
+The y-gradient reference is the transpose of each corresponding x-gradient map because the image is symmetric and the y kernel is the x kernel's transpose. Explain stride as the jump between window starts, not between pixels within a window. Padded image dimensions are (5+2p)×(5+2p); keep zeros visibly distinct as padding without altering their numeric value.
 
 Do not fit the future classifier on this colored scene or pretend its task label is a horizontal/vertical training target. Before98.4, record exact separate5×5 grayscale values/kernels/biases and hand-calculated outputs. Before98.7–8, record every6×6 pattern/source group/label/split, channel/flatten order, fixed filters and head parameters; training/test examples cannot be copies differing only in imperceptible noise. Only the head trains. Claims and curves must come from the actual documented computations, never hand-picked accuracy/weights.
