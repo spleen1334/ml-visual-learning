@@ -1,6 +1,12 @@
 # Chapter 98 · Computer Vision
 
-Status: 98.1–98.2 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+Status: 98.1–98.3 implemented and reviewed after Chapter97's final lesson was verified and committed. Continue one lesson/check/desktop review/scoped commit at a time. Plan: `../plan_computer_vision.md`.
+
+## 98.3 implementation and learner review
+
+Six independent preparation presets compute the image, masks and boxes together. Seven tests check exact dimensions/coordinates/counts, RGB/mask alignment at every pixel, removal of the cropped object and preservation/restoration of the original. All 240 tests, TypeScript/build and whitespace checks passed (`tmp/vision-983-check.log`). Desktop review at 1440×900 exercised stretch, fit, keyboard crop selection, mask view, flip and reset. A final browser check after wording clarification reconfirmed crop removal and invalidation of the original image-level label. Screenshots: `tmp/vision-983-stretch.png`, `tmp/vision-983-crop.png`, `tmp/vision-983-final.png`.
+
+Code and learner review found no remaining must-fix issues: dimensions are explicitly width×height; flip pixel indices are distinguished from box edges; the separate direction example does not introduce new labels for the squares. Static preset controls have no animation dependency. No real-image pipeline or general interpolation library is claimed. Existing bundle warning remains.
 
 ## 98.2 implementation and learner review
 
