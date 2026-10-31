@@ -1,6 +1,6 @@
 # Chapter 99 · Large Language Models
 
-Status: all fourteen lessons implemented and reviewed in separate increments; tests/build and desktop browser review passed. Full implementation plan: `../plan_llm.md`.
+Status: all fourteen lessons implemented and reviewed in separate increments; tests/build and desktop browser review passed.
 
 ## Source boundary
 
@@ -237,3 +237,5 @@ Sample fixture: prompt`The`/IDs`[0]`, temperature1, seed168, cap4. Draws≈`[0.3
 - `rtk npm run check`:36 files/182 tests passed, TypeScript/build passed with existing bundle warning. End-to-end tests verify sampled IDs/draws/text, end and cap behavior, repeatability, strict tokenization, context bounds, prior-stage intermediate consistency and option errors. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: sampled completion shows`The cat sat.`/end, greedy completion shows`The cat cat`/length cap; stage/token selectors, expanded block details, keyboard transition from token1/stage8 to token2/stage1, autoplay stopping and reduced-motion completed/manual views passed. Tables scroll within the trace, no document overflow/browser errors. Evidence:`previews/chapter-99.14-pipeline-block.png`, `previews/chapter-99.14-pipeline-complete.png`, `previews/chapter-99.14-pipeline-embeddings.png`.
 - Chapter-level reconciliation: fourteen separate lesson increments now preserve the teaching order, frozen decoder fixture and three distinct demonstration boundaries (authored lookup tree, supplied decoder, genuinely trained classifier). Earlier per-lesson desktop evidence remains valid for unchanged lesson components. Phone-specific polish and real-world model performance are outside verification scope.
+
+Historical review note: screenshot paths under `previews/` refer to temporary evidence removed during repository cleanup. The written findings remain available here.

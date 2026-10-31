@@ -1,6 +1,6 @@
 # Chapter 97 · Natural Language Processing
 
-Status: 97.1–97.11 implemented and reviewed. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates. Plan: `../plan_nlp.md`.
+Status: 97.1–97.11 implemented and reviewed. Implement, check and commit one lesson at a time under the user's standing authorization to continue without permission gates.
 
 ## 97.11 final workflow integration review
 
@@ -154,3 +154,5 @@ CS09 with lowercase/removal: `Not helpful at all!`→` helpful  all!`, removing`
 - Parent read helper/tests/UI/CSS/routing and corrected the comparison's whitespace/case qualification. Definitions, exact stop/lookup tables, changes/removals, source offsets and token counts are visible; no universal cleanup recommendation. No remaining must-fix findings.
 - `rtk npm run check`:39 files/192 tests passed; TypeScript/build passed with existing bundle warning. Tests cover reconstruction/offsets, exact negation/count loss, repeated replacements, distinct lemma behavior, unchanged reference labels and unsupported input. `rtk git diff --check` passed.
 - Browser1440×1000 and1100×850: stop-word removal shows5→3, selectingNot shows[0,3), toggles revert, repeatedwaited→wait, was→be and mutually exclusive stem/lemma controls passed. KeyboardSpace operates checkboxes. This is a static reversible-control lesson with no timed animation; reduced motion retains the same complete/manual view. No document overflow/browser errors. Evidence:`previews/chapter-97.3-negation.png`, `previews/chapter-97.3-lemma.png`. Desktop only.
+
+Historical review note: screenshot paths under `previews/` refer to temporary evidence removed during repository cleanup. The written findings remain available here.

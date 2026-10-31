@@ -1,6 +1,6 @@
 # Chapter 98 · Computer Vision
 
-Status: all twelve lessons implemented and reviewed, with one scoped commit per lesson. Chapter97's final workflow was completed first. Plan: `../plan_computer_vision.md`; final review: `CHAPTER_98_REVIEW.md`.
+Status: all twelve lessons implemented and reviewed, with one scoped commit per lesson. Chapter97's final workflow was completed first. Final review: `CHAPTER_98_REVIEW.md`.
 
 ## 98.12 implementation and learner review
 

@@ -95,7 +95,7 @@ Default to faithful reproduction of the course sources. Section 9 (Classificatio
 - Review every completed chapter before reporting it as ready. First inspect the implementation process: source-note fidelity, lesson order and routing, data/calculation assumptions, interaction behavior, and validation evidence. Then review the finished chapter as a learner: beginner-friendly wording, visual explanation, examples, terminology, cognitive load, interaction guidance, readability, and the desktop experience. Record prioritized findings, apply must-fix items, and clearly report any review boundary.
 - Inspect desktop output and exercise changed interactions in a browser. A passing build alone does not establish visual quality or correct behavior. Check that visuals encode the quantity being taught: distance-based charts need faithful metric scaling, readable scales, and identifiable input values; changing counts or scores should identify the records or contributions responsible.
 - Report what changed, what was verified, and any remaining verification limit. Provide a local page link when available.
-- Refer to `docs/LEARNING_STYLE.md` for supporting teaching guidance, `BUILD_PLAN.md` for milestones, and `todo.md` for deferred ideas. The existing sidebar outline is separate from the deferred end-of-project alternate/grouped table of contents.
+- Refer to `docs/LEARNING_STYLE.md` for supporting teaching guidance and `todo.md` for deferred ideas. The existing sidebar outline is separate from the deferred end-of-project alternate/grouped table of contents.
 
 ## Keep these instructions current
 

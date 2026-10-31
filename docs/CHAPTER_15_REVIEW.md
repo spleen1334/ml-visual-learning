@@ -23,10 +23,12 @@ Date: 2026-10-23. Scope: the 15 non-quiz lessons in Time-Series Forecasting, inc
 
 - `rtk npm run check`: 21 suites / 119 tests, TypeScript and production build pass.
 - `rtk git diff --check`: pass.
-- Browser: all 15 direct routes loaded at 1600 × 1000 with no document overflow or broken images. Screenshots are under `previews/chapter-15-*`; route checks are in `previews/CHAPTER_15_BROWSER_CHECK.json`.
+- Browser: all 15 direct routes loaded at 1600 × 1000 with no document overflow or broken images. Screenshots are under `previews/chapter-15-*`; route checks are in `docs/reviews/CHAPTER_15_BROWSER_CHECK.json`.
 - Exercised forecast visibility, both trend choices, moving-average window selection, manual Gompertz A changes, intervention forecast visibility and full worksheet disclosure. Verified chart legends, SSE changes, all five intervention charts, and complete output rows.
 - Inspected desktop screenshots for the source figures, case layouts, residual plots and impact charts. Static source sequences require no animation and remain visible with reduced motion.
 
 ## Boundaries
 
 This is a desktop-focused local review. It does not claim a mobile or screen-reader audit. Workbook outputs are extracted saved values, not a live Excel recalculation; the manually adjustable nonlinear model recalculates in the app. SVG case charts preserve data and encoding while adapting Excel's raster rendering, typography and tick density. The existing Vite large-bundle warning remains; this change does not introduce lazy loading. The user approved the revised illustration and requested a local commit. No publication was requested.
+
+Historical review note: screenshot paths under `previews/` refer to temporary evidence removed during repository cleanup. The written findings remain available here.

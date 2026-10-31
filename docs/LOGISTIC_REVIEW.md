@@ -28,3 +28,5 @@ The short headers and original figures retain the course's terminology and scena
 - Visual evidence: `previews/chapter9-18-logistic-source.png`, `previews/chapter9-19-logistic-source.png`, `previews/chapter9-21-logistic-workbook.png`.
 
 Boundaries: this reproduction reads supplied course values and does not run Excel Solver or establish a causal email-frequency policy. The source raster figures retain their original text/colors; the production build still reports its existing large-bundle advisory. No unresolved must-fix findings remain in this scope.
+
+Historical review note: screenshot paths under `previews/` refer to temporary evidence removed during repository cleanup. The written findings remain available here.

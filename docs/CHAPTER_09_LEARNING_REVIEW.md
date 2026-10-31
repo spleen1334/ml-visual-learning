@@ -90,3 +90,5 @@ The current instructions already cover prominent definitions, small examples, pr
 3. **Extend visual verification beyond layout:** “Check that a visual encodes the quantity being taught: distance-based charts need a faithful metric, readable scales, and identifiable input values; interactive counts or scores should identify the records or contributions that changed.” This prevents attractive diagrams from obscuring the actual mathematics or disconnecting controls from their evidence (9.2–9.4, 9.17).
 
 These are proposed instruction changes only. `AGENTS.md` remains unchanged by this review.
+
+Historical review note: screenshot paths under `previews/` refer to temporary evidence removed during repository cleanup. The written findings remain available here.
