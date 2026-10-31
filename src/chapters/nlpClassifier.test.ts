@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifier'
+import { fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifierData'
 
 describe('multinomial naive Bayes', () => {
   const model = fitClassifier(trainingRecords)

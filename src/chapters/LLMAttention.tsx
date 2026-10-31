@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_PARAMETERS } from './llmEmbeddings'
-import { lastTokenAttention } from './llmAttention'
+import { DECODER_PARAMETERS } from './llmEmbeddingsData'
+import { lastTokenAttention } from './llmAttentionData'
 import './LargeLanguageModels.css'
 import './LLMAttention.css'
 

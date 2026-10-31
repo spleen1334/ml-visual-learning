@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
 import { faqSearchIndex } from './nlpLexicalSearch'
-import { workflowEvidence } from './nlpWorkflow'
+import { workflowEvidence } from './nlpWorkflowData'
 import './NLPIntroduction.css'
 import './NLPWorkflow.css'
 

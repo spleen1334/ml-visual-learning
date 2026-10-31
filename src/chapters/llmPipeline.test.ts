@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { decodeDecoder, encodeDecoder, generateDecoder } from './llmPipeline'
+import { decodeDecoder, encodeDecoder, generateDecoder } from './llmPipelineData'
 import { transformerBlock } from './llmBlock'
-import { lastDecoderDistribution } from './llmLogits'
+import { lastDecoderDistribution } from './llmLogitsData'
 
 const sample = { mode: 'sample', seed: 168, temperature: 1, maxNewTokens: 4 } as const
 describe('complete decoder pipeline', () => {

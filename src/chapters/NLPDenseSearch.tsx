@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { cosine } from './nlpLexicalSearch'
-import { bankContexts, denseRanking, lexicalRanking, project2, semanticDocuments, semanticQuery, type Vector3 } from './nlpDenseSearch'
+import { bankContexts, denseRanking, lexicalRanking, project2, semanticDocuments, semanticQuery, type Vector3 } from './nlpDenseSearchData'
 import './NLPIntroduction.css'
 import './NLPCountTable.css'
 import './NLPTfidf.css'

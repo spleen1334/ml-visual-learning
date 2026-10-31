@@ -1,4 +1,4 @@
-import { maxPool, relu } from './visionPooling';
+import { maxPool, relu } from './visionPoolingData';
 
 export type CNNHead = {
   weights: readonly (readonly number[])[];

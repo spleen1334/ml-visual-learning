@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { filterImage } from './visionFilters'
-import { featureMap, gradients, outputSize, sampledWindow } from './visionFeatureMaps'
+import { filterImage } from './visionFiltersData'
+import { featureMap, gradients, outputSize, sampledWindow } from './visionFeatureMapsData'
 import './VisionFeatureMaps.css'
 
 function responseStyle(value: number) {

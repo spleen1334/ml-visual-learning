@@ -1,4 +1,4 @@
-import { featureMap, gradients } from './visionFeatureMaps'
+import { featureMap, gradients } from './visionFeatureMapsData'
 
 export type Matrix = readonly (readonly number[])[]
 export const signedMaps = gradients.map(filter => featureMap(filter, 1, 1))

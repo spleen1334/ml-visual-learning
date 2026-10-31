@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { average, comparisonWindows, maxPool, poolWindow, relu, signedMaps } from './visionPooling'
+import { average, comparisonWindows, maxPool, poolWindow, relu, signedMaps } from './visionPoolingData'
 
 describe('activation and pooling', () => {
   const x = [[1,1,0,0,0],[3,4,0,0,0],[4,6,0,0,0],[3,4,0,0,0],[1,1,0,0,0]]

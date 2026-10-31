@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_VOCABULARY } from './llmEmbeddings'
-import { lastDecoderDistribution } from './llmLogits'
-import { categoricalIndex, cumulativeIntervals, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSampling'
+import { DECODER_VOCABULARY } from './llmEmbeddingsData'
+import { lastDecoderDistribution } from './llmLogitsData'
+import { categoricalIndex, cumulativeIntervals, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSamplingData'
 import './LargeLanguageModels.css'
 import './LLMSampling.css'
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { cosine } from './nlpLexicalSearch'
-import { bankContexts, denseRanking, lexicalRanking, project2, semanticDocuments, semanticQuery } from './nlpDenseSearch'
+import { bankContexts, denseRanking, lexicalRanking, project2, semanticDocuments, semanticQuery } from './nlpDenseSearchData'
 
 describe('supplied embedding demonstration', () => {
   it('keeps exact separate text and vector fixtures', () => {

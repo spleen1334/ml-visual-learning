@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { input, spans } from './nlpData'
-import { extractionPresets, grammar, recordFromAnnotations, validateAnnotations } from './nlpExtraction'
+import { extractionPresets, grammar, recordFromAnnotations, validateAnnotations } from './nlpExtractionData'
 
 describe('authored extraction fixtures', () => {
   it('validates every exact, non-overlapping typed source span', () => {

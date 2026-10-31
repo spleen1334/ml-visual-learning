@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { evaluateRobustness, robustnessPresets, type RobustPreset } from './visionRobustness'
+import { evaluateRobustness, robustnessPresets, type RobustPreset } from './visionRobustnessData'
 import './VisionRobustness.css'
 
 function Fraction({ numerator, denominator }: { numerator: number; denominator: number }) { return <span className="vr-fraction"><span>{numerator}</span><span>{denominator}</span></span> }

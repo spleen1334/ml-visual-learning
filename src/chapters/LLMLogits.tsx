@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_PARAMETERS, DECODER_VOCABULARY } from './llmEmbeddings'
-import { stableSoftmax } from './llmAttention'
-import { lastDecoderDistribution } from './llmLogits'
+import { DECODER_PARAMETERS, DECODER_VOCABULARY } from './llmEmbeddingsData'
+import { stableSoftmax } from './llmAttentionData'
+import { lastDecoderDistribution } from './llmLogitsData'
 import './LargeLanguageModels.css'
 import './LLMLogits.css'
 

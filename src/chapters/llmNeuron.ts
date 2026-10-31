@@ -1,4 +1,4 @@
-import { DECODER_PARAMETERS, DECODER_WIDTH } from './llmEmbeddings'
+import { DECODER_PARAMETERS, DECODER_WIDTH } from './llmEmbeddingsData'
 
 // Third output of the frozen 4×8 feed-forward input projection (zero-based column 2).
 export const NEURON_COLUMN = 2

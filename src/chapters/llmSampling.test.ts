@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { categoricalIndex, cumulativeIntervals, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSampling'
-import { lastDecoderDistribution } from './llmLogits'
+import { categoricalIndex, cumulativeIntervals, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSamplingData'
+import { lastDecoderDistribution } from './llmLogitsData'
 
 describe('temperature and seeded sampling', () => {
   const logits = lastDecoderDistribution([0, 1, 2]).logits

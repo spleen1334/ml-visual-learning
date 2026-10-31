@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { countDocuments, countMatrix } from './nlpCountFeatures'
-import { fitTfidf, transformTfidf } from './nlpTfidf'
+import { fitTfidf, transformTfidf } from './nlpTfidfData'
 
 describe('TF–IDF fitting and frozen transformation', () => {
   const index = fitTfidf(countDocuments)

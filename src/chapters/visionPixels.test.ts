@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { visionScene } from './visionScene'
-import { editChannel, grayscale, scaleByte } from './visionPixels'
+import { editChannel, grayscale, scaleByte } from './visionPixelsData'
 
 describe('image pixels', () => {
   it('rounds the documented weighted grayscale intensities', () => {

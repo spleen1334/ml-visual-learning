@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { cnnFilters, cnnForward, type CNNHead } from './visionCNN';
-import { evaluateHead, headGradient, heldOutPatterns, stepHead, trainingPatterns, trainHead, zeroHead } from './visionTraining';
+import { cnnFilters, cnnForward, type CNNHead } from './visionCNNData';
+import { evaluateHead, headGradient, heldOutPatterns, stepHead, trainingPatterns, trainHead, zeroHead } from './visionTrainingData';
 
 const flatten = (head: CNNHead) => [...head.weights.flat(), ...head.biases];
 const fromFlat = (values: number[]): CNNHead => ({ weights: [values.slice(0, 8), values.slice(8, 16)], biases: values.slice(16) });

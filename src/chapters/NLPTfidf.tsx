@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { countDocuments, featureTokens } from './nlpCountFeatures'
-import { fitTfidf, transformTfidf } from './nlpTfidf'
+import { fitTfidf, transformTfidf } from './nlpTfidfData'
 import './NLPIntroduction.css'
 import './NLPCountTable.css'
 import './NLPTfidf.css'

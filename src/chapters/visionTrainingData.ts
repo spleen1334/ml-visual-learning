@@ -1,4 +1,4 @@
-import { cnnForward, visionPatterns, type CNNHead } from './visionCNN';
+import { cnnForward, visionPatterns, type CNNHead } from './visionCNNData';
 
 type Pattern = (typeof visionPatterns)[number];
 export const trainingPatterns = visionPatterns.filter(pattern => pattern.split === 'train');

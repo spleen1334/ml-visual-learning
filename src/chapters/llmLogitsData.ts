@@ -1,6 +1,6 @@
-import { DECODER_PARAMETERS, DECODER_VOCABULARY } from './llmEmbeddings'
+import { DECODER_PARAMETERS, DECODER_VOCABULARY } from './llmEmbeddingsData'
 import { linearRow, transformerBlock } from './llmBlock'
-import { stableSoftmax } from './llmAttention'
+import { stableSoftmax } from './llmAttentionData'
 
 export function logitsFromHidden(hidden: readonly number[]) {
   if (hidden.length !== DECODER_PARAMETERS.hiddenWidth || !hidden.every(Number.isFinite)) throw new RangeError('Expected a finite width-4 hidden row')

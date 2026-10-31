@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { evaluate, MAX_UPDATES, predict, rowLoss, sigmoid, trainingState, update } from './llmTraining'
+import { evaluate, MAX_UPDATES, predict, rowLoss, sigmoid, trainingState, update } from './llmTrainingData'
 
 describe('separate trained classifier', () => {
   it('matches the hand-computed initial loss, gradient and update', () => {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { cnnFilters, cnnForward, suppliedHead, visionPatterns } from './visionCNN'
+import { cnnFilters, cnnForward, suppliedHead, visionPatterns } from './visionCNNData'
 import './VisionCNN.css'
 
 const stages = [

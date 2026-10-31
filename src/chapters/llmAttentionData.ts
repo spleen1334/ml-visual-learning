@@ -1,4 +1,4 @@
-import { DECODER_PARAMETERS, embedContext } from './llmEmbeddings'
+import { DECODER_PARAMETERS, embedContext } from './llmEmbeddingsData'
 
 export type Vector2 = readonly [number, number]
 const finite = (values: readonly number[]) => values.every(Number.isFinite)

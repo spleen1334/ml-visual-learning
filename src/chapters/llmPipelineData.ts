@@ -1,7 +1,7 @@
-import { DECODER_CONTEXT_LIMIT, DECODER_VOCABULARY } from './llmEmbeddings'
+import { DECODER_CONTEXT_LIMIT, DECODER_VOCABULARY } from './llmEmbeddingsData'
 import { transformerBlock } from './llmBlock'
-import { lastDecoderDistribution } from './llmLogits'
-import { categoricalIndex, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSampling'
+import { lastDecoderDistribution } from './llmLogitsData'
+import { categoricalIndex, greedyIndex, nextSeededDraw, temperatureDistribution } from './llmSamplingData'
 
 // This strict longest-match decoder vocabulary is independent of 99.2's tokenizer.
 // The literal end marker is never accepted as prompt text.

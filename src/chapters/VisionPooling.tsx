@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { average, comparisonWindows, maxPool, poolWindow, relu, signedMaps } from './visionPooling'
+import { average, comparisonWindows, maxPool, poolWindow, relu, signedMaps } from './visionPoolingData'
 import './VisionPooling.css'
 
 function signedStyle(value: number) {

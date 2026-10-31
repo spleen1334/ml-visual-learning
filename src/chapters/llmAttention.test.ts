@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { dot2, lastTokenAttention, projectHead, stableSoftmax, weightedValues } from './llmAttention'
-import { DECODER_PARAMETERS } from './llmEmbeddings'
+import { dot2, lastTokenAttention, projectHead, stableSoftmax, weightedValues } from './llmAttentionData'
+import { DECODER_PARAMETERS } from './llmEmbeddingsData'
 
 describe('one-head last-token attention', () => {
   it('matches independently calculated projection and attention fixture', () => {

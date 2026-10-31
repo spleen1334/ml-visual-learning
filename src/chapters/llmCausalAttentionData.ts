@@ -1,5 +1,5 @@
-import { DECODER_PARAMETERS, embedContext, type Vector4 } from './llmEmbeddings'
-import { dot2, projectHead, stableSoftmax, weightedValues } from './llmAttention'
+import { DECODER_PARAMETERS, embedContext, type Vector4 } from './llmEmbeddingsData'
+import { dot2, projectHead, stableSoftmax, weightedValues } from './llmAttentionData'
 
 // The frozen output projection is 4×4, oriented input rows × output columns.
 export function projectAttentionOutput(input: readonly number[]): Vector4 {

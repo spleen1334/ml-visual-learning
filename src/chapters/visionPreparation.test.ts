@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { visionScene } from './visionScene'
-import { prepareScene, type Preparation } from './visionPreparation'
+import { prepareScene, type Preparation } from './visionPreparationData'
 
 describe('preparation presets', () => {
   const cases: [Preparation, number, number, number[][], number[]][] = [

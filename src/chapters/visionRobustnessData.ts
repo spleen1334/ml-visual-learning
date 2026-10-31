@@ -1,5 +1,5 @@
-import { cnnForward, type CNNHead } from './visionCNN';
-import { heldOutPatterns, trainHead } from './visionTraining';
+import { cnnForward, type CNNHead } from './visionCNNData';
+import { heldOutPatterns, trainHead } from './visionTrainingData';
 
 export type RobustPreset = 'original' | 'shift' | 'contrast' | 'noise';
 export const robustnessPresets: { id: RobustPreset; name: string }[] = [

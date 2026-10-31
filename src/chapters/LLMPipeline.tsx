@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_PARAMETERS, DECODER_VOCABULARY, embeddingFor, positionFor } from './llmEmbeddings'
-import { decodeDecoder, generateDecoder } from './llmPipeline'
+import { DECODER_PARAMETERS, DECODER_VOCABULARY, embeddingFor, positionFor } from './llmEmbeddingsData'
+import { decodeDecoder, generateDecoder } from './llmPipelineData'
 import './LargeLanguageModels.css'
 import './LLMPipeline.css'
 

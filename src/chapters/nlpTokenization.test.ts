@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { sentenceSpans, tokenize, tokenPresets, vocabularies, type Mode } from './nlpTokenization'
+import { sentenceSpans, tokenize, tokenPresets, vocabularies, type Mode } from './nlpTokenizationData'
 
 describe('authored boundary and token rules', () => {
   it('reconstructs every supported message with contiguous exact offsets in both views', () => {

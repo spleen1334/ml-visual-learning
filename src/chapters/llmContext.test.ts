@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { assembleContext, PASSAGE, STORED_NOTE, TOOL_REQUEST, TOOL_RESULT, USER_MESSAGE } from './llmContext'
+import { assembleContext, PASSAGE, STORED_NOTE, TOOL_REQUEST, TOOL_RESULT, USER_MESSAGE } from './llmContextData'
 
 const defaults = { includeNote: true, findPassage: true, window: 6, reserve: 1 }
 describe('context assembly teaching trace', () => {

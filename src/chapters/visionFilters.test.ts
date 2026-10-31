@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterImage, filterOutput, filterWindow, visionFilters } from './visionFilters';
+import { filterImage, filterOutput, filterWindow, visionFilters } from './visionFiltersData';
 
 describe('98.4 unflipped cross-correlation', () => {
   it('preserves the exact authored image and integer kernel conventions', () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { filterImage as filterImage5x5, visionFilters, filterWindow, filterOutput } from './visionFilters'
+import { filterImage as filterImage5x5, visionFilters, filterWindow, filterOutput } from './visionFiltersData'
 import './VisionFilters.css'
 
 const reducedMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches

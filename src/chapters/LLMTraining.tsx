@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { evaluate, LEARNING_RATE, MAX_UPDATES, predict, TRAINING_ROWS, trainingState, update } from './llmTraining'
+import { evaluate, LEARNING_RATE, MAX_UPDATES, predict, TRAINING_ROWS, trainingState, update } from './llmTrainingData'
 import './LargeLanguageModels.css'
 import './LLMTraining.css'
 

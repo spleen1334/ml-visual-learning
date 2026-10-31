@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifier'
-import { classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics, shiftProbe } from './nlpEvaluation'
+import { fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifierData'
+import { classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics, shiftProbe } from './nlpEvaluationData'
 
 describe('classifier evaluation', () => {
   it('uses actual held-out predictions and selects contributing IDs in the approved orientation', () => {

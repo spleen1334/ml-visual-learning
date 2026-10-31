@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { classes, fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifier'
+import { classes, fitClassifier, predictClassifier, reviewRecord, testRecords, trainingRecords } from './nlpClassifierData'
 import './NLPIntroduction.css'
 import './NLPCountTable.css'
 import './NLPTfidf.css'

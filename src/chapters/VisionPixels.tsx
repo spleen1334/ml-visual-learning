@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { visionScene } from './visionScene'
-import { editChannel, grayscale, scaleByte, type PixelImage } from './visionPixels'
+import { editChannel, grayscale, scaleByte, type PixelImage } from './visionPixelsData'
 import './VisionPixels.css'
 
 const views = ['RGB', 'Red', 'Green', 'Blue', 'Grayscale'] as const

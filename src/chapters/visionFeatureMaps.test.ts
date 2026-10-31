@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { filterImage } from './visionFilters'
-import { featureMap, gradients, outputSize, sampledWindow } from './visionFeatureMaps'
+import { filterImage } from './visionFiltersData'
+import { featureMap, gradients, outputSize, sampledWindow } from './visionFeatureMapsData'
 
 describe('stride and padding', () => {
   const cases = [

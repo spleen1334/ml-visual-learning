@@ -1,5 +1,5 @@
-import { fitClassifier, predictClassifier, testRecords, trainingRecords, type Sentiment } from './nlpClassifier'
-import { extractionPresets, type EntitySpan } from './nlpExtraction'
+import { fitClassifier, predictClassifier, testRecords, trainingRecords, type Sentiment } from './nlpClassifierData'
+import { extractionPresets, type EntitySpan } from './nlpExtractionData'
 
 export type Cell = 'TP' | 'FP' | 'FN' | 'TN'
 export type BinaryRow = { id: string; actual: Sentiment; predicted: Sentiment }

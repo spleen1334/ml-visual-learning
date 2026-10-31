@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { cnnForward } from './visionCNN'
-import { heldOutPatterns, trainHead } from './visionTraining'
-import { evaluateRobustness } from './visionRobustness'
+import { cnnForward } from './visionCNNData'
+import { heldOutPatterns, trainHead } from './visionTrainingData'
+import { evaluateRobustness } from './visionRobustnessData'
 import { imagePatches, patchProjection } from './visionPatches'
 import './VisionPipeline.css'
 

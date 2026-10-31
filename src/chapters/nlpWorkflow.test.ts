@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { input } from './nlpData'
-import { fitClassifier, predictClassifier, trainingRecords } from './nlpClassifier'
+import { fitClassifier, predictClassifier, trainingRecords } from './nlpClassifierData'
 import { faqSearchIndex, search } from './nlpLexicalSearch'
-import { extractionPresets, recordFromAnnotations } from './nlpExtraction'
-import { workflowEvidence } from './nlpWorkflow'
+import { extractionPresets, recordFromAnnotations } from './nlpExtractionData'
+import { workflowEvidence } from './nlpWorkflowData'
 
 describe('workflow integration', () => {
   const evidence = workflowEvidence()

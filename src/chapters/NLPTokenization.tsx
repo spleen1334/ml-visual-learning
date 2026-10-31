@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { sentenceSpans, tokenize, tokenPresets, type Mode } from './nlpTokenization'
+import { sentenceSpans, tokenize, tokenPresets, type Mode } from './nlpTokenizationData'
 import './NLPIntroduction.css'
 import './NLPTokenization.css'
 

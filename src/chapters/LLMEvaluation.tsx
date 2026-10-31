@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { EVALUATION_CASES, evaluationCounts, rephraseCheck, type Check, type Verdict } from './llmEvaluation'
+import { EVALUATION_CASES, evaluationCounts, rephraseCheck, type Check, type Verdict } from './llmEvaluationData'
 import './LargeLanguageModels.css'
 import './LLMEvaluation.css'
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { visionScene, type VisionBox } from './visionScene'
-import { suppliedCandidates, candidateMask, boxOverlap, maskOverlap, visibleCandidates } from './visionOverlap'
+import { suppliedCandidates, candidateMask, boxOverlap, maskOverlap, visibleCandidates } from './visionOverlapData'
 import './VisionOverlap.css'
 
 const refBox = visionScene.objects[0].box

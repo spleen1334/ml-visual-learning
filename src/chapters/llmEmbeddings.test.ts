@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { addVectors, DECODER_PARAMETERS, DECODER_VOCABULARY, embedContext, embeddingFor, positionFor, POSITION_ROWS } from './llmEmbeddings'
+import { addVectors, DECODER_PARAMETERS, DECODER_VOCABULARY, embedContext, embeddingFor, positionFor, POSITION_ROWS } from './llmEmbeddingsData'
 
 describe('frozen decoder embeddings', () => {
   it('looks up every supplied width-four row and position', () => {

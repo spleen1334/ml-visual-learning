@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { reviewRecord } from './nlpClassifier'
-import { cellFor, classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics, shiftProbe, type Cell } from './nlpEvaluation'
+import { reviewRecord } from './nlpClassifierData'
+import { cellFor, classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics, shiftProbe, type Cell } from './nlpEvaluationData'
 import './NLPIntroduction.css'
 import './NLPCountTable.css'
 import './NLPTfidf.css'

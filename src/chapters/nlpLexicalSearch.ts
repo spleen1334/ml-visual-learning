@@ -1,6 +1,6 @@
 import { authoredFaqRanking } from './nlpData'
 import { featureTokens, type CountDocument } from './nlpCountFeatures'
-import { fitTfidf, transformTfidf } from './nlpTfidf'
+import { fitTfidf, transformTfidf } from './nlpTfidfData'
 
 export const faqDocuments = authoredFaqRanking.map(faq => ({ ...faq, indexedText: `${faq.title} ${faq.text}` }))
 export const faqIndex = fitTfidf(faqDocuments.map(doc => ({ id: doc.id, text: doc.indexedText })))

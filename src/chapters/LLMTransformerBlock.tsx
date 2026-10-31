@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_PARAMETERS } from './llmEmbeddings'
+import { DECODER_PARAMETERS } from './llmEmbeddingsData'
 import { transformerBlock } from './llmBlock'
 import './LargeLanguageModels.css'
 import './LLMTransformerBlock.css'

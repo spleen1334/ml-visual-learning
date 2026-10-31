@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { visionPatterns } from './visionCNN';
+import { visionPatterns } from './visionCNNData';
 import { imagePatches, patchProjection } from './visionPatches';
 
 describe('authored patch projection and position arithmetic', () => {

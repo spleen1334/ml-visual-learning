@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { boxOverlap, candidateMask, maskOverlap, suppliedCandidates, visibleCandidates } from './visionOverlap';
+import { boxOverlap, candidateMask, maskOverlap, suppliedCandidates, visibleCandidates } from './visionOverlapData';
 import { visionScene } from './visionScene';
 
 const emptyMask = () => Array.from({ length: 6 }, () => Array(6).fill(0));

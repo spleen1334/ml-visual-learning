@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { addVectors, embeddingFor, positionFor } from './llmEmbeddings'
+import { addVectors, embeddingFor, positionFor } from './llmEmbeddingsData'
 import { NEURON_BIAS, NEURON_WEIGHTS, traceNeuron } from './llmNeuron'
 import './LargeLanguageModels.css'
 import './LLMNeuralNetwork.css'

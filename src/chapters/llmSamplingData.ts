@@ -1,4 +1,4 @@
-import { stableSoftmax } from './llmAttention'
+import { stableSoftmax } from './llmAttentionData'
 
 export function temperatureDistribution(logits: readonly number[], temperature: number) {
   if (!Number.isFinite(temperature) || temperature <= 0 || !logits.length || !logits.every(Number.isFinite)) throw new RangeError('Expected finite logits and positive finite temperature')

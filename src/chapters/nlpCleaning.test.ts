@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cleanMessage, cleaningPresets, tokenCounts, type CleaningOptions } from './nlpCleaning'
+import { cleanMessage, cleaningPresets, tokenCounts, type CleaningOptions } from './nlpCleaningData'
 
 const off: CleaningOptions = { lowercase: false, removeStopWords: false, form: 'none' }
 const output = (pieces: ReturnType<typeof cleanMessage>) => pieces.map(piece => piece.result).join('')

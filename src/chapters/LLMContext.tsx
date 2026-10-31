@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { assembleContext, PASSAGE, STORED_NOTE, TOOL_REQUEST, TOOL_RESULT } from './llmContext'
+import { assembleContext, PASSAGE, STORED_NOTE, TOOL_REQUEST, TOOL_RESULT } from './llmContextData'
 import './LargeLanguageModels.css'
 import './LLMContext.css'
 

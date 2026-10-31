@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { cnnFilters } from './visionCNN'
-import { evaluateHead, headGradient, heldOutPatterns, trainingPatterns, trainHead } from './visionTraining'
+import { cnnFilters } from './visionCNNData'
+import { evaluateHead, headGradient, heldOutPatterns, trainingPatterns, trainHead } from './visionTrainingData'
 import './VisionTraining.css'
 
 const fmt = (value: number, digits = 4) => Number(value.toFixed(digits)).toString()

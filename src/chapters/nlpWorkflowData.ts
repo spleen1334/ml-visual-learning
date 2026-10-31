@@ -1,8 +1,8 @@
 import { input } from './nlpData'
-import { fitClassifier, predictClassifier, trainingRecords } from './nlpClassifier'
-import { classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics } from './nlpEvaluation'
+import { fitClassifier, predictClassifier, trainingRecords } from './nlpClassifierData'
+import { classificationCells, entityCandidates, entityFixture, evaluateEntities, evaluationRows, metrics } from './nlpEvaluationData'
 import { faqSearchIndex, search } from './nlpLexicalSearch'
-import { extractionPresets, recordFromAnnotations } from './nlpExtraction'
+import { extractionPresets, recordFromAnnotations } from './nlpExtractionData'
 
 export function workflowEvidence() {
   const model = fitClassifier(trainingRecords)

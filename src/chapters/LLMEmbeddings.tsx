@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { addVectors, DECODER_VOCABULARY, embeddingFor, positionFor, POSITION_ROWS } from './llmEmbeddings'
+import { addVectors, DECODER_VOCABULARY, embeddingFor, positionFor, POSITION_ROWS } from './llmEmbeddingsData'
 import './LargeLanguageModels.css'
 import './LLMEmbeddings.css'
 

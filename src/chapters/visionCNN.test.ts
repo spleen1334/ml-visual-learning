@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cnnFilters, cnnForward, suppliedHead, visionPatterns } from './visionCNN';
+import { cnnFilters, cnnForward, suppliedHead, visionPatterns } from './visionCNNData';
 
 describe('authored CNN forward pass', () => {
   it('preserves all eight exact structures, labels and disjoint source groups', () => {

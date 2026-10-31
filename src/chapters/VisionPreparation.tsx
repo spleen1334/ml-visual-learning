@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { prepareScene, type Preparation } from './visionPreparation'
+import { prepareScene, type Preparation } from './visionPreparationData'
 import './VisionPreparation.css'
 
 const choices: { id: Preparation; name: string; size: string; detail: string; calculation: string }[] = [

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { stableSoftmax } from './llmAttention'
-import { lastDecoderDistribution, logitsFromHidden } from './llmLogits'
+import { stableSoftmax } from './llmAttentionData'
+import { lastDecoderDistribution, logitsFromHidden } from './llmLogitsData'
 
 const near = (actual: readonly number[], expected: readonly number[]) => {
   expect(actual).toHaveLength(expected.length)

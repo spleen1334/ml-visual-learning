@@ -1,5 +1,5 @@
-import { addVectors, DECODER_PARAMETERS, type Vector4 } from './llmEmbeddings'
-import { causalAttention } from './llmCausalAttention'
+import { addVectors, DECODER_PARAMETERS, type Vector4 } from './llmEmbeddingsData'
+import { causalAttention } from './llmCausalAttentionData'
 import { relu } from './llmNeuron'
 
 export function layerNormalize(row: readonly number[]) {

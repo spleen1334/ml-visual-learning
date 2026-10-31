@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { addVectors, DECODER_PARAMETERS, embeddingFor, positionFor } from './llmEmbeddings'
+import { addVectors, DECODER_PARAMETERS, embeddingFor, positionFor } from './llmEmbeddingsData'
 import { NEURON_BIAS, NEURON_COLUMN, NEURON_WEIGHTS, relu, traceNeuron } from './llmNeuron'
 
 describe('one frozen feed-forward neuron', () => {

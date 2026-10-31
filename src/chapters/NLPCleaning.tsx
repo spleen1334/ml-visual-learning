@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supportCorpus } from './nlpData'
-import { cleanMessage, cleaningPresets, lemmaLookup, stemLookup, stopWords, tokenCounts, type CleaningOptions } from './nlpCleaning'
+import { cleanMessage, cleaningPresets, lemmaLookup, stemLookup, stopWords, tokenCounts, type CleaningOptions } from './nlpCleaningData'
 import './NLPIntroduction.css'
 import './NLPCleaning.css'
 

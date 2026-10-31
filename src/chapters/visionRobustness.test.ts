@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { cnnFilters, visionPatterns } from './visionCNN';
-import { heldOutPatterns, trainHead } from './visionTraining';
-import { classificationMetrics, evaluateRobustness, robustnessPresets, transformPattern } from './visionRobustness';
+import { cnnFilters, visionPatterns } from './visionCNNData';
+import { heldOutPatterns, trainHead } from './visionTrainingData';
+import { classificationMetrics, evaluateRobustness, robustnessPresets, transformPattern } from './visionRobustnessData';
 
 describe('held-out robustness presets', () => {
   const features = [

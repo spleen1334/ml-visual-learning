@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { extractionPresets, grammar, recordFromAnnotations, type EntityType } from './nlpExtraction'
+import { extractionPresets, grammar, recordFromAnnotations, type EntityType } from './nlpExtractionData'
 import './NLPIntroduction.css'
 import './NLPExtraction.css'
 

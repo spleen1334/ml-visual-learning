@@ -1,4 +1,4 @@
-import { filterImage, visionFilters, type VisionFilter } from './visionFilters'
+import { filterImage, visionFilters, type VisionFilter } from './visionFiltersData'
 
 export function outputSize(input: number, kernel: number, stride: number, padding: number) {
   return Math.floor((input + 2 * padding - kernel) / stride) + 1

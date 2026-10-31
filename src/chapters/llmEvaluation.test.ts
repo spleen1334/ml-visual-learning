@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { countVerdicts, EVALUATION_CASES, evaluationCounts, rephraseCheck } from './llmEvaluation'
+import { countVerdicts, EVALUATION_CASES, evaluationCounts, rephraseCheck } from './llmEvaluationData'
 
 describe('authored evaluation cases', () => {
   it('counts only eligible judgments for each task', () => {

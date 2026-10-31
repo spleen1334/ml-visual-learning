@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlaybackButton } from '../components/PlaybackButton'
-import { DECODER_PARAMETERS } from './llmEmbeddings'
-import { causalAttention } from './llmCausalAttention'
+import { DECODER_PARAMETERS } from './llmEmbeddingsData'
+import { causalAttention } from './llmCausalAttentionData'
 import './LargeLanguageModels.css'
 import './LLMCausalAttention.css'
 

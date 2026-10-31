@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { causalAttention, projectAttentionOutput } from './llmCausalAttention'
-import { lastTokenAttention } from './llmAttention'
+import { causalAttention, projectAttentionOutput } from './llmCausalAttentionData'
+import { lastTokenAttention } from './llmAttentionData'
 
 describe('causal two-head attention', () => {
   it('matches a hand-computed first row and output projection', () => {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { cnnFilters, suppliedHead, visionPatterns } from './visionCNN'
+import { cnnFilters, suppliedHead, visionPatterns } from './visionCNNData'
 import './VisionTransfer.css'
 
 const filterWeights = cnnFilters.reduce((total, filter) => total + filter.kernel.reduce((sum, row) => sum + row.length, 0), 0)
