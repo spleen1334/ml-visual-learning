@@ -4,11 +4,23 @@ dist/
 .browser-state/
 .DS_Store
 *.local
-learning_files
+/learning_files/
 
 # Local review artifacts and TypeScript build cache
 /tmp/
-/previews/*.png
-/previews/*.webp
+/previews/**/*.png
+/previews/**/*.webp
+/previews/**/*.jpg
+/previews/**/*.jpeg
 /quiz-*-review.png
 *.tsbuildinfo
+
+# Local environment files (keep shareable templates)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Runtime logs and test coverage
+*.log
+/coverage/
