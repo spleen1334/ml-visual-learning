@@ -4,3 +4,11 @@ dist/
 .browser-state/
 .DS_Store
 *.local
+learning_files
+
+# Local review artifacts and TypeScript build cache
+/tmp/
+/previews/*.png
+/previews/*.webp
+/quiz-*-review.png
+*.tsbuildinfo
